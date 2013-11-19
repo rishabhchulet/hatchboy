@@ -1,1 +1,35 @@
-- title "Wellcome!"
+- title "HatchBoy - Home page"
+.text-center
+  %h3 Hello, customer
+  %br
+  %br
+  .container
+    .row
+      .col-sm-12.col-md-4
+        .thumbnail
+          %img{ :src => "/assets/images/placeholder.png", :alt => "..." }
+          .caption
+            %h3 You can do this with app 
+            %p 
+              Description of the first thing
+            %a.btn.btn-primary{ :href => "#", :role => "button"} Learn more
+      .col-sm-12.col-md-4
+        .thumbnail
+          %img{ :src => "/assets/images/placeholder.png", :alt => "..." }
+          .caption
+            %h3 And this 
+            %p 
+              Description of the second thing
+            %a.btn.btn-primary{ :href => "#", :role => "button"} Learn more
+      .col-sm-12.col-md-4
+        .thumbnail
+          %img{ :src => "/assets/images/placeholder.png", :alt => "..." }
+          .caption
+            %h3 And finally this
+            %p 
+              Description of the third thing
+            %a.btn.btn-primary{ :href => "#", :role => "button"} Learn more
+            
+.text-center
+  %br
+  %p= link_to 'Join now', new_user_registration_path, :class => "btn btn-primary btn-lg", :role => "button"
