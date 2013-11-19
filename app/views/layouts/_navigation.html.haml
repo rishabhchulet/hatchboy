@@ -1,13 +1,16 @@
 -# navigation styled for Twitter Bootstrap 3.0
-%nav.navbar.navbar-default.navbar-fixed-top
-  .container
-    .navbar-header
-      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
-        %span.sr-only Toggle navigation
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      = link_to 'Home', root_path, class: 'navbar-brand'
-    .collapse.navbar-collapse
-      %ul.nav.navbar-nav
-        = render 'layouts/navigation_links'
+%nav.nav.bar.navbar-inverse.navbar-fixed-top{ :role => :navigation }
+  .navbar-header
+    %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+      %span.sr-only Toggle navigation
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    = link_to 'Home', root_path, class: 'navbar-brand'
+  .collapse.navbar-collapse.navbar-ex1-collapse
+    %ul.nav.navbar-nav.side-nav
+      = render 'layouts/navigation_links'
+    %ul.nav.navbar-nav.navbar-right.navbar-user
+      - if user_signed_in?
+        %li= link_to 'Edit account', edit_user_registration_path
+        %li= link_to 'Logout', destroy_user_session_path, :method => 'delete'
