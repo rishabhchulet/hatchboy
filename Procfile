@@ -1,1 +1,1 @@
-web: bundle exec thin -p $APP_PORT -e $RACK_ENV start
+web: bundle exec unicorn --port $APP_PORT --env $RACK_ENV
