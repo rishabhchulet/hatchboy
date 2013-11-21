@@ -79,3 +79,7 @@ pickle-email-*.html
 
 #Eclipse project file
 .project
+
+
+
+.env

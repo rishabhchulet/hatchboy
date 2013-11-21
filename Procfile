@@ -1,0 +1,1 @@
+web: bundle exec thin -p $APP_PORT -e $RACK_ENV start
