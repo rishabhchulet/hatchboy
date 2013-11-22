@@ -16,11 +16,11 @@ gem 'pg'
 gem 'simple_form'
 gem 'therubyracer', :platform=>:ruby
 gem 'unicorn'
+gem "foreman", "~> 0.63.0"
 
 group :development do
   gem 'capistrano-rails', '~> 1.1.0'
   gem 'rvm1-capistrano3', '~> 0.9.1'
-  gem "foreman", "~> 0.63.0"
 
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
