@@ -17,14 +17,11 @@ gem 'simple_form'
 gem 'therubyracer', :platform=>:ruby
 gem 'unicorn'
 
-group :staging do 
-  gem "foreman", "~> 0.63.0"
-end
-
 group :development do
-  # gem 'capistrano',  '~> 3.0.0'
   gem 'capistrano-rails', '~> 1.1.0'
-  gem "rvm1-capistrano3", "~> 0.9.1", require: false
+  gem 'rvm1-capistrano3', '~> 0.9.1'
+  gem "foreman", "~> 0.63.0"
+
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
   gem 'guard-bundler'
