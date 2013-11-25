@@ -99,5 +99,18 @@ describe User do
     end
 
   end
+  
+  describe "has_role? function" do
+    
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+    
+    it "should return false for any role but 'customer'" do
+      @user.has_role?(:admin).should eq false 
+      @user.has_role?(:customer).should eq true
+    end
+    
+  end
 
 end

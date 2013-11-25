@@ -1,7 +1,23 @@
-%h2 Sign in
-= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f|
-  = f.input :email, :autofocus => true
-  = f.input :password
-  = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
-  = f.button :submit, "Sign in", :class => 'btn-primary'
-= render "devise/shared/links"
+= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:role => "form" }) do |f|
+  .row
+    .col-md-1
+    .col-md-4
+      %h2.text-center Sign in
+      - if flash.any?
+        %div{:class => "alert alert-#{flash.first[0] == :notice ? "success" : "danger"}"}
+          = flash.first[1]
+          -flash.delete(flash.first[0])
+      .form-group
+        %label Email
+        = f.email_field :email, :autofocus => true, :class => "form-control", :placeholder => "Email"
+      .form-group
+        %label Password
+        = f.password_field :password, :autofocus => true, :class => "form-control", :placeholder => "Password"
+      .form-group
+        %label 
+          = f.check_box :remember_me, :as => :boolean if devise_mapping.rememberable?
+          Remember me
+      .form-group
+        = f.submit  "Sign in", :class => 'btn btn-default text-center', :role => "button"
+      
+      = render "devise/shared/links"
