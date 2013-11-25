@@ -6,15 +6,15 @@
       - if resource.errors.any?
         .alert.alert-danger= resource.errors.full_messages.first
       .form-group
-        %label Username
+        %label{:for => "user_name"} Username
         = f.text_field :name, :autofocus => true, :class => "form-control", :placeholder => "Username"
       .form-group
-        %label Email
+        %label{:for => "user_email"} Email
         = f.email_field :email, :autofocus => true, :class => "form-control", :placeholder => "Email"
       .form-group
-        %label Password
+        %label{:for => "user_password"} Password
         = f.password_field :password, :autofocus => true, :class => "form-control", :placeholder => "Password"
-      .form-group
+      .form-group{:for => "user_password_confirmation"}
         %label Confirm Password
         = f.password_field :password_confirmation, :autofocus => true, :class => "form-control", :placeholder => "Confirm Password"
       .form-group
