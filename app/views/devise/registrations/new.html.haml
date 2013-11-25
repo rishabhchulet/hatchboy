@@ -3,6 +3,8 @@
     .col-md-1
     .col-md-4
       %h2.text-center Sign up
+      - if resource.errors.any?
+        .alert.alert-danger= resource.errors.full_messages.first
       .form-group
         %label Username
         = f.text_field :name, :autofocus => true, :class => "form-control", :placeholder => "Username"

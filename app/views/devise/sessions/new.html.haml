@@ -3,6 +3,10 @@
     .col-md-1
     .col-md-4
       %h2.text-center Sign in
+      - if flash.any?
+        %div{:class => "alert alert-#{flash.first[0] == :notice ? "success" : "danger"}"}
+          = flash.first[1]
+          -flash.delete(flash.first[0])
       .form-group
         %label Email
         = f.email_field :email, :autofocus => true, :class => "form-control", :placeholder => "Email"

@@ -1,0 +1,14 @@
+= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => {:role => "form" }) do |f|
+  .row
+    .col-md-1
+    .col-md-4
+      %h2.text-center Resend confirmation instructions
+      - if resource.errors.any?
+        .alert.alert-danger= resource.errors.full_messages.first
+      .form-group
+        %label Email
+        = f.email_field :email, :autofocus => true, :class => "form-control", :placeholder => "Email", :autofocus => true
+      .form-group
+        = f.submit "Resend confirmation instructions", :class => 'btn btn-default text-center', :role => "button"
+
+      = render "devise/shared/links"

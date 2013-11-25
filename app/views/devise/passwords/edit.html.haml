@@ -1,0 +1,18 @@
+=form_for(resource, :as => resource_name, :url => password_path(resource_name), :method => :put, :html => {:role => "form" }) do |f|
+  .row
+    .col-md-1
+    .col-md-4
+      %h2.text-center Change your password
+      - if resource.errors.any?
+        .alert.alert-danger= resource.errors.full_messages.first
+      = f.hidden_field :reset_password_token, :as => :hidden
+      .form-group
+        %label Password
+        = f.password_field :password, :autofocus => true, :class => "form-control", :placeholder => "Password"
+      .form-group
+        %label Confirm Password
+        = f.password_field :password_confirmation, :autofocus => true, :class => "form-control", :placeholder => "Confirm Password"
+      .form-group
+        = f.submit "Change my password", :class => 'btn btn-default text-center', :role => "button"
+        
+      = render "devise/shared/links"
