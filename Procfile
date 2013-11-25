@@ -1,0 +1,1 @@
+web: bundle exec unicorn --port $APP_PORT --env $RACK_ENV
