@@ -1,6 +1,6 @@
 require "spec_helper"
 
-feature "Confirm passeord" do
+feature "Confirm password" do
 
   background do
     @not_confirmed_user = FactoryGirl.create(:not_confirmed_user)
@@ -8,6 +8,7 @@ feature "Confirm passeord" do
   end
 
   context "with not confirmed user" do
+    
     scenario "should change confirmed_at field on confirmation" do
       Devise.token_generator.stub(:digest).and_return(@not_confirmed_user.confirmation_token)
       expect{ visit user_confirmation_path(:confirmation_token => "valid_token") }.to change{ @not_confirmed_user.reload.confirmed_at }.from(nil)
@@ -42,6 +43,7 @@ feature "Confirm passeord" do
   end
 
   context "with confirmed user" do
+    
     scenario "should display danger alert on attempt to resend instructions" do
       visit user_confirmation_path
       within "form#new_user" do
@@ -53,6 +55,7 @@ feature "Confirm passeord" do
   end
   
   context "with ivalid confirmation token" do
+    
     scenario "should display danger alert" do
       visit user_confirmation_path :confirmation_token => "invalid_token"
       find(:flash, :danger).should have_content "Confirmation token is invalid"

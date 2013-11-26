@@ -7,10 +7,10 @@
         .alert.alert-danger= resource.errors.full_messages.first
       = f.hidden_field :reset_password_token, :as => :hidden
       .form-group
-        %label Password
+        %label{:for => "user_password"} Password
         = f.password_field :password, :autofocus => true, :class => "form-control", :placeholder => "Password"
       .form-group
-        %label Confirm Password
+        %label{:for => "user_password_confirmation"} Confirm Password
         = f.password_field :password_confirmation, :autofocus => true, :class => "form-control", :placeholder => "Confirm Password"
       .form-group
         = f.submit "Change my password", :class => 'btn btn-default text-center', :role => "button"
