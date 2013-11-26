@@ -28,6 +28,10 @@ module FeaturesHelper
     session
   end
   
+  def use_selenium
+    Capybara.current_driver = :selenium
+  end
+  
   def screenshot session = nil
     file = "page_#{rand(1000..9999)}.png"
     source = session || page
