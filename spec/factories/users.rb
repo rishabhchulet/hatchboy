@@ -1,12 +1,26 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
-  factory :user do
-    name 'Test User'
-    email 'example@example.com'
-    password 'changeme'
-    password_confirmation 'changeme'
-    # required if the Devise Confirmable module is used
-    confirmed_at Time.now
+  
+  sequence(:password) do
+    sample =  [('a'..'z'),('A'..'Z'),('0'..'9')].map{|i| i.to_a}.flatten
+    (0...Devise.password_length.min).map do
+      sample[rand(sample.length)]
+    end.join
+  end
+
+  factory :not_confirmed_user, :class => User do
+    name Faker::Name.name
+    email do
+      begin 
+        email = Faker::Internet.email
+      end while User.where(email: email).any?
+      email
+    end
+    password { @password = generate(:password) }
+    password_confirmation @password
+    
+    factory :user do
+      confirmed_at Time.now
+    end
   end
 end
