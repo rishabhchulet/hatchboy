@@ -3,7 +3,7 @@ require "spec_helper"
 feature "Sign up" do
   
   background do
-    @data = { email: Faker::Internet.email, name: Faker::Name.name, password: generate(:password) }
+    @data = { email: Faker::Internet.email, name: Faker::Name.name, password: generate(:password), company_name: Faker::Name.name }
   end
 
   context "with valid data" do
@@ -15,12 +15,17 @@ feature "Sign up" do
         fill_in "Username", :with => @data[:name]
         fill_in "Password", :with => @data[:password]
         fill_in "Confirm Password", :with => @data[:password]
+        fill_in "Company Name", :with => @data[:company_name]
       end
       click_button "Sign up"
     end
     
     scenario "should create user" do
       User.where(email: @data[:email]).first.should_not be_blank
+    end
+
+    scenario "creates company with name" do
+      User.where(email: @data[:email]).first.company.name.should eq @data[:company_name]
     end
     
     scenario "should show success message" do
@@ -43,6 +48,7 @@ feature "Sign up" do
       fill_in "Username", :with => @data[:name]
       fill_in "Password", :with => @data[:password]
       fill_in "Confirm Password", :with => @data[:password]
+      fill_in "Company Name", :with => @data[:company_name]
     end
     click_button "Sign up"
   end

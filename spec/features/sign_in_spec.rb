@@ -2,7 +2,6 @@ require 'spec_helper'
 
 feature "Sing in" do
 
-
   context "with valid account data" do
   
     background :each do

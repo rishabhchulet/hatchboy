@@ -18,6 +18,7 @@ FactoryGirl.define do
     end
     password { @password = generate(:password) }
     password_confirmation @password
+    company_attributes { {:name => Faker::Name.name} }
     
     factory :user do
       confirmed_at Time.now
