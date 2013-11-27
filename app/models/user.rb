@@ -6,25 +6,16 @@ class User < ActiveRecord::Base
   
   belongs_to :company
   accepts_nested_attributes_for :company, :allow_destroy => true
+  validates_presence_of :company
 
-  after_save :set_creator_to_company
-
-  def with_company
-    self.build_company if self.company.nil?
-    self
-  end
+  def company_attributes= company
+    company[:created_by] = self
+    company[:contact_person] = self
+    super company
+  end  
   
   def has_role? role
     role.to_sym == :customer
   end
-
-  private
-
-  def set_creator_to_company
-    self.company.created_by ||= self
-    self.company.contact_person ||= self
-    self.company.save!
-  end
-  
   
 end

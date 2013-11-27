@@ -1,13 +1,18 @@
 require 'spec_helper'
 
 describe User do
+  
+  it { should belong_to(:company) }
+  it { should validate_presence_of(:company) }
+  it { should accept_nested_attributes_for(:company).allow_destroy(true) }
 
   before(:each) do
     @attr = {
       :name => "Example User",
       :email => "user@example.com",
       :password => "changeme",
-      :password_confirmation => "changeme"
+      :password_confirmation => "changeme",
+      :company_attributes => { :name => "Foobar" }
     }
   end
 
@@ -111,6 +116,20 @@ describe User do
       @user.has_role?(:customer).should eq true
     end
     
+  end
+
+  describe "company_attributes=" do
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+    
+    it "fills created_by by itself" do
+      @user.company.created_by.should eq @user
+    end
+
+    it "fills contact_person by itself" do
+      @user.company.contact_person.should eq @user
+    end
   end
 
 end
