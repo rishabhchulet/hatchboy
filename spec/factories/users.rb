@@ -1,4 +1,3 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
 FactoryGirl.define do
   
   sequence(:password) do
@@ -18,6 +17,13 @@ FactoryGirl.define do
     end
     password { @password = generate(:password) }
     password_confirmation @password
+    
+    after :build do |user, evaluator|
+      unless evaluator.company
+        company = build :company, created_by: user, contact_person: user
+        user.company = company
+      end
+    end
     
     factory :user do
       confirmed_at Time.now

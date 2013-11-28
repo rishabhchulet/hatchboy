@@ -4,7 +4,7 @@
     .col-md-4
       %h2.text-center Sign up
       - if resource.errors.any?
-        .alert.alert-danger= resource.errors.full_messages.first
+        .alert.alert-danger= resource.errors.full_messages.join("<br />").html_safe
       .form-group
         %label{:for => "user_name"} Username
         = f.text_field :name, :autofocus => true, :class => "form-control", :placeholder => "Username"
@@ -17,6 +17,10 @@
       .form-group{:for => "user_password_confirmation"}
         %label Confirm Password
         = f.password_field :password_confirmation, :autofocus => true, :class => "form-control", :placeholder => "Confirm Password"
+      .form-group
+        = f.fields_for :company do |company_form|
+          = company_form.label :name, "Company Name"
+          = company_form.text_field :name, :autofocus => true, :class => "form-control", :placeholder => "Company Name"
       .form-group
         = f.submit  "Sign up", :class => 'btn btn-default text-center', :role => "button"
       
