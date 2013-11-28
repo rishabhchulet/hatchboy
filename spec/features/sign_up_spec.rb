@@ -24,7 +24,7 @@ feature "Sign up" do
       User.where(email: @data[:email]).first.should_not be_blank
     end
 
-    scenario "creates company with name" do
+    scenario "should create company with name" do
       User.where(email: @data[:email]).first.company.name.should eq @data[:company_name]
     end
     
@@ -35,6 +35,7 @@ feature "Sign up" do
   end
   
   scenario "should send email with instructions" do
+    
     ActionMailer::Base.any_instance.should_receive(:mail) do |args|
       args[:to].should eq @data[:email]
       args[:subject].should eq "Confirmation instructions"
@@ -54,6 +55,7 @@ feature "Sign up" do
   end
 
   context "with invalid data" do
+    
     scenario "should show danger alert" do
       visit new_user_registration_path
       within "form#new_user" do

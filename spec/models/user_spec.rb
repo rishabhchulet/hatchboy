@@ -117,17 +117,69 @@ describe User do
     end
     
   end
+  
+  describe "company" do
+    
+    before do
+      @user = described_class.new(name: Faker::Name.name, email: Faker::Internet.email, password: password = FactoryGirl.generate(:password), password_confirmation: password)
+      @company = @user.build_company(name: Faker::Company.name, created_by: @user)
+    end
+    
+    it "should create user together with company" do
+      @user.save
+      @user.should be_valid
+      @company.should be_valid
+    end
+    
+    it "should validate company name" do
+      @company.name = ''
+      @user.should_not be_valid
+    end
+    
+    it "should create correct company and customer links" do
+      @user.save
+      @company.should_not be_new_record
+      @user.should_not be_new_record
+      @company.created_by.should eq @user
+      @user.company.should eq @company
+      @company.customers.first.should eq @user
+    end
+    
+    it "should create another customer in the company" do
+      @user.save
+      @another_user = described_class.new(
+        name: Faker::Name.name, email: Faker::Internet.email, password: password = FactoryGirl.generate(:password),
+        password_confirmation: password, company: @company
+      )
+      @another_user.should be_valid
+      @another_user.save
+      @another_user.company.should eq @user.company
+      @company.reload.customers.count.should eq 2
+      @company.customers.should include @user
+      @company.customers.should include @another_user
+    end
+    
+  end
 
   describe "company_attributes=" do
     before(:each) do
       @user = User.create!(@attr)
     end
     
-    it "fills created_by by itself" do
+    it "should be valid" do
+      @user.should be_valid
+      @user.company.should be_valid
+    end
+    
+    it "should set right company" do
+      @user.company.created_by.should eq @user
+    end
+    
+    it "should fill created_by by itself" do
       @user.company.created_by.should eq @user
     end
 
-    it "fills contact_person by itself" do
+    it "should fill contact_person by itself" do
       @user.company.contact_person.should eq @user
     end
   end
