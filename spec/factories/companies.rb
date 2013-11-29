@@ -13,8 +13,7 @@ FactoryGirl.define do
     
     after :build do |company, evaluator|
       unless evaluator.created_by
-        user = build :user, company: company
-        company.created_by = user
+        company.created_by = build :customer, company: company
       end
       company.contact_person = company.created_by
     end

@@ -6,7 +6,7 @@
       - if resource.errors.any?
         .alert.alert-danger= resource.errors.full_messages.first
       .form-group
-        %label{:for => "user_email"} Email
+        = f.label :email, "Email"
         = f.email_field :email, :autofocus => true, :class => "form-control", :placeholder => "Email", :autofocus => true
       .form-group
         = f.submit "Resend confirmation instructions", :class => 'btn btn-default text-center', :role => "button"

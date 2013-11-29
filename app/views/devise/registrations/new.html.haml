@@ -5,23 +5,24 @@
       %h2.text-center Sign up
       - if resource.errors.any?
         .alert.alert-danger= resource.errors.full_messages.join("<br />").html_safe
+      = f.fields_for :profile do |customer|
+        = customer.fields_for :company do |company_form|
+          .form-group
+            = company_form.label :name, "Company Name"
+            = company_form.text_field :name, :autofocus => true, :class => "form-control", :placeholder => "Company Name"
+        .form-group
+          = customer.label :name, "Username"
+          = customer.text_field :name, :autofocus => true, :class => "form-control", :placeholder => "Username"
       .form-group
-        %label{:for => "user_name"} Username
-        = f.text_field :name, :autofocus => true, :class => "form-control", :placeholder => "Username"
-      .form-group
-        %label{:for => "user_email"} Email
+        = f.label :email, "Email"
         = f.email_field :email, :autofocus => true, :class => "form-control", :placeholder => "Email"
       .form-group
-        %label{:for => "user_password"} Password
+        = f.label :password, "Password"
         = f.password_field :password, :autofocus => true, :class => "form-control", :placeholder => "Password"
       .form-group{:for => "user_password_confirmation"}
-        %label Confirm Password
+        = f.label :password_confirmation, "Confirm Password"
         = f.password_field :password_confirmation, :autofocus => true, :class => "form-control", :placeholder => "Confirm Password"
       .form-group
-        = f.fields_for :company do |company_form|
-          = company_form.label :name, "Company Name"
-          = company_form.text_field :name, :autofocus => true, :class => "form-control", :placeholder => "Company Name"
-      .form-group
-        = f.submit  "Sign up", :class => 'btn btn-default text-center', :role => "button"
+        = f.submit "Sign up", :class => 'btn btn-default text-center', :role => "button"
       
       = render "devise/shared/links"

@@ -9,8 +9,8 @@ feature "Sign up" do
   context "with valid data" do
 
     background do
-      visit new_user_registration_path
-      within "form#new_user" do
+      visit new_account_registration_path
+      within "form#new_account" do
         fill_in "Email", :with => @data[:email]
         fill_in "Username", :with => @data[:name]
         fill_in "Password", :with => @data[:password]
@@ -21,13 +21,17 @@ feature "Sign up" do
     end
     
     scenario "should create user" do
-      User.where(email: @data[:email]).first.should_not be_blank
+      Account.where(email: @data[:email]).first.should_not be_blank
     end
 
-    scenario "should create company with name" do
-      User.where(email: @data[:email]).first.company.name.should eq @data[:company_name]
+    scenario "should create profile with name" do
+      Account.where(email: @data[:email]).first.profile.name.should eq @data[:name]
     end
     
+    scenario "should create company with name" do
+      Account.where(email: @data[:email]).first.profile.company.name.should eq @data[:company_name]
+    end
+
     scenario "should show success message" do
       find(:flash, :success).should have_content("A message with a confirmation link has been sent to your email address.")
     end
@@ -42,9 +46,9 @@ feature "Sign up" do
       args[:template_name].should eq :confirmation_instructions
     end.once
     
-    visit new_user_registration_path
+    visit new_account_registration_path
     
-    within "form#new_user" do
+    within "form#new_account" do
       fill_in "Email", :with => @data[:email]
       fill_in "Username", :with => @data[:name]
       fill_in "Password", :with => @data[:password]
@@ -57,8 +61,8 @@ feature "Sign up" do
   context "with invalid data" do
     
     scenario "should show danger alert" do
-      visit new_user_registration_path
-      within "form#new_user" do
+      visit new_account_registration_path
+      within "form#new_account" do
         fill_in "Username", :with => @data[:name]
         fill_in "Password", :with => @data[:password]
         fill_in "Confirm Password", :with => @data[:password]

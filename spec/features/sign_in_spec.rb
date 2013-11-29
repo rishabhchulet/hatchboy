@@ -5,7 +5,7 @@ feature "Sing in" do
   context "with valid account data" do
   
     background :each do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryGirl.create(:account)
       @session = sign_in! @user
     end
   
@@ -15,7 +15,7 @@ feature "Sing in" do
     end
     
     scenario "should find the right user" do
-      @session.visit user_path(:id => @user.id)
+      @session.visit account_path(:id => @user.id)
       expect(@session).to have_content @user.email
     end
 
@@ -24,7 +24,7 @@ feature "Sing in" do
   context "with invalid data" do
     
     scenario "should show error alert" do
-      visit "/users/sign_in"
+      visit new_account_session_path
         within("form") do
         fill_in "Email", with: ""
         fill_in "Password", with: "123456"
