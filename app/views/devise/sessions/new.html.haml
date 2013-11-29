@@ -8,10 +8,10 @@
           = flash.first[1]
           -flash.delete(flash.first[0])
       .form-group
-        %label{:for => "user_email"} Email
+        = f.label :email, "Email"
         = f.email_field :email, :autofocus => true, :class => "form-control", :placeholder => "Email"
       .form-group
-        %label{:for => "user_password"} Password
+        = f.label :password, "Password"
         = f.password_field :password, :autofocus => true, :class => "form-control", :placeholder => "Password"
       .form-group
         %label 

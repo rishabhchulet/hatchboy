@@ -1,0 +1,13 @@
+=form_for(resource, :as => resource_name, :url => invitation_path(resource_name), :method => :post, :html => {:role => "form" }) do |f|
+  .row
+    .col-md-1
+    .col-md-4
+      %h2.text-center= t "devise.invitations.new.header"
+      - if resource.errors.any?
+        .alert.alert-danger= resource.errors.full_messages.first
+      -resource.class.invite_key_fields.each do |field|
+        .form-group
+          %label{:for => "user_email"}= t(field.to_sym)
+          = f.text_field field, :autofocus => true, :class => "form-control", :placeholder => "Email", :autofocus => true
+      .form-group
+        = f.submit t("devise.invitations.new.submit_button"), :class => 'btn btn-default text-center', :role => "button"

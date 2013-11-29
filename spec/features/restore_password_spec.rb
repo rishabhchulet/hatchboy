@@ -3,7 +3,7 @@ require "spec_helper"
 feature "Restore password" do
 
   background do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryGirl.create(:account)
   end
 
   context "while first step" do
@@ -11,8 +11,8 @@ feature "Restore password" do
     context "with valid data" do
       
       background do
-        visit new_user_password_path
-        within "form#new_user" do
+        visit new_account_password_path
+        within "form#new_account" do
           fill_in "Email", :with => @user.email
         end
       end
@@ -38,8 +38,8 @@ feature "Restore password" do
     context "with invalid data" do
       
       scenario "should show warning alert" do
-        visit new_user_password_path
-        within "form#new_user" do
+        visit new_account_password_path
+        within "form#new_account" do
           fill_in "Email", :with => "wrong@email.com"
         end
         click_button "Send me reset password instructions"
@@ -55,8 +55,8 @@ feature "Restore password" do
       
       background do
         reset_password_token = @user.send_reset_password_instructions
-        visit edit_user_password_path(:reset_password_token => reset_password_token)
-        within "form#new_user" do
+        visit edit_account_password_path(:reset_password_token => reset_password_token)
+        within "form#new_account" do
           fill_in "Password", :with => "new_password"
           fill_in "Confirm Password", :with => "new_password"
         end
@@ -76,8 +76,8 @@ feature "Restore password" do
     context "with invalid token" do
       
       scenario "should show warning mesage" do
-        visit edit_user_password_path(:reset_password_token => "invalid token")
-        within "form#new_user" do
+        visit edit_account_password_path(:reset_password_token => "invalid token")
+        within "form#new_account" do
           fill_in "Password", :with => "new_password"
           fill_in "Confirm Password", :with => "new_password"
         end

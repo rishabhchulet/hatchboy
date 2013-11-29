@@ -7,25 +7,24 @@ FactoryGirl.define do
     end.join
   end
 
-  factory :not_confirmed_user, :class => User do
-    name Faker::Name.name
+  factory :not_confirmed_account, :class => Account do
+
     email do
       begin 
         email = Faker::Internet.email
-      end while User.where(email: email).any?
+      end while Account.where(email: email).any?
       email
     end
     password { @password = generate(:password) }
     password_confirmation @password
     
-    after :build do |user, evaluator|
-      unless evaluator.company
-        company = build :company, created_by: user, contact_person: user
-        user.company = company
+    after :build do |account, evaluator|
+      unless evaluator.profile
+        account.profile = build :customer
       end
     end
     
-    factory :user do
+    factory :account do
       confirmed_at Time.now
     end
   end

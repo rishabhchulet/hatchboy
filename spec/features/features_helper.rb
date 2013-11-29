@@ -19,7 +19,7 @@ module FeaturesHelper
 
   def sign_in! account
     session = Capybara::Session.new Capybara.current_driver, Capybara.app
-    session.visit "/users/sign_in"
+    session.visit new_account_session_path
     session.within("form") do
       session.fill_in "Email", with: account.email
       session.fill_in "Password", with: account.password
