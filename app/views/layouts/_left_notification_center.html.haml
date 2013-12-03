@@ -1,0 +1,11 @@
+%ul.nav.pull-right.notifcation-center
+  %li#header_task_bar.dropdown
+    %a.dropdown-toggle.active{"data-toggle" => "", :href => root_path}
+      .iconset.top-home
+  %li#header_inbox_bar.dropdown
+    %a.dropdown-toggle{:href => "email.html"}
+      .iconset.top-messages
+      %span#msgs-badge.badge 2
+  %li#portrait-chat-toggler.dropdown{:style => "display:none"}
+    %a.chat-menu-toggle{:href => "#sidr"}
+      .iconset.top-chat-white

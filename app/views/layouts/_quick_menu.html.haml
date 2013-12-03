@@ -1,0 +1,38 @@
+- if account_signed_in?
+  .pull-right
+    .chat-toggler
+      %a#my-task-list.dropdown-toggle{"data-content" => "\r\n\t\t\t\t\t\t<div style=\"width:300px\" class=\"scroller\" data-height=\"100px\">\r\n\t\t\t\t\t\t  <div class=\"notification-messages info\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"user-profile\">\r\n\t\t\t\t\t\t\t\t\t\t<img src=\"/assets/img/profiles/d.jpg\" data-src=\"/assets/img/profiles/d.jpg\" data-src-retina=\"/assets/img/profiles/d2x.jpg\" width=\"35\" height=\"35\">\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"message-wrapper\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"heading\">\r\n\t\t\t\t\t\t\t\t\t\t\tDavid Nester - Commented on your wall\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"description\">\r\n\t\t\t\t\t\t\t\t\t\t\tMeeting postponed to tomorrow\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"date pull-left\">\r\n\t\t\t\t\t\t\t\t\t\tA min ago\r\n\t\t\t\t\t\t\t\t\t\t</div>\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t</div>\t\r\n\t\t\t\t\t\t\t<div class=\"notification-messages danger\">\r\n\t\t\t\t\t\t\t\t<div class=\"iconholder\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"icon-warning-sign\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"message-wrapper\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"heading\">\r\n\t\t\t\t\t\t\t\t\t\tServer load limited\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"description\">\r\n\t\t\t\t\t\t\t\t\t\tDatabase server has reached its daily capicity\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"date pull-left\">\r\n\t\t\t\t\t\t\t\t\t2 mins ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\t\t</div>\t\r\n\t\t\t\t\t\t\t<div class=\"notification-messages success\">\r\n\t\t\t\t\t\t\t\t<div class=\"user-profile\">\r\n\t\t\t\t\t\t\t\t\t<img src=\"/assets/img/profiles/h.jpg\" data-src=\"/assets/img/profiles/h.jpg\" data-src-retina=\"/assets/img/profiles/h2x.jpg\" width=\"35\" height=\"35\">\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"message-wrapper\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"heading\">\r\n\t\t\t\t\t\t\t\t\t\tYou haveve got 150 messages\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"description\">\r\n\t\t\t\t\t\t\t\t\t\t150 newly unread messages in your inbox\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"date pull-left\">\r\n\t\t\t\t\t\t\t\t\tAn hour ago\r\n\t\t\t\t\t\t\t\t\t</div>\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\t\t</div>\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t</div>", "data-original-title" => "Notifications", "data-placement" => "bottom", "data-toggle" => "dropdown", :href => "#"}
+        .user-details
+          .username
+            %span.badge.badge-important 3
+            John
+            %span.bold Smith
+        .iconset.top-down-arrow
+      .profile-pic
+        %img{:alt => "", "data-src" => "/assets/img/profiles/avatar_small.jpg", "data-src-retina" => "/assets/img/profiles/avatar_small2x.jpg", :height => "35", :src => "/assets/img/profiles/avatar_small.jpg", :width => "35"}/
+    %ul.nav.quick-section
+      %li.quicklinks
+        %a.dropdown-toggle.pull-right{"data-toggle" => "dropdown", :href => "#"}
+          .iconset.top-settings-dark
+        %ul.dropdown-menu.pull-right{"aria-labelledby" => "dropdownMenu", :role => "menu"}
+          %li
+            %a{:href => "user-profile.html"} My Account
+          %li
+            %a{:href => "calender.html"} My Calendar
+          %li
+            %a{:href => "email.html"}
+              My Inbox&nbsp;&nbsp;
+              %span.badge.badge-important.animated.bounceIn 2
+          %li.divider
+          %li
+            = link_to content_tag(:i, "&nbsp;&nbsp;Log Out", { class: "icon-off" }, false), destroy_account_session_path, :method => 'delete'
+- else
+  .pull-right
+    %ul.nav.quick-section
+      %li
+        = link_to "Sign In", new_account_session_path, :class => "btn btn-default"
+      %li
+        %span.h-seperate
+      %li
+        = link_to "Sign Up", new_account_registration_path, :class => "btn btn-default"
+        
