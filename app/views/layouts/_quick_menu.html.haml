@@ -16,13 +16,11 @@
           .iconset.top-settings-dark
         %ul.dropdown-menu.pull-right{"aria-labelledby" => "dropdownMenu", :role => "menu"}
           %li
-            %a{:href => "user-profile.html"} My Account
+            %a{:href => account_path} My Account
+          %li
+            %a{:href => company_path} My Company
           %li
             %a{:href => "calender.html"} My Calendar
-          %li
-            %a{:href => "email.html"}
-              My Inbox&nbsp;&nbsp;
-              %span.badge.badge-important.animated.bounceIn 2
           %li.divider
           %li
             = link_to content_tag(:i, "&nbsp;&nbsp;Log Out", { class: "icon-off" }, false), destroy_account_session_path, :method => 'delete'
@@ -35,4 +33,3 @@
         %span.h-seperate
       %li
         = link_to "Sign Up", new_account_registration_path, :class => "btn btn-default"
-        
