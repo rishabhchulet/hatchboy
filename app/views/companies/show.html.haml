@@ -1,3 +1,180 @@
-%h2= @company.name
-%h1= @company.description
-
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a.active{:href => company_path} Company Profile
+.row
+  .col-md-11    
+    .page-title
+      %i.icon-custom-ui
+      %h3
+        = @company.name
+  .col-md-1.text-right
+    = link_to "Edit", edit_company_path, :class => "btn btn-default"
+.row
+  .col-md-12
+    .row
+      .col-md-12
+        .grid.simple
+          .grid-title.no-border
+            %h4
+              %span.semi-bold About company
+            .tools
+              %a.collapse{:href => "javascript:;"}
+              %a.config{"data-toggle" => "modal", :href => "#grid-config"}
+              %a.reload{:href => "javascript:;"}
+              %a.remove{:href => "javascript:;"}
+          .grid-body.no-border{:style => "display: block;"}
+            =@company.description
+    
+.row
+  .col-md-12
+    .grid.simple
+      .grid-title.no-border
+        %h4
+          %span.semi-bold Teams
+        .tools
+          %a.collapse{:href => "javascript:;"}
+          %a.config{"data-toggle" => "modal", :href => "#grid-config"}
+          %a.reload{:href => "javascript:;"}
+          %a.remove{:href => "javascript:;"}
+      .grid-body.no-border
+        %table.table.no-more-tables
+          %thead
+            %tr
+              %th{:width => "1%"}
+                .checkbox.check-default
+                  %input#checkbox10.checkall{:type => "checkbox", :value => "1"}/
+                  %label{:for => "checkbox10"}
+              %th{:width => "9%"} Team Name
+              %th{:width => "22%"} Description
+              %th{:width => "6%"} Price
+              %th{:width => "10%"} Progress
+          %tbody
+            %tr
+              %td{:valign => "middle"}
+                .checkbox.check-default
+                  %input#checkbox11{:type => "checkbox", :value => "1"}/
+                  %label{:for => "checkbox11"}
+              %td{:valign => "middle"} Early Bird
+              %td{:valign => "middle"}
+                %span.muted Redesign project template
+              %td
+                %span.muted $4,500
+              %td{:valign => "middle"}
+                .progress
+                  .progress-bar.progress-bar-success.animate-progress-bar{"data-percentage" => "79%", :id => "", :style => "width: 79%;"}
+            %tr
+              %td
+                .checkbox.check-default
+                  %input#checkbox12{:type => "checkbox", :value => "1"}/
+                  %label{:for => "checkbox12"}
+              %td
+                Angry Birds&nbsp;&nbsp;&nbsp;
+                %span.label.label-important ALERT!
+              %td
+                %span.muted Something goes here
+              %td
+                %span.muted $9,000
+              %td
+                .progress
+                  .progress-bar.progress-bar-danger.animate-progress-bar{"data-percentage" => "10%", :style => "width: 10%;"}
+            %tr
+              %td
+                .checkbox.check-default
+                  %input#checkbox13{:type => "checkbox", :value => "1"}/
+                  %label{:for => "checkbox13"}
+              %td PHP Login page
+              %td{:valign => "middle"}
+                %span.muted A project in business and science is typically defined
+              %td
+                %span.muted $5,400
+              %td
+                .progress
+                  .progress-bar.progress-bar-info.animate-progress-bar{"data-percentage" => "65%", :style => "width: 65%;"}
+            %tr
+              %td
+                .checkbox.check-default
+                  %input#checkbox14{:type => "checkbox", :value => "1"}/
+                  %label{:for => "checkbox14"}
+              %td Zombies
+              %td{:valign => "middle"}
+                %span.muted frequently involving research or design
+              %td
+                %span.muted $6,000
+              %td
+                .progress
+                  .progress-bar.progress-bar-warning.animate-progress-bar{"data-percentage" => "42%", :style => "width: 42%;"}
+.row
+  .col-md-6
+    .row
+      .col-md-12
+        .grid.simple
+          .grid-title.no-border
+            %h4
+              %span.semi-bold Customers
+            .tools
+              %a.collapse{:href => "javascript:;"}
+              %a.config{"data-toggle" => "modal", :href => "#grid-config"}
+              %a.reload{:href => "javascript:;"}
+              %a.remove{:href => "javascript:;"}
+          .grid-body.no-border{:style => "display: block;"}
+            %table.table.table-hover.table-striped.table-bordered.no-more-tables
+              %thead
+                %tr
+                  %th #
+                  %th First Name
+                  %th Last Name
+                  %th Username
+              %tbody
+                %tr
+                  %td 1
+                  %td Mark
+                  %td Otto
+                  %td @mdo
+                %tr
+                  %td 2
+                  %td Jacob
+                  %td Thornton
+                  %td @fat
+                %tr
+                  %td 3
+                  %td{:colspan => "2"} Larry the Bird
+                  %td @twitter
+  .col-md-6
+    .row
+      .col-md-12
+        .grid.simple{:style => "position: static;"}
+          .grid-title.no-border
+            %h4
+              %span.semi-bold Employees
+            .tools
+              %a.collapse{:href => "javascript:;"}
+              %a.config{"data-toggle" => "modal", :href => "#grid-config"}
+              %a.reload{:href => "javascript:;"}
+              %a.remove{:href => "javascript:;"}
+          .grid-body.no-border{:style => "display: block;"}
+            %table.table.table-hover.table-striped.table-bordered.no-more-tables
+              %thead
+                %tr
+                  %th #
+                  %th First Name
+                  %th Last Name
+                  %th Username
+              %tbody
+                %tr
+                  %td 1
+                  %td Mark
+                  %td Otto
+                  %td @mdo
+                %tr
+                  %td 2
+                  %td Jacob
+                  %td Thornton
+                  %td @fat
+                %tr
+                  %td 3
+                  %td{:colspan => "2"} Larry the Bird
+                  %td @twitter

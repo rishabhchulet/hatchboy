@@ -10,7 +10,8 @@ Hatchboy::Application.routes.draw do
   get "dashboard", :to => "pages#dashboard", :as => :account_dashboard
   
   get "company", :to => "companies#show"
-  
-  resources :companies, :only => [:edit, :update]
+  get "company/edit", :to => "companies#edit", :as => :edit_company
+  put "company", :to => "companies#update"
+  patch "company", :to => "companies#update"
   
 end
