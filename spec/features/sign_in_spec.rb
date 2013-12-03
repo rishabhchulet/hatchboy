@@ -10,12 +10,12 @@ feature "Sing in" do
     end
   
     scenario "should be successful" do
-      @session.current_path.should eq root_path
+      @session.current_path.should eq account_dashboard_path
       @session.find(:flash, :success).should have_content("Signed in successfully.")
     end
     
     scenario "should find the right user" do
-      @session.visit account_path(:id => @user.id)
+      @session.visit account_path
       expect(@session).to have_content @user.email
     end
 
