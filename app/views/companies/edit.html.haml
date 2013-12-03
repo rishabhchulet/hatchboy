@@ -1,0 +1,47 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path}< Company Profile
+  %i.icon-angle-right
+  %li
+    %a.active{:href => edit_company_path} Edit  
+.row
+  .col-md-12    
+    .page-title
+      %i.icon-custom-ui
+      %h3
+        = @company.name
+.row
+  .col-md-12
+    .grid.simple
+      .grid-title.no-border
+        %h4
+          %span.semi-bold Edit company
+        .tools
+          %a.collapse{:href => "javascript:;"}
+          %a.config{"data-toggle" => "modal", :href => "#grid-config"}
+          %a.reload{:href => "javascript:;"}
+          %a.remove{:href => "javascript:;"}
+      .grid-body.no-border
+        = form_for @company, :as => :company, :method => "put", :novalidate => "novalidate" do |f|
+          - if @company.errors.any?
+            .alert.alert-danger= company.errors.full_messages.first
+          .form-group
+            = f.label :name, :class => "form-label"  
+            .input-with-icon.right
+              %i
+              =f.text_field :name, :class => "form-control", :placeholder => "Name"
+          .form-group
+            = f.label :description, :class => "form-label"  
+            .input-with-icon.right
+              %i
+              =f.text_area :description, :class => "form-control", :placeholder => "Description"
+          .form-actions
+            .pull-right
+              %button.btn.btn-success.btn-cons{:type => "submit"}
+                %i.icon-ok
+                Save
+              = link_to "Cancel", company_path, :class => "btn btn-white btn-cons"
