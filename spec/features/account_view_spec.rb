@@ -1,11 +1,11 @@
 require "spec_helper"
 
-feature "profile#show" do
+feature "account#show" do
   
   background do
-    @customer = create :customer 
+    @customer = create :customer
     @session = sign_in! @customer.account 
-    @session.visit profile_path
+    @session.visit account_path
   end
   
   scenario "it should contain company name" do

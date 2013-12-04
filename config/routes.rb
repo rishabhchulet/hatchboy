@@ -1,12 +1,8 @@
 Hatchboy::Application.routes.draw do
   root :to => "pages#home"
-  devise_for :accounts, :controllers => {:registrations => "registrations"}
+  devise_for :account, :controllers => {:registrations => "registrations"}
   
-  get "profile",   :to => "profiles#show", :as => :profile
-  get "profile/edit", :to => "profiles#edit", :as => :edit_profile
-  put "profile",   :to => "profiles#update"
-  patch "profile", :to => "profiles#update"
-  
+  get "account",   :to => "accounts#show", :as => :account
   get "dashboard", :to => "pages#dashboard", :as => :account_dashboard
   
   get "company",   :to => "companies#show"

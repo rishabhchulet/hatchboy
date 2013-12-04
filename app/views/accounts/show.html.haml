@@ -4,15 +4,15 @@
       YOU ARE HERE
   %i.icon-angle-right
   %li
-    %a.active{:href => profile_path} Profile
+    %a.active{:href => account_path} Account
 .row
   .col-md-11
     .page-title
       %i.icon-custom-ui
       %h3
-        = @profile.name
+        = @account.profile.name
   .col-md-1.text-right
-    = link_to "Edit", edit_profile_path, :class => "btn btn-default"
+    = link_to "Edit", edit_account_registration_path, :class => "btn btn-default"
 .row
   .col-md-12
     .row
@@ -35,16 +35,16 @@
                 .row 
                   .col-md-2
                     %label Name:
-                  .col-md-2= @profile.name
+                  .col-md-4= @account.profile.name
                 .row
                   .col-md-2
                     %label Email:
-                  .col-md-2= @profile.account.email
+                  .col-md-4= @account.email
                 .row
                   .col-md-2
                     %label Password:
-                  .col-md-2 *********
+                  .col-md-4 *********
                 .row
                   .col-md-2
                     %label Company
-                  .col-md-2= @profile.company.name
+                  .col-md-4= @account.profile.company.name

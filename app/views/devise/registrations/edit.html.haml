@@ -1,15 +1,42 @@
-%h2
-  Edit #{resource_name.to_s.humanize}
-= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f|
-  = f.error_notification
-  = display_base_errors resource
-  = f.input :name, :autofocus => true
-  = f.input :email, :required => true
-  = f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false
-  = f.input :password_confirmation, :required => false
-  = f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true
-  = f.button :submit, 'Update', :class => 'btn-primary'
-%h3 Cancel my account
-%p
-  Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}.
-= link_to "Back", :back
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{ :href => account_path }< Account
+  %i.icon-angle-right
+  %li
+    %a.active{:href => edit_account_registration_path } Edit  
+.row
+  .col-md-12    
+    .page-title
+      %i.icon-custom-ui
+      %h3= resource.profile.name
+.row
+  .col-md-12
+    .grid.simple
+      .grid-title.no-border
+        %h4
+          %span.semi-bold Edit personal information
+        .tools
+          %a.collapse{:href => "javascript:;"}
+          %a.config{"data-toggle" => "modal", :href => "#grid-config"}
+          %a.reload{:href => "javascript:;"}
+          %a.remove{:href => "javascript:;"}
+      .grid-body.no-border
+        = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+          = display_flash_message :error, f.error_notification
+          = f.fields_for :profile do |profile|
+            = profile.input :name, :required => true, :hint => 'e.g. "Jane Smith"'
+          = f.input :email, :required => true, :hint => 'e.g. "email@exapmle.com"'
+          = f.input :password, :autocomplete => "off", :hint => "(leave it blank if you don't want to change it)", :required => false
+          = f.input :password_confirmation, :required => false
+          = f.input :current_password, :hint => "(we need your current password to confirm your changes)", :required => true
+          .form-actions
+            .pull-right
+              %button.btn.btn-success.btn-cons{:type => "submit"}
+                %i.icon-ok
+                Save
+              = link_to "Cancel", account_path, :method => :delete, :class => "btn btn-white btn-cons"
+              /= link_to "Cancel account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => "btn btn-white btn-cons"

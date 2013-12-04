@@ -16,6 +16,7 @@
       .form-group
         %label 
           = f.check_box :remember_me, :as => :boolean if devise_mapping.rememberable?
+          \f.input :remember_me, :as => :boolean, :label => false, :inline_label => true if devise_mapping.rememberable? 
           Remember me
       .form-group
         = f.submit  "Sign in", :class => 'btn btn-default text-center', :role => "button"
