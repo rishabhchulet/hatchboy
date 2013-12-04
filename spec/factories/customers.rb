@@ -12,9 +12,9 @@ FactoryGirl.define do
     
     factory :customer do
       
-      after :build do |customer, evaluator|
+      after :create do |customer, evaluator|
         unless evaluator.account
-          customer.account = build :account, :profile => customer 
+          customer.account = create :account, :profile => customer 
         end
       end
     end
