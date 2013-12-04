@@ -28,7 +28,7 @@
       .grid-body.no-border
         = form_for @company, :as => :company, :method => "put", :novalidate => "novalidate" do |f|
           - if @company.errors.any?
-            .alert.alert-danger= company.errors.full_messages.first
+            .alert.alert-danger= @company.errors.full_messages.first
           .form-group
             = f.label :name, :class => "form-label"  
             .input-with-icon.right

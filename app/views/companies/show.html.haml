@@ -28,7 +28,13 @@
               %a.remove{:href => "javascript:;"}
           .grid-body.no-border{:style => "display: block;"}
             =@company.description
-    
+            %br 
+            %br
+            Have any question? Contact to &nbsp;
+            %span.semi-bold><
+              =link_to  @company.contact_person.name
+            \.
+              
 .row
   .col-md-12
     .grid.simple
