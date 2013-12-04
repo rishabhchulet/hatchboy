@@ -15,7 +15,7 @@ feature "Sing in" do
     end
     
     scenario "should find the right user" do
-      @session.visit account_path
+      @session.visit profile_path
       expect(@session).to have_content @user.email
     end
 
