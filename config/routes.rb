@@ -1,6 +1,9 @@
 Hatchboy::Application.routes.draw do
   root :to => "pages#home"
   devise_for :account, :controllers => {:registrations => "registrations"}
+  devise_scope :account do
+    put "/account/edit", :to => "registrations#update", :as => :update_account_registration
+  end
   
   get "account",   :to => "accounts#show", :as => :account
   get "dashboard", :to => "pages#dashboard", :as => :account_dashboard
