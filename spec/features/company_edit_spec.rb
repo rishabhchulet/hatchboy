@@ -10,7 +10,6 @@ feature "companies#edit" do
   end
   
   scenario "it should update company information" do
-    screenshot @session
     @session.within "form#edit_company" do
       @session.fill_in "Name", with: @new_name = Faker::Company.name
       @session.fill_in "Description", with: @new_description = Faker::Company.name

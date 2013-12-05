@@ -22,6 +22,7 @@ class CustomersInvitationsController < Devise::InvitationsController
     resource_class.invite!(invite_params, current_inviter) do |invitable|
       invitable.profile.company = current_inviter.profile.company
       invitable.valid?
+      invitable.errors[:email] = t("devise.invitations.customer.errors.account_already_confirmed") if invitable.confirmed?
     end
   end
 
