@@ -13,9 +13,15 @@ class Account < ActiveRecord::Base
   def has_role? role
     role.to_sym == :customer
   end
+  
+  def profile_attributes= attr
+    attr[:id] = self.profile.id if self.profile
+    super
+  end
 
   def build_profile profile
-    self.profile = Kernel.const_get(profile.delete(:type)).new profile
+    self.profile = Kernel.const_get(profile.delete(:type)).new profile unless self.profile
+    self.profile
   end
 
 end

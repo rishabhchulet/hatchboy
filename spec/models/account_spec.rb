@@ -199,4 +199,33 @@ describe Account do
     end
   end
 
+  context "while update profile" do
+    
+    before do 
+      @account = create :account
+      @attr = { profile_attributes: { name: Faker::Name.name}, email: Faker::Internet.email, password: "new_password", password_confirmation: "new_password" }
+    end
+    
+    it "should save attributes" do
+      @account.update_attributes(@attr).should eq true
+      @account.should be_valid
+      @account.reload.valid_password?("new_password").should eq true
+      @account.profile.reload.name.should eq @attr[:profile_attributes][:name]
+      @account.unconfirmed_email.should eq @attr[:email] 
+    end
+    
+    it "should validate password and confirmation" do
+      @attr[:password_confirmation] = '' 
+      @account.update_attributes(@attr).should eq false
+      @account.should_not be_valid
+    end
+    
+    it "should validate email" do
+      @attr[:email] = 'invalid@email' 
+      @account.update_attributes(@attr).should eq false
+      @account.should_not be_valid
+    end
+    
+  end
+
 end

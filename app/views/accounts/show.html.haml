@@ -1,5 +1,50 @@
-%h3 User
-%p
-  User: #{@user.profile.name}
-%p
-  Email: #{@user.email if @user.email}
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a.active{:href => account_path} Account
+.row
+  .col-md-11
+    .page-title
+      %i.icon-custom-ui
+      %h3
+        = @account.profile.name
+  .col-md-1.text-right
+    = link_to "Edit", edit_account_registration_path, :class => "btn btn-default"
+.row
+  .col-md-12
+    .row
+      .col-md-12
+        .grid.simple
+          .grid-title.no-border
+            %h4
+              %span.semi-bold Personal information
+            .tools
+              %a.collapse{:href => "javascript:;"}
+              %a.config{"data-toggle" => "modal", :href => "#grid-config"}
+              %a.reload{:href => "javascript:;"}
+              %a.remove{:href => "javascript:;"}
+          .grid-body.no-border{:style => "display: block;"}
+            .row
+              .col-md-2
+                %img{ "src" => "/assets/img/profiles/bc2x.jpg", width: "200px", height: "200px" } 
+              .col-md-4
+                .row
+                .row 
+                  .col-md-2
+                    %label Name:
+                  .col-md-4= @account.profile.name
+                .row
+                  .col-md-2
+                    %label Email:
+                  .col-md-4= @account.email
+                .row
+                  .col-md-2
+                    %label Password:
+                  .col-md-4 *********
+                .row
+                  .col-md-2
+                    %label Company
+                  .col-md-4= @account.profile.company.name

@@ -5,6 +5,7 @@ describe Customer do
   it { should belong_to(:company).class_name("Company") }
   it { should have_one(:account).class_name("Account") }
   it { should accept_nested_attributes_for(:company).allow_destroy(true) }  
+  it { should accept_nested_attributes_for(:account).allow_destroy(true) }
   
   it { should validate_presence_of(:company) }
   

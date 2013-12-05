@@ -1,0 +1,202 @@
+/ BEGIN SIDEBAR
+#main-menu.page-sidebar
+  / BEGIN MINI-PROFILE
+  .user-info-wrapper
+    .profile-wrapper
+      %img{"data-src" => "/assets/img/profiles/avatar.jpg", "data-src-retina" => "/assets/img/profiles/avatar2x.jpg", :height => "69", :src => "/assets/img/profiles/avatar.jpg", :width => "69"}/
+    .user-info
+      .greeting Welcome
+      .username
+        John
+        %span.semi-bold Smith
+      .status
+        Status
+        %a{:href => "#"}><
+          = succeed "Online" do
+            .status-icon.green
+  %p.menu-title
+    BROWSE
+    %span.pull-right
+      %a{:href => "javascript:;"}
+        %i.icon-refresh
+  %ul
+    %li.start.active
+      %a{:href => "index.html"}
+        %i.icon-custom-home
+        %span.title Dashboard
+        %span.selected
+        %span.badge.badge-important.pull-right 5
+    %li
+      %a{:href => "email.html"}
+        %i.icon-envelope
+        %span.title Email
+        %span.badge.badge-disable.pull-right 203
+    %li
+      %a{:href => "javascript:;"}
+        %i.icon-custom-ui
+        %span.title UI Elements
+        %span.arrow
+      %ul.sub-menu
+        %li
+          %a{:href => "typography.html"} Typography
+        %li
+          %a{:href => "messages_notifications.html"} Messages & Notifications
+        %li
+          %a{:href => "icons.html"} Icons
+        %li
+          %a{:href => "buttons.html"} Buttons
+        %li
+          %a{:href => "tabs_accordian.html"} Tabs & Accordions
+        %li
+          %a{:href => "sliders.html"} Sliders
+        %li
+          %a{:href => "group_list.html"} Group list
+    %li
+      %a{:href => "javascript:;"}
+        %i.icon-custom-form
+        %span.title Forms
+        %span.arrow
+      %ul.sub-menu
+        %li
+          %a{:href => "form_elements.html"} Form Elements
+        %li
+          %a{:href => "form_validations.html"} Form Validations
+    %li
+      %a{:href => "javascript:;"}
+        %i.icon-custom-portlets
+        %span.title Grids
+        %span.arrow
+      %ul.sub-menu
+        %li
+          %a{:href => "grids_simple.html"} Simple Grids
+        %li
+          %a{:href => "grids_draggable.html"} Draggable Grids
+    %li
+      %a{:href => "javascript:;"}
+        %i.icon-custom-thumb
+        %span.title Tables
+        %span.arrow
+      %ul.sub-menu
+        %li
+          %a{:href => "tables.html"} Basic Tables
+        %li
+          %a{:href => "datatables.html"} Data Tables
+    %li
+      %a{:href => "javascript:;"}
+        %i.icon-custom-map
+        %span.title Maps
+        %span.arrow
+      %ul.sub-menu
+        %li
+          %a{:href => "google_map.html"} Google Maps
+        %li
+          %a{:href => "vector_map.html"} Vector Maps
+    %li
+      %a{:href => "charts.html"}
+        %i.icon-custom-chart
+        %span.title Charts
+    %li
+      %a{:href => "javascript:;"}
+        %i.icon-custom-extra
+        %span.title Extra
+        %span.arrow
+      %ul.sub-menu
+        %li
+          %a{:href => "user-profile.html"} User Profile
+        %li
+          %a{:href => "gallery.html"} Gallery
+        %li
+          %a{:href => "calender.html"} Calendar
+        %li
+          %a{:href => "search_results.html"} Search Results
+        %li
+          %a{:href => "invoice.html"} Invoice
+        %li
+          %a{:href => "404.html"} 404 Page
+        %li
+          %a{:href => "500.html"} 500 Page
+        %li
+          %a{:href => "blank_template.html"} Blank Page
+        %li
+          %a{:href => "login.html"} Login
+        %li
+          %a{:href => "lockscreen.html"} Lockscreen
+    %li#more-widgets.hidden-lg.hidden-md.hidden-xs{:style => "display:"}
+      %a{:href => "javascript:;"}
+        %i.icon-ellipsis-horizontal
+      %ul.sub-menu
+      .side-bar-widgets
+        %p.menu-title
+          FOLDER
+          %span.pull-right
+            %a.create-folder{:href => "#"}
+              %i.icon-plus
+        %ul#folders.folders
+          %li
+            %a{:href => "#"}
+              .status-icon.green
+              My quick tasks
+          %li
+            %a{:href => "#"}
+              .status-icon.red
+              To do list
+          %li
+            %a{:href => "#"}
+              .status-icon.blue
+              Projects
+          %li#folder-input.folder-input{:style => "display:none"}
+            %input#folder-name.no-boarder.folder-name{:name => "", :placeholder => "Name of folder", :type => "text"}/
+        %p.menu-title PROJECTS
+        .status-widget
+          .status-widget-wrapper
+            .title
+              Freelancer
+              %a.remove-widget{:href => "#"}
+                %i.icon-custom-cross
+            %p Redesign home page
+        .status-widget
+          .status-widget-wrapper
+            .title
+              envato
+              %a.remove-widget{:href => "#"}
+                %i.icon-custom-cross
+            %p Statistical report
+  .side-bar-widgets
+    %p.menu-title
+      FOLDER
+      %span.pull-right
+        %a.create-folder{:href => "#"}
+          %i.icon-plus
+    %ul#folders.folders
+      %li
+        %a{:href => "#"}
+          .status-icon.green
+          My quick tasks
+      %li
+        %a{:href => "#"}
+          .status-icon.red
+          To do list
+      %li
+        %a{:href => "#"}
+          .status-icon.blue
+          Projects
+      %li#folder-input.folder-input{:style => "display:none"}
+        %input#folder-name.no-boarder.folder-name{:name => "", :placeholder => "Name of folder", :type => "text"}/
+    %p.menu-title PROJECTS
+    .status-widget
+      .status-widget-wrapper
+        .title
+          Freelancer
+          %a.remove-widget{:href => "#"}
+            %i.icon-custom-cross
+        %p Redesign home page
+    .status-widget
+      .status-widget-wrapper
+        .title
+          envato
+          %a.remove-widget{:href => "#"}
+            %i.icon-custom-cross
+        %p Statistical report
+  %a.scrollup{:href => "#"} Scroll
+  .clearfix
+  / END SIDEBAR MENU

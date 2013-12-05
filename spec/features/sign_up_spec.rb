@@ -14,7 +14,7 @@ feature "Sign up" do
         fill_in "Email", :with => @data[:email]
         fill_in "Username", :with => @data[:name]
         fill_in "Password", :with => @data[:password]
-        fill_in "Confirm Password", :with => @data[:password]
+        fill_in "Password confirmation", :with => @data[:password]
         fill_in "Company Name", :with => @data[:company_name]
       end
       click_button "Sign up"
@@ -52,7 +52,7 @@ feature "Sign up" do
       fill_in "Email", :with => @data[:email]
       fill_in "Username", :with => @data[:name]
       fill_in "Password", :with => @data[:password]
-      fill_in "Confirm Password", :with => @data[:password]
+      fill_in "Password confirmation", :with => @data[:password]
       fill_in "Company Name", :with => @data[:company_name]
     end
     click_button "Sign up"
@@ -65,10 +65,10 @@ feature "Sign up" do
       within "form#new_account" do
         fill_in "Username", :with => @data[:name]
         fill_in "Password", :with => @data[:password]
-        fill_in "Confirm Password", :with => @data[:password]
+        fill_in "Password confirmation", :with => @data[:password]
       end
       click_button "Sign up"
-      find(:flash, :danger).should have_content("Email can't be blank")
+      find(:flash, :danger).should_not be_blank
     end
   end
 

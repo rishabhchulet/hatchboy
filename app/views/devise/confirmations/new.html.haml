@@ -1,13 +1,10 @@
-= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => {:role => "form" }) do |f|
+= simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => {:role => "form" }) do |f|
   .row
     .col-md-1
     .col-md-4
       %h2.text-center Resend confirmation instructions
-      - if resource.errors.any?
-        .alert.alert-danger= resource.errors.full_messages.first
-      .form-group
-        = f.label :email, "Email"
-        = f.email_field :email, :autofocus => true, :class => "form-control", :placeholder => "Email", :autofocus => true
+      = display_flash_message :error, f.error_notification
+      = f.input :email, :autofocus => true, :placeholder => "Email"
       .form-group
         = f.submit "Resend confirmation instructions", :class => 'btn btn-default text-center', :role => "button"
 

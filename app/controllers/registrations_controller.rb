@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update_sanitized_params
     devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:name, :email, :password, :password_confirmation, profile_attributes: [:name, :type, :company_attributes => [:name] ])}
-    devise_parameter_sanitizer.for(:account_update) {|u| u.permit(:name, :email, :password, :password_confirmation, :current_password)}
+    devise_parameter_sanitizer.for(:account_update) {|u| u.permit(:name, :email, :password, :password_confirmation, :current_password, profile_attributes: [:name])}
   end
 
   def new
@@ -18,4 +18,10 @@ class RegistrationsController < Devise::RegistrationsController
     super
   end
 
+  protected
+
+  def after_update_path_for(resource)
+    account_path
+  end
+  
 end
