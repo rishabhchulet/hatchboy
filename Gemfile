@@ -40,7 +40,7 @@ end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'debugger'
+  gem  'byebug'
   gem 'faker', '~> 1.1.2'
 end
 group :test do
