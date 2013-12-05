@@ -25,7 +25,7 @@ feature "companies#edit" do
       @session.fill_in "Name", with: ""
     end
     @session.click_button "Save"
-    @session.find(:flash, :danger).should have_content "Name can't be blank"
+    @session.find(:flash, :danger).should have_content "Please review the problems below"
   end
   
   it "should redirect on company view and show success message" do

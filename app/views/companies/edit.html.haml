@@ -12,8 +12,7 @@
   .col-md-12    
     .page-title
       %i.icon-custom-ui
-      %h3
-        = @company.name
+      %h3= @company.name
 .row
   .col-md-12
     .grid.simple
@@ -26,19 +25,10 @@
           %a.reload{:href => "javascript:;"}
           %a.remove{:href => "javascript:;"}
       .grid-body.no-border
-        = form_for @company, :as => :company, :method => "put", :novalidate => "novalidate" do |f|
-          - if @company.errors.any?
-            .alert.alert-danger= @company.errors.full_messages.first
-          .form-group
-            = f.label :name, :class => "form-label"  
-            .input-with-icon.right
-              %i
-              =f.text_field :name, :class => "form-control", :placeholder => "Name"
-          .form-group
-            = f.label :description, :class => "form-label"  
-            .input-with-icon.right
-              %i
-              =f.text_area :description, :class => "form-control", :placeholder => "Description"
+        = simple_form_for(@company, :as => :company, :html => { :method => :put }) do |f|
+          = display_flash_message :error, f.error_notification
+          = f.input :name, :required => true, :hint => 'e.g. "Runolfsson LLC"'
+          = f.input :description, :hint => "a few good words about your comapny"
           .form-actions
             .pull-right
               %button.btn.btn-success.btn-cons{:type => "submit"}

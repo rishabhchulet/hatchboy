@@ -4,9 +4,9 @@ module ApplicationHelper
     return '' if (resource.errors.empty?) or (resource.errors[:base].empty?)
     messages = resource.errors[:base].map { |msg| content_tag(:p, msg) }.join
     html = <<-HTML
-    <div class="alert alert-error alert-block">
-      <button type="button" class="close" data-dismiss="alert">&#215;</button>
-      #{messages}
+    <div class="alert alert-danger">
+      <button class="close" aria-hidden="true" data-dismiss="alert" type="button"></button>
+      <div id="flash_error}">#{msg}</div>
     </div>
     HTML
     html.html_safe

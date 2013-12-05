@@ -5,12 +5,25 @@ SimpleForm.setup do |config|
     b.use :placeholder
     b.use :label
     b.use :hint,  wrap_with: { tag: 'span', class: 'help' }
-    b.wrapper tag: 'div', class: 'input-with-icon right' do |ba|
+    b.wrapper :input_wrapper, tag: 'div', class: 'input-with-icon right' do |ba|
       ba.wrapper(tag: 'i', :class => "") {}
       ba.use :input
       ba.use :error, wrap_with: { tag: 'span', class: 'error' }
     end
   end
+  
+  config.wrappers :inline_checkbox, tag: 'div', class: 'form-group', error_class: "error-control" do |b|
+    b.use :html5
+    b.use :placeholder
+    b.use :hint,  wrap_with: { tag: 'span', class: 'help' }
+    b.wrapper :checkbox_wrapper, tag: 'div', class: 'checkbox' do |ba|
+      ba.wrapper(tag: 'i', :class => "") {}
+      ba.use :input, wrap_with: false
+      ba.use :label
+      ba.use :error, wrap_with: { tag: 'span', class: 'error' }
+    end
+  end
+  
   config.label_class = 'form-label'
   config.input_class = 'form-control'
 
