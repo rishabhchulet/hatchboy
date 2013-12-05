@@ -1,8 +1,15 @@
 Hatchboy::Application.routes.draw do
   root :to => "pages#home"
-  devise_for :account, :controllers => {:registrations => "registrations"}
+  devise_for :account, :controllers => {:registrations => "registrations" }, skip: [:invitations]
+
   devise_scope :account do
-    put "/account/edit", :to => "registrations#update", :as => :update_account_registration
+    put   "/account/edit", :to => "registrations#update", :as => :update_account_registration
+    get   "/account/invitation/accept", :to =>  "devise/invitations#edit", :as => :accept_account_invitation
+    get   "/account/invitation/remove", :to =>  "devise/invitations#destroy", :as => :remove_account_invitation
+    patch "/account/invitation", :to =>  "devise/invitations#update"
+    put   "/account/invitation", :to =>  "devise/invitations#update", :as => :update_account_invitation
+    get   "/account/invitation/customers/new", :to =>  "customers_invitations#new", :as => :new_customer_invitation
+    post  "/account/invitation/customers/new", :to =>  "customers_invitations#create", :as => :create_customer_invitation
   end
   
   get "account",   :to => "accounts#show", :as => :account

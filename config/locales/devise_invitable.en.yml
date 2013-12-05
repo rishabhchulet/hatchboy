@@ -6,6 +6,10 @@ en:
       updated: 'Your password was set successfully. You are now signed in.'
       no_invitations_remaining: "No invitations remaining"
       invitation_removed: 'Your invitation was removed.'
+      customer:
+        new:
+          header: "Send invitation to customer"
+          submit_button: "invitate customer"
       new:
         header: "Send invitation"
         submit_button: "Send an invitation"

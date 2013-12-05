@@ -1,0 +1,10 @@
+=simple_form_for(resource, :as => resource_name, :url => create_customer_invitation_path, :method => :post, :html => {:role => "form" }) do |f|
+  .row
+    .col-md-1
+    .col-md-4
+      %h2.text-centerr= t "devise.invitations.customer.new.header"
+      =f.fields_for :profile do |profile|
+        = profile.input :name, placeholder: "Username", label: "Username", autofocus: true, hint: 'e.g "Jhon Smitt"'
+      = f.input :email, placeholder: "Email", autofocus: true, hint: 'e.g "mail@example.com"'
+      .form-group
+        = f.submit t("devise.invitations.customer.new.submit_button"), :class => 'btn btn-default text-center', :role => "button"
