@@ -8,6 +8,7 @@ describe Customer do
   it { should accept_nested_attributes_for(:account).allow_destroy(true) }
   
   it { should validate_presence_of(:company) }
+  it { should validate_presence_of(:name) }
   
   it "should be possible to create customer without account" do
     customer = described_class.new name: Faker::Name.name

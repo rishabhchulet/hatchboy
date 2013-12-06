@@ -6,6 +6,7 @@ class Customer < ActiveRecord::Base
   accepts_nested_attributes_for :company, :allow_destroy => true
   accepts_nested_attributes_for :account, :allow_destroy => true
   
+  validates_presence_of :name
   validates_presence_of :company
 
   def company_attributes= company

@@ -6,6 +6,12 @@ en:
       updated: 'Your password was set successfully. You are now signed in.'
       no_invitations_remaining: "No invitations remaining"
       invitation_removed: 'Your invitation was removed.'
+      customer:
+        new:
+          header: "Send invitation to customer"
+          submit_button: "Invite customer"
+        errors:
+          account_already_confirmed: This is already confirmed account
       new:
         header: "Send invitation"
         submit_button: "Send an invitation"
@@ -15,3 +21,6 @@ en:
     mailer:
       invitation_instructions:
         subject: 'Invitation instructions'
+    customers_invitations:
+      account:
+        send_instructions: 'An invitation email has been sent to %{email}.'

@@ -15,7 +15,10 @@ class Account < ActiveRecord::Base
   end
   
   def profile_attributes= attr
-    attr[:id] = self.profile.id if self.profile
+    if self.profile
+      attr[:id] = self.profile.id
+      attr.delete(:type)
+    end
     super
   end
 
