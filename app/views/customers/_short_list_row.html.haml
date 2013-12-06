@@ -1,0 +1,7 @@
+%tr.data-row
+  %td= short_list_row.id
+  %td= short_list_row.name
+  %td= short_list_row.account.email
+  %td
+    %span.label{ :class => short_list_row.account.confirmed? ? "label-success" : "label-important"}
+      = short_list_row.account.confirmed? ? "work" : "not confirmed"
