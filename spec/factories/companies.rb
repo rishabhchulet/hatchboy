@@ -9,7 +9,7 @@ FactoryGirl.define do
       name
     end
     
-    description Faker::Lorem.paragraph
+    description { Faker::Lorem.paragraph }
     
     after :build do |company, evaluator|
       unless evaluator.created_by

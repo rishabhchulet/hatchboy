@@ -4,6 +4,7 @@ feature "companies#edit" do
   
   background do
     @customer = create :customer
+    @another_customer = create :customer, company: @customer.company 
     @session = sign_in! @customer.account
     @company = @customer.company
     @session.visit edit_company_path
@@ -12,11 +13,13 @@ feature "companies#edit" do
   scenario "it should update company information" do
     @session.within "form#edit_company" do
       @session.fill_in "Name", with: @new_name = Faker::Company.name
-      @session.fill_in "Description", with: @new_description = Faker::Company.name
+      @session.fill_in "Description", with: @new_description = Faker::Lorem.paragraph
+      @session.select @another_customer.name , from: "Contact person" 
     end
     @session.click_button "Save"
     @company.reload.name.should eq @new_name
-    @company.reload.description.should eq @new_description
+    @company.description.should eq @new_description
+    @company.contact_person.should eq @another_customer
   end
   
   it "should validate company name" do
