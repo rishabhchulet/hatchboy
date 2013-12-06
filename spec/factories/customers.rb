@@ -2,7 +2,7 @@ FactoryGirl.define do
   
   factory :customer_without_account, :class => Customer do
     
-    name Faker::Name.name
+    name { Faker::Name.name }
 
     after :build do |customer, evaluator|
       unless evaluator.company
