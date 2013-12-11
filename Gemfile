@@ -14,10 +14,11 @@ gem 'figaro'
 gem 'haml-rails'
 gem 'pg'
 gem 'simple_form'
-gem 'therubyracer', :platform=>:ruby
+gem 'therubyracer', :platform => :ruby
 gem 'unicorn'
 gem "bundler", "~> 1.3.5"
 gem "foreman", "~> 0.63.0"
+gem "carrierwave", "~> 0.9.0"
 
 group :development do
   gem 'capistrano',  '~> 3.0.1'
@@ -26,16 +27,16 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1.0'
 
   gem 'better_errors'
-  gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
+  gem 'binding_of_caller', :platforms => [:mri_19, :mri_20, :rbx]
   gem 'guard-bundler'
   gem 'guard-rails'
   gem 'guard-rspec'
   gem 'html2haml'
   gem 'quiet_assets'
   gem 'rails_layout'
-  gem 'rb-fchange', :require=>false
-  gem 'rb-fsevent', :require=>false
-  gem 'rb-inotify', :require=>false
+  gem 'rb-fchange', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-inotify', :require => false
 end
 group :development, :test do
   gem 'factory_girl_rails'
