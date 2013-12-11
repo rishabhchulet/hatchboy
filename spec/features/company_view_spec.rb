@@ -51,4 +51,10 @@ feature "company#show" do
     first_account_row.find(".view-profile-action").click
     @session.current_path.should eq customer_path(@customer)
   end
+  
+  scenario "Invite another customer link shuld be lickable" do
+    @session.visit company_path
+    @session.click_link "Invite another customer"
+    @session.current_path.should eq new_customer_invitation_path
+  end
 end

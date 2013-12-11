@@ -9,12 +9,19 @@
         %a.reload{:href => "javascript:;"}
         %a.remove{:href => "javascript:;"}
     .grid-body.no-border{:style => "display: block;"}
-      %table.table.table-hover.table-striped.table-bordered.no-more-tables#customers_short_list
-        %thead
-          %tr
-            %th #
-            %th Name
-            %th Email
-            %th Status
-        %tbody
-          = render partial: "customers/short_list_row", collection: short_list
+      .row
+        %table.table.table-hover.table-striped.table-bordered.no-more-tables#customers_short_list
+          %thead
+            %tr
+              %th #
+              %th Name
+              %th Email
+              %th Status
+          %tbody
+            = render partial: "customers/short_list_row", collection: short_list
+      .row
+        .col-md-8
+        .col-md-2
+          %a.btn.btn-primary.btn-cons{href: new_customer_invitation_path}
+            Invite another customer
+
