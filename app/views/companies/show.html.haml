@@ -32,7 +32,7 @@
             %br
             Have any question? Contact to &nbsp;
             %span.semi-bold><
-              =link_to  @company.contact_person.name
+              =link_to  @company.contact_person.name, customer_path(@company.contact_person), :id => "contact-person-link"
             \.
             
 .row

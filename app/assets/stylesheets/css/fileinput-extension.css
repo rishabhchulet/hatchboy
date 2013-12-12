@@ -1,0 +1,7 @@
+.fileinput .fileinput-changed {
+  display: none;
+}
+
+.fileinput.fileinput-changed .fileinput-changed {
+  display: inline-block;
+}

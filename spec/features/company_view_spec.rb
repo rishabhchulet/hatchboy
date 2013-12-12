@@ -3,7 +3,6 @@ require "spec_helper"
 feature "company#show" do
   
   background do
-#    Capybara.current_driver = :selenium
     @customer = create :customer 
     @session = sign_in! @customer.account 
   end
@@ -39,4 +38,23 @@ feature "company#show" do
     data_rows.last.should have_content not_confirmed_account.email
   end
   
+  scenario "contact person should ne clickable" do
+    @session.visit company_path
+    @session.find("#contact-person-link").click
+    @session.current_path.should eq customer_path(@customer)
+  end
+  
+  scenario "customer's profile should be clickable" do
+    @session.visit company_path
+    first_account_row = @session.all("#customers_short_list .data-row").first
+    first_account_row.hover
+    first_account_row.find(".view-profile-action").click
+    @session.current_path.should eq customer_path(@customer)
+  end
+  
+  scenario "Invite another customer link shuld be lickable" do
+    @session.visit company_path
+    @session.click_link "Invite another customer"
+    @session.current_path.should eq new_customer_invitation_path
+  end
 end

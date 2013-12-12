@@ -6943,3 +6943,18 @@ ul.my-friends li .profile-pic{
 	font-weight: 300;
 	text-indent: -2px;
 }
+
+.list-row-action-wrapper-link {
+    display: inline-block;
+    font-size: 1.3em;
+    padding: 4px;
+    visibility: hidden;
+}
+
+.list-row-action-wrapper-link:hover {
+  text-decoration: none;
+}
+.data-row:hover .list-row-action-wrapper-link,
+.data-row:hover .list-row-action-wrapper-link-active {
+  visibility: visible;
+}

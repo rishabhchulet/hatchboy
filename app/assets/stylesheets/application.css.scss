@@ -11,11 +11,12 @@
  *= require_self
  *= require plugins/pace/pace-theme-flash.css
  *= require plugins/jquery-slider/css/jquery.sidr.light.css
- *= require plugins/boostrapv3/css/bootstrap.min.css
- *= require plugins/boostrapv3/css/bootstrap-theme.min.css
  *= require plugins/font-awesome/css/font-awesome.css
  *= require css/animate.min.css
  *= require css/style.css
  *= require css/responsive.css
  *= require css/custom-icon-set.css
+ *= require css/fileinput-extension.css 
  */
+
+@import "bootstrap-custom";

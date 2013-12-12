@@ -20,4 +20,6 @@ Hatchboy::Application.routes.draw do
   put "company",   :to => "companies#update"
   patch "company", :to => "companies#update"
   
+  resources :customers, only: [:show]
+  
 end

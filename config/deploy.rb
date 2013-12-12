@@ -9,4 +9,5 @@ set :pty, true
 set :forward_agent, true
 
 set :linked_files, %w{config/database.yml .env}
+set :linked_dirs , %w{public/uploads}
 set :keep_releases, 3
