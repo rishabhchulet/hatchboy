@@ -19,6 +19,7 @@ gem 'unicorn'
 gem "bundler", "~> 1.3.5"
 gem "foreman", "~> 0.63.0"
 gem "carrierwave", "~> 0.9.0"
+gem "mini_magick", "~> 3.7.0"
 
 group :development do
   gem 'capistrano',  '~> 3.0.1'
