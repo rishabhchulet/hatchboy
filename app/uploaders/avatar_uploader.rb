@@ -30,10 +30,14 @@ class AvatarUploader < CarrierWave::Uploader::Base
     ActionController::Base.helpers.asset_path("images/" + [version_name, "userpic.jpg"].compact.join('_'))
   end
 
-  # Override the filename of the uploaded files:
-  # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+    secure_token if super
+  end
+  
+  def secure_token
+    var = :"@#{mounted_as}_secure_token"
+    new_token = ["#{SecureRandom.hex(4)}#{Time.now.to_f}", self.file.extension].reject(&:blank?).join(".")
+    token = model.instance_variable_get(var) or model.instance_variable_set(var, new_token)
+  end
 
 end
