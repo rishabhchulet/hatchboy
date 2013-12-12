@@ -36,7 +36,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   
   def secure_token
     var = :"@#{mounted_as}_secure_token"
-    new_token = ["#{SecureRandom.hex(4)}#{Time.now.to_f}", self.file.extension].reject(&:blank?).join(".")
+    new_token = ["#{SecureRandom.hex(4)}#{Time.now.to_f}", self.file.extension].reject(&:blank?).join(".").downcase
     token = model.instance_variable_get(var) or model.instance_variable_set(var, new_token)
   end
 
