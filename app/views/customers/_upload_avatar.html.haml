@@ -1,0 +1,19 @@
+- avatar_exists = (!!resource.profile.avatar.file and !f.object.remove_avatar)
+#upload-avatar.fileinput{ "data-provides" => "fileinput", "class" => avatar_exists ?  "fileinput-exists" : "fileinput-new" }
+  .fileinput-preview.thumbnail{ "data-trigger" => "fileinput", "style" => "width: 200px; height: 200px;background-image:"}
+    = image_tag f.object.avatar.url unless f.object.remove_avatar
+  %div
+    %span.btn.btn-default.btn-file
+      %span.fileinput-new Select image
+      %span.fileinput-exists Change
+      = f.hidden_field :avatar, :value => "not-set"
+      = f.file_field :avatar, :as => :file
+    %a.btn.btn-default.fileinput-changed{ "data-reset" => "fileinput" } Reset
+    %a.btn.btn-default.fileinput-exists{ "data-dismiss" => "fileinput"} Remove
+    = f.hidden_field :remove_avatar, :value => "1", class: "remove-avatar-field", :disabled => !f.object.remove_avatar  
+= f.hidden_field :avatar_cache
+-content_for :javascript do
+  = javascript_include_tag "upload_avatar"
+  :coffeescript 
+    $ ->
+      add_reset_behavior($("#upload-avatar"))

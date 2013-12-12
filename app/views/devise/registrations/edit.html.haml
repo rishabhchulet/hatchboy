@@ -25,14 +25,16 @@
           %a.reload{:href => "javascript:;"}
           %a.remove{:href => "javascript:;"}
       .grid-body.no-border
-        = simple_form_for(resource, :as => resource_name, :url => update_account_registration_path, :html => { :method => :put }) do |f|
+        = simple_form_for(resource, :as => resource_name, :url => update_account_registration_path, :html => { :method => :put, :multipart => true }) do |f|
           = display_flash_message :error, f.error_notification
+          = f.input :current_password, :hint => "(we need your current password to confirm your changes)", :required => true
           = f.fields_for :profile do |profile|
             = profile.input :name, :required => true, :hint => 'e.g. "Jane Smith"'
           = f.input :email, :required => true, :hint => 'e.g. "email@exapmle.com"'
           = f.input :password, :autocomplete => "off", :hint => "(leave it blank if you don't want to change it)", :required => false
           = f.input :password_confirmation, :required => false
-          = f.input :current_password, :hint => "(we need your current password to confirm your changes)", :required => true
+          = f.fields_for :profile do |profile|
+            = render partial: "customers/upload_avatar",  :locals => {f: profile}
           .form-actions
             .pull-right
               %button.btn.btn-success.btn-cons{:type => "submit"}

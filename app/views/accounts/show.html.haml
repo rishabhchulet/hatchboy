@@ -29,7 +29,7 @@
           .grid-body.no-border{:style => "display: block;"}
             .row
               .col-md-2
-                %img{ "src" => "/assets/img/profiles/bc2x.jpg", width: "200px", height: "200px" } 
+                %img{ "src" => @account.profile.avatar.url, style: "max-width:200px;max-height:200px"} 
               .col-md-4
                 .row
                 .row 

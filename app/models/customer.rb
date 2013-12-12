@@ -8,6 +8,8 @@ class Customer < ActiveRecord::Base
   
   validates_presence_of :name
   validates_presence_of :company
+  
+  mount_uploader :avatar, AvatarUploader
 
   def company_attributes= company
     company[:created_by] = self
