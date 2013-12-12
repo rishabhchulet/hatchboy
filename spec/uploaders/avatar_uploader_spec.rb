@@ -17,13 +17,13 @@ describe AvatarUploader do
 
   context 'original version' do
     it "should scale down a landscape image to be exactly 200 by 200 pixels" do
-      @uploader.should have_dimensions(200, 200)
+      @uploader.should be_no_larger_than(200, 200)
     end
   end
 
   context 'the thumb version' do
     it "should scale down a landscape image to fit within 50 by 50 pixels" do
-      @uploader.thumb.should be_no_larger_than(50, 50)
+      @uploader.thumb.should have_dimensions(50, 50)
     end
   end
 
