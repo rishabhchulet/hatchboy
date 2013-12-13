@@ -5,11 +5,10 @@
         .user-details
           .username
             %span.badge.badge-important 3
-            John
-            %span.bold Smith
+            %span.bold= current_account.profile.name
         .iconset.top-down-arrow
       .profile-pic
-        %img{:alt => "", "data-src" => "/assets/img/profiles/avatar_small.jpg", "data-src-retina" => "/assets/img/profiles/avatar_small2x.jpg", :height => "35", :src => "/assets/img/profiles/avatar_small.jpg", :width => "35"}/
+        %img{:alt => "", "data-src" => current_account.profile.avatar.thumb, "data-src-retina" => current_account.profile.avatar.thumb, :height => "35", :src => current_account.profile.avatar.thumb }/
     %ul.nav.quick-section
       %li.quicklinks
         %a.dropdown-toggle.pull-right{"data-toggle" => "dropdown", :href => "#"}
