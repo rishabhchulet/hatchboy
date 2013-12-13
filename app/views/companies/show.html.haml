@@ -120,36 +120,4 @@
       =render :partial => "customers/short_list", :object => @company.customers.joins(:account).order("created_at ASC")
   .col-md-6
     .row
-      .col-md-12
-        .grid.simple{:style => "position: static;"}
-          .grid-title.no-border
-            %h4
-              %span.semi-bold Employees
-            .tools
-              %a.collapse{:href => "javascript:;"}
-              %a.config{"data-toggle" => "modal", :href => "#grid-config"}
-              %a.reload{:href => "javascript:;"}
-              %a.remove{:href => "javascript:;"}
-          .grid-body.no-border{:style => "display: block;"}
-            %table.table.table-hover.table-striped.table-bordered.no-more-tables
-              %thead
-                %tr
-                  %th #
-                  %th First Name
-                  %th Last Name
-                  %th Username
-              %tbody
-                %tr
-                  %td 1
-                  %td Mark
-                  %td Otto
-                  %td @mdo
-                %tr
-                  %td 2
-                  %td Jacob
-                  %td Thornton
-                  %td @fat
-                %tr
-                  %td 3
-                  %td{:colspan => "2"} Larry the Bird
-                  %td @twitter
+      =render :partial => "employees/short_list", :object => @company.employees.order("created_at ASC")

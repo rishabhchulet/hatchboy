@@ -1,0 +1,13 @@
+%tr.data-row
+  %td= short_list_row.id
+  %td= short_list_row.name
+  %td= short_list_row.account.contact_email
+  %td= short_list_row.account.role
+  %td
+    .col-md-10
+      = short_list_row.account.status
+    .col-md-2
+      .list-column.list-row-action
+        .list-row-action-wrapper
+          =link_to employee_path(short_list_row), :rel => :tooltip, :title => "view employee profile", :class => 'list-row-action-wrapper-link view-profile-action' do
+            %i.icon-male
