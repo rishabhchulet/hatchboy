@@ -40,4 +40,10 @@ feature "companies#edit" do
     @session.find(:flash, :success).should have_content "Information about your company has been successfully updated"
   end
   
+  it "should have only company's customers in contact list option" do
+    others_company_customers = create_list :customer, 3
+    @session.visit edit_company_path
+    @session.all("select#company_contact_person_id option").count.should eq 2 
+  end
+  
 end
