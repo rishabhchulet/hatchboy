@@ -3,15 +3,15 @@ class CompaniesController < ApplicationController
   before_filter :authenticate_account!
   
   def show
-    @company = current_account.profile.company
+    @company = account_company
   end
 
   def edit
-    @company = current_account.profile.company
+    @company = account_company
   end
   
   def update
-    @company = current_account.profile.company
+    @company = account_company
 
     if @company.update_attributes(company_params)
       flash[:notice] = "Information about your company has been successfully updated"

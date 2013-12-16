@@ -14,3 +14,4 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-custom
+//= require lists_row_actions
