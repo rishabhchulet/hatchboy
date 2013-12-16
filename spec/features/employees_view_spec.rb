@@ -18,9 +18,8 @@ feature "EmployeesController#show" do
   
   scenario "should have link to edit employee page" do
     @session.visit employee_path @employee
-    @session.click_link "Edit"
+    @session.find("a.edit-employee").click
     @session.current_path.should eq edit_employee_path @employee
   end
-  
   
 end

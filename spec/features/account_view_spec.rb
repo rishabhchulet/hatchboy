@@ -20,4 +20,9 @@ feature "account#show" do
     @session.should have_content @customer.name
   end
   
+  scenario "it should have link to edit account page" do
+    @session.find("a.edit-account").click
+    @session.current_path.should eq edit_account_registration_path
+  end
+  
 end

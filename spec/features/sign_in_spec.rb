@@ -10,7 +10,7 @@ feature "Sing in" do
     end
   
     scenario "should be successful" do
-      @session.current_path.should eq account_dashboard_path
+      @session.current_path.should eq company_path
       @session.find(:flash, :success).should have_content("Signed in successfully.")
     end
     

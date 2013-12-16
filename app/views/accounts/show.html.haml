@@ -12,7 +12,6 @@
       %h3
         = @account.profile.name
   .col-md-1.text-right
-    = link_to "Edit", edit_account_registration_path, :class => "btn btn-default"
 .row
   .col-md-12
     .row
@@ -23,9 +22,7 @@
               %span.semi-bold Personal information
             .tools
               %a.collapse{:href => "javascript:;"}
-              %a.config{"data-toggle" => "modal", :href => "#grid-config"}
-              %a.reload{:href => "javascript:;"}
-              %a.remove{:href => "javascript:;"}
+              =link_to "", edit_account_registration_path, :class => "config edit-account"
           .grid-body.no-border{:style => "display: block;"}
             .row
               .col-md-2
