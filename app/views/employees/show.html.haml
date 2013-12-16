@@ -15,7 +15,6 @@
       %h3
         = @employee.name
   .col-md-1.text-right
-    = link_to "Edit", edit_employee_path(@employee), :class => "btn btn-default"
 .row
   .col-md-12
     .row
@@ -26,7 +25,7 @@
               %span.semi-bold Personal information
             .tools
               %a.collapse{:href => "javascript:;"}
-              %a.config{"data-toggle" => "modal", :href => "#grid-config"}
+              = link_to "", edit_employee_path(@employee), :class => "config edit-employee"
           .grid-body.no-border{:style => "display: block;"}
             .row
               .col-md-2

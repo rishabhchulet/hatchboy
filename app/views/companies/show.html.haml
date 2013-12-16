@@ -11,8 +11,6 @@
       %i.icon-custom-ui
       %h3
         = @company.name
-  .col-md-1.text-right
-    = link_to "Edit", edit_company_path, :class => "btn btn-default"
 .row
   .col-md-12
     .row
@@ -23,7 +21,7 @@
               %span.semi-bold About company
             .tools
               %a.collapse{:href => "javascript:;"}
-              %a.config{"data-toggle" => "modal", :href => "#grid-config"}
+              = link_to "", edit_company_path, class: "config edit-company"
           .grid-body.no-border{:style => "display: block;"}
             =@company.description
             %br 

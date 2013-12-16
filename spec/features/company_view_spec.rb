@@ -53,10 +53,15 @@ feature "company#show" do
     @session.current_path.should eq customer_path(@customer)
   end
   
-  scenario "Invite another customer link shuld be lickable" do
+  scenario "Invite another customer link should be clickable" do
     @session.visit company_path
     @session.click_link "Invite another customer"
     @session.current_path.should eq new_customer_invitation_path
+  end
+  
+  scenario "it should have link to edit company page" do
+    @session.find("a.edit-company").click
+    @session.current_path.should eq edit_company_path
   end
   
   context "when company has employees" do
