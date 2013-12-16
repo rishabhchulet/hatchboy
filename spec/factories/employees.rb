@@ -3,12 +3,12 @@
 FactoryGirl.define do
   
   sequence :role do
-    roles = ["designer", "manager", "developer", "CEO", "teamlider" ]
+    roles = ["Manager", "Developer", "Designer", "Fron-end developer", "CEO", "Team-Leader" ]
     roles[rand(roles.count)]
   end
   
   sequence :status do
-    statuses = ["outsourced", "temporary", "fulltime", "hourly rate"]
+    statuses = ["Full day", "Temporary", "Half-day", "Fired", "Outsourcer"]
     statuses[rand(statuses.count)]
   end
   

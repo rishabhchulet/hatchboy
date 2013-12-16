@@ -1,7 +1,7 @@
 = display_flash_message :error, f.error_notification
 = f.input :name, :required => true, :hint => 'e.g. "Runolfsson LLC"', :autofocus => true
 = f.input :contact_email, :as => :email, :hint => 'e.g. "email@example.com"'
-= f.input :role, collection: ["Manager", "Developer", "Designer", "Fron-end developer"]
+= f.input :role, collection: ["Manager", "Developer", "Designer", "Fron-end developer", "CEO", "Team-Leader"]
 = f.input :status, collection: ["Full day", "Temporary", "Half-day", "Fired", "Outsourcer"]
 .form-actions
   .pull-right
