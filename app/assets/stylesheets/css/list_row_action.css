@@ -1,0 +1,33 @@
+.list-row-action-wrapper-link {
+    display: inline-block;
+    font-size: 1.3em;
+    padding: 4px;
+    visibility: hidden;
+}
+
+.list-row-action-wrapper-link:hover {
+  text-decoration: none;
+}
+
+.data-row:hover .list-row-action-wrapper-link,
+.data-row:hover .list-row-action-wrapper-link-active {
+  visibility: visible;
+}
+
+.list-row-action-popover-delete-one {
+  left: -135px;
+  top: -23px;
+  width: 200px;
+  text-align: center;
+}
+
+.list-row-action-popover-share-one {
+  left: -200px;
+  top: -67px;
+  width: 500px;
+  text-align: center;
+}
+
+.list-row-action-popover-delete-one-btn, .list-row-action-popover-share-one-btn {
+  margin-right: 10px;
+}

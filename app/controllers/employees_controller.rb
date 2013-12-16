@@ -1,23 +1,55 @@
 class EmployeesController < ApplicationController
+
+  before_filter :authenticate_account!
   
+  
+  def show
+    @employee = account_company.employees.where(id: params[:id]).first or not_found
+  end
   
   def new
-    @employee = Employee.new
+    @employee = account_company.employees.new
   end
   
   def create
-    @employee = Employee.create(employee_params)
-    
+    @employee = account_company.employees.create(employee_params)
     if @employee.valid?
-      respond_with({}, :location => company_path)
+      flash[:notice] = "New employee has been successfully added"
+      redirect_to after_action_path
     else
       render "employees/new"
     end
-    
   end
   
-  def employee_params 
-    params.permit(:name, :contact_email, :role, :status)
+  def edit
+    @employee = account_company.employees.where(id: params[:id]).first or not_found 
+  end
+
+  def update
+    @employee = account_company.employees.where(id: params[:id]).first or not_found
+
+    if @employee.update_attributes(employee_params)
+      flash[:notice] = "Information about employee has been successfully updated"
+      redirect_to after_action_path
+    else
+      render "employees/edit"
+    end
   end
   
+  def destroy
+    @employee = account_company.employees.where(id: params[:id]).first or not_found
+    @employee.destroy
+    flash[:notice] = "Employee has been successfully removed"
+    redirect_to after_action_path
+  end
+  
+  protected
+  
+  def employee_params
+    params.require(:employee).permit(:name, :contact_email, :role, :status)
+  end
+  
+  def after_action_path
+    "#{company_path}#employees_short_list"
+  end
 end

@@ -7,7 +7,7 @@
     %a{:href => company_path}< Company Employee
   %i.icon-angle-right
   %li
-    %a.active{:href => edit_company_path} New  
+    %a.active{:href => edit_company_path} Edit  
 .row
   .col-md-12    
     .page-title
@@ -25,5 +25,5 @@
           %a.reload{:href => "javascript:;"}
           %a.remove{:href => "javascript:;"}
       .grid-body.no-border
-        = simple_form_for(@employee, :as => :employee, :html => { :method => :post }) do |f|
+        = simple_form_for(@employee, :as => :employee, :html => { :method => :put }) do |f|
           = render partial: "employees/form", :locals => { f: f }
