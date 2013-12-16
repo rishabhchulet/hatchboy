@@ -29,7 +29,7 @@
           = display_flash_message :error, f.error_notification
           = f.input :name, :required => true, :hint => 'e.g. "Runolfsson LLC"'
           = f.input :description, :hint => "a few good words about your comapny"
-          = f.association :contact_person, include_blank: false
+          = f.association :contact_person, collection: @company.customers, include_blank: false
           .form-actions
             .pull-right
               %button.btn.btn-success.btn-cons{:type => "submit"}
