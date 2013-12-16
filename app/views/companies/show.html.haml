@@ -33,7 +33,7 @@
             
 .row
   .col-md-12
-    .grid.simple
+    #teams-short-list.action-list.grid.simple
       .grid-title.no-border
         %h4
           %span.semi-bold Teams
@@ -106,7 +106,11 @@
                 %span.muted $6,000
               %td
                 .progress
-                  .progress-bar.progress-bar-warning.animate-progress-bar{"data-percentage" => "42%", :style => "width: 42%;"}              
+                  .progress-bar.progress-bar-warning.animate-progress-bar{"data-percentage" => "42%", :style => "width: 42%;"}
+      :javascript
+        $(function() {
+          $('#teams-short-list').block({message: '', overlayCSS: { opacity: 0.20, cursor: 'white' }})
+        })                
 
 .row
   .col-md-6
