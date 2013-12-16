@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   
   def home
-    redirect_to account_dashboard_path if account_signed_in?
+    redirect_to company_path if account_signed_in?
   end
   
   def dashboard
