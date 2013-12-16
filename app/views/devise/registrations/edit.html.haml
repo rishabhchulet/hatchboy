@@ -20,10 +20,6 @@
         %h4
           %span.semi-bold Edit personal information
         .tools
-          %a.collapse{:href => "javascript:;"}
-          %a.config{"data-toggle" => "modal", :href => "#grid-config"}
-          %a.reload{:href => "javascript:;"}
-          %a.remove{:href => "javascript:;"}
       .grid-body.no-border
         = simple_form_for(resource, :as => resource_name, :url => update_account_registration_path, :html => { :method => :put, :multipart => true }) do |f|
           = display_flash_message :error, f.error_notification

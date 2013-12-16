@@ -20,10 +20,6 @@
         %h4
           %span.semi-bold New employee
         .tools
-          %a.collapse{:href => "javascript:;"}
-          %a.config{"data-toggle" => "modal", :href => "#grid-config"}
-          %a.reload{:href => "javascript:;"}
-          %a.remove{:href => "javascript:;"}
       .grid-body.no-border
         = simple_form_for(@employee, :as => :employee, :html => { :method => :post }) do |f|
           = render partial: "employees/form", :locals => { f: f }
