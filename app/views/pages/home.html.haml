@@ -1,35 +1,31 @@
 - title "HatchBoy - Home page"
 .text-center
-  %h3 Hello, customer
   %br
   %br
   .container
+    = render "layouts/messages"
     .row
       .col-sm-12.col-md-4
-        .thumbnail
+        .thumbnail{style: "background-color: #CBB8A0"}
           %img{ :src => "/assets/images/1.jpg", :alt => "..." }
           .caption
             %h3 You can do this with app 
             %p 
               Description of the first thing
-            %a.btn.btn-primary{ :href => "#", :role => "button"} Learn more
+            %a.btn.btn-primary{ :href => "#", :role => "button", style: "background-color:#8C211E"} Learn more
       .col-sm-12.col-md-4
-        .thumbnail
+        .thumbnail{style: "background-color: #CBB8A0"}
           %img{ :src => "/assets/images/2.jpg", :alt => "..." }
           .caption
             %h3 And this 
             %p 
               Description of the second thing
-            %a.btn.btn-primary{ :href => "#", :role => "button"} Learn more
+            %a.btn.btn-primary{ :href => "#", :role => "button", style: "background-color:#8C211E" } Learn more
       .col-sm-12.col-md-4
-        .thumbnail
+        .thumbnail{style: "background-color: #CBB8A0"}
           %img{ :src => "/assets/images/3.jpg", :alt => "..." }
           .caption
             %h3 And finally this
             %p 
               Description of the third thing
-            %a.btn.btn-primary{ :href => "#", :role => "button"} Learn more
-            
-.text-center
-  %br
-  %p= link_to 'Join now', new_account_registration_path, :class => "btn btn-primary btn-lg", :role => "button"
+            %a.btn.btn-primary{ :href => "#", :role => "button", style: "background-color:#8C211E" } Learn more

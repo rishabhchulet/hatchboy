@@ -2,6 +2,9 @@ class EmployeesController < ApplicationController
 
   before_filter :authenticate_account!
   
+  def index 
+    
+  end
   
   def show
     @employee = account_company.employees.where(id: params[:id]).first or not_found

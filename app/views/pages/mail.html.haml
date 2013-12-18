@@ -1,0 +1,419 @@
+.page-title{:style => "display:none"}
+  %a#btn-back{:href => "#"}
+    %i.icon-custom-left
+  %h3
+    Back-
+    %span.semi-bold Inbox
+#inbox-wrapper.row
+  .col-md-12
+    .row
+      .col-md-12
+        .grid.simple
+          .grid-body.no-border.email-body
+            %br/
+            .row-fluid
+              .row-fluid.dataTables_wrapper
+                %h2.pull-left
+                  Inbox
+                .btn-group
+                  %a.btn.btn-white.btn-mini.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                    %span.caret.single
+                  %ul.dropdown-menu
+                    %li
+                      %a{:href => "#"} Action
+                    %li
+                      %a{:href => "#"} Another action
+                    %li
+                      %a{:href => "#"} Something else here
+                    %li.divider
+                    %li
+                      %a{:href => "#"} Separated link
+                .pull-right.margin-top-20
+                  .dataTables_paginate.paging_bootstrap.pagination
+                    %ul
+                      %li.prev.disabled
+                        %a{:href => "#"}
+                          %i.icon-chevron-left
+                      %li.active
+                        %a{:href => "#"} 1
+                      %li
+                        %a{:href => "#"} 2
+                      %li.next
+                        %a{:href => "#"}
+                          %i.icon-chevron-right
+                  #example_info.dataTables_info.hidden-xs
+                    Showing
+                    %b 1 to 10
+                    of 14 entries
+                .clearfix
+              #email-list
+                %table#emails.table.table-striped.table-fixed-layout.table-hover
+                  %thead
+                    %tr
+                      %th.small-cell
+                      %th.small-cell
+                      %th.medium-cell
+                      %th
+                      %th.medium-cell
+                  %tbody
+                    %tr
+                      %td.small-cell{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox8{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox8"}
+                      %td.small-cell{:valign => "middle"}
+                        .star
+                          %input#checkbox9{:checked => "", :type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox9"}
+                      %td.clickable{:valign => "middle"} David Nester
+                      %td.clickable.tablefull{:valign => "middle"}
+                        %span.muted Less spam, and mobile access. Gmail is email that's intuitive, ...efficient, and useful. And maybe even fun.
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td.small-cell{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox10{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox10"}
+                      %td.small-cell{:valign => "middle"}
+                        .star
+                          %input#checkbox11{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox11"}
+                      %td.clickable{:valign => "middle"} Jane Smith
+                      %td.clickable{:valign => "middle"}
+                        %span.label.label-important> HOME
+                        \&nbsp;
+                        %span.muted Open the door to success, maximum revanue efficient, and useful
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox12{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox12"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox13{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox13"}
+                      %td.clickable{:valign => "middle"} David Nester
+                      %td.clickable{:valign => "middle"}
+                        %span.muted Less spam, and mobile access. Gmail is email that's intuitive, ...efficient, and useful. And maybe even fun.
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox14{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox14"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox15{:checked => "", :type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox15"}
+                      %td.clickable{:valign => "middle"} David Nester
+                      %td.clickable{:valign => "middle"}
+                        %span.muted
+                          %span.label.label-success> WORK
+                          \&nbsp;Less spam, and mobile access. Gmail is email that's intuitive, ...efficient, and useful. And maybe even fun.
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox16{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox16"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox17{:checked => "", :type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox17"}
+                      %td.clickable{:valign => "middle"} Jane Smith
+                      %td.clickable{:valign => "middle"}
+                        %span.muted Open the door to success, maximum revanue efficient, and useful
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox18{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox18"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox19{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox19"}
+                      %td.clickable{:valign => "middle"} David Nester
+                      %td.clickable{:valign => "middle"}
+                        %span.muted Less spam, and mobile access. Gmail is email that's intuitive, ...efficient, and useful. And maybe even fun.
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox20{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox20"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox11{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox21"}
+                      %td.clickable{:valign => "middle"} Jane Smith
+                      %td.clickable{:valign => "middle"}
+                        %span.muted Open the door to success, maximum revanue efficient, and useful
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox22{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox22"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox23{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox24"}
+                      %td.clickable{:valign => "middle"} David Nester
+                      %td.clickable{:valign => "middle"}
+                        %span.muted Less spam, and mobile access. Gmail is email that's intuitive, ...efficient, and useful. And maybe even fun.
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox25{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox25"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox26{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox26"}
+                      %td.clickable{:valign => "middle"} Jane Smith
+                      %td.clickable{:valign => "middle"}
+                        %span.muted Open the door to success, maximum revanue efficient, and useful
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox27{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox27"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox28{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox28"}
+                      %td.clickable{:valign => "middle"} David Nester
+                      %td.clickable{:valign => "middle"}
+                        %span.muted
+                          %span.label.label-success> WORK
+                          \&nbsp;Less spam, and mobile access. Gmail is email that's intuitive, ...efficient, and useful. And maybe even fun.
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox29{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox29"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox30{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox30"}
+                      %td.clickable{:valign => "middle"} Jane Smith
+                      %td.clickable{:valign => "middle"}
+                        %span.muted Open the door to success, maximum revanue efficient, and useful
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox8{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox8"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox9{:checked => "", :type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox9"}
+                      %td.clickable{:valign => "middle"} David Nester
+                      %td.clickable{:valign => "middle"}
+                        %span.muted Less spam, and mobile access. Gmail is email that's intuitive, ...efficient, and useful. And maybe even fun.
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox10{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox10"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox11{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox11"}
+                      %td.clickable{:valign => "middle"} Jane Smith
+                      %td.clickable{:valign => "middle"}
+                        %span.label.label-important> HOME
+                        \&nbsp;
+                        %span.muted Open the door to success, maximum revanue efficient, and useful
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox12{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox12"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox13{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox13"}
+                      %td.clickable{:valign => "middle"} David Nester
+                      %td.clickable{:valign => "middle"}
+                        %span.muted Less spam, and mobile access. Gmail is email that's intuitive, ...efficient, and useful. And maybe even fun.
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox14{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox14"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox15{:checked => "", :type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox15"}
+                      %td.clickable{:valign => "middle"} David Nester
+                      %td.clickable{:valign => "middle"}
+                        %span.muted
+                          %span.label.label-success> WORK
+                          \&nbsp;Less spam, and mobile access. Gmail is email that's intuitive, ...efficient, and useful. And maybe even fun.
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox16{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox16"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox17{:checked => "", :type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox17"}
+                      %td.clickable{:valign => "middle"} Jane Smith
+                      %td.clickable{:valign => "middle"}
+                        %span.muted Open the door to success, maximum revanue efficient, and useful
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox18{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox18"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox19{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox19"}
+                      %td.clickable{:valign => "middle"} David Nester
+                      %td.clickable{:valign => "middle"}
+                        %span.muted Less spam, and mobile access. Gmail is email that's intuitive, ...efficient, and useful. And maybe even fun.
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox20{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox20"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox11{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox21"}
+                      %td.clickable{:valign => "middle"} Jane Smith
+                      %td.clickable{:valign => "middle"}
+                        %span.muted Open the door to success, maximum revanue efficient, and useful
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox22{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox22"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox23{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox24"}
+                      %td.clickable{:valign => "middle"} David Nester
+                      %td.clickable{:valign => "middle"}
+                        %span.muted Less spam, and mobile access. Gmail is email that's intuitive, ...efficient, and useful. And maybe even fun.
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox25{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox25"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox26{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox26"}
+                      %td.clickable{:valign => "middle"} Jane Smith
+                      %td.clickable{:valign => "middle"}
+                        %span.muted Open the door to success, maximum revanue efficient, and useful
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox27{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox27"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox28{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox28"}
+                      %td.clickable{:valign => "middle"} David Nester
+                      %td.clickable{:valign => "middle"}
+                        %span.muted
+                          %span.label.label-success> WORK
+                          \&nbsp;Less spam, and mobile access. Gmail is email that's intuitive, ...efficient, and useful. And maybe even fun.
+                      %td.clickable
+                        %span.muted Yesterday
+                    %tr
+                      %td{:valign => "middle"}
+                        .checkbox.check-success
+                          %input#checkbox29{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox29"}
+                      %td{:valign => "middle"}
+                        .star
+                          %input#checkbox30{:type => "checkbox", :value => "1"}/
+                          %label{:for => "checkbox30"}
+                      %td.clickable{:valign => "middle"} Jane Smith
+                      %td.clickable{:valign => "middle"}
+                        %span.muted Open the door to success, maximum revanue efficient, and useful
+                      %td.clickable
+                        %span.muted Yesterday
+.row
+  #preview-email-wrapper.col-md-12{:style => "display:none"}
+    .row
+      .col-md-12
+        .grid.simple
+          .grid-title.no-border
+            %h4
+            .tools
+              %a.remove{:href => "javascript:;"}
+          .grid-body.no-border{:style => "min-height: 850px;"}
+            %div
+              %h1#emailheading Meeting
+              %br/
+              .control
+                .pull-left
+                  .btn-group
+                    %a.btn.btn-mini.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                      David Nester
+                      %span.caret
+                    %ul.dropdown-menu
+                      %li
+                        %a{:href => "#"} Action
+                      %li
+                        %a{:href => "#"} Another action
+                      %li
+                        %a{:href => "#"} Something else here
+                      %li.divider
+                      %li
+                        %a{:href => "#"} Separated link
+                  %label.inline
+                    %span.muted &nbsp;&nbsp;to
+                    %span.bold.small-text johnsmith@skyace.com
+                .pull-right
+                  %span.muted.small-text August 5 2013 11.30PM
+                .clearfix
+              %br/
+              .email-body
+                %p
+                  Thank you for taking the time to meet with me and other representatives of the last week regarding the challenges facing public transportation, especially. We enjoyed meeting with you and . I’m glad we had the opportunity to discuss an issue that affects so many people in [city/state/community]. We especially appreciate your commitment to [describe any commitment made by the official].
+                  The [coalition name] believes that public transportation is vital to quality of life of our community. As we discussed …
+                  Our coalition would greatly appreciate your support  in ensuring that public transportation is widely available to all who need it – especially the people living in . On behalf of all our members and the thousands of citizens they represent, I want to thank you for taking the time out of your busy schedule to discuss this important matter.
