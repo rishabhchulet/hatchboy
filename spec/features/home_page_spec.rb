@@ -6,7 +6,6 @@ feature "Home Page" do
     visit root_path
     find_link("Sign In").should be_visible
     find_link("Sign Up").should be_visible
-    find_link("Join now").should be_visible
   end
   
   it "should have link to sign up page" do

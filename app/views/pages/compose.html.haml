@@ -1,0 +1,48 @@
+/ BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM
+#portlet-config.modal.hide
+  .modal-header
+    %button.close{"data-dismiss" => "modal", :type => "button"}
+    %h3 Widget Settings
+  .modal-body Widget settings form goes here
+.clearfix
+.content
+  .row-fluid
+    .span12
+      .row-fluid
+        .span12
+          .grid.simple
+            .grid-body.no-border{:style => "min-height: 850px;"}
+              %br/
+              .row-fluid
+                %h2 New Message
+                .row
+                  .form-group.col-md-12
+                    %label.form-label Sender
+                    %span.help e.g. "someone@example.com"
+                    .controls
+                      %input.form-control{:type => "text"}/
+                .row
+                  .form-group.col-md-12
+                    %label.form-label Subject
+                    %span.help e.g. "Meeting Agenda"
+                    .controls
+                      %input.form-control{:type => "text"}/
+                .row
+                  .form-group.col-md-12
+                    %textarea#text-editor.form-control{:placeholder => "Enter text ...", :rows => "25"}
+#quick-access.admin-bar{:style => "display:"}
+  .admin-bar-inner
+    .form-horizontal
+    %button.btn.btn-danger.btn-cons.btn-add{:type => "button"}
+      %i.icon-envelope
+      Send
+    %button.btn.btn-white.btn-cons.btn-cancel{:type => "button"} Save
+.clearfix
+=content_for :javascript do
+  =stylesheet_link_tag "plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"
+  =javascript_include_tag "plugins/bootstrap-wysihtml5/wysihtml5-0.3.0", "plugins/bootstrap-wysihtml5/bootstrap-wysihtml5"
+  :javascript
+    $(document).ready(function() {
+      $('#text-editor').wysihtml5();
+      $("#quick-access").css("bottom","0px");       
+    });   
