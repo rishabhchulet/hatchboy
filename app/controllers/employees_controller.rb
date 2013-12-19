@@ -3,7 +3,7 @@ class EmployeesController < ApplicationController
   before_filter :authenticate_account!
   
   def index 
-    @employees = Employee.order("created_at ASC")
+    @employees = account_company.employees.order("created_at ASC")
   end
   
   def show

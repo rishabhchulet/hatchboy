@@ -1,7 +1,7 @@
 class CustomersController < ApplicationController
   
   def index
-    @customers = Customer.joins(:account).order("created_at ASC")
+    @customers = account_company.customers.joins(:account).order("created_at ASC")
   end
   
   def show
