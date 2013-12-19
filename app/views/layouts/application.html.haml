@@ -36,17 +36,6 @@
             %li.quicklinks
               %a{:href => url_for}
                 .iconset.top-reload
-            %li.quicklinks
-              %span.h-seperate
-            %li.quicklinks
-              %a{:href => "#"}
-                .iconset.top-tiles
-            - if account_signed_in?
-              .input-prepend.inside.search-form.no-boarder
-                %span.add-on
-                  %a{:href => "#"}
-                    .iconset.top-search
-                %input.no-boarder{:name => "", :placeholder => "Search Dashboard", :style => "width:250px;", :type => "text"}/
         / END TOP NAVIGATION MENU
         = render 'layouts/quick_menu'
       / END TOP NAVIGATION MENU

@@ -19,7 +19,7 @@
     %li
       %a{:href => account_mail_path}
         %i.icon-envelope
-        %span.title Email
+        %span.title Messages
         %span.badge.badge-disable.pull-right 203
     %li
       %a{:href => customers_path}
@@ -41,10 +41,6 @@
       %a{:href => reports_path}
         %i.icon-custom-extra
         %span.title Reports
-    %li
-      %a{:href => messages_path}
-        %i.icon-custom-extra
-        %span.title Messages
   .clearfix
 - if ['mail', 'compose'].include? request[:action] 
   .inner-menu.nav-collapse
