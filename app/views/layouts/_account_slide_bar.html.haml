@@ -10,22 +10,22 @@
         %span.semi-bold= current_account.profile.name
   %p.menu-title
   %ul
-    %li.start.active
+    %li.start{class: request[:action] == 'dashboard' ? "active" : ""}
       %a{:href => account_dashboard_path}
         %i.icon-custom-home
         %span.title Dashboard
         %span.selected
         %span.badge.badge-important.pull-right 5
-    %li
+    %li{class: ['mail', 'compose'].include?(request[:action]) ? "active" : ""}
       %a{:href => account_mail_path}
         %i.icon-envelope
         %span.title Messages
         %span.badge.badge-disable.pull-right 203
-    %li
+    %li{class: ['customers'].include?(request[:controller]) ? "active" : ""}
       %a{:href => customers_path}
         %i.icon-envelope
         %span.title Customers
-    %li
+    %li{class: ['employees'].include?(request[:controller]) ? "active" : ""}
       %a{:href => employees_path}
         %i.icon-custom-ui
         %span.title Employees
