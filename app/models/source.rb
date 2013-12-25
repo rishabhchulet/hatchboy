@@ -8,6 +8,8 @@ class Source < ActiveRecord::Base
   
   validates :provider, inclusion: { in: self::PROVIDERS.keys }, presence: true, :on => :create 
   
+  validates :name, presence: true
+  
   before_create :set_type
   
   private 
