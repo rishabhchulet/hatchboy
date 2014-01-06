@@ -5,6 +5,8 @@ describe Company do
   it { should belong_to(:created_by).class_name('Customer') }
   it { should belong_to(:contact_person).class_name('Customer') }
   it { should have_many(:customers).class_name('Customer') }
+  it { should have_many(:employees).class_name('Employee') }
+  it { should have_many(:sources).class_name('Source') }
   
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:created_by) }

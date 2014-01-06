@@ -5,12 +5,22 @@ class Source < ActiveRecord::Base
   attr_accessor :provider
   
   belongs_to :company
+
+  has_many :source_teams, :class_name => "TeamsSources"  
+
+  has_many :teams, :through => :source_teams, :source => :team
   
-  validates :provider, inclusion: { in: self::PROVIDERS.keys }, presence: true, :on => :create 
+  has_many :worklogs, :class_name => "WorkLog"
+  
+  has_many :users, :class_name => "SourcesUser"
+
+  validates :provider, inclusion: { in: self::PROVIDERS.keys }, presence: true, :on => :create, :if => "self.type.blank?"
   
   validates :name, presence: true
   
-  before_create :set_type
+  validates :company, presence: true
+  
+  before_create :set_type, :if => "self.type.blank?"
   
   private 
   

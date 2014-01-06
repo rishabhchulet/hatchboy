@@ -1,0 +1,61 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a{:href => sources_path} Sources
+  %i.icon-angle-right
+  %li
+    %a.active{:href => jira_sources_path(@jira_source)}= @jira_source.name
+
+.col-md-12
+  .grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold View JIRA source details
+      .tools
+        %a.reload{:href => "javascript:;"}
+        %a.collapse{:href => "javascript:;"}
+    .grid-body.no-border{style: "display:block"}
+      .row
+        .col-md-2
+          %label Name
+        .col-md-4= @jira_source.name
+      .row
+        .col-md-2
+          %label Url
+        .col-md-4= @jira_source.url
+      .row
+        .col-md-2
+          %label Consumer key
+        .col-md-4= @jira_source.consumer_key
+      .row
+        .col-md-2
+          %label Validated
+        .col-md-4= !@jira_source.access_token.blank? ? "Yes" : "No"
+      .row
+        .col-md-2
+          %label Last updated
+        .col-md-4
+          = @jira_source.updated_at
+          = link_to :update, jira_source_refresh_path(@jira_source)
+      .row
+        .col-md-2
+          %label Imported data:
+      .row
+        - if @jira_source.worklogs.any?
+          .row
+            %table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#view-jira-source
+              %thead
+                %tr
+                  %th #
+                  %th Name
+                  %th Type
+                  %th Updated At
+              %tbody
+        - else
+          (nothing imported yet)

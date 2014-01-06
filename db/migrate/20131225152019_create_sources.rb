@@ -7,7 +7,7 @@ class CreateSources < ActiveRecord::Migration
       t.string :url
       t.string :consumer_key
       t.string :access_token
-      t.string :oauth_verifier
+      t.string :access_token_secret
       t.text   :private_key
 
       t.timestamps

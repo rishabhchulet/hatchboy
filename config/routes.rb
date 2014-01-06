@@ -30,5 +30,13 @@ Hatchboy::Application.routes.draw do
   
   resources :customers, only: [:show, :index]
   resources :employees
+  resources :sources, only: [:index, :new]
+  
+  get "jira_sources/callback", :to => "jira_sources#callback", :as => :jira_callback 
+  
+  resources :jira_sources do
+    get "confirm", :to => "jira_sources", :as => :confirm
+    get "refresh", :to => "jira_sources", :as => :refresh
+  end
   
 end

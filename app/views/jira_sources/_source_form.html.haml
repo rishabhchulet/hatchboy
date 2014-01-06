@@ -1,0 +1,12 @@
+= display_flash_message :error, f.error_notification
+= f.input :name, :required => true, :hint => 'e.g. "Runolfsson LLC"', :autofocus => true
+= f.input :url, :required => true, :hint => 'JIRA endpoint web address'
+= f.input :consumer_key, :required => true, :hint => 'Valid JIRA consumer key'
+= f.input :private_key, :required => true, :hint => 'Private key that is authorized in your JIRA application'
+
+.form-actions
+  .pull-right
+    %button.btn.btn-success.btn-cons{:type => "submit"}
+      %i.icon-ok
+      Verify
+    = link_to "Cancel", sources_path, :class => "btn btn-white btn-cons"
