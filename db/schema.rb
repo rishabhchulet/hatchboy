@@ -119,8 +119,9 @@ ActiveRecord::Schema.define(version: 20140106190825) do
   create_table "work_logs", force: true do |t|
     t.integer  "team_id"
     t.integer  "source_id"
-    t.string   "uid_in_source"
     t.integer  "sources_user_id"
+    t.integer  "employee_id"
+    t.string   "uid_in_source"
     t.string   "issue"
     t.date     "on_date"
     t.integer  "time"
