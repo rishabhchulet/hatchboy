@@ -3,9 +3,12 @@ require 'spec_helper'
 describe Source do
 
   it { should belong_to :company }
+  it { should have_many :source_teams }
+  it { should have_many :teams }
+  it { should have_many(:worklogs).class_name("WorkLog")}
+  it { should have_many(:users).class_name("SourcesUser")}
   
   it { should validate_presence_of :name }
-  
   it { should validate_presence_of :company }
   
   it "should validate presence of provider on create" do

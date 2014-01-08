@@ -27,7 +27,7 @@ class JiraSourcesController < ApplicationController
   
   def refresh
     @jira_source = JiraSource.where(id: params[:jira_source_id]).first or not_found
-    @jira_source.import_all
+    @jira_source.import!
     redirect_to jira_source_path(@jira_source)
   end
   

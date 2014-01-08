@@ -2,22 +2,22 @@ module Hatchboy
   module Connector
     module Jira
       
-      delegate :request_token, :set_request_token, :set_access_token, :init_access_token, :to => :jira_connection
+      delegate :request_token, :set_request_token, :set_access_token, :init_access_token, :to => :client
       
       def connect_to_source
-        jira_connection.set_access_token self.access_token, self.access_token_secret if self.access_token and self.access_token_secret
+        client.set_access_token self.access_token, self.access_token_secret if self.access_token and self.access_token_secret
       end
       
       def init_access_token! oauth_verifier
-        jira_connection.init_access_token(oauth_verifier: oauth_verifier)
+        client.init_access_token(oauth_verifier: oauth_verifier)
         self.update_attributes({
-          access_token: jira_connection.access_token.token,
-          access_token_secret: jira_connection.access_token.secret
+          access_token: client.access_token.token,
+          access_token_secret: client.access_token.secret
         })
       end
       
-      def jira_connection
-        unless @jira_connection
+      def client
+        unless @client
           key_file = Tempfile.new "private_key_"
           key_file.write self.private_key
           key_file.close
@@ -28,16 +28,16 @@ module Hatchboy
             context_path:     "",
             private_key_file: key_file.path
           }
-          @jira_connection = ::JIRA::Client.new(jira_options)
+          @client = ::JIRA::Client.new(jira_options)
         end
-        @jira_connection
+        @client
       end
       
-      def import_all
+      def import!
         self.connect_to_source
-        projects = jira_connection.Project.all
+        projects = client.Project.all
         projects.each do |project|
-          project_details = jira_connection.Project.find(project.id)
+          project_details = client.Project.find(project.id)
           if (team_source = self.source_teams.where(uid: project_details.id).first)
             team = team_source.team
           else
@@ -46,7 +46,7 @@ module Hatchboy
           end
           issues = project_details.issues
           issues.each do |issue|
-            issue_details = jira_connection.Issue.find(issue.id)
+            issue_details = client.Issue.find(issue.id)
             worklogs = issue_details.fields["worklog"]["worklogs"]
             worklogs.each do |worklog|
               sources_user = SourcesUser.where(source: self, email: worklog["author"]["emailAddress"]).find_or_create_by({:name => worklog["author"]["name"]})
