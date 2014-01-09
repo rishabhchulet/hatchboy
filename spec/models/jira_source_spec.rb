@@ -12,6 +12,10 @@ describe JiraSource do
   it { should respond_to :client }
   it { should respond_to :import! }
   
+  it { should validate_presence_of :url }
+  it { should validate_presence_of :consumer_key }
+  it { should validate_presence_of :private_key }
+  
   its(:provider) { should eq :jira }
   
   it "should validate connection to jira on save" do

@@ -10,9 +10,6 @@ describe Source do
   
   it { should validate_presence_of :name }
   it { should validate_presence_of :company }
-  it { should validate_presence_of :url }
-  it { should validate_presence_of :consumer_key }
-  it { should validate_presence_of :private_key }
   
   it "should validate presence of provider on create" do
     source = described_class.create name: "foo", company: create(:company)
