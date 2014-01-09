@@ -8,7 +8,9 @@ require 'capybara/rspec'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require './spec/features/features_helper'
+require './spec/connectors/jira_helper'
 include FeaturesHelper
+include JIRAHelper
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

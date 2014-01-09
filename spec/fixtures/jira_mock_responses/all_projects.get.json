@@ -1,0 +1,12 @@
+[{
+  "self" : "https://hatchboy.atlassian.net/rest/api/2/project/10000",
+  "id" : "10000",
+  "key" : "HAT",
+  "name" : "Hatchboy",
+  "avatarUrls" : {
+    "16x16" : "https://hatchboy.atlassian.net/secure/projectavatar?size=xsmall&pid=10000&avatarId=10011",
+    "24x24" : "https://hatchboy.atlassian.net/secure/projectavatar?size=small&pid=10000&avatarId=10011",
+    "32x32" : "https://hatchboy.atlassian.net/secure/projectavatar?size=medium&pid=10000&avatarId=10011",
+    "48x48" : "https://hatchboy.atlassian.net/secure/projectavatar?pid=10000&avatarId=10011"
+}
+}]

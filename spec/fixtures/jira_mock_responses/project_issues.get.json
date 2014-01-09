@@ -1,0 +1,289 @@
+{
+  "expand": "schema,names",
+  "startAt": 0,
+  "maxResults": 50,
+  "total": 4,
+  "issues": [
+    {
+      "expand": "editmeta,renderedFields,transitions,changelog,operations",
+      "id": "10003",
+      "self": "https://hatchboy.atlassian.net/rest/api/2/issue/10003",
+      "key": "HAT-4",
+      "fields": {
+        "summary": "Create employee pages",
+        "worklog": {
+          "startAt": 0,
+          "maxResults": 20,
+          "total": 3,
+          "worklogs": [
+            {
+              "self": "https://hatchboy.atlassian.net/rest/api/2/issue/10003/worklog/10000",
+              "author": {
+                "self": "https://hatchboy.atlassian.net/rest/api/2/user?username=abezruchko",
+                "name": "abezruchko",
+                "emailAddress": "abezruchko@shakuro.com",
+                "avatarUrls": {
+                  "16x16": "https://hatchboy.atlassian.net/secure/useravatar?size=xsmall&avatarId=10111",
+                  "24x24": "https://hatchboy.atlassian.net/secure/useravatar?size=small&avatarId=10111",
+                  "32x32": "https://hatchboy.atlassian.net/secure/useravatar?size=medium&avatarId=10111",
+                  "48x48": "https://hatchboy.atlassian.net/secure/useravatar?avatarId=10111"
+                },
+                "displayName": "Alexey Bezruchko",
+                "active": true
+              },
+              "updateAuthor": {
+                "self": "https://hatchboy.atlassian.net/rest/api/2/user?username=abezruchko",
+                "name": "abezruchko",
+                "emailAddress": "abezruchko@shakuro.com",
+                "avatarUrls": {
+                  "16x16": "https://hatchboy.atlassian.net/secure/useravatar?size=xsmall&avatarId=10111",
+                  "24x24": "https://hatchboy.atlassian.net/secure/useravatar?size=small&avatarId=10111",
+                  "32x32": "https://hatchboy.atlassian.net/secure/useravatar?size=medium&avatarId=10111",
+                  "48x48": "https://hatchboy.atlassian.net/secure/useravatar?avatarId=10111"
+                },
+                "displayName": "Alexey Bezruchko",
+                "active": true
+              },
+              "comment": "That's just a begining",
+              "created": "2013-12-24T16:42:27.625+0200",
+              "updated": "2013-12-24T16:43:13.668+0200",
+              "started": "2013-12-19T16:42:00.000+0200",
+              "timeSpent": "5h 30m",
+              "timeSpentSeconds": 19800,
+              "id": "10000"
+            },
+            {
+              "self": "https://hatchboy.atlassian.net/rest/api/2/issue/10003/worklog/10003",
+              "author": {
+                "self": "https://hatchboy.atlassian.net/rest/api/2/user?username=bezruch",
+                "name": "bezruch",
+                "emailAddress": "kstepanov@shakuro.com",
+                "avatarUrls": {
+                  "16x16": "https://hatchboy.atlassian.net/secure/useravatar?size=xsmall&avatarId=10120",
+                  "24x24": "https://hatchboy.atlassian.net/secure/useravatar?size=small&avatarId=10120",
+                  "32x32": "https://hatchboy.atlassian.net/secure/useravatar?size=medium&avatarId=10120",
+                  "48x48": "https://hatchboy.atlassian.net/secure/useravatar?avatarId=10120"
+                },
+                "displayName": "Kostya Stepanov [Administrator]",
+                "active": true
+              },
+              "updateAuthor": {
+                "self": "https://hatchboy.atlassian.net/rest/api/2/user?username=bezruch",
+                "name": "bezruch",
+                "emailAddress": "kstepanov@shakuro.com",
+                "avatarUrls": {
+                  "16x16": "https://hatchboy.atlassian.net/secure/useravatar?size=xsmall&avatarId=10120",
+                  "24x24": "https://hatchboy.atlassian.net/secure/useravatar?size=small&avatarId=10120",
+                  "32x32": "https://hatchboy.atlassian.net/secure/useravatar?size=medium&avatarId=10120",
+                  "48x48": "https://hatchboy.atlassian.net/secure/useravatar?avatarId=10120"
+                },
+                "displayName": "Kostya Stepanov [Administrator]",
+                "active": true
+              },
+              "comment": "",
+              "created": "2013-12-24T16:53:42.244+0200",
+              "updated": "2013-12-24T16:53:42.244+0200",
+              "started": "2013-12-19T16:53:00.000+0200",
+              "timeSpent": "2h",
+              "timeSpentSeconds": 7200,
+              "id": "10003"
+            },
+            {
+              "self": "https://hatchboy.atlassian.net/rest/api/2/issue/10003/worklog/10004",
+              "author": {
+                "self": "https://hatchboy.atlassian.net/rest/api/2/user?username=abezruchko",
+                "name": "abezruchko",
+                "emailAddress": "abezruchko@shakuro.com",
+                "avatarUrls": {
+                  "16x16": "https://hatchboy.atlassian.net/secure/useravatar?size=xsmall&avatarId=10111",
+                  "24x24": "https://hatchboy.atlassian.net/secure/useravatar?size=small&avatarId=10111",
+                  "32x32": "https://hatchboy.atlassian.net/secure/useravatar?size=medium&avatarId=10111",
+                  "48x48": "https://hatchboy.atlassian.net/secure/useravatar?avatarId=10111"
+                },
+                "displayName": "Alexey Bezruchko",
+                "active": true
+              },
+              "updateAuthor": {
+                "self": "https://hatchboy.atlassian.net/rest/api/2/user?username=abezruchko",
+                "name": "abezruchko",
+                "emailAddress": "abezruchko@shakuro.com",
+                "avatarUrls": {
+                  "16x16": "https://hatchboy.atlassian.net/secure/useravatar?size=xsmall&avatarId=10111",
+                  "24x24": "https://hatchboy.atlassian.net/secure/useravatar?size=small&avatarId=10111",
+                  "32x32": "https://hatchboy.atlassian.net/secure/useravatar?size=medium&avatarId=10111",
+                  "48x48": "https://hatchboy.atlassian.net/secure/useravatar?avatarId=10111"
+                },
+                "displayName": "Alexey Bezruchko",
+                "active": true
+              },
+              "comment": "",
+              "created": "2013-12-24T16:54:26.394+0200",
+              "updated": "2013-12-24T16:54:26.394+0200",
+              "started": "2013-12-20T16:54:00.000+0200",
+              "timeSpent": "1h",
+              "timeSpentSeconds": 3600,
+              "id": "10004"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "expand": "editmeta,renderedFields,transitions,changelog,operations",
+      "id": "10002",
+      "self": "https://hatchboy.atlassian.net/rest/api/2/issue/10002",
+      "key": "HAT-3",
+      "fields": {
+        "summary": "Discuss page design features",
+        "worklog": {
+          "startAt": 0,
+          "maxResults": 20,
+          "total": 2,
+          "worklogs": [
+            {
+              "self": "https://hatchboy.atlassian.net/rest/api/2/issue/10002/worklog/10001",
+              "author": {
+                "self": "https://hatchboy.atlassian.net/rest/api/2/user?username=abezruchko",
+                "name": "abezruchko",
+                "emailAddress": "abezruchko@shakuro.com",
+                "avatarUrls": {
+                  "16x16": "https://hatchboy.atlassian.net/secure/useravatar?size=xsmall&avatarId=10111",
+                  "24x24": "https://hatchboy.atlassian.net/secure/useravatar?size=small&avatarId=10111",
+                  "32x32": "https://hatchboy.atlassian.net/secure/useravatar?size=medium&avatarId=10111",
+                  "48x48": "https://hatchboy.atlassian.net/secure/useravatar?avatarId=10111"
+                },
+                "displayName": "Alexey Bezruchko",
+                "active": true
+              },
+              "updateAuthor": {
+                "self": "https://hatchboy.atlassian.net/rest/api/2/user?username=abezruchko",
+                "name": "abezruchko",
+                "emailAddress": "abezruchko@shakuro.com",
+                "avatarUrls": {
+                  "16x16": "https://hatchboy.atlassian.net/secure/useravatar?size=xsmall&avatarId=10111",
+                  "24x24": "https://hatchboy.atlassian.net/secure/useravatar?size=small&avatarId=10111",
+                  "32x32": "https://hatchboy.atlassian.net/secure/useravatar?size=medium&avatarId=10111",
+                  "48x48": "https://hatchboy.atlassian.net/secure/useravatar?avatarId=10111"
+                },
+                "displayName": "Alexey Bezruchko",
+                "active": true
+              },
+              "comment": "",
+              "created": "2013-12-24T16:46:53.399+0200",
+              "updated": "2013-12-24T16:46:53.399+0200",
+              "started": "2013-12-17T16:46:00.000+0200",
+              "timeSpent": "1h 20m",
+              "timeSpentSeconds": 4800,
+              "id": "10001"
+            },
+            {
+              "self": "https://hatchboy.atlassian.net/rest/api/2/issue/10002/worklog/10002",
+              "author": {
+                "self": "https://hatchboy.atlassian.net/rest/api/2/user?username=abezruchko",
+                "name": "abezruchko",
+                "emailAddress": "abezruchko@shakuro.com",
+                "avatarUrls": {
+                  "16x16": "https://hatchboy.atlassian.net/secure/useravatar?size=xsmall&avatarId=10111",
+                  "24x24": "https://hatchboy.atlassian.net/secure/useravatar?size=small&avatarId=10111",
+                  "32x32": "https://hatchboy.atlassian.net/secure/useravatar?size=medium&avatarId=10111",
+                  "48x48": "https://hatchboy.atlassian.net/secure/useravatar?avatarId=10111"
+                },
+                "displayName": "Alexey Bezruchko",
+                "active": true
+              },
+              "updateAuthor": {
+                "self": "https://hatchboy.atlassian.net/rest/api/2/user?username=abezruchko",
+                "name": "abezruchko",
+                "emailAddress": "abezruchko@shakuro.com",
+                "avatarUrls": {
+                  "16x16": "https://hatchboy.atlassian.net/secure/useravatar?size=xsmall&avatarId=10111",
+                  "24x24": "https://hatchboy.atlassian.net/secure/useravatar?size=small&avatarId=10111",
+                  "32x32": "https://hatchboy.atlassian.net/secure/useravatar?size=medium&avatarId=10111",
+                  "48x48": "https://hatchboy.atlassian.net/secure/useravatar?avatarId=10111"
+                },
+                "displayName": "Alexey Bezruchko",
+                "active": true
+              },
+              "comment": "",
+              "created": "2013-12-24T16:47:12.573+0200",
+              "updated": "2013-12-24T16:47:12.573+0200",
+              "started": "2013-12-17T16:46:00.000+0200",
+              "timeSpent": "1h 50m",
+              "timeSpentSeconds": 6600,
+              "id": "10002"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "expand": "editmeta,renderedFields,transitions,changelog,operations",
+      "id": "10001",
+      "self": "https://hatchboy.atlassian.net/rest/api/2/issue/10001",
+      "key": "HAT-2",
+      "fields": {
+        "summary": "Create import flow",
+        "worklog": {
+          "startAt": 0,
+          "maxResults": 20,
+          "total": 1,
+          "worklogs": [
+            {
+              "self": "https://hatchboy.atlassian.net/rest/api/2/issue/10001/worklog/10100",
+              "author": {
+                "self": "https://hatchboy.atlassian.net/rest/api/2/user?username=bezruch",
+                "name": "bezruch",
+                "emailAddress": "kstepanov@shakuro.com",
+                "avatarUrls": {
+                  "16x16": "https://hatchboy.atlassian.net/secure/useravatar?size=xsmall&avatarId=10120",
+                  "24x24": "https://hatchboy.atlassian.net/secure/useravatar?size=small&avatarId=10120",
+                  "32x32": "https://hatchboy.atlassian.net/secure/useravatar?size=medium&avatarId=10120",
+                  "48x48": "https://hatchboy.atlassian.net/secure/useravatar?avatarId=10120"
+                },
+                "displayName": "Kostya Stepanov [Administrator]",
+                "active": true
+              },
+              "updateAuthor": {
+                "self": "https://hatchboy.atlassian.net/rest/api/2/user?username=bezruch",
+                "name": "bezruch",
+                "emailAddress": "kstepanov@shakuro.com",
+                "avatarUrls": {
+                  "16x16": "https://hatchboy.atlassian.net/secure/useravatar?size=xsmall&avatarId=10120",
+                  "24x24": "https://hatchboy.atlassian.net/secure/useravatar?size=small&avatarId=10120",
+                  "32x32": "https://hatchboy.atlassian.net/secure/useravatar?size=medium&avatarId=10120",
+                  "48x48": "https://hatchboy.atlassian.net/secure/useravatar?avatarId=10120"
+                },
+                "displayName": "Kostya Stepanov [Administrator]",
+                "active": true
+              },
+              "comment": "Drink out",
+              "created": "2014-01-06T22:45:59.196+0200",
+              "updated": "2014-01-06T22:45:59.196+0200",
+              "started": "2014-01-01T22:45:00.000+0200",
+              "timeSpent": "5h",
+              "timeSpentSeconds": 18000,
+              "id": "10100"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "expand": "editmeta,renderedFields,transitions,changelog,operations",
+      "id": "10000",
+      "self": "https://hatchboy.atlassian.net/rest/api/2/issue/10000",
+      "key": "HAT-1",
+      "fields": {
+        "summary": "Discover JIRA API",
+        "worklog": {
+          "startAt": 0,
+          "maxResults": 20,
+          "total": 0,
+          "worklogs": [
+
+          ]
+        }
+      }
+    }
+  ]
+}

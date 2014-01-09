@@ -46,12 +46,11 @@ module Hatchboy
           end
           issues = project_details.issues
           issues.each do |issue|
-            issue_details = client.Issue.find(issue.id)
-            worklogs = issue_details.fields["worklog"]["worklogs"]
+            worklogs = issue.fields["worklog"]["worklogs"]
             worklogs.each do |worklog|
               sources_user = SourcesUser.where(source: self, email: worklog["author"]["emailAddress"]).find_or_create_by({:name => worklog["author"]["name"]})
               team.worklogs.where({
-                comment: worklog["comment"], issue: issue_details.summary, on_date: worklog["started"], 
+                comment: worklog["comment"], issue: issue.summary, on_date: worklog["started"], 
                 time: worklog["timeSpentSeconds"], sources_user: sources_user
               }).find_or_create_by(source: self, uid_in_source: worklog["id"])
             end if worklogs and worklogs.any?
@@ -59,6 +58,16 @@ module Hatchboy
         end
       end
       
+    end
+  end
+end
+
+class JIRA::Resource::Project 
+  def issues
+    response = client.get(client.options[:rest_base_path] + "/search?jql=project%3D'#{key}'&fields%3Dworklog,summary&expand")
+    json = self.class.parse_json(response.body)
+    json['issues'].map do |issue|
+      client.Issue.build(issue)
     end
   end
 end
