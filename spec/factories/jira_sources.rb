@@ -5,10 +5,14 @@ FactoryGirl.define do
     association :company
     name { Faker::Company.name}
     url { "http://example.com"}
-    consumer_key { "jira_consumer_key" }
-    access_token { "valid_access_token" }
-    access_token_secret { "valid_access_token_secret"}
-    private_key { "valid_private_key" }
+    consumer_key { SecureRandom.hex(16) }
+    access_token { SecureRandom.hex(16) }
+    access_token_secret { SecureRandom.hex(16) }
+    private_key do
+      #system("openssl req -x509 -nodes -newkey rsa:1024 -sha1 -keyout /tmp/rsakey.pem -out /tmp/rsacert.pem")
+      #system("cat /tmp/rsacert.pem")
+      "valid_ssl_certificate"
+    end
     
     factory :authorized_jira_source do
       after(:build) do |jira_source|

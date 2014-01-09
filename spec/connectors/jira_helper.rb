@@ -1,5 +1,7 @@
 require 'webmock/rspec'
 
+WebMock.allow_net_connect!
+
 module JIRAHelper
 
   def get_mock_response(file, value_if_file_not_found = false)
