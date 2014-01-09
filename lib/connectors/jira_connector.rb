@@ -14,6 +14,9 @@ module Hatchboy
           access_token: client.access_token.token,
           access_token_secret: client.access_token.secret
         })
+      rescue => error 
+        self.errors.add(:verification, error.message)
+        false
       end
       
       def client
