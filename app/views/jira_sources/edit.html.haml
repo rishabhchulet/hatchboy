@@ -1,8 +1,30 @@
-.grid.simple
-  .grid-title.no-border
-    %h4
-      %span.semi-bold Create new JIRA source
-    .tools
-  .grid-body.no-border
-    = simple_form_for(@jira_source, :as => :jira_source, :html => { :method => :put }) do |f|
-      = render partial: "jira_sources/source_form", :locals => { f: f }
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a{:href => sources_path} Sources
+  %i.icon-angle-right
+  %li
+    %a.active{:href => edit_jira_source_path(@jira_source)} Edit
+.row
+  .col-md-12    
+    .page-title
+      %i.icon-custom-ui
+      %h3= @jira_source.name
+.row    
+  .col-md-12
+    .grid.simple
+      .grid-title.no-border
+        %h4
+          %span.semi-bold View JIRA source details
+        .tools
+          %a.reload{:href => "javascript:;"}
+          %a.collapse{:href => "javascript:;"}
+      .grid-body.no-border{style: "display:block"}
+        = simple_form_for(@jira_source, :as => :jira_source, :html => { :method => :put }) do |f|
+          = render partial: "jira_sources/source_form", :locals => { f: f }

@@ -65,9 +65,9 @@ module Hatchboy
   end
 end
 
-class JIRA::Resource::Project 
+class JIRA::Resource::Project
   def issues
-    response = client.get(client.options[:rest_base_path] + "/search?jql=project%3D'#{key}'&fields%3Dworklog,summary&expand")
+    response = client.get(client.options[:rest_base_path] + "/search?jql=project%3D'#{key}'&fields=worklog,summary&expand")
     json = self.class.parse_json(response.body)
     json['issues'].map do |issue|
       client.Issue.build(issue)

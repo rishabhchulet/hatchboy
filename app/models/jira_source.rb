@@ -1,5 +1,3 @@
-require File.expand_path("lib/connectors/jira_connector")
-
 class JiraSource <  Source
   
   include Hatchboy::Connector::Jira

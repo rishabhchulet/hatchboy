@@ -31,7 +31,7 @@ class JiraSourcesController < ApplicationController
       session[:jira_source] = {id: @jira_source.id, request_token: @jira_source.request_token.token, request_token_secret: @jira_source.request_token.secret}
       redirect_to @jira_source.request_token.authorize_url(:oauth_callback => "http://shakuro.com#{jira_source_confirm_path(@jira_source, :only_path => true)}")
     else
-      render "companies/edit"
+      render "jira_sources/edit"
     end
   end
   
