@@ -1,6 +1,6 @@
 require "spec_helper"
 
-feature "sources#new" do
+feature "sources#update" do
   
   background do
     @customer = create :customer

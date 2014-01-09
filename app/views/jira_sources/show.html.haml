@@ -20,6 +20,7 @@
       .tools
         %a.reload{:href => "javascript:;"}
         %a.collapse{:href => "javascript:;"}
+        = link_to "", edit_jira_source_path(@jira_source), :class => "config edit-jira-source"
     .grid-body.no-border{style: "display:block"}
       .row
         .col-md-2

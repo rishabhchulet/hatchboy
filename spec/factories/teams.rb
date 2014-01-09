@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :team do
     company { @company = create(:company)}
-    summary { Faker::Lorem.sentence }
+    name { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
     created_by { create(:customer, company: @company) }   
   end
