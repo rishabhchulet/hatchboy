@@ -39,5 +39,6 @@ Hatchboy::Application.routes.draw do
     get "refresh", :to => "jira_sources", :as => :refresh
   end
   
+  resources :teams
   resources :work_log, except: [:view]  
 end

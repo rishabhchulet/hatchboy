@@ -12,4 +12,17 @@ FactoryGirl.define do
     comment { Faker::Lorem.sentence }
     employee { nil }
   end
+  
+  factory :work_log, class: WorkLog do
+    team { @team = create(:team) }
+    source { nil }
+    sources_user { nil }
+    uid_in_source { nil }
+    issue { Faker::Lorem.sentence }
+    on_date { rand(30).days.ago }
+    time { rand(16) * 60 * 60 * 30 }
+    comment { Faker::Lorem.sentence }
+    employee { create :employee  }
+  end
+  
 end

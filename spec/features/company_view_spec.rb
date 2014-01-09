@@ -116,4 +116,62 @@ feature "company#show" do
     end
   end
   
+  
+  context "when company has teams" do
+    
+    background do
+      @teams = create_list :team, 4, company: @customer.company
+      @teams.first.update_attribute(:created_at, 10.minutes.ago)
+      @teams.second.update_attribute(:created_at, 7.minutes.ago)
+      @teams.third.update_attribute(:created_at, 4.minutes.ago)
+      @teams.fourth.update_attribute(:created_at, 2.minutes.ago)
+      @session.visit company_path
+    end
+  
+    scenario "it should contain information abount teams" do
+      data_rows = @session.all("#teams-short-list .data-row")
+      data_rows.count.should eq 4
+      data_rows.first.should have_content @teams.first.id
+      data_rows.first.should have_content @teams.first.name
+      data_rows.first.should have_content @teams.first.description
+    end
+    
+    scenario "should have link to create another team" do
+      @session.click_link "Add another team" 
+      @session.current_path.should eq new_team_path
+    end
+    
+    scenario "should have link to view team" do
+      data_row = @session.all("#teams-short-list .data-row")[1]
+      data_row.hover
+      data_row.find(".view-team-action").click
+      @session.current_path.should eq team_path(@teams.second)
+    end
+    
+    scenario "should have link to edit team data" do
+      data_row = @session.all("#teams-short-list .data-row")[1]
+      data_row.hover
+      data_row.find(".edit-team-action").click
+      @session.current_path.should eq edit_team_path(@teams.second)
+    end
+
+    scenario "should have link to delete team" do
+      data_row = @session.all("#teams-short-list .data-row")[1]
+      data_row.hover
+      data_row.find(".list-row-action-delete-one").click
+      popup_menu = @session.find(".list-row-action-popover-delete-one")
+      popup_menu.should be_visible
+      popup_menu.all("div", :text => "Cancel").first.should be_visible
+      popup_menu.find(:xpath, ".//input[@value = 'Delete']").click
+      Team.exists?(@teams.second).should eq false
+      @session.current_path.should eq company_path
+    end
+    
+    scenario "it should not include teams from other companies" do
+      another_company_teams = create_list :team, 4, company: create(:company)
+      @session.visit company_path
+      @session.all("#teams-short-list .data-row").count.should eq 4
+    end
+  end
+  
 end
