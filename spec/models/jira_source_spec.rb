@@ -9,15 +9,11 @@ describe JiraSource do
   it { should respond_to :set_access_token }
   it { should respond_to :init_access_token }
   it { should respond_to :init_access_token! }
-  it { should respond_to :client }    
+  it { should respond_to :client }
   it { should respond_to :import! }
   
   its(:provider) { should eq :jira }
   
-  it "should validate connection to Jira REST API" do
-    jira_source = described_class.create
-  end
-
   it "should validate connection to jira on save" do
     source = described_class.new(:name => "Jira Source", :consumer_key => "some key", :url => "http://example.com/jira", :private_key => "long-long-key")
     source.should_receive(:connection).once

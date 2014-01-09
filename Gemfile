@@ -54,4 +54,5 @@ group :test do
   gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
   gem "webmock", "~> 1.16.1"
+  gem "rack_session_access", "~> 0.1.1"  
 end
