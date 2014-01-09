@@ -53,4 +53,5 @@ group :test do
   gem "selenium-webdriver", "~> 2.35.1"  
   gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
+  gem "webmock", "~> 1.16.1"
 end
