@@ -1,0 +1,25 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path}< Company Teams
+  %i.icon-angle-right
+  %li
+    %a.active{:href => new_team_path} New  
+.row
+  .col-md-12    
+    .page-title
+      %i.icon-custom-ui
+      %h3 Add team
+.row
+  .col-md-12
+    .grid.simple
+      .grid-title.no-border
+        %h4
+          %span.semi-bold New team
+        .tools
+      .grid-body.no-border
+        = simple_form_for(@team, :as => :team, :html => { :method => :post }) do |f|
+          = render partial: "teams/form", :locals => { f: f }

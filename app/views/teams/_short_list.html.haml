@@ -4,15 +4,11 @@
       %span.semi-bold Teams
     .tools
       %a.collapse{:href => "javascript:;"}
-      %a.config{"data-toggle" => "modal", :href => "#grid-config"}
   .grid-body.no-border
     %table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#teams-short-list
       %thead
         %tr
-          %th{:width => "1%"}
-            .checkbox.check-default
-              %input#checkbox10.checkall{:type => "checkbox", :value => "1"}/
-              %label{:for => "checkbox10"}
+          %th{:width => "1%"} #
           %th{:width => "9%"} Team Name
           %th{:width => "22%"} Description
           %th{:width => "6%"} Total time

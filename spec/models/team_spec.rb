@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe Team do
   
-  it {should belong_to :company }
-  it {should belong_to :created_by }
-  it {should have_many :worklogs } 
+  it { should belong_to :company }
+  it { should belong_to :created_by }
+  it { should have_many :worklogs }
+  it { should validate_presence_of :name }
   
   it "should remove all worklogs logged to team" do
     team = create :team

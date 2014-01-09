@@ -8,4 +8,6 @@ class Team < ActiveRecord::Base
   
   has_many :worklogs, :class_name => "WorkLog", :dependent => :destroy
   
+  validates :name, :presence => true
+  
 end
