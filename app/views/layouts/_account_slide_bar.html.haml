@@ -29,6 +29,10 @@
       %a{:href => employees_path}
         %i.icon-custom-ui
         %span.title Employees
+    %li{class: ['sources', "jira_sources"].include?(request[:controller]) ? "active" : ""}
+      %a{:href => sources_path}
+        %i.icon-custom-ui
+        %span.title Sources
     %li
       %a{:href => legal_path}
         %i.icon-custom-extra
