@@ -16,6 +16,10 @@ class TeamsController < ApplicationController
     end
   end
   
+  def show
+    @team = account_company.teams.where(id: params[:id]).first or not_found
+  end
+
   def destroy
     @team = Team.where(id: params[:id]).first or not_found
     @team.destroy

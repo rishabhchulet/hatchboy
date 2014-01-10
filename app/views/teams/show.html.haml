@@ -1,0 +1,61 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a.active{:href => team_path(@team)}= @team.name
+
+.col-md-12
+  .grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold View team details
+      .tools
+        %a.reload{:href => "javascript:;"}
+        %a.collapse{:href => "javascript:;"}
+        = link_to "", edit_team_path(@team), :class => "config edit-team"
+    .grid-body.no-border{style: "display:block"}
+      .row
+        .col-md-2
+          %label Name
+        .col-md-4= @team.name
+      .row
+        .col-md-2
+          %label Description
+        .col-md-4= @team.description
+      .row
+        .col-md-2
+          %label Total time tracked
+        .col-md-4= @team.worklogs.any? ? nice_time_difference(@team.worklogs.sum(:time)) : "0h"
+      .row
+        - if @team.worklogs.any?
+          .row
+            .col-md-2
+              Tracked time:
+          .row
+            =render partial: "work_logs/worklogs_list", :object => @team.worklogs
+        - else
+          (nothing logged yet)
+      .row
+        .col-md-10
+        .col-md-2
+          %a.btn.btn-primary.btn-cons{href: new_work_log_path}
+            Add time log
+      - if @team.sources.any?
+        .row
+          .col-md-2
+            Team sources:
+        .row
+          =render partial: "sources/sources_list", :object => @team.sources
+      - else
+        .row
+          (no sources added)
+        .row
+          .col-md-10
+          .col-md-2
+            %a.btn.btn-primary.btn-cons{href: new_source_path}
+              Add another source
