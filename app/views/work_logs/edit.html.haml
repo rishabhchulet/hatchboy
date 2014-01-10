@@ -1,0 +1,30 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a{:href => team_path(@work_log.team)} Team
+  %i.icon-angle-right
+  %li
+    %a.active{:href => edit_team_work_log_path(@work_log.team, @work_log)} Edit Work Log
+
+.row
+  .col-md-11
+    .page-title
+      %i.icon-custom-ui
+      %h3 Edit work log
+  .col-md-1.text-right
+.row
+  .col-md-12
+    .grid.simple
+      .grid-title.no-border
+        %h4
+          %span.semi-bold Edit work log
+        .tools
+      .grid-body.no-border
+        = simple_form_for([@team, @work_log], :as => :work_log, :html => { :method => :put }) do |f|
+          = render partial: "work_logs/form", :locals => { f: f }

@@ -43,7 +43,7 @@
       .row
         .col-md-10
         .col-md-2
-          %a.btn.btn-primary.btn-cons{href: new_work_log_path}
+          %a.btn.btn-primary.btn-cons{href: new_team_work_log_path(@team)}
             Add time log
       - if @team.sources.any?
         .row

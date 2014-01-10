@@ -4,7 +4,7 @@ class CreateWorkLogs < ActiveRecord::Migration
       t.integer :team_id
       t.integer :source_id
       t.integer :sources_user_id
-      t.integer :employee_id      
+      t.integer :employee_id
       t.string  :uid_in_source
       t.string  :issue
       t.date    :on_date

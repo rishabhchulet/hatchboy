@@ -17,7 +17,7 @@
     .col-md-6
       .list-column.list-row-action
         .list-row-action-wrapper
-          =link_to edit_work_log_path(worklogs_list_row), :rel => :tooltip, :title => "edit worklog", :class => 'list-row-action-wrapper-link edit-worklog-action' do
+          =link_to edit_team_work_log_path(worklogs_list_row.team, worklogs_list_row), :rel => :tooltip, :title => "edit worklog", :class => 'list-row-action-wrapper-link edit-worklog-action' do
             %i.icon-edit
           =link_to "", :rel => :tooltip, :title => "delete work log", :class => 'list-row-action-wrapper-link list-row-action-delete-one' do
             %i.icon-trash
@@ -25,6 +25,6 @@
             .arrow
             %h3.popover-title Delete this work log?
             .popover-content
-              =form_tag work_log_path(worklogs_list_row), :method => :delete do
+              =form_tag team_work_log_path(worklogs_list_row.team, worklogs_list_row), :method => :delete do
                 =submit_tag 'Delete', :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
                 .btn.btn-small.cancel Cancel

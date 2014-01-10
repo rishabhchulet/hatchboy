@@ -31,7 +31,10 @@ module ApplicationHelper
     raise ActionController::RoutingError.new('Not Found')
   end
 
-  def nice_time_difference delta 
+  def nice_time_difference delta
+    
+    return "0h" if delta.to_i == 0
+    
     map = {days: 'd', hours: 'h', minutes: 'm', seconds: 's'}
     
     components = map.keys.collect do |step|

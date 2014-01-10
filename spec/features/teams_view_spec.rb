@@ -4,9 +4,9 @@ feature "teams#show" do
   
   background do
     @customer = create :customer
-    @team = create :team, company: @customer.company 
+    @team = create :team, company: @customer.company
     @session = sign_in! @customer.account
-    @session.visit team_path(@team) 
+    @session.visit team_path(@team)
   end
   
   scenario "it should contain team name and description" do

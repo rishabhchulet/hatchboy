@@ -1,0 +1,12 @@
+= display_flash_message :error, f.error_notification
+= f.association :employee, collection: @team.company.employees, include_blank: false,:hint => 'Select employee to log time on', :autofocus => true
+= f.input :issue, :hint => 'Short problem descriptino'
+= f.input :on_date, :hint => 'Date to log time on'
+= f.input :time, :hint => 'Amount of time spent'
+= f.input :comment, :hint => 'Something extra on work time spent on'
+.form-actions
+  .pull-right
+    %button.btn.btn-success.btn-cons{:type => "submit"}
+      %i.icon-ok
+      Save
+    = link_to "Cancel", company_path, :class => "btn btn-white btn-cons"
