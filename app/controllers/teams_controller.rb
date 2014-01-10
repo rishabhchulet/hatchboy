@@ -19,6 +19,21 @@ class TeamsController < ApplicationController
   def show
     @team = account_company.teams.where(id: params[:id]).first or not_found
   end
+  
+  def edit
+    @team = account_company.teams.where(id: params[:id]).first or not_found
+  end
+  
+  def update
+    @team = account_company.teams.where(id: params[:id]).first or not_found
+
+    if @team.update_attributes(team_params)
+      flash[:notice] = "Information about team has been successfully updated"
+      redirect_to after_action_path
+    else
+      render "teams/edit"
+    end
+  end
 
   def destroy
     @team = Team.where(id: params[:id]).first or not_found

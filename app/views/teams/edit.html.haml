@@ -1,0 +1,30 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path}< Company Teams
+  %i.icon-angle-right
+  %li
+    %a{:href => team_path(@team)}<= @team.name
+  %i.icon-angle-right
+  %li
+    %a.active{:href => edit_team_path(@team)} Edit  
+.row
+  .col-md-12    
+    .page-title
+      %i.icon-custom-ui
+      %h3 
+        Edit
+        =@team.name 
+.row
+  .col-md-12
+    .grid.simple
+      .grid-title.no-border
+        %h4
+          %span.semi-bold Edit team
+        .tools
+      .grid-body.no-border
+        = simple_form_for(@team, :as => :team, :html => { :method => :put }) do |f|
+          = render partial: "teams/form", :locals => { f: f }

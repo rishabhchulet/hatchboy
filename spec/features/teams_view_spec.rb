@@ -53,7 +53,7 @@ feature "teams#show" do
     
     before do
       @source = create :authorized_jira_source
-      @team.team_sources.create(source: @source, uid: "HAT200")
+      create :teams_sources, team: @team, source: @source
       @session.visit team_path(@team)
     end
     
