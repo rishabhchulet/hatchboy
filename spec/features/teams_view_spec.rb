@@ -21,7 +21,7 @@ feature "teams#show" do
   
   scenario "it should contain link to add time log" do
     @session.click_link "Add time log"
-    @session.current_path.should eq new_work_log_path
+    @session.current_path.should eq new_team_work_log_path @team
   end
 
   scenario "it should contain link to add source" do

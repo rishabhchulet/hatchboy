@@ -35,7 +35,7 @@ feature "sources#view" do
     source_row = @session.all("#worklogs-list .data-row").first
     source_row.hover
     source_row.find(".edit-worklog-action").click
-    @session.current_path.should eq edit_work_log_path(@jira_source.worklogs.first)
+    @session.current_path.should eq edit_team_work_log_path(@jira_source.worklogs.first.team, @jira_source.worklogs.first)
   end  
 
   scenario "should have delete link for time logs" do
