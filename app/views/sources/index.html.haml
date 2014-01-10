@@ -1,0 +1,19 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a.active{:href => sources_path} Sources
+
+.row
+  .col-md-11
+    .page-title
+      %i.icon-custom-ui
+      %h3 Company sources
+  .col-md-1.text-right
+.row
+  = render partial: "sources/sources_list", object: @sources

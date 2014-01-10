@@ -11,6 +11,9 @@ Hatchboy::Application.configure do
   # just for the purpose of running a single test. If you are using a tool that
   # preloads Rails for running tests, you may have to set it to true.
   config.eager_load = false
+  
+  #use access to session
+  config.middleware.use RackSessionAccess::Middleware
 
   # Configure static asset server for tests with Cache-Control for performance.
   config.serve_static_assets  = true
@@ -21,7 +24,7 @@ Hatchboy::Application.configure do
   config.action_controller.perform_caching = false
 
   # Raise exceptions instead of rendering exception templates.
-  config.action_dispatch.show_exceptions = false
+  config.action_dispatch.show_exceptions = true
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false

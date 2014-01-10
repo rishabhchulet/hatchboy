@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131213142811) do
+ActiveRecord::Schema.define(version: 20140106190825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,59 @@ ActiveRecord::Schema.define(version: 20131213142811) do
     t.string   "contact_email"
     t.string   "role"
     t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sources", force: true do |t|
+    t.integer  "company_id"
+    t.string   "name"
+    t.string   "type"
+    t.string   "url"
+    t.string   "consumer_key"
+    t.string   "access_token"
+    t.string   "access_token_secret"
+    t.text     "private_key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sources_users", force: true do |t|
+    t.integer  "source_id"
+    t.string   "name"
+    t.string   "email"
+    t.integer  "employee_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teams", force: true do |t|
+    t.integer  "company_id"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "created_by_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teams_sources", force: true do |t|
+    t.integer  "team_id"
+    t.integer  "source_id"
+    t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "work_logs", force: true do |t|
+    t.integer  "team_id"
+    t.integer  "source_id"
+    t.integer  "sources_user_id"
+    t.integer  "employee_id"
+    t.string   "uid_in_source"
+    t.string   "issue"
+    t.date     "on_date"
+    t.integer  "time"
+    t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

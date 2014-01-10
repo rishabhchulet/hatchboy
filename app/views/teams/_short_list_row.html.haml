@@ -1,0 +1,27 @@
+%tr.data-row
+  %td= short_list_row.id
+  %td= short_list_row.name
+  %td= short_list_row.description
+  %td= nice_time_difference short_list_row.worklogs.sum(:time)
+  %td
+    .col-md-6
+      .progress
+        .progress-bar.progress-bar-success.animate-progress-bar{"data-percentage" => "79%", :id => "", :style => "width: 79%;"}
+    .col-md-6
+      .list-column.list-row-action
+        .list-row-action-wrapper
+          =link_to team_path(short_list_row), :rel => :tooltip, :title => "view team", :class => 'list-row-action-wrapper-link view-team-action' do
+            %i.icon-cog
+          =link_to edit_team_path(short_list_row), :rel => :tooltip, :title => "edit team", :class => 'list-row-action-wrapper-link edit-team-action' do
+            %i.icon-edit
+          =link_to "", :rel => :tooltip, :title => "delete team", :class => 'list-row-action-wrapper-link list-row-action-delete-one' do
+            %i.icon-trash
+          .popover.list-row-action-popover-delete-one.left
+            .arrow
+            %h3.popover-title 
+              Delete this team and all it's work logs?
+            .popover-content
+              =form_tag team_path(short_list_row), :method => :delete do
+                =submit_tag 'Delete', :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
+                .btn.btn-small.cancel Cancel
+            

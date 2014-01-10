@@ -1,3 +1,5 @@
+require "rack_session_access/capybara"
+
 Capybara.register_driver :poltergeist_debug do |app|
   Capybara::Poltergeist::Driver.new(app, :inspector => true)
 end

@@ -4,6 +4,8 @@ class Company < ActiveRecord::Base
   belongs_to :contact_person, class_name: "Customer"
   has_many :customers
   has_many :employees
+  has_many :sources
+  has_many :teams
   
   validates_presence_of :created_by
   validates :name, uniqueness: { case_sensitive: false }, presence: true
