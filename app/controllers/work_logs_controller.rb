@@ -1,4 +1,6 @@
 class WorkLogsController < ApplicationController
+
+  before_filter :authenticate_account!
   
   def new
     @team = account_company.teams.where(id: params[:team_id]).first or not_found
