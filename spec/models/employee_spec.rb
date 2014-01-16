@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Employee do
   
   it { should belong_to :company }
+  it { should have_many :teams }
   
   it { should validate_presence_of :name}
   

@@ -1,0 +1,15 @@
+.col-md-12
+  .grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold Assigned Employees
+      .tools
+        %a.collapse{:href => "javascript:;"}
+    .grid-body.no-border{:style => "display: block;"}
+      .row
+        = render partial: "employees/short_list", object: team_employees, locals: {team: team}
+      .row
+        .col-md-8
+        .col-md-2
+          %a.btn.btn-primary.btn-cons{href: new_team_employee_path(team)}
+            Add another employee

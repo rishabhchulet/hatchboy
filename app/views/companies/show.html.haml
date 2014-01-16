@@ -40,4 +40,4 @@
       =render :partial => "customers/short_list", :object => @company.customers.joins(:account).order("created_at ASC")
   .col-md-6
     .row
-      =render :partial => "employees/short_list", :object => @company.employees.order("created_at ASC")
+      =render :partial => "employees/company_employees", :object => @company.employees.order("created_at ASC")
