@@ -31,31 +31,10 @@
         .col-md-2
           %label Total time tracked
         .col-md-4= @team.worklogs.any? ? nice_time_difference(@team.worklogs.sum(:time)) : "0h"
-      .row
-        - if @team.worklogs.any?
-          .row
-            .col-md-2
-              Tracked time:
-          .row
-            =render partial: "work_logs/worklogs_list", :object => @team.worklogs
-        - else
-          (nothing logged yet)
-      .row
-        .col-md-10
-        .col-md-2
-          %a.btn.btn-primary.btn-cons{href: new_team_work_log_path(@team)}
-            Add time log
-      - if @team.sources.any?
-        .row
-          .col-md-2
-            Team sources:
-        .row
-          =render partial: "sources/sources_list", :object => @team.sources
-      - else
-        .row
-          (no sources added)
-        .row
-          .col-md-10
-          .col-md-2
-            %a.btn.btn-primary.btn-cons{href: new_source_path}
-              Add another source
+        
+=render partial: "employees/team_employees", :object => @team.employees, locals: { team: @team }
+
+=render partial: "work_logs/team_work_logs", :object => @team.worklogs, locals: { team: @team }
+
+=render partial: "sources/team_sources", :object => @team.sources, locals: { team: @team }
+            

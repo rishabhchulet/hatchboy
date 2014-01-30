@@ -1,15 +1,13 @@
-.col-md-12
-  .grid-body.no-border{:style => "display: block;"}
-    %table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#worklogs-list
-      %thead
-        %tr
-          %th #
-          %th Team
-          %th Issue
-          %th Time logged
-          %th Date
-          %th Comment
-          %th User
-          %th Imported from
-      %tbody
-        =render partial: "work_logs/worklogs_list_row", collection: worklogs_list
+%table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#worklogs-list
+  %thead
+    %tr
+      %th #
+      %th Team
+      %th Issue
+      %th Time logged
+      %th Date
+      %th Comment
+      %th User
+      %th Imported from
+  %tbody
+    =render partial: "work_logs/worklogs_list_row", collection: worklogs_list

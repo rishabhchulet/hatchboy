@@ -5,6 +5,10 @@ class TeamsController < ApplicationController
   def new 
     @team = Team.new
   end
+  
+  def index
+    @teams = account_company.teams.order("created_at ASC")
+  end
 
   def create
     @team = account_company.teams.create(team_params)

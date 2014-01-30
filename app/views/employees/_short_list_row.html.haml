@@ -13,12 +13,23 @@
             %i.icon-male
           =link_to edit_employee_path(short_list_row), :rel => :tooltip, :title => "edit employee profile", :class => 'list-row-action-wrapper-link edit-profile-action' do
             %i.icon-edit
-          =link_to "", :rel => :tooltip, :title => "delete employee profile", :class => 'list-row-action-wrapper-link list-row-action-delete-one' do
-            %i.icon-trash
-          .popover.list-row-action-popover-delete-one.left
-            .arrow
-            %h3.popover-title Delete this profile?
-            .popover-content
-              =form_tag employee_path(short_list_row), :method => :delete do
-                =submit_tag 'Delete', :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
-                .btn.btn-small.cancel Cancel
+          - if team
+            =link_to "", :rel => :tooltip, :title => "remove employee from project", :class => 'list-row-action-wrapper-link list-row-action-delete-one' do
+              %i.icon-trash
+            .popover.list-row-action-popover-delete-one.left
+              .arrow
+              %h3.popover-title Delete employee from team?
+              .popover-content
+                =form_tag team_employee_path(team, short_list_row), :method => :delete do
+                  =submit_tag 'Delete', :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
+                  .btn.btn-small.cancel Cancel
+          - else
+            =link_to "", :rel => :tooltip, :title => "delete employee profile", :class => 'list-row-action-wrapper-link list-row-action-delete-one' do
+              %i.icon-trash
+            .popover.list-row-action-popover-delete-one.left
+              .arrow
+              %h3.popover-title Delete this profile?
+              .popover-content
+                =form_tag employee_path(short_list_row), :method => :delete do
+                  =submit_tag 'Delete', :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
+                  .btn.btn-small.cancel Cancel
