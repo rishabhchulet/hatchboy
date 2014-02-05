@@ -6,10 +6,10 @@ en:
       updated: 'Your password was set successfully. You are now signed in.'
       no_invitations_remaining: "No invitations remaining"
       invitation_removed: 'Your invitation was removed.'
-      customer:
+      user:
         new:
-          header: "Send invitation to customer"
-          submit_button: "Invite customer"
+          header: "Send invitation to user"
+          submit_button: "Invite user"
         errors:
           account_already_confirmed: This is already confirmed account
       new:

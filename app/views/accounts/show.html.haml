@@ -10,7 +10,7 @@
     .page-title
       %i.icon-custom-ui
       %h3
-        = @account.profile.name
+        = @account.user.name
   .col-md-1.text-right
 .row
   .col-md-12
@@ -26,13 +26,13 @@
           .grid-body.no-border{:style => "display: block;"}
             .row
               .col-md-2
-                %img{ "src" => @account.profile.avatar.url, style: "max-width:200px;max-height:200px"} 
+                %img{ "src" => @account.user.avatar.url, style: "max-width:200px;max-height:200px"}
               .col-md-4
                 .row
-                .row 
+                .row
                   .col-md-2
                     %label Name:
-                  .col-md-4= @account.profile.name
+                  .col-md-4= @account.user.name
                 .row
                   .col-md-2
                     %label Email:
@@ -44,4 +44,4 @@
                 .row
                   .col-md-2
                     %label Company
-                  .col-md-4= @account.profile.company.name
+                  .col-md-4= @account.user.company.name

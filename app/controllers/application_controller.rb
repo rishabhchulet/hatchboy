@@ -4,13 +4,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include ApplicationHelper
-  
+
   helper_method :account_company
-  
+
   private
-  
+
   def account_company
-    current_account.profile.company
+    current_account.user.company
   end
-  
+
 end
+

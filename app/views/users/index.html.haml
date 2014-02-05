@@ -1,0 +1,19 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path}<= account_company.name
+  %i.icon-angle-right
+  %li
+    %a.active{:href => users_path} Users
+.row
+  .col-md-11
+    .page-title
+      %i.icon-custom-ui
+      %h3
+        Employees
+  .col-md-1.text-right
+.row
+  = render partial: "users/company_users", object: @users

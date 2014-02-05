@@ -1,0 +1,10 @@
+%table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#users-short-list
+  %thead
+    %tr
+      %th #
+      %th Name
+      %th Email
+      %th Role
+      %th Status
+  %tbody
+    = render partial: "users/short_list_row", collection: short_list, locals: { team: (defined?(team) ? team : nil) }

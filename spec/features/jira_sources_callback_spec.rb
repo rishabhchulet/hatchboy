@@ -1,10 +1,10 @@
 require "spec_helper"
 
 feature "sources#callback" do
-  
+
   background do
-    @customer = create :customer
-    @session = sign_in! @customer.account
+    @user = create :user
+    @session = sign_in! @user.account
     @session.visit new_source_path
   end
 
@@ -20,7 +20,7 @@ feature "sources#callback" do
     @session.current_path.should eq edit_jira_source_path(jira_source)
     @session.find(:flash, :danger).should have_content "Jira connection validation failed"
   end
-  
+
   scenario "it should try to authorize request token" do
     jira_source = create :authorized_jira_source
     @session.set_rack_session({:jira_source => {:id => jira_source.id, :request_token => "foo", :request_token_secret => "bar"}})
@@ -47,5 +47,5 @@ feature "sources#callback" do
     @session.current_path.should eq edit_jira_source_path(jira_source)
     @session.find(:flash, :danger).should have_content "Jira connection validation failed"
   end
-  
+
 end

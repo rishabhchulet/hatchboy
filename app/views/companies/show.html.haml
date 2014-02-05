@@ -6,7 +6,7 @@
   %li
     %a.active{:href => company_path} Company Profile
 .row
-  .col-md-11    
+  .col-md-11
     .page-title
       %i.icon-custom-ui
       %h3
@@ -24,20 +24,19 @@
               = link_to "", edit_company_path, class: "config edit-company"
           .grid-body.no-border{:style => "display: block;"}
             =@company.description
-            %br 
+            %br
             %br
             Have any question? Contact to &nbsp;
             %span.semi-bold><
-              =link_to  @company.contact_person.name, customer_path(@company.contact_person), :id => "contact-person-link"
+              =link_to  @company.contact_person.name, user_path(@company.contact_person), :id => "contact-person-link"
             \.
-            
+
 .row
   .col-md-12
     =render partial: "teams/short_list", :object => @company.teams.order("created_at ASC")
 .row
-  .col-md-6
+  .col-md-12
     .row
-      =render :partial => "customers/short_list", :object => @company.customers.joins(:account).order("created_at ASC")
-  .col-md-6
-    .row
-      =render :partial => "employees/company_employees", :object => @company.employees.order("created_at ASC")
+      =render :partial => "users/company_users", :object => @company.users.joins(:account).order("created_at ASC")
+      /=render :partial => "employees/company_employees", :object => @company.employees.order("created_at ASC")
+

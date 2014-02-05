@@ -1,0 +1,35 @@
+%tr.data-row
+  %td= short_list_row.id
+  %td= short_list_row.name
+  %td= short_list_row.contact_email
+  %td= short_list_row.role
+  %td
+    .col-md-6
+      = short_list_row.status
+    .col-md-6
+      .list-column.list-row-action
+        .list-row-action-wrapper
+          =link_to user_path(short_list_row), :rel => :tooltip, :title => "view employee profile", :class => 'list-row-action-wrapper-link view-profile-action' do
+            %i.icon-male
+          =link_to edit_user_path(short_list_row), :rel => :tooltip, :title => "edit employee profile", :class => 'list-row-action-wrapper-link edit-profile-action' do
+            %i.icon-edit
+          - if team
+            =link_to "", :rel => :tooltip, :title => "remove employee from project", :class => 'list-row-action-wrapper-link list-row-action-delete-one' do
+              %i.icon-trash
+            .popover.list-row-action-popover-delete-one.left
+              .arrow
+              %h3.popover-title Delete user from team?
+              .popover-content
+                =form_tag team_user_path(team, short_list_row), :method => :delete do
+                  =submit_tag 'Delete', :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
+                  .btn.btn-small.cancel Cancel
+          - else
+            =link_to "", :rel => :tooltip, :title => "delete user profile", :class => 'list-row-action-wrapper-link list-row-action-delete-one' do
+              %i.icon-trash
+            .popover.list-row-action-popover-delete-one.left
+              .arrow
+              %h3.popover-title Delete this profile?
+              .popover-content
+                =form_tag user_path(short_list_row), :method => :delete do
+                  =submit_tag 'Delete', :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
+                  .btn.btn-small.cancel Cancel

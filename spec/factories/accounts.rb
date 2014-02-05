@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  
+
   sequence(:password) do
     sample =  [('a'..'z'),('A'..'Z'),('0'..'9')].map{|i| i.to_a}.flatten
     (0...Devise.password_length.min).map do
@@ -10,20 +10,20 @@ FactoryGirl.define do
   factory :not_confirmed_account, :class => Account do
 
     email do
-      begin 
+      begin
         email = Faker::Internet.email
       end while Account.where(email: email).any?
       email
     end
     password { @password = generate(:password) }
     password_confirmation @password
-    
+
     after :build do |account, evaluator|
-      unless evaluator.profile
-        account.profile = build :customer
+      unless evaluator.user
+        account.user = build :user
       end
     end
-    
+
     factory :account do
       confirmed_at Time.now
     end

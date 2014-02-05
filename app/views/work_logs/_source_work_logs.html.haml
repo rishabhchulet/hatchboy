@@ -1,0 +1,11 @@
+.col-md-12
+  .grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold Source Work Logs
+      .tools
+        %a.collapse{:href => "javascript:;"}
+    .grid-body.no-border{:style => "display: block;"}
+      .row
+        = render partial: "work_logs/worklogs_list", object: source_work_logs
+

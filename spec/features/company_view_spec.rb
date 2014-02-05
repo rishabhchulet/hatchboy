@@ -1,177 +1,116 @@
 require "spec_helper"
 
 feature "company#show" do
-  
+
   background do
-    #Capybara.current_driver = :selenium
-    @customer = create :customer 
-    @session = sign_in! @customer.account 
+    @user = create :user
+    @session = sign_in! @user.account
   end
-  
+
   scenario "it should contain company name" do
     @session.visit company_path
-    @session.should have_content @customer.company.name
+    @session.should have_content @user.company.name
   end
-  
+
   scenario "it should contain company description" do
     @session.visit company_path
-    @session.should have_content @customer.company.description
+    @session.should have_content @user.company.description
   end
-  
+
   scenario "it should contain contact person name" do
-    @session.visit company_path    
-    @session.should have_content @customer.name
+    @session.visit company_path
+    @session.should have_content @user.name
   end
-  
-  scenario "it should contain information abount customers" do
-    members = create_list :customer, 2, company: @customer.company
+
+  scenario "it should contain information about user" do
+    members = create_list :user, 2, company: @user.company
     members.map { |m| m.account.update_attribute(:created_at, 7.minutes.ago) }
-    not_confirmed_account = create :not_confirmed_account, created_at: 5.minutes.ago, profile: build(:customer, company: @customer.company)
-    @customer.account.update_attribute(:created_at, 10.minutes.ago)
-    @session.visit company_path 
-    data_rows = @session.all("#customers_short_list .data-row")
+    not_confirmed_account = create :not_confirmed_account, created_at: 5.minutes.ago, user: build(:user, company: @user.company)
+    @user.account.update_attribute(:created_at, 20.minutes.ago)
+    @session.visit company_path
+    data_rows = @session.all("#users-short-list .data-row")
     data_rows.count.should eq 4
-    data_rows.first.should have_content "work"
-    data_rows.first.should have_content @customer.name
-    data_rows.first.should have_content @customer.account.email
-    data_rows.last.should have_content "not confirmed"
-    data_rows.last.should have_content not_confirmed_account.profile.name
-    data_rows.last.should have_content not_confirmed_account.email
+    data_rows.first.should have_content @user.status
+    data_rows.first.should have_content @user.role
+    data_rows.first.should have_content @user.name
+    data_rows.first.should have_content @user.contact_email
+#    data_rows.last.should have_content "not confirmed"
+    data_rows.last.should have_content not_confirmed_account.user.name
+#    data_rows.last.should have_content not_confirmed_account.user.contact_email
   end
-  
-  scenario "contact person should ne clickable" do
+
+  scenario "contact person should be clickable" do
     @session.visit company_path
     @session.find("#contact-person-link").click
-    @session.current_path.should eq customer_path(@customer)
+    @session.current_path.should eq user_path(@user)
   end
-  
-  scenario "customer's profile should be clickable" do
+
+  scenario "Invite another user link should be clickable" do
     @session.visit company_path
-    first_account_row = @session.all("#customers_short_list .data-row").first
-    first_account_row.hover
-    first_account_row.find(".view-profile-action").click
-    @session.current_path.should eq customer_path(@customer)
+    @session.click_link "Invite user"
+    @session.current_path.should eq new_user_invitation_path
   end
-  
-  scenario "Invite another customer link should be clickable" do
-    @session.visit company_path
-    @session.click_link "Invite another customer"
-    @session.current_path.should eq new_customer_invitation_path
-  end
-  
+
   scenario "it should have link to edit company page" do
     @session.find("a.edit-company").click
     @session.current_path.should eq edit_company_path
   end
-  
-  context "when company has employees" do
-  
+
+  context "when company has users" do
+
     background do
-      @employees = create_list :employee, 4, company: @customer.company
-      @employees.first.update_attribute(:created_at, 10.minutes.ago) 
-      @employees.second.update_attribute(:created_at, 7.minutes.ago)
-      @employees.third.update_attribute(:created_at, 4.minutes.ago)
-      @employees.fourth.update_attribute(:created_at, 2.minutes.ago)
+      @user.update_attribute(:created_at, 20.minutes.ago)
+      @users = create_list :user, 4, company: @user.company
+      @users.first.update_attribute(:created_at, 10.minutes.ago)
+      @users.second.update_attribute(:created_at, 7.minutes.ago)
+      @users.third.update_attribute(:created_at, 4.minutes.ago)
+      @users.fourth.update_attribute(:created_at, 2.minutes.ago)
       @session.visit company_path
     end
-  
-    scenario "it should contain information abount employees" do
-      data_rows = @session.all("#employees_short_list .data-row")
-      data_rows.count.should eq 4
-      data_rows.first.should have_content @employees.first.name
-      data_rows.first.should have_content @employees.first.contact_email
-      data_rows.first.should have_content @employees.first.status
-      data_rows.first.should have_content @employees.first.role
-    end
-    
-    scenario "should have link to create employee page" do
-      @session.click_link "Add another employee" 
-      @session.current_path.should eq new_employee_path
-    end
-    
-    scenario "should have link to view employee data" do
-      data_row = @session.all("#employees_short_list .data-row")[1]
-      data_row.hover
-      data_row.find(".view-profile-action").click
-      @session.current_path.should eq employee_path(@employees.second)
-    end
-    
-    scenario "should have link to edit employee data" do
-      data_row = @session.all("#employees_short_list .data-row")[1]
-      data_row.hover
-      data_row.find(".edit-profile-action").click
-      @session.current_path.should eq edit_employee_path(@employees.second)
+
+    let(:page) { @session }
+
+    let(:collection) { [@user] + @users }
+
+    it_should_behave_like "users list"
+
+    scenario "should have link to create user page" do
+      screenshot @session
+      page.click_link "Add user"
+      page.current_path.should eq new_user_path
     end
 
-    scenario "should have link to delete employee" do
-      data_row = @session.all("#employees_short_list .data-row")[1]
+    scenario "should have link to delete user" do
+      data_row = page.all("#users-short-list .data-row")[1]
       data_row.hover
       data_row.find(".list-row-action-delete-one").click
-      popup_menu = @session.find(".list-row-action-popover-delete-one")
+      popup_menu = page.find(".list-row-action-popover-delete-one")
       popup_menu.should be_visible
       popup_menu.all("div", :text => "Cancel").first.should be_visible
       popup_menu.find(:xpath, ".//input[@value = 'Delete']").click
-      Employee.exists?(@employees.second).should eq false
-      @session.current_path.should eq company_path
+      User.exists?(collection.second).should eq false
+      page.current_path.should eq company_path
     end
+
   end
-  
-  
+
   context "when company has teams" do
-    
+
     background do
-      @teams = create_list :team, 4, company: @customer.company
+      @teams = create_list :team, 4, company: @user.company
       @teams.first.update_attribute(:created_at, 10.minutes.ago)
       @teams.second.update_attribute(:created_at, 7.minutes.ago)
       @teams.third.update_attribute(:created_at, 4.minutes.ago)
       @teams.fourth.update_attribute(:created_at, 2.minutes.ago)
       @session.visit company_path
     end
-  
-    scenario "it should contain information abount teams" do
-      data_rows = @session.all("#teams-short-list .data-row")
-      data_rows.count.should eq 4
-      data_rows.first.should have_content @teams.first.id
-      data_rows.first.should have_content @teams.first.name
-      data_rows.first.should have_content @teams.first.description
-    end
-    
-    scenario "should have link to create another team" do
-      @session.click_link "Add another team" 
-      @session.current_path.should eq new_team_path
-    end
-    
-    scenario "should have link to view team" do
-      data_row = @session.all("#teams-short-list .data-row")[1]
-      data_row.hover
-      data_row.find(".view-team-action").click
-      @session.current_path.should eq team_path(@teams.second)
-    end
-    
-    scenario "should have link to edit team data" do
-      data_row = @session.all("#teams-short-list .data-row")[1]
-      data_row.hover
-      data_row.find(".edit-team-action").click
-      @session.current_path.should eq edit_team_path(@teams.second)
-    end
 
-    scenario "should have link to delete team" do
-      data_row = @session.all("#teams-short-list .data-row")[1]
-      data_row.hover
-      data_row.find(".list-row-action-delete-one").click
-      popup_menu = @session.find(".list-row-action-popover-delete-one")
-      popup_menu.should be_visible
-      popup_menu.all("div", :text => "Cancel").first.should be_visible
-      popup_menu.find(:xpath, ".//input[@value = 'Delete']").click
-      Team.exists?(@teams.second).should eq false
-      @session.current_path.should eq company_path
-    end
-    
-    scenario "it should not include teams from other companies" do
-      another_company_teams = create_list :team, 4, company: create(:company)
-      @session.visit company_path
-      @session.all("#teams-short-list .data-row").count.should eq 4
-    end
+    let(:page) { @session }
+
+    let(:collection) { @teams }
+
+    it_should_behave_like "teams list"
+
   end
-  
+
 end

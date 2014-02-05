@@ -1,18 +1,18 @@
 class JiraSource <  Source
-  
+
   include Hatchboy::Connector::Jira
-  
-  validates :url, :presence => true 
+
+  validates :url, :presence => true
   validates :consumer_key, :presence => true
   validates :private_key, :presence => true
   validate :connection
-  
+
   def provider
     :jira
   end
-  
+
   private
-  
+
   def connection
     begin
       client.request_token
@@ -22,3 +22,4 @@ class JiraSource <  Source
   end
 
 end
+

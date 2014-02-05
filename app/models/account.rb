@@ -4,27 +4,20 @@ class Account < ActiveRecord::Base
   devise :invitable, :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  belongs_to :profile, polymorphic: true
+  belongs_to :user
 
-  accepts_nested_attributes_for :profile, :allow_destroy => true
-  
-  validates_presence_of :profile
+  accepts_nested_attributes_for :user, :allow_destroy => true
+
+  validates_presence_of :user
 
   def has_role? role
     role.to_sym == :customer
   end
-  
-  def profile_attributes= attr
-    if self.profile
-      attr[:id] = self.profile.id
-      attr.delete(:type)
-    end
+
+  def user_attributes= attr
+    attr[:id] = self.user.id if self.user
     super
   end
 
-  def build_profile profile
-    self.profile = Kernel.const_get(profile.delete(:type)).new profile unless self.profile
-    self.profile
-  end
-
 end
+

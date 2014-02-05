@@ -4,14 +4,15 @@
     .col-md-4
       %h2.text-center Sign up
       = display_flash_message :error, f.error_notification
-      = f.fields_for :profile do |customer|
-        = customer.fields_for :company do |company|
+      = f.fields_for :user do |user|
+        = user.fields_for :company do |company|
           = company.input :name, :placeholder => "Company Name", :autofocus => true, label: "Company Name"
-        = customer.input :name, :placeholder => "Username"
-        = f.input :email, :placeholder => "Email", required: true
-        = f.input :password, :placeholder => "Password", required: true
-        = f.input :password_confirmation, :placeholder => "Confirm Password", required: true
+        = user.input :name, :placeholder => "Username"
+      = f.input :email, :placeholder => "Email", required: true
+      = f.input :password, :placeholder => "Password", required: true
+      = f.input :password_confirmation, :placeholder => "Confirm Password", required: true
       .form-group
         = f.submit "Sign up", :class => 'btn btn-default text-center', :role => "button"
-      
+
       = render "devise/shared/links"
+

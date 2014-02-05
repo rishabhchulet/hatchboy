@@ -3,11 +3,11 @@
   / BEGIN MINI-PROFILE
   .user-info-wrapper
     .profile-wrapper
-      %img{"data-src" => current_account.profile.avatar.thumb.url, "data-src-retina" => current_account.profile.avatar.thumb.url, :height => "69", :src => current_account.profile.avatar.thumb.url, :width => "69"}/
+      %img{"data-src" => current_account.user.avatar.thumb.url, "data-src-retina" => current_account.user.avatar.thumb.url, :height => "69", :src => current_account.user.avatar.thumb.url, :width => "69"}/
     .user-info
       .greeting Welcome
       .username
-        %span.semi-bold= current_account.profile.name
+        %span.semi-bold= current_account.user.name
   %p.menu-title
   %ul
     %li.start{class: request[:action] == 'dashboard' ? "active" : ""}
@@ -21,14 +21,14 @@
         %i.icon-envelope
         %span.title Messages
         %span.badge.badge-disable.pull-right 203
-    %li{class: ['customers'].include?(request[:controller]) ? "active" : ""}
-      %a{:href => customers_path}
+    %li{class: ['users'].include?(request[:controller]) ? "active" : ""}
+      %a{:href => users_path}
         %i.icon-envelope
-        %span.title Customers
-    %li{class: ['employees'].include?(request[:controller]) ? "active" : ""}
-      %a{:href => employees_path}
+        %span.title Users
+    %li{class: ['teams'].include?(request[:controller]) ? "active" : ""}
+      %a{:href => teams_path}
         %i.icon-custom-ui
-        %span.title Employees
+        %span.title Teams
     %li{class: ['sources', "jira_sources"].include?(request[:controller]) ? "active" : ""}
       %a{:href => sources_path}
         %i.icon-custom-ui
@@ -46,7 +46,7 @@
         %i.icon-custom-extra
         %span.title Reports
   .clearfix
-- if ['mail', 'compose'].include? request[:action] 
+- if ['mail', 'compose'].include? request[:action]
   .inner-menu.nav-collapse
     .inner-wrapper
       %a.btn.btn-block.btn-primary{:href => compose_mail_path}
@@ -66,3 +66,4 @@
         %a{:href => account_mail_folder_path(:druft)} Draft
       %li
         %a{:href => account_mail_folder_path(:trash)} Trash
+

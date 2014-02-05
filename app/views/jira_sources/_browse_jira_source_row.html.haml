@@ -1,0 +1,10 @@
+%tr.data-row
+  %td
+    =check_box_tag :import, as: :boolean
+  %td
+    =browse_jira_source_row.name
+  %td
+    =select :team, "id",  account_company.teams.pluck("name", "id")
+  %td
+    =select :users, "users[]", [['All', 'all']] + browse_jira_source_row.users.map{|u| [u.displayName, u.name]}, multiple: true
+

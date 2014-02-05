@@ -7,12 +7,12 @@
     %a{ :href => account_path }< Account
   %i.icon-angle-right
   %li
-    %a.active{:href => edit_account_registration_path } Edit  
+    %a.active{:href => edit_account_registration_path } Edit
 .row
-  .col-md-12    
+  .col-md-12
     .page-title
       %i.icon-custom-ui
-      %h3= resource.profile.name
+      %h3= resource.user.name
 .row
   .col-md-12
     .grid.simple
@@ -24,13 +24,13 @@
         = simple_form_for(resource, :as => resource_name, :url => update_account_registration_path, :html => { :method => :put, :multipart => true }) do |f|
           = display_flash_message :error, f.error_notification
           = f.input :current_password, :hint => "(we need your current password to confirm your changes)", :required => true
-          = f.fields_for :profile do |profile|
-            = profile.input :name, :required => true, :hint => 'e.g. "Jane Smith"'
+          = f.fields_for :user do |user|
+            = user.input :name, :required => true, :hint => 'e.g. "Jane Smith"'
           = f.input :email, :required => true, :hint => 'e.g. "email@exapmle.com"'
           = f.input :password, :autocomplete => "off", :hint => "(leave it blank if you don't want to change it)", :required => false
           = f.input :password_confirmation, :required => false
-          = f.fields_for :profile do |profile|
-            = render partial: "customers/upload_avatar",  :locals => {f: profile}
+          = f.fields_for :user do |user|
+            = render partial: "users/upload_avatar",  :locals => {f: user}
           .form-actions
             .pull-right
               %button.btn.btn-success.btn-cons{:type => "submit"}
