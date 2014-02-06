@@ -14,7 +14,7 @@ class Source < ActiveRecord::Base
 
   has_many :worklogs, :class_name => "WorkLog"
 
-  has_many :users, :class_name => "SourcesUser"
+  has_many :source_users, :class_name => "SourcesUser"
 
   validates :provider, inclusion: { in: self::PROVIDERS.keys }, presence: true, :on => :create, :if => "self.type.blank?"
 
