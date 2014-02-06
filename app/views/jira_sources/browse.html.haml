@@ -1,0 +1,40 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a{:href => sources_path} Sources
+  %i.icon-angle-right
+  %li
+    %a.active{:href => jira_sources_path(@jira_source)}= @jira_source.name
+
+.col-md-12
+  .grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold Browse JIRA source
+      .tools
+        %a.reload{:href => "javascript:;"}
+        %a.collapse{:href => "javascript:;"}
+        = link_to "", edit_jira_source_path(@jira_source), :class => "config edit-jira-source"
+    .grid-body.no-border{style: "display:block"}
+      .row
+        %table.table.table-hover
+          %thead
+            %tr
+              %th #
+              %th Jira Prject
+              %th HatchBoy Team
+              %th Employees
+          %tbody
+            =render partial: "jira_sources/browse_jira_source_row", collection: @jira_source.projects
+.form-actions
+  .pull-right
+    %button.btn.btn-success.btn-cons{:type => "submit"}
+      %i.icon-ok
+      Import
+

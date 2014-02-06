@@ -1,0 +1,50 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} User
+  %i.icon-angle-right
+  %li
+    %a.active{:href => user_path(@user)}= @user.name
+.row
+  .col-md-11
+    .page-title
+      %i.icon-custom-ui
+      %h3
+        = @user.name
+  .col-md-1.text-right
+.row
+  .col-md-12
+    .row
+      .col-md-12
+        .grid.simple
+          .grid-title.no-border
+            %h4
+              %span.semi-bold Personal information
+            .tools
+              %a.collapse{:href => "javascript:;"}
+              = link_to "", edit_user_path(@user), :class => "config edit-user"
+          .grid-body.no-border{:style => "display: block;"}
+            .row
+              .col-md-2
+                %label Company
+              .col-md-4= @user.company.name
+            .row
+              .col-md-2
+                %label Name:
+              .col-md-4= @user.name
+            .row
+              .col-md-2
+                %label Contact Email:
+              .col-md-4= @user.contact_email
+            .row
+              .col-md-2
+                %label Role:
+              .col-md-4= @user.role
+            .row
+              .col-md-2
+                %label Status:
+              .col-md-4= @user.status
+

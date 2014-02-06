@@ -7,9 +7,9 @@
     %a{:href => company_path}< Company Profile
   %i.icon-angle-right
   %li
-    %a.active{:href => edit_company_path} Edit  
+    %a.active{:href => edit_company_path} Edit
 .row
-  .col-md-12    
+  .col-md-12
     .page-title
       %i.icon-custom-ui
       %h3= @company.name
@@ -25,7 +25,7 @@
           = display_flash_message :error, f.error_notification
           = f.input :name, :required => true, :hint => 'e.g. "Runolfsson LLC"'
           = f.input :description, :hint => "a few good words about your comapny"
-          = f.association :contact_person, collection: @company.customers, include_blank: false
+          = f.association :contact_person, collection: @company.users, include_blank: false
           .form-actions
             .pull-right
               %button.btn.btn-success.btn-cons{:type => "submit"}

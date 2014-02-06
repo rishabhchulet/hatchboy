@@ -1,19 +1,19 @@
 FactoryGirl.define do
-  
+
   factory :company do
-    
+
     name do
-      begin 
+      begin
         name = Faker::Company.name
       end while Company.where(name: name).any?
       name
     end
-    
+
     description { Faker::Lorem.paragraph }
-    
+
     after :build do |company, evaluator|
       unless evaluator.created_by
-        company.created_by = build :customer, company: company
+        company.created_by = build :user, company: company
       end
       company.contact_person = company.created_by
     end

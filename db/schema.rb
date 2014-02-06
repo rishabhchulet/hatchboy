@@ -40,8 +40,7 @@ ActiveRecord::Schema.define(version: 20140127082637) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.string   "profile_type"
-    t.integer  "profile_id"
+    t.integer  "user_id"
   end
 
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
@@ -61,22 +60,6 @@ ActiveRecord::Schema.define(version: 20140127082637) do
   add_index "companies", ["contact_person_id"], name: "index_companies_on_contact_person_id", using: :btree
   add_index "companies", ["created_by_id"], name: "index_companies_on_created_by_id", using: :btree
 
-  create_table "customers", force: true do |t|
-    t.string  "name"
-    t.integer "company_id"
-    t.string  "avatar"
-  end
-
-  create_table "employees", force: true do |t|
-    t.integer  "company_id"
-    t.string   "name"
-    t.string   "contact_email"
-    t.string   "role"
-    t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "sources", force: true do |t|
     t.integer  "company_id"
     t.string   "name"
@@ -92,9 +75,8 @@ ActiveRecord::Schema.define(version: 20140127082637) do
 
   create_table "sources_users", force: true do |t|
     t.integer  "source_id"
-    t.string   "name"
-    t.string   "email"
-    t.integer  "employee_id"
+    t.integer  "user_id"
+    t.string   "uid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -108,13 +90,6 @@ ActiveRecord::Schema.define(version: 20140127082637) do
     t.datetime "updated_at"
   end
 
-  create_table "teams_employees", force: true do |t|
-    t.integer  "team_id"
-    t.integer  "employee_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "teams_sources", force: true do |t|
     t.integer  "team_id"
     t.integer  "source_id"
@@ -123,11 +98,28 @@ ActiveRecord::Schema.define(version: 20140127082637) do
     t.datetime "updated_at"
   end
 
+  create_table "teams_users", force: true do |t|
+    t.integer  "team_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.integer  "company_id"
+    t.string   "name"
+    t.string   "contact_email"
+    t.string   "role"
+    t.string   "status"
+    t.string   "avatar"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "work_logs", force: true do |t|
     t.integer  "team_id"
     t.integer  "source_id"
-    t.integer  "sources_user_id"
-    t.integer  "employee_id"
+    t.integer  "user_id"
     t.string   "uid_in_source"
     t.string   "issue"
     t.date     "on_date"

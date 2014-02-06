@@ -7,10 +7,7 @@
   %td= worklogs_list_row.on_date
   %td= worklogs_list_row.comment
   %td
-    -if worklogs_list_row.employee
-      = link_to worklogs_list_row.employee.name, employee_path(worklogs_list_row.employee) 
-    -else
-      = worklogs_list_row.sources_user.name
+    = link_to worklogs_list_row.user.name, user_path(worklogs_list_row.user)
   %td
     .col-md-6
       = worklogs_list_row.source ? worklogs_list_row.source.name : "Manually"
@@ -28,3 +25,4 @@
               =form_tag team_work_log_path(worklogs_list_row.team, worklogs_list_row), :method => :delete do
                 =submit_tag 'Delete', :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
                 .btn.btn-small.cancel Cancel
+

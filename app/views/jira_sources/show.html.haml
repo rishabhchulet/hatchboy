@@ -43,13 +43,6 @@
           %label Last updated
         .col-md-4
           = @jira_source.updated_at
-          = link_to :update, jira_source_refresh_path(@jira_source)
-      .row
-        .col-md-2
-          %label Imported data:
-      .row
-        - if @jira_source.worklogs.any?
-          .row
-            =render partial: "work_logs/worklogs_list", :object => @jira_source.worklogs
-        - else
-          (nothing imported yet)
+          = link_to :sync, jira_source_browse_path(@jira_source)
+
+=render partial: "work_logs/source_work_logs", :object => @jira_source.worklogs

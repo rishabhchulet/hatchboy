@@ -5,6 +5,6 @@ FactoryGirl.define do
     company { @company = create(:company)}
     name { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
-    created_by { create(:customer, company: @company) }   
+    created_by { create(:user, company: @company) }
   end
 end
