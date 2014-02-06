@@ -36,7 +36,7 @@ Hatchboy::Application.routes.draw do
   resources :jira_sources do
     get "confirm", :to => "jira_sources", :as => :confirm
     get "browse", :to => "jira_sources", :as => :browse
-    get "sync", :to => "jira_sources", :as => :sync
+    put "sync", :to => "jira_sources", :as => :sync
   end
 
   resources :teams do

@@ -22,19 +22,25 @@
         %a.collapse{:href => "javascript:;"}
         = link_to "", edit_jira_source_path(@jira_source), :class => "config edit-jira-source"
     .grid-body.no-border{style: "display:block"}
-      .row
-        %table.table.table-hover
-          %thead
-            %tr
-              %th #
-              %th Jira Prject
-              %th HatchBoy Team
-              %th Employees
-          %tbody
-            =render partial: "jira_sources/browse_jira_source_row", collection: @jira_source.projects
-.form-actions
-  .pull-right
-    %button.btn.btn-success.btn-cons{:type => "submit"}
-      %i.icon-ok
-      Import
+      = simple_form_for(@jira_source, url: jira_source_sync_path(@jira_source), html: {:method => :put }) do |f|
+        .row
+          %table.table.table-hover
+            %thead
+              %tr
+                %th #
+                %th Jira Prject
+                %th HatchBoy Team
+                %th Employees
+            %tbody
+              =render partial: "jira_sources/browse_jira_source_row", collection: @jira_source.projects, locals: {f: f}
+        .form-actions
+          .pull-right
+            %button.btn.btn-success.btn-cons{:type => "submit"}
+              %i.icon-ok
+              Import
+        :coffeescript
+          $ ->
+            $(".use-project-switcher").change((e)->
+              $(this).parents(".data-row").find(".team-selector, .users-selector").attr('disabled', !this.checked)
+            ).change()
 

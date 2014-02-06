@@ -1,10 +1,11 @@
 %tr.data-row
-  %td
-    =check_box_tag :import, as: :boolean
-  %td
+  %td.col-md-1
+    = check_box_tag "swither", 1, true, {class: "use-project-switcher", name: "switcher" }
+  %td.col-md-3
     =browse_jira_source_row.name
-  %td
-    =select :team, "id",  account_company.teams.pluck("name", "id")
-  %td
-    =select :users, "users[]", [['All', 'all']] + browse_jira_source_row.users.map{|u| [u.displayName, u.name]}, multiple: true
+  %td.col-md-3
+    =select_tag "projects[#{browse_jira_source_row.name}][team_id]", options_for_select([['new', 'new']] + account_company.teams.pluck("name", "id"), selected: browse_jira_source_row.team ? browse_jira_source_row.team.id : "new"), class: "team-selector"
+  %td.col-md-2
+    =select_tag "projects[#{browse_jira_source_row.name}][users][]", options_for_select([['All', 'all']] + browse_jira_source_row.users.map{|u| [u.displayName, u.name]}), multiple: true, class: "users-selector"
+  %td.col-md-3
 
