@@ -8,5 +8,8 @@ class WorkLog < ActiveRecord::Base
   validates :user, :presence => true
   validates :time, :presence => true
 
+  def self.grouped
+    group(:team_id, :user_id).select(:team_id, :user_id, "sum(time) as time")
+  end
 end
 
