@@ -11,9 +11,9 @@
   %p.menu-title
   %ul
     %li.start{class: request[:action] == 'dashboard' ? "active" : ""}
-      %a{:href => account_dashboard_path}
+      %a{:href => company_path}
         %i.icon-custom-home
-        %span.title Dashboard
+        %span.title Company
         %span.selected
         %span.badge.badge-important.pull-right 5
     %li{class: ['mail', 'compose'].include?(request[:action]) ? "active" : ""}
