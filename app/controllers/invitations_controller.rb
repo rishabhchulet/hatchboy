@@ -33,6 +33,7 @@ class InvitationsController < Devise::InvitationsController
         invitable.user = @user
       else
         invitable.user.company = current_inviter.user.company
+        invitable.user.contact_email = invitable.email
       end
       invitable.valid?
       invitable.errors[:email] = t("devise.invitations.user.errors.account_already_confirmed") if invitable.confirmed?
