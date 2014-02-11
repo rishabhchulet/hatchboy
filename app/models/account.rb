@@ -10,6 +10,8 @@ class Account < ActiveRecord::Base
 
   validates_presence_of :user
 
+  validates_uniqueness_of :user_id, message: "has already been invited"
+
   def has_role? role
     role.to_sym == :customer
   end

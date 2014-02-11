@@ -37,6 +37,5 @@
 .row
   .col-md-12
     .row
-      =render :partial => "users/company_users", :object => @company.users.joins(:account).order("created_at ASC")
-      /=render :partial => "employees/company_employees", :object => @company.employees.order("created_at ASC")
+      =render :partial => "users/company_users", :object => @company.users.order("created_at ASC")
 
