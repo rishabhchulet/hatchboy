@@ -7,5 +7,5 @@
         %a.collapse{:href => "javascript:;"}
     .grid-body.no-border{:style => "display: block;"}
       .row
-        = render partial: "work_logs/worklogs_list", object: source_work_logs, locals: {fields: [:id, :source, :team, :time, :on_date, :issue, :comment, :user]}
+        = render partial: "work_logs/worklogs_list", object: source_work_logs
 
