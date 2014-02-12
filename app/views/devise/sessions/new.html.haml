@@ -3,10 +3,10 @@
     .col-md-1
     .col-md-4
       %h2.text-center Sign in
-      = f.input :email
+      = f.input :email, autofocus: true
       = f.input :password
-      = f.input :remember_me, :as => :boolean, :wrapper => :inline_checkbox, checkbox_wrapper_html: { class: "check-default" }    
+      = f.input :remember_me, :as => :boolean, :wrapper => :inline_checkbox, checkbox_wrapper_html: { class: "check-default" }
       .form-group
         = f.submit  "Sign in", :class => 'btn btn-default text-center', :role => "button"
-      
+
       = render "devise/shared/links"

@@ -1,11 +1,11 @@
 class TeamsController < ApplicationController
 
-  before_filter :authenticate_account!
-  
-  def new 
+  before_filter :check_session!
+
+  def new
     @team = Team.new
   end
-  
+
   def index
     @teams = account_company.teams.order("created_at ASC")
   end
@@ -19,15 +19,15 @@ class TeamsController < ApplicationController
       render "teams/new"
     end
   end
-  
+
   def show
     @team = account_company.teams.where(id: params[:id]).first or not_found
   end
-  
+
   def edit
     @team = account_company.teams.where(id: params[:id]).first or not_found
   end
-  
+
   def update
     @team = account_company.teams.where(id: params[:id]).first or not_found
 
@@ -44,9 +44,9 @@ class TeamsController < ApplicationController
     @team.destroy
     redirect_to company_path
   end
-  
+
   private
-  
+
   def team_params
     params.require(:team).permit(:name, :description)
   end
@@ -54,5 +54,5 @@ class TeamsController < ApplicationController
   def after_action_path
     "#{company_path}#teams-short-list"
   end
-  
+
 end

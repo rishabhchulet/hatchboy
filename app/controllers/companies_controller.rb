@@ -1,7 +1,7 @@
 class CompaniesController < ApplicationController
 
-  before_filter :authenticate_account!
-  
+  before_filter :check_session!
+
   def show
     @company = account_company
   end
@@ -9,7 +9,7 @@ class CompaniesController < ApplicationController
   def edit
     @company = account_company
   end
-  
+
   def update
     @company = account_company
 
@@ -21,9 +21,9 @@ class CompaniesController < ApplicationController
     end
   end
 
-  private 
-  
-  def company_params 
+  private
+
+  def company_params
     params.require(:company).permit(:name, :description, :contact_person_id)
   end
 end

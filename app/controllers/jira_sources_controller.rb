@@ -1,6 +1,6 @@
 class JiraSourcesController < ApplicationController
 
-  before_filter :authenticate_account!
+  before_filter :check_session!
 
   def new
     new_jira_source
