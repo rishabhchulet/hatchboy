@@ -10,17 +10,12 @@
         %span.semi-bold= current_account.user.name
   %p.menu-title
   %ul
-    %li.start{class: request[:action] == 'dashboard' ? "active" : ""}
+    %li.start{class: request[:controller] == 'companies' ? "active" : ""}
       %a{:href => company_path}
         %i.icon-custom-home
         %span.title Company
         %span.selected
         %span.badge.badge-important.pull-right 5
-    %li{class: ['mail', 'compose'].include?(request[:action]) ? "active" : ""}
-      %a{:href => account_mail_path}
-        %i.icon-envelope
-        %span.title Messages
-        %span.badge.badge-disable.pull-right 203
     %li{class: ['users'].include?(request[:controller]) ? "active" : ""}
       %a{:href => users_path}
         %i.icon-envelope
