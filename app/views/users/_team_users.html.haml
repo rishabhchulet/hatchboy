@@ -1,15 +1,9 @@
-.col-md-12
-  .grid.simple
-    .grid-title.no-border
-      %h4
-        %span.semi-bold Assigned Users
-      .tools
-        %a.collapse{:href => "javascript:;"}
-    .grid-body.no-border{:style => "display: block;"}
-      .row
-        = render partial: "users/short_list", object: team_users, locals: {team: team}
-      .row.pull-right
-        %a.btn.btn-primary.btn-cons{href: new_team_users_path(team)}
-          Add user
-      .row
+.grid.simple
+  .grid-body.no-border{:style => "display: block;"}
+    .row
+      = render partial: "users/short_list", object: team_users, locals: {team: team}
+    .row.pull-right
+      %a.btn.btn-primary.btn-cons{href: new_team_users_path(team)}
+        Add user
+    .row
 

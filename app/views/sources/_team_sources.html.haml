@@ -1,15 +1,9 @@
-.col-md-12
-  .grid.simple
-    .grid-title.no-border
-      %h4
-        %span.semi-bold Added Sources
-      .tools
-        %a.collapse{:href => "javascript:;"}
-    .grid-body.no-border{:style => "display: block;"}
-      .row
-        =render partial: "sources/sources_list", :object => team_sources
-      .row.pull-right
-        %a.btn.btn-primary.btn-cons{href: new_source_path}
-          Add another source
-      .row
+.grid.simple
+  .grid-body.no-border{:style => "display: block;"}
+    .row
+      =render partial: "sources/sources_list", :object => team_sources
+    .row.pull-right
+      %a.btn.btn-primary.btn-cons{href: new_source_path}
+        Add another source
+    .row
 
