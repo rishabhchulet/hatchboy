@@ -33,10 +33,9 @@
 
 .row
   .col-md-12
-    =render partial: "teams/short_list", :object => @company.teams.order("created_at ASC")
+    =render partial: "teams/company_teams", :object => @company.teams.order("created_at ASC")
 .row
   .col-md-12
     .row
-      =render :partial => "users/company_users", :object => @company.users.joins(:account).order("created_at ASC")
-      /=render :partial => "employees/company_employees", :object => @company.employees.order("created_at ASC")
+      =render :partial => "users/company_users", :object => @company.users.order("created_at ASC")
 

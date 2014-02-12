@@ -13,5 +13,10 @@ class ApplicationController < ActionController::Base
     current_account.user.company
   end
 
+  def check_session!
+    authenticate_account!
+    sign_out and redirect_to after_sign_out_path_for(:account) unless current_account.user and current_account.user.company
+  end
+
 end
 

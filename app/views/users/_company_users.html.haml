@@ -1,19 +1,30 @@
-.col-md-12
+.col-md-6
   .grid.simple
     .grid-title.no-border
       %h4
-        %span.semi-bold Users
+        %span.semi-bold Invited users
       .tools
         %a.collapse{:href => "javascript:;"}
     .grid-body.no-border{:style => "display: block;"}
       .row
-        = render partial: "users/short_list", object: company_users
+        = render partial: "users/short_list", object: company_users.with_account
+      .row.pull-right
+        %a.btn.btn-primary.btn-cons{href: new_user_invitation_path}
+          Invite user
       .row
-        .col-md-8
-        .col-md-2.col-lg-1
-          %a.btn.btn-primary.btn-cons{href: new_user_path}
-            Add user
-        .col-md-2.col-lg-1
-          %a.btn.btn-primary.btn-cons{href: new_user_invitation_path}
-            Invite user
+
+.col-md-6
+  .grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold Created users
+      .tools
+        %a.collapse{:href => "javascript:;"}
+    .grid-body.no-border{:style => "display: block;"}
+      .row
+        = render partial: "users/short_list", object: company_users.without_account
+      .row.pull-right
+        %a.btn.btn-primary.btn-cons{href: new_user_path}
+          Add user
+      .row
 

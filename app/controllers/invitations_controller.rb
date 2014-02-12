@@ -7,15 +7,34 @@ class InvitationsController < Devise::InvitationsController
 
   def new
     self.resource = resource_class.new
-    self.resource.build_user
+    @user = account_company.users.where(id: params["user_id"]).first if params["user_id"]
+    if @user
+      self.resource.user = @user
+      self.resource.email = @user.contact_email
+    else
+      self.resource.build_user
+    end
     render :new
+  end
+
+  def create
+    user_id = params["account"]["user_attributes"].delete("id")
+    if user_id and @user = account_company.users.without_account.where(id: user_id).first
+      params["account"]['email'] = @user.contact_email
+    end
+    super
   end
 
   protected
 
   def invite_resource
     resource_class.invite!(invite_params, current_inviter) do |invitable|
-      invitable.user.company = current_inviter.user.company
+      if @user
+        invitable.user = @user
+      else
+        invitable.user.company = current_inviter.user.company
+        invitable.user.contact_email = invitable.email
+      end
       invitable.valid?
       invitable.errors[:email] = t("devise.invitations.user.errors.account_already_confirmed") if invitable.confirmed?
     end

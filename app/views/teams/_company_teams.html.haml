@@ -15,5 +15,9 @@
             %th{:width => "6%"} Total time
             %th{:width => "10%"} Progress
         %tbody
-          =render partial: "teams/short_list_row", collection: short_list, locals: {user: user}
+          =render partial: "teams/short_list_row", collection: company_teams, locals: {user: nil}
+    .row.pull-right
+      %a.btn.btn-primary.btn-cons{href: new_team_path}
+        Add another team
+    .row
 

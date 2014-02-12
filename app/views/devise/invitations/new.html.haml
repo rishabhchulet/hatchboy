@@ -4,7 +4,10 @@
     .col-md-4
       %h2.text-centerr= t "devise.invitations.user.new.header"
       =f.fields_for :user do |user|
-        = user.input :name, placeholder: "Username", label: "Username", autofocus: true, hint: 'e.g "Jhon Smitt"', required: true
-      = f.input :email, placeholder: "Email", autofocus: true, hint: 'e.g "mail@example.com"', required: true
+        - if @user
+          = user.hidden_field :id, value: @user.id
+        = user.input :name, placeholder: "Name", label: "Name", autofocus: true, hint: 'e.g "John Smitt"', required: true, disabled: !@user.blank?
+      = f.input :email, placeholder: "Email", autofocus: true, hint: 'e.g "mail@example.com"', required: true, disabled: !@user.blank?
       .form-group
         = f.submit t("devise.invitations.user.new.submit_button"), :class => 'btn btn-default text-center', :role => "button"
+

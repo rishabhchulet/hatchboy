@@ -1,13 +1,13 @@
-class SourcesController < ApplicationController 
+class SourcesController < ApplicationController
 
-  before_filter :authenticate_account!
-  
-  def index 
+  before_filter :check_session!
+
+  def index
     @sources = account_company.sources
   end
-  
+
   def new
-    
+
   end
-  
+
 end
