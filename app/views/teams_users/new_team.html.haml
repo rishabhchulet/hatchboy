@@ -7,19 +7,19 @@
     %a{:href => company_path}< Company
   %i.icon-angle-right
   %li
-    %a{:href => teams_path }< Teams
+    %a{:href => users_path }< Users
   %i.icon-angle-right
   %li
-    %a{:href => team_path(@team)}<= @team.name
+    %a{:href => user_path(@user)}<= @user.name
   %i.icon-angle-right
   %li
-    %a.active{:href => new_team_user_path }< Assign user
+    %a.active{:href => new_user_teams_path }< Assign team
 
 .row
   .col-md-12
     .page-title
       %i.icon-custom-ui
-      %h3 Add user
+      %h3 Add team
 .row
   .col-md-12
     .grid.simple
@@ -28,12 +28,13 @@
           %span.semi-bold Assign user
         .tools
       .grid-body.no-border
-        = simple_form_for(@team_user, :url => team_users_path, :method => :post) do |f|
+        = simple_form_for(@team_user, :url => create_user_teams_path, :method => :post) do |f|
           = display_flash_message :error, f.error_notification
-          = f.input :user_id, collection: (@team.company.users), include_blank: false
+          = f.input :team_id, collection: (@user.company.teams - @user.teams), include_blank: false
           .form-actions
             .pull-right
               %button.btn.btn-success.btn-cons{:type => "submit"}
                 %i.icon-ok
                 Save
-              = link_to "Cancel", team_path(@team), :class => "btn btn-white btn-cons"
+              = link_to "Cancel", user_path(@user), :class => "btn btn-white btn-cons"
+

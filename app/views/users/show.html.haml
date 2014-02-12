@@ -52,3 +52,5 @@
                 = link_to "Invite user", new_user_invitation_path(user_id: @user.id), :class => "btn btn-primary btn-cons"
               .row
 
+=render partial: "teams/user_teams", :object => @user.teams, locals: { user: @user }
+

@@ -16,7 +16,7 @@
           %tbody
             - team_work_logs.grouped.each do |worklogs_list_row|
               %tr.data-row
-                %td= worklogs_list_row.team.name
+                %td=link_to worklogs_list_row.team.name, team_path(worklogs_list_row.team)
                 %td
                   .pull-right{style: "padding-right:50%"}= nice_time_difference(worklogs_list_row.time)
                 %td= link_to worklogs_list_row.user.name, user_path(worklogs_list_row.user)

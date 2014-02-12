@@ -2,8 +2,9 @@ class User < ActiveRecord::Base
 
   belongs_to :company
   has_one :account
-  has_many :users_teams, class_name: "TeamsUsers"
-  has_many :teams, through: :users_teams
+
+  has_many :user_teams, class_name: "TeamsUsers"
+  has_many :teams, through: :user_teams
 
   scope :without_account, -> { joins("LEFT JOIN accounts AS r10 ON r10.user_id = users.id").where("r10.id IS NULL") }
   scope :with_account, -> { joins("LEFT JOIN accounts AS r11 ON r11.user_id = users.id").where("r11.id IS NOT NULL") }

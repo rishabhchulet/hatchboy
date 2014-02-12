@@ -1,18 +1,18 @@
 %tr.data-row
   %td= sources_list_row.id
-  %td= sources_list_row.name
+  %td=link_to sources_list_row.name, sources_list_row
   %td= sources_list_row.provider
-  %td= sources_list_row.url  
+  %td= sources_list_row.url
   %td
     .col-md-6
       = sources_list_row.updated_at
     .col-md-6
       .list-column.list-row-action
         .list-row-action-wrapper
-          =link_to [:edit, sources_list_row], :rel => :tooltip, :title => "edit employee profile", :class => 'list-row-action-wrapper-link edit-source-action' do
+          =link_to [:edit, sources_list_row], :rel => :tooltip, :title => "edit source", :class => 'list-row-action-wrapper-link edit-source-action' do
             %i.icon-edit
-          =link_to sources_list_row, :rel => :tooltip, :title => "edit employee profile", :class => 'list-row-action-wrapper-link view-source-action' do
-            %i.icon-cog
+          =link_to sources_list_row, :rel => :tooltip, :title => "sync source", :class => 'list-row-action-wrapper-link sync-source-action' do
+            %i.icon-signin
           =link_to "", :rel => :tooltip, :title => "delete source profile", :class => 'list-row-action-wrapper-link list-row-action-delete-one' do
             %i.icon-trash
           .popover.list-row-action-popover-delete-one.left
@@ -22,3 +22,4 @@
               =form_tag jira_source_path(sources_list_row), :method => :delete do
                 =submit_tag 'Delete', :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
                 .btn.btn-small.cancel Cancel
+
