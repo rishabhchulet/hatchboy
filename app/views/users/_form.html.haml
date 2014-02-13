@@ -1,7 +1,7 @@
 = display_flash_message :error, f.error_notification
-= f.input :name, :required => true, :hint => 'e.g. "Runolfsson LLC"', :autofocus => true
-= f.input :contact_email, :as => :email, :hint => 'e.g. "email@example.com"', disabled: !f.object.account.blank?
-= f.input :role, collection: ["Manager", "Developer", "Designer", "Fron-end developer", "CEO", "Team-Leader"]
+= f.input :name, :required => true, :hint => 'e.g. "John Smith"', :autofocus => true
+= f.input :contact_email, :as => :email, :hint => 'e.g. "email@example.com"', disabled: !f.object.account.blank?, required: true
+= f.input :role, collection: ["Manager", "Developer", "Designer", "Front-end developer", "CEO", "Team-Leader"]
 = f.input :status, collection: ["Full day", "Temporary", "Half-day", "Fired", "Outsourcer"]
 = render partial: "users/upload_avatar",  :locals => {f: f}
 .form-actions

@@ -30,11 +30,15 @@
       .grid-body.no-border
         = simple_form_for(@team_user, :url => create_user_teams_path, :method => :post) do |f|
           = display_flash_message :error, f.error_notification
-          = f.input :team_id, collection: (@user.company.teams - @user.teams), include_blank: false
+          - if (@user.company.teams - @user.teams).any?
+            = f.input :team_id, collection: (@user.company.teams - @user.teams), include_blank: false
+          - else
+            = f.input :team_id, collection: [['There are no teams available']], include_blank: false, disabled: true
           .form-actions
             .pull-right
-              %button.btn.btn-success.btn-cons{:type => "submit"}
-                %i.icon-ok
-                Save
+              - if (@user.company.teams - @user.teams).any?
+                %button.btn.btn-success.btn-cons{:type => "submit"}
+                  %i.icon-ok
+                  Save
               = link_to "Cancel", user_path(@user), :class => "btn btn-white btn-cons"
 

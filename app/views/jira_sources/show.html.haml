@@ -43,6 +43,8 @@
           %label Last updated
         .col-md-4
           = @jira_source.updated_at
-          = link_to :sync, jira_source_browse_path(@jira_source)
+          = link_to jira_source_browse_path(@jira_source) do
+            %i.icon-refresh
 
 =render partial: "work_logs/source_work_logs", :object => @jira_source.worklogs
+
