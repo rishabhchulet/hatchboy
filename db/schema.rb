@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140127082637) do
+ActiveRecord::Schema.define(version: 20140212093025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,29 @@ ActiveRecord::Schema.define(version: 20140127082637) do
 
   add_index "companies", ["contact_person_id"], name: "index_companies_on_contact_person_id", using: :btree
   add_index "companies", ["created_by_id"], name: "index_companies_on_created_by_id", using: :btree
+
+  create_table "payment_recipients", force: true do |t|
+    t.integer "payment_id"
+    t.integer "recipient_id"
+    t.float   "amount"
+  end
+
+  create_table "payment_transactions", force: true do |t|
+    t.integer  "payment_id"
+    t.string   "payment_system"
+    t.string   "transaction_id"
+    t.string   "transaction_status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payments", force: true do |t|
+    t.integer  "company_id"
+    t.integer  "created_by_id"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sources", force: true do |t|
     t.integer  "company_id"
