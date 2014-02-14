@@ -24,7 +24,7 @@
         = simple_form_for(@company, :as => :company, :html => { :method => :put }) do |f|
           = display_flash_message :error, f.error_notification
           = f.input :name, :required => true, :hint => 'e.g. "Runolfsson LLC"'
-          = f.input :description, :hint => "a few good words about your comapny"
+          = f.input :description, :hint => "a few good words about your company"
           = f.association :contact_person, collection: @company.users, include_blank: false
           .form-actions
             .pull-right
