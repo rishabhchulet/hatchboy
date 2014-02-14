@@ -11,8 +11,8 @@
         = f.password_field :password, :autofocus => true, :class => "form-control", :placeholder => "Password"
       .form-group
         %label{:for => :password_confirmation} Confirm Password
-        = f.password_field :password_confirmation, :autofocus => true, :class => "form-control", :placeholder => "Confirm Password"
+        = f.password_field :password_confirmation, :class => "form-control", :placeholder => "Confirm Password"
       .form-group
         = f.submit t("devise.invitations.edit.submit_button"), :class => 'btn btn-default text-center', :role => "button"
-        
+
       = render "devise/shared/links"
