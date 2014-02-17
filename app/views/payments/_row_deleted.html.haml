@@ -1,0 +1,12 @@
+%tr.data-row
+  %td= row_deleted.id
+  %td= row_deleted.description
+  %td= number_to_currency(row_deleted.amount)
+  %td= row_deleted.updated_at
+  %td= row_deleted.created_by.name
+  %td= row_deleted.status
+  %td= row_deleted.transaction ? row_deleted.transaction.status : ''
+  %td
+    =link_to payment_path(row_deleted) do
+      %button.btn.btn-sm.btn-small.btn-primary
+        %i.icon-signin &nbsp;&nbsp;View

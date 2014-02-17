@@ -1,0 +1,58 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a{:href => payments_path} Payments
+  %i.icon-angle-right
+  %li
+    %span.active= "##{@payment.id} (#{@payment.description})"
+
+  %h1 Payment ##{@payment.id} (#{@payment.description})
+
+  %div.row
+    %div.col-md-4
+      %div.grid.simple.horizontal.green
+        %h2.grid-title General Info
+        %ul.grid-body
+          %li= "ID - #{@payment.id}"
+          %li= "Description - #{@payment.description}"
+          %li= "Total amount - #{number_to_currency(@payment.amount)}"
+          %li= "Created - #{@payment.updated_at}"
+          %li= "Creator - #{@payment.created_by.name}"
+          %li
+            %span="Status - #{@payment.status}"
+            - if @payment.deleted
+              %span deleted
+    %div.col-md-4
+      %div.grid.simple.horizontal.yellow
+        %h2.grid-title Recipients
+        %ul.grid-body
+          - @payment.recipients.each do |recipient|
+            %li= "#{recipient.user.name} - $#{recipient.amount}"
+
+    - if @payment.transaction
+      %div.col-md-4
+        %div.grid.simple.horizontal.red
+          %h2.grid-title Transaction
+          %div.grid-body= @payment.transaction_info
+
+  %div.row
+    %div.col-md-12
+      %div.grid.simple.horizontal.blue
+        %p.grid-body.text-center
+          - if @payment.status == Payment::STATUS_PREPARED
+            =link_to edit_payment_path(@payment), :title => "Edit Payment" do
+              %button.btn.btn-primary.btn-cons
+                %i.icon-edit &nbsp;&nbsp;Edit
+          - unless @payment.deleted
+            =link_to payment_path(@payment), :method => 'delete', :title => "Delete Payment", :confirm => "Are you sure ?" do
+              %button.btn.btn-danger.btn-cons
+                %i.icon-trash &nbsp;&nbsp;Delete
+
+= content_for :page_specific_css do 
+  = stylesheet_link_tag "css/payments"

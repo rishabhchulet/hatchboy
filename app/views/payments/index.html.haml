@@ -1,0 +1,38 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a.active{:href => sources_path} Payments
+
+.row
+  .col-md-11
+    .page-title
+      %i.icon-money
+      %h3 Payments
+  .col-md-1.text-right
+.row
+  %ul#navigation-tab.nav.nav-tabs
+    %li.active
+      %a{:href => "#payments-prepared"} Prepared Payments
+    %li
+      %a{:href => "#payments-sent"} Sent Payments
+    %li
+      %a{:href => "#payments-deleted"} Deleted Payments
+  .tab-content
+    #payments-prepared.tab-pane.active
+      =render partial: "payments/list_prepared", :object => @payments_prepared
+    #payments-sent.tab-pane
+      =render partial: "payments/list_sent", :object => @payments_sent
+    #payments-deleted.tab-pane
+      =render partial: "payments/list_deleted", :object => @payments_deleted
+
+=content_for :javascript do
+  =javascript_include_tag "js/tabs_accordian"
+
+= content_for :page_specific_css do 
+  = stylesheet_link_tag "css/payments"
