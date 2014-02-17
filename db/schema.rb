@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20140212093025) do
 
   create_table "payment_recipients", force: true do |t|
     t.integer "payment_id"
-    t.integer "recipient_id"
+    t.integer "user_id"
     t.float   "amount"
   end
 
@@ -79,6 +79,8 @@ ActiveRecord::Schema.define(version: 20140212093025) do
     t.integer  "company_id"
     t.integer  "created_by_id"
     t.string   "status"
+    t.string   "description"
+    t.boolean  "deleted"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
