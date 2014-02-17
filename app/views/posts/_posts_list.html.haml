@@ -1,0 +1,10 @@
+%table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#posts-list
+  %thead
+    %tr
+      %th #
+      %th Subject
+      %th Message
+      %th Docs
+      %th Updated At
+  %tbody
+    = render partial: "posts/posts_list_row", collection: posts_list

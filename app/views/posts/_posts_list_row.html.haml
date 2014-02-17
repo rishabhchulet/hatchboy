@@ -1,0 +1,20 @@
+%tr.data-row
+  %td= posts_list_row.id
+  %td= posts_list_row.subject
+  %td= posts_list_row.message
+  %td= posts_list_row.documents.size
+  %td
+    .col-md-6
+      = posts_list_row.updated_at
+    .col-md-6
+      .list-column.list-row-action
+        .list-row-action-wrapper
+          =link_to "", :rel => :tooltip, :title => "delete source profile", :class => 'list-row-action-wrapper-link list-row-action-delete-one' do
+            %i.icon-trash
+          .popover.list-row-action-popover-delete-one.left
+            .arrow
+            %h3.popover-title Delete this source?
+            .popover-content
+              =form_tag post_path(posts_list_row), :method => :delete do
+                =submit_tag 'Delete', :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
+                .btn.btn-small.cancel Cancel
