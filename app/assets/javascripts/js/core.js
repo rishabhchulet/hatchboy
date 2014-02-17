@@ -306,12 +306,12 @@ $(document).ready(function() {
 
 	 $('table th .checkall').on('click', function () {
 			if($(this).is(':checked')){
-				$(this).closest('table').find(':checkbox').attr('checked', true);
+				$(this).closest('table').find(':checkbox').prop('checked', true);
 				$(this).closest('table').find('tr').addClass('row_selected');
-				//$(this).parent().parent().parent().toggleClass('row_selected');	
+				// $(this).parent().parent().parent().toggleClass('row_selected');	
 			}
 			else{
-				$(this).closest('table').find(':checkbox').attr('checked', false);
+				$(this).closest('table').find(':checkbox').prop('checked', false);
 				$(this).closest('table').find('tr').removeClass('row_selected');
 			}
     });
