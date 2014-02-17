@@ -5,13 +5,12 @@ describe PaymentRecipient do
   specify do
     should be_kind_of PaymentRecipient
     should respond_to :payment
-    should respond_to :recipient
+    should respond_to :user
     should respond_to :amount
   end
 
   specify do
-    should validate_presence_of :payment
-    should validate_presence_of :recipient
+    should validate_presence_of :user
     should validate_presence_of :amount
   end
 

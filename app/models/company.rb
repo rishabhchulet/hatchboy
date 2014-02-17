@@ -5,6 +5,7 @@ class Company < ActiveRecord::Base
   has_many :users
   has_many :sources
   has_many :teams
+  has_many :payments
 
   validates_presence_of :created_by
   validates :name, uniqueness: { case_sensitive: false }, presence: true

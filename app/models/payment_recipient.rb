@@ -1,11 +1,11 @@
 class PaymentRecipient < ActiveRecord::Base
 
   belongs_to :payment
-  belongs_to :recipient, class_name: "User"
+  belongs_to :user
 
   before_save :round_amount
 
-  validates :payment, :recipient, :amount, presence: true
+  validates :user, :amount, presence: true
   validate :amount_cannot_be_less_or_equal_to_zero
 
   private

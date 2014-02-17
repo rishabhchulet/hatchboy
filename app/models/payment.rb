@@ -5,21 +5,25 @@ class Payment < ActiveRecord::Base
 
   belongs_to :company
   belongs_to :created_by,  class_name: "User"
-  has_many   :recipients,  class_name: "PaymentRecipient", autosave: true
-  has_one    :transaction, class_name: "PaymentTransaction", autosave: true
+  has_one    :transaction, class_name: "PaymentTransaction"
+  has_many   :recipients,  class_name: "PaymentRecipient"
+  accepts_nested_attributes_for :transaction
+  accepts_nested_attributes_for :recipients
 
-  validates :company, :created_by, :status, :description, presence: true
+  validates :company, :created_by, :description, presence: true
 
-  before_create :set_prepared_status
+  before_create :default_attributes
 
   def amount
     self.recipients.map(&:amount).sum.round(2)
-  end  
+  end
 
   private
 
-  def set_prepared_status
-    self.status = STATUS_PREPARED
+  def default_attributes
+    self.status ||= STATUS_PREPARED
+    self.deleted ||= false
+    true
   end
 
 end

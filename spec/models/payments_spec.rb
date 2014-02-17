@@ -17,7 +17,6 @@ describe Payment do
   specify do
     should validate_presence_of :company
     should validate_presence_of :created_by
-    should validate_presence_of :status
   end
   
   describe "default values" do
