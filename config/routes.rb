@@ -39,6 +39,8 @@ Hatchboy::Application.routes.draw do
     put "sync", :to => "jira_sources", :as => :sync
   end
 
+  resources :posts
+
   resources :teams do
     resources :work_logs, except: [:view]
     resources :sources, :to => "teams_sources"
