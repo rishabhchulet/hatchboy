@@ -15,7 +15,9 @@ Hatchboy::Application.routes.draw do
   get "account",   :to => "accounts#show", :as => :account
   get "dashboard", :to => "pages#dashboard", :as => :account_dashboard
   get "legal", :to => "pages#dashboard", :as => :legal
-  get "payments", :to => "pages#dashboard", :as => :payments
+
+  resources :payments
+
   get "reports", :to => "pages#dashboard", :as => :reports
   get "messages", :to => "pages#dashboard", :as => :messages
 
