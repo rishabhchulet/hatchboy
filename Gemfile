@@ -57,4 +57,5 @@ group :test do
   gem 'email_spec'
   gem "webmock", "~> 1.16.1"
   gem "rack_session_access", "~> 0.1.1"  
+  gem "fuubar", "~> 1.3.2"
 end
