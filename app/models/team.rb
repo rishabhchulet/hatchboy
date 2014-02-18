@@ -11,6 +11,9 @@ class Team < ActiveRecord::Base
   has_many :team_users, class_name: "TeamsUsers"
   has_many :users, through: :team_users
 
+  has_many :posts, :through => :post_receivers
+  has_many :post_receivers, :as => :receiver
+
   validates :name, :presence => true
 
 end

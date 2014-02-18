@@ -61,3 +61,4 @@
 =content_for :javascript do
   =javascript_include_tag "js/tabs_accordian"
 
+=render partial: "posts/team_posts", :object => @team.posts, locals: { team: @team }

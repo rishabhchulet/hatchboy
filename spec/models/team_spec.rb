@@ -4,11 +4,13 @@ describe Team do
 
   it { should belong_to :company }
   it { should belong_to :created_by }
-  it { should have_many :worklogs }
+  it { should have_many(:worklogs).dependent(:destroy) }
   it { should validate_presence_of :name }
-  it { should have_many(:team_sources).class_name(TeamsSources) }
+  it { should have_many(:team_sources).class_name(TeamsSources).dependent(:destroy) }
   it { should have_many(:sources) }
   it { should have_many :users }
+  it { should have_many(:posts).through(:post_receivers) }
+  it { should have_many(:post_receivers) }
 
   it "should remove all worklogs logged to team" do
     team = create :team
