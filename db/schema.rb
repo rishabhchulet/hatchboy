@@ -69,8 +69,8 @@ ActiveRecord::Schema.define(version: 20140212093025) do
   create_table "payment_transactions", force: true do |t|
     t.integer  "payment_id"
     t.string   "payment_system"
-    t.string   "transaction_id"
-    t.string   "transaction_status"
+    t.string   "status"
+    t.text     "info"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

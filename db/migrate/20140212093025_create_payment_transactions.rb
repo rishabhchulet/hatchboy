@@ -3,8 +3,8 @@ class CreatePaymentTransactions < ActiveRecord::Migration
     create_table :payment_transactions do |t|
       t.integer :payment_id
       t.string :payment_system
-      t.string :transaction_id
-      t.string :transaction_status
+      t.string :status
+      t.text :info
 
       t.timestamps
     end
