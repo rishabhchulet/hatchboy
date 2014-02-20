@@ -1,5 +1,7 @@
 class PaymentTransaction < ActiveRecord::Base
 
-  belongs_to :payment
+  TYPE_PAYPAL = 'paypal'
+  TYPE_DWOLLA = 'dwolla'
 
+  belongs_to :payment
 end
