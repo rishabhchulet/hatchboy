@@ -1,11 +1,11 @@
 %tr.data-row
   %td= posts_list_row.id
-  %td= posts_list_row.subject
-  %td= posts_list_row.message
+  %td= posts_list_row.user.name
+  %td= link_to posts_list_row.subject, post_path(posts_list_row)
   %td= posts_list_row.documents.size
   %td
     .col-md-6
-      = posts_list_row.updated_at
+      = posts_list_row.updated_at.strftime('%Y/%m/%d at %H:%M:%S')
     .col-md-6
       .list-column.list-row-action
         .list-row-action-wrapper
