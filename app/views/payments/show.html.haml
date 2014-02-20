@@ -39,7 +39,11 @@
       %div.col-md-4
         %div.grid.simple.horizontal.red
           %h2.grid-title Transaction
-          %div.grid-body= @payment.transaction_info
+          %div.grid-body
+            %div= "Status - #{@payment.transaction.status}"
+            %div= request.to_hash
+            - unless @payment.transaction.status == "Success"
+              %div= @payment.transaction.info
 
   %div.row
     %div.col-md-12
@@ -50,7 +54,7 @@
               %button.btn.btn-primary.btn-cons
                 %i.icon-edit &nbsp;&nbsp;Edit
           - unless @payment.deleted
-            =link_to payment_path(@payment), :method => 'delete', :title => "Delete Payment", :confirm => "Are you sure ?" do
+            =link_to payment_path(@payment), :title => "Delete Payment", method: 'delete', data: {confirm: "Are you sure ?"} do
               %button.btn.btn-danger.btn-cons
                 %i.icon-trash &nbsp;&nbsp;Delete
 

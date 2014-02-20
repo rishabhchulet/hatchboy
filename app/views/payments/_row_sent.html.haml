@@ -9,6 +9,6 @@
     =link_to payment_path(row_sent) do
       %button.btn.btn-sm.btn-small.btn-primary
         %i.icon-signin &nbsp;&nbsp;View
-    =link_to payment_path(row_sent), :method => 'delete', :confirm => "Are you sure ?" do
+    =link_to payment_path(row_sent), method: 'delete', data: {confirm: "Are you sure ?"} do
       %button.btn.btn-sm.btn-small.btn-danger
         %i.icon-trash &nbsp;&nbsp;Delete
