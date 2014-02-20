@@ -2,6 +2,10 @@ class PostsController < ApplicationController
   
   before_filter :authenticate_account!
 
+  def show
+    @post = Post.find(params[:id]) or not_found
+  end
+
   def create
     @team = account_company.teams.where(id: params[:team_id]).first or not_found
 
