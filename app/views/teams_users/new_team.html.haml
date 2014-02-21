@@ -7,7 +7,7 @@
     %a{:href => company_path}< Company
   %i.icon-angle-right
   %li
-    %a{:href => users_path }< Users
+    %a{:href => users_path }< Employees
   %i.icon-angle-right
   %li
     %a{:href => user_path(@user)}<= @user.name
@@ -25,7 +25,7 @@
     .grid.simple
       .grid-title.no-border
         %h4
-          %span.semi-bold Assign user
+          %span.semi-bold Assign employee
         .tools
       .grid-body.no-border
         = simple_form_for(@team_user, :url => create_user_teams_path, :method => :post) do |f|

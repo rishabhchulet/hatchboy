@@ -19,7 +19,7 @@
     %li{class: ['users'].include?(request[:controller]) ? "active" : ""}
       %a{:href => users_path}
         %i.icon-envelope
-        %span.title Users
+        %span.title Employees
     %li{class: ['teams'].include?(request[:controller]) ? "active" : ""}
       %a{:href => teams_path}
         %i.icon-custom-ui
@@ -27,7 +27,7 @@
     %li{class: ['sources', "jira_sources"].include?(request[:controller]) ? "active" : ""}
       %a{:href => sources_path}
         %i.icon-custom-ui
-        %span.title Sources
+        %span.title Data sources
     %li
       %a{:href => legal_path}
         %i.icon-custom-extra
@@ -35,7 +35,7 @@
     %li
       %a{:href => payments_path}
         %i.icon-custom-extra
-        %span.title Payments
+        %span.title Pay your Employees
     %li
       %a{:href => reports_path}
         %i.icon-custom-extra

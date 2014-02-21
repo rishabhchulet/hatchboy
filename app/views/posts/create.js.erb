@@ -1,0 +1,11 @@
+<% if @post.errors.count == 0 %>
+
+  $('#new_post').get(0).reset();
+  if ( $('#error_explanation') ) $('#error_explanation').remove();
+  $("<%= escape_javascript(render @post) %>").appendTo("#posts");
+
+<% else %>
+
+  $('#new_post_form').html('<%= j render("form") %>');
+
+<% end %>

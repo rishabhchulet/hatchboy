@@ -22,6 +22,8 @@ class TeamsController < ApplicationController
 
   def show
     @team = account_company.teams.where(id: params[:id]).first or not_found
+    @posts = @team.posts
+    @post = Post.new
   end
 
   def edit

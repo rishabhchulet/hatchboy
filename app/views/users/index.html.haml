@@ -7,20 +7,20 @@
     %a{:href => company_path}<= account_company.name
   %i.icon-angle-right
   %li
-    %a.active{:href => users_path} Users
+    %a.active{:href => users_path} Employees
 .row
   .col-md-11
     .page-title
       %i.icon-custom-ui
       %h3
-        Users
+        Employees
   .col-md-1.text-right
 .row
   .col-md-12
     .grid.simple
       .grid-title.no-border
         %h4
-          %span.semi-bold Company users
+          %span.semi-bold Company employees
         .tools
           %a.collapse{:href => "javascript:;"}
       .grid-body.no-border{:style => "display: block;"}
@@ -28,8 +28,8 @@
           = render partial: "users/short_list", object: @users
         .row.pull-right
           %a.btn.btn-primary.btn-cons{href: new_user_invitation_path}
-            Invite user
+            Invite employee
           %a.btn.btn-primary.btn-cons{href: new_user_path}
-            Add user
+            Add employee
         .row
 

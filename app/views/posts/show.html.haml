@@ -32,5 +32,12 @@
         .col-md-4= @post.message
       .row
         .col-md-2
+          %label Documents
+        .col-md-4
+          - if @post.documents.size > 0
+            - @post.documents.each do |doc|
+              = link_to image_tag(Icon.for_filename(doc.doc_file.path)), doc.doc_file.url, :target => "_blank"
+      .row
+        .col-md-2
           %label Sent At
         .col-md-4= @post.updated_at.strftime('%Y/%m/%d at %H:%M:%S')

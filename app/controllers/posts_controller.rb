@@ -7,22 +7,20 @@ class PostsController < ApplicationController
   end
 
   def create
-    @team = account_company.teams.where(id: params[:team_id]).first or not_found
-
-    post = @team.posts.build( post_params )
-    post.documents = doc_params unless doc_params.blank?
-
-    status_code = 400
-    if @team.save
-      #flash[:notice] = "New team has been successfully added"
-      status_code = 200
-    else
-      #flash[:notice] = "Error happened"
-    end
+    @team = account_company.teams.where(id: params[:post][:team_id]).first or not_found
+    @posts = @team.posts
+    @post = @team.posts.build( post_params )
 
     respond_to do |format|
-      format.html { redirect_to team_path(params[:post][:team_id]) }
-      format.json { render :layout => false, :text => {:error => post.errors.full_messages.join("\n")}.to_json, :status => status_code }
+      if @team.save
+        format.html { redirect_to @team, notice: 'User was successfully created.' }
+        #format.json { render json: @post, status: :created, location: @team }
+        format.js   {}
+      else
+        format.html { redirect_to @team, notice: 'User was not successfully created.' }
+        #format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.js
+      end
     end
   end
 
@@ -39,11 +37,7 @@ class PostsController < ApplicationController
   private
   
   def post_params
-    params.require(:post).permit(:subject, :message).merge( user: current_account.user )
-  end
-
-  def doc_params
-    params.require(:post).permit(:documents => [])["documents"]
+    params.require(:post).permit(:subject, :message, :documents => []).merge( user: current_account.user )
   end
 
 end
