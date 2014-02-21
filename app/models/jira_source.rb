@@ -1,6 +1,6 @@
 class JiraSource <  Source
 
-  include Hatchboy::Connector::Jira
+  include Hatchboy::Connectors::JiraConnector
 
   validates :url, :presence => true
   validates :consumer_key, :presence => true
