@@ -1,0 +1,25 @@
+= form_for @post, :remote => true do |f|
+  - if @post.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@post.errors.count, "error")
+        prohibited this post from being saved:
+      %ul
+        - @post.errors.full_messages.each do |msg|
+          %li= msg
+  = f.hidden_field :team_id, :value => @team.id
+  = token_tag nil
+  .field
+    = f.label :subject
+    %br/
+    = f.text_field :subject
+  .field
+    = f.label :message
+    %br/
+    = f.text_area :message
+  .field
+    = f.label :documents
+    %br/
+    = f.file_field :documents, :multiple => true
+  .actions
+    = f.submit

@@ -60,7 +60,7 @@
     #sources-tab.tab-pane
       =render partial: "sources/team_sources", :object => @team.sources, locals: { team: @team }
     #posts-tab.tab-pane
-      =render partial: "posts/team_posts", :object => @team.posts, locals: { team: @team }
+      =render partial: "posts/index", :object => @posts, locals: { posts: @posts }
 
 =content_for :javascript do
   =javascript_include_tag "js/tabs_accordian"
