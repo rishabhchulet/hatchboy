@@ -1,25 +1,8 @@
-= form_for @post, :remote => true do |f|
-  - if @post.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@post.errors.count, "error")
-        prohibited this post from being saved:
-      %ul
-        - @post.errors.full_messages.each do |msg|
-          %li= msg
-  = f.hidden_field :team_id, :value => @team.id
+= simple_form_for @post, :remote => true do |f|
+  = display_flash_message :error, f.error_notification
+  = hidden_field_tag "post[team_id]", @team.id
   = token_tag nil
-  .field
-    = f.label :subject
-    %br/
-    = f.text_field :subject
-  .field
-    = f.label :message
-    %br/
-    = f.text_area :message
-  .field
-    = f.label :documents
-    %br/
-    = f.file_field :documents, :multiple => true
-  .actions
-    = f.submit
+  = f.input :subject, :required => true, :hint => 'Subject'
+  = f.input :message, as: :text, :hint => "Body"
+  = file_field_tag "post[documents][]", :multiple => true
+  = f.button :submit
