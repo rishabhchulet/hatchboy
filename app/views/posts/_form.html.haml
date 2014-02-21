@@ -1,4 +1,4 @@
-= simple_form_for @post, :remote => true do |f|
+= simple_form_for form, :remote => true do |f|
   = display_flash_message :error, f.error_notification
   = hidden_field_tag "post[team_id]", @team.id
   = token_tag nil
