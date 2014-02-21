@@ -9,11 +9,11 @@
     .col-md-6
       .list-column.list-row-action
         .list-row-action-wrapper
-          =link_to "", :rel => :tooltip, :title => "delete source profile", :class => 'list-row-action-wrapper-link list-row-action-delete-one' do
+          =link_to "", :rel => :tooltip, :title => "delete data source profile", :class => 'list-row-action-wrapper-link list-row-action-delete-one' do
             %i.icon-trash
           .popover.list-row-action-popover-delete-one.left
             .arrow
-            %h3.popover-title Delete this source?
+            %h3.popover-title Delete this data source?
             .popover-content
               =form_tag post_path(post), :method => :delete do
                 =submit_tag 'Delete', :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'

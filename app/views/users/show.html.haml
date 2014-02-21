@@ -4,7 +4,7 @@
       YOU ARE HERE
   %i.icon-angle-right
   %li
-    %a{:href => company_path} User
+    %a{:href => company_path} Employee
   %i.icon-angle-right
   %li
     %a.active{:href => user_path(@user)}= @user.name
@@ -49,7 +49,7 @@
               .col-md-4= @user.status
             -unless @user.account
               .row.pull-right
-                = link_to "Invite user", new_user_invitation_path(user_id: @user.id), :class => "btn btn-primary btn-cons"
+                = link_to "Invite employee", new_user_invitation_path(user_id: @user.id), :class => "btn btn-primary btn-cons"
               .row
 
 =render partial: "teams/user_teams", :object => @user.teams, locals: { user: @user }

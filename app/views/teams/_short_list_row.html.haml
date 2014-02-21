@@ -13,11 +13,11 @@
           =link_to edit_team_path(short_list_row), :rel => :tooltip, :title => "edit team", :class => 'list-row-action-wrapper-link edit-team-action' do
             %i.icon-edit
           - if user
-            =link_to "", :rel => :tooltip, :title => "remove user from this project", :class => 'list-row-action-wrapper-link list-row-action-delete-one' do
+            =link_to "", :rel => :tooltip, :title => "remove employee from this project", :class => 'list-row-action-wrapper-link list-row-action-delete-one' do
               %i.icon-trash
             .popover.list-row-action-popover-delete-one.left
               .arrow
-              %h3.popover-title Delete user from this team?
+              %h3.popover-title Delete employee from this team?
               .popover-content
                 =form_tag team_user_path(short_list_row, user), :method => :delete do
                   =submit_tag 'Delete', :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
