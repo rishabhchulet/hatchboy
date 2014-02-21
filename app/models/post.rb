@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
   validates   :message, presence: true
   
   def documents=(attrs)
-    attrs.each do |attr| 
+   attrs.each do |attr| 
       self.documents.build( :doc_file => attr)
     end
   end
