@@ -22,6 +22,8 @@ gem "carrierwave", "~> 0.9.0"
 gem "mini_magick", "~> 3.7.0"
 gem "jira-ruby", "~> 0.1.4", :require => 'jira'
 gem "remotipart", "~> 1.2.1"
+gem 'rails-file-icons'
+
 group :development do
   gem 'capistrano',  '~> 3.0.1'
   gem 'capistrano-rails', '~> 1.1.0'
