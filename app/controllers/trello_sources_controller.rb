@@ -33,7 +33,7 @@ class TrelloSourcesController < ApplicationController
       :consumer_key => @trello_source.consumer_key,
       :consumer_secret => @trello_source.consumer_secret,
     )
-    url = "/team" # trello_source_confirm_path(@trello_source, only_path: true),
+    url ="/trello_sources/callback" #trello_source_confirm_path(@trello_source, only_path: true),
     request_token = session[:client].auth_policy.client.get_request_token(auth_callback: url)
     session[:client].auth_policy.client(return_url: url)
     redirect_to("#{request_token.authorize_url}&name=#{@trello_source.name}&expiration=never")
