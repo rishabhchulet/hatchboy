@@ -41,22 +41,40 @@
           %h2.grid-title Transaction
           %div.grid-body
             %div= "Status - #{@payment.transaction.status}"
-            %div= request.to_hash
+            %div
             - unless @payment.transaction.status == "Success"
               %div= @payment.transaction.info
 
-  %div.row
-    %div.col-md-12
-      %div.grid.simple.horizontal.blue
+  .row
+    .col-md-9
+      .grid.simple.horizontal.blue
         %p.grid-body.text-center
+          =link_to :back, :title => "Back" do
+            %button.btn.btn-primary.btn-cons
+              %i.icon-reply
+              Back
           - if @payment.status == Payment::STATUS_PREPARED
             =link_to edit_payment_path(@payment), :title => "Edit Payment" do
               %button.btn.btn-primary.btn-cons
-                %i.icon-edit &nbsp;&nbsp;Edit
+                %i.icon-edit
+                Edit
           - unless @payment.deleted
-            =link_to payment_path(@payment), :title => "Delete Payment", method: 'delete', data: {confirm: "Are you sure ?"} do
+            =link_to payment_path(@payment), :title => "Delete Payment", method: 'delete', data: {confirm: "Are you sure you want to delete payment?"} do
               %button.btn.btn-danger.btn-cons
-                %i.icon-trash &nbsp;&nbsp;Delete
+                %i.icon-trash
+                Delete
+    - if @payment.status == Payment::STATUS_PREPARED
+      .col-md-3
+        .grid.simple.horizontal.blue
+          %p.grid-body.text-center
+            =link_to payment_transactions_path({payment_system: PaymentTransaction::TYPE_PAYPAL, payment_id: @payment.id}), title: "Process with Paypal", method: :post, data: {confirm: "Are you sure you want to process the payment with PayPal?"} do
+              %button.btn.btn-primary.btn-cons
+                %i.icon-share-alt
+                Paypal
+            =link_to payment_transactions_path({payment_system: PaymentTransaction::TYPE_DWOLLA, payment_id: @payment.id}), title: "Process with Dwolla", method: :post, data: {confirm: "Are you sure you want to process the payment with Dwolla?"} do
+              %button.btn.btn-primary.btn-cons
+                %i.icon-share-alt
+                Dwolla
 
 = content_for :page_specific_css do 
   = stylesheet_link_tag "css/payments"

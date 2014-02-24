@@ -1,6 +1,6 @@
 .grid-body.no-border
   - if list_prepared.present?
-    %table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#teams-short-list
+    %table.table.table-hover.table-bordered.no-more-tables.action-list#teams-short-list
       %thead
         %tr
           %th #
@@ -18,4 +18,6 @@
     .col-md-10
     .col-md-2
       =link_to new_payment_path do
-        %button.btn.btn-primary.btn-cons Add Payment
+        %button.btn.btn-primary.btn-cons
+          %i.icon-plus
+          Add Payment

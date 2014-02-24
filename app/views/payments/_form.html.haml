@@ -1,5 +1,4 @@
 = display_flash_message :error, f.error_notification
-= f.input :description, :required => true, :hint => 'e.g. "Christmas gifts"', :autofocus => true
 - recipient = PaymentRecipient.new
 - index = 0
 %table.table.table-bordered.no-more-tables
@@ -35,14 +34,14 @@
           =f.simple_fields_for :recipients, recipient do |r|
             =r.input_field :user_id, as: :hidden, value: user.id
             =r.input_field :amount, min: 0, class: 'amount', 'data-index' => index
-
+= f.input :description, :required => true, :hint => 'e.g. "Benefits for good work"', :autofocus => true
 .form-actions
   .pull-right
     %button.btn.btn-success.btn-cons{:type => "submit"}
       %i.icon-ok
       Save
-    = link_to "Cancel", payments_path, :class => "btn btn-white btn-cons"
+    = link_to :back, title: 'Cancel', class: 'btn btn-danger btn-cons' do
+      %i.icon-remove
+      Cancel
 
-=content_for :javascript do
-  =javascript_include_tag "js/payments"
 

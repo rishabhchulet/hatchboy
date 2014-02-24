@@ -17,12 +17,12 @@
   .col-md-1.text-right
 .row
   %ul#navigation-tab.nav.nav-tabs
-    %li.active
-      %a{:href => "#payments-prepared"} Prepared Payments
-    %li
-      %a{:href => "#payments-sent"} Sent Payments
-    %li
-      %a{:href => "#payments-deleted"} Deleted Payments
+    %li.payments-tab#prepared.active
+      %a{href: "#payments-prepared"} Prepared Payments
+    %li.payments-tab#sent
+      %a{href: "#payments-sent"} Sent Payments
+    %li.payments-tab#deleted
+      %a{href: "#payments-deleted", name: 'deleted'} Deleted Payments
   .tab-content
     #payments-prepared.tab-pane.active
       =render partial: "payments/list_prepared", :object => @payments_prepared
@@ -33,6 +33,9 @@
 
 =content_for :javascript do
   =javascript_include_tag "js/tabs_accordian"
+
+=content_for :javascript do
+  =javascript_include_tag "js/payments"
 
 = content_for :page_specific_css do 
   = stylesheet_link_tag "css/payments"

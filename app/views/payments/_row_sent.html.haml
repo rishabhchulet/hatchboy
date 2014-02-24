@@ -2,7 +2,7 @@
   %td= row_sent.id
   %td= row_sent.description
   %td= number_to_currency(row_sent.amount)
-  %td= row_sent.updated_at
+  %td{title: row_sent.updated_at}= "#{time_ago_in_words(row_sent.updated_at)} ago"
   %td= row_sent.created_by.name
   %td= row_sent.transaction ? row_sent.transaction.status : ''
   %td

@@ -15,5 +15,8 @@
 = simple_form_for(@payment, as: :payment, html: { method: :post, class: 'payment' }) do |f|
   = render partial: "payments/form", locals: { f: f}
 
+=content_for :javascript do
+  =javascript_include_tag "js/payments"
+
 = content_for :page_specific_css do
   = stylesheet_link_tag "css/payments"
