@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :authenticate_account!
+  before_filter :check_session!
 
   def index
     @users = account_company.users.order("created_at ASC")

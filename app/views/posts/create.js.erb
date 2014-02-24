@@ -1,0 +1,12 @@
+<% if @post.errors.count == 0 %>
+
+  $('#new_post_form').html('<%= j render :partial => "form", :object => Post.new %>');
+  // if ( $('#error_explanation') ) $('#error_explanation').remove();
+
+  $("<%= escape_javascript(render @post) %>").appendTo("#posts");
+
+<% else %>
+
+  $('#new_post_form').html('<%= j render :partial => "form", :object => @post %>');
+
+<% end %>

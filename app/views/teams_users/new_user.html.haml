@@ -1,0 +1,44 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path}< Company
+  %i.icon-angle-right
+  %li
+    %a{:href => teams_path }< Teams
+  %i.icon-angle-right
+  %li
+    %a{:href => team_path(@team)}<= @team.name
+  %i.icon-angle-right
+  %li
+    %a.active{:href => new_team_users_path }< Assign employee
+
+.row
+  .col-md-12
+    .page-title
+      %i.icon-custom-ui
+      %h3 Add employee
+.row
+  .col-md-12
+    .grid.simple
+      .grid-title.no-border
+        %h4
+          %span.semi-bold Assign employee
+        .tools
+      .grid-body.no-border
+        = simple_form_for(@team_user, :url => create_team_users_path, :method => :post) do |f|
+          = display_flash_message :error, f.error_notification
+          - if (@team.company.users - @team.users).any?
+            = f.input :user_id, collection: (@team.company.users - @team.users), include_blank: false
+          - else
+            = f.input :user_id, collection: [['There are no users available']], include_blank: false, disabled: true
+          .form-actions
+            .pull-right
+              - if (@team.company.users - @team.users).any?
+                %button.btn.btn-success.btn-cons{:type => "submit"}
+                  %i.icon-ok
+                  Save
+              = link_to "Cancel", team_path(@team), :class => "btn btn-white btn-cons"
+

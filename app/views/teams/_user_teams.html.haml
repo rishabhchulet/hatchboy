@@ -1,0 +1,15 @@
+.col-md-12
+  .grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold Assigned Teams
+      .tools
+        %a.collapse{:href => "javascript:;"}
+    .grid-body.no-border{:style => "display: block;"}
+      .row
+        = render partial: "teams/short_list", object: user_teams, locals: {user: user}
+      .row.pull-right
+        %a.btn.btn-primary.btn-cons{href: new_user_teams_path(user)}
+          Add to team
+      .row
+

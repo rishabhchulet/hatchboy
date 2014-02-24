@@ -5,6 +5,7 @@ class TeamsUsers < ActiveRecord::Base
   validates_presence_of :team
   validates_presence_of :user
   validates_uniqueness_of :user_id, scope: [:team_id], message: "has already been added"
+  validates_uniqueness_of :team_id, scope: [:user_id], message: "has already been added"
   validate :companies_equality
 
   private

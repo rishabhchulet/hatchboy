@@ -23,6 +23,8 @@ gem "mini_magick", "~> 3.7.0"
 gem "jira-ruby", "~> 0.1.4", :require => 'jira'
 gem "paypal-sdk-merchant", "~> 1.106.1"
 gem "dwolla-ruby", "~> 2.5.1"
+gem "remotipart", "~> 1.2.1"
+gem 'rails-file-icons'
 
 group :development do
   gem 'capistrano',  '~> 3.0.1'

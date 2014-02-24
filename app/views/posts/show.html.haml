@@ -1,0 +1,43 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a{:href => teams_path} Teams
+
+.row
+  .col-md-11
+    .page-title
+      %i.icon-custom-ui
+      %h3= @post.subject
+  .col-md-1.text-right
+
+.row
+  .grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold Post details
+    .grid-body.no-border{style: "display:block"}
+      .row
+        .col-md-2
+          %label Subject
+        .col-md-4= @post.subject
+      .row
+        .col-md-2
+          %label Message
+        .col-md-4= @post.message
+      .row
+        .col-md-2
+          %label Documents
+        .col-md-4
+          - if @post.documents.size > 0
+            - @post.documents.each do |doc|
+              = link_to image_tag(Icon.for_filename(doc.doc_file.path)), doc.doc_file.url, :target => "_blank"
+      .row
+        .col-md-2
+          %label Sent At
+        .col-md-4= @post.updated_at.strftime('%Y/%m/%d at %H:%M:%S')

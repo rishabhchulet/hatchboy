@@ -1,0 +1,20 @@
+%tr.data-row
+  %td= post.id
+  %td= post.user.name
+  %td= link_to post.subject, post_path(post)
+  %td= post.documents.size
+  %td
+    .col-md-6
+      = post.updated_at.strftime('%Y/%m/%d at %H:%M:%S')
+    .col-md-6
+      .list-column.list-row-action
+        .list-row-action-wrapper
+          =link_to "", :rel => :tooltip, :title => "delete data source profile", :class => 'list-row-action-wrapper-link list-row-action-delete-one' do
+            %i.icon-trash
+          .popover.list-row-action-popover-delete-one.left
+            .arrow
+            %h3.popover-title Delete this data source?
+            .popover-content
+              =form_tag post_path(post), :method => :delete do
+                =submit_tag 'Delete', :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
+                .btn.btn-small.cancel Cancel

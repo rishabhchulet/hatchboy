@@ -5,18 +5,15 @@
     .tools
       %a.collapse{:href => "javascript:;"}
   .grid-body.no-border
-    %table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#teams-short-list
-      %thead
-        %tr
-          %th{:width => "1%"} #
-          %th{:width => "9%"} Team Name
-          %th{:width => "22%"} Description
-          %th{:width => "6%"} Total time
-          %th{:width => "10%"} Progress
-      %tbody
-        =render partial: "teams/short_list_row", collection: short_list
     .row
-      .col-md-10
-      .col-md-2
-        %a.btn.btn-primary.btn-cons{href: new_team_path}
-          Add another team
+      %table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#teams-short-list
+        %thead
+          %tr
+            %th{:width => "1%"} #
+            %th{:width => "9%"} Team Name
+            %th{:width => "22%"} Description
+            %th{:width => "6%"} Total time
+            %th{:width => "10%"} Progress
+        %tbody
+          =render partial: "teams/short_list_row", collection: short_list, locals: {user: user}
+

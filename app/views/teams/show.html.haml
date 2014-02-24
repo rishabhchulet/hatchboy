@@ -7,13 +7,23 @@
     %a{:href => company_path} Company
   %i.icon-angle-right
   %li
+    %a{:href => teams_path} Teams
+  %i.icon-angle-right
+  %li
     %a.active{:href => team_path(@team)}= @team.name
 
-.col-md-12
+.row
+  .col-md-11
+    .page-title
+      %i.icon-custom-ui
+      %h3= @team.name
+  .col-md-1.text-right
+
+.row
   .grid.simple
     .grid-title.no-border
       %h4
-        %span.semi-bold View team details
+        %span.semi-bold Team details
       .tools
         %a.reload{:href => "javascript:;"}
         %a.collapse{:href => "javascript:;"}
@@ -32,9 +42,25 @@
           %label Total time tracked
         .col-md-4= @team.worklogs.any? ? nice_time_difference(@team.worklogs.sum(:time)) : "0h"
 
-=render partial: "users/team_users", :object => @team.users, locals: { team: @team }
+.row
+  %ul#navigation-tab.nav.nav-tabs
+    %li.active
+      %a{:href => "#users-tab"} Team users
+    %li
+      %a{:href => "#work-logs-tab"} Team Work Logs
+    %li
+      %a{:href => "#sources-tab"} Team Sources
+    %li
+      %a{:href => "#posts-tab"} Posts
+  .tab-content
+    #users-tab.tab-pane.active
+      =render partial: "users/team_users", :object => @team.users, locals: { team: @team }
+    #work-logs-tab.tab-pane
+      =render partial: "work_logs/team_work_logs", :object => @team.worklogs, locals: { team: @team }
+    #sources-tab.tab-pane
+      =render partial: "sources/team_sources", :object => @team.sources, locals: { team: @team }
+    #posts-tab.tab-pane
+      =render partial: "posts/index", :object => @posts, locals: { posts: @posts }
 
-=render partial: "work_logs/team_work_logs", :object => @team.worklogs, locals: { team: @team }
-
-=render partial: "sources/team_sources", :object => @team.sources, locals: { team: @team }
-
+=content_for :javascript do
+  =javascript_include_tag "js/tabs_accordian"

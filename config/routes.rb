@@ -32,7 +32,12 @@ Hatchboy::Application.routes.draw do
   put "company",   :to => "companies#update"
   patch "company", :to => "companies#update"
 
-  resources :users
+  resources :users do
+    resource :teams, :to => "teams_users", only: [:destroy] do
+      get "new", to: "teams_users#new_team", as: "new", on: :collection
+      post "create", to: "teams_users#create_team", as: "create", on: :collection
+    end
+  end
   resources :sources, only: [:index, :new]
 
   get "jira_sources/callback", :to => "jira_sources#callback", :as => :jira_callback
@@ -43,11 +48,16 @@ Hatchboy::Application.routes.draw do
     put "sync", :to => "jira_sources", :as => :sync
   end
 
+  resources :posts
+
   resources :teams do
     resources :work_logs, except: [:view]
     resources :sources, :to => "teams_sources"
     resources :jira_sources, :to => "teams_jira_sources"
-    resources :users, only: [:new, :create, :destroy], :to => "teams_users"
+    resources :users, :to => "teams_users", only: [:destroy] do
+      get "new", :to => "teams_users#new_user", as: "new", on: :collection
+      post "create", :to => "teams_users#create_user", as: "create", on: :collection
+    end
   end
 end
 

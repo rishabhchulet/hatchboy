@@ -1,0 +1,23 @@
+#teams-short-list.action-list.grid.simple
+  .grid-title.no-border
+    %h4
+      %span.semi-bold Teams
+    .tools
+      %a.collapse{:href => "javascript:;"}
+  .grid-body.no-border
+    .row
+      %table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#teams-short-list
+        %thead
+          %tr
+            %th{:width => "1%"} #
+            %th{:width => "9%"} Team Name
+            %th{:width => "22%"} Description
+            %th{:width => "6%"} Total time
+            %th{:width => "10%"} Progress
+        %tbody
+          =render partial: "teams/short_list_row", collection: company_teams, locals: {user: nil}
+    .row.pull-right
+      %a.btn.btn-primary.btn-cons{href: new_team_path}
+        Add another team
+    .row
+

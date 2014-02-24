@@ -12,7 +12,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   def new
     build_resource({})
-    self.resource.user = User.new(company: Company.new)
     respond_with self.resource
   end
 
@@ -28,6 +27,12 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update_resource(resource, params)
     resource.update_with_password(params)
+  end
+
+  def build_resource params
+    super
+    self.resource.user = User.new(company: Company.new) unless self.resource.user
+    self.resource.user.contact_email = self.resource.email
   end
 
 end

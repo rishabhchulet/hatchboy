@@ -49,6 +49,27 @@ feature "teams#show" do
 
   end
 
+  context "when team has posts" do
+
+    before do
+      10.times{ |i| @team.posts.create( FactoryGirl.attributes_for(:post).merge(user: @user) ) }
+      
+      @session.visit team_path(@team)
+    end
+
+    it "should display list of posts" do
+      data_rows = @session.all("#posts-list .data-row")
+      data_rows.count.should eq 10
+    end
+
+    it "should have display information about post" do
+      source_row = @session.all("#posts-list .data-row").first
+      source_row.should have_content @team.posts.first.subject
+      source_row.should have_content @team.posts.first.message
+    end
+
+  end
+
   context "when team has sources" do
 
     before do

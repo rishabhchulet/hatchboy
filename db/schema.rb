@@ -71,9 +71,29 @@ ActiveRecord::Schema.define(version: 20140212093025) do
     t.string   "payment_system"
     t.string   "status"
     t.text     "info"
+  end  
+
+  create_table "documents", force: true do |t|
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.string   "doc_file"
+    t.string   "doc_type"
+    t.integer  "doc_size"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "documents", ["owner_id", "owner_type"], name: "index_documents_on_owner_id_and_owner_type", using: :btree
+
+  create_table "post_receivers", force: true do |t|
+    t.integer  "post_id"
+    t.integer  "receiver_id"
+    t.string   "receiver_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+  add_index "post_receivers", ["post_id"], name: "index_post_receivers_on_post_id", using: :btree
+  add_index "post_receivers", ["receiver_id", "receiver_type"], name: "index_post_receivers_on_receiver_id_and_receiver_type", using: :btree
 
   create_table "payments", force: true do |t|
     t.integer  "company_id"
@@ -84,6 +104,13 @@ ActiveRecord::Schema.define(version: 20140212093025) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "posts", force: true do |t|
+    t.integer  "user_id"
+    t.string   "subject"
+    t.text     "message"
+  end  
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "sources", force: true do |t|
     t.integer  "company_id"

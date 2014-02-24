@@ -1,0 +1,8 @@
+= simple_form_for form, :remote => true do |f|
+  = display_flash_message :error, f.error_notification
+  = hidden_field_tag "post[team_id]", @team.id
+  = token_tag nil
+  = f.input :subject, :required => true, :hint => 'Subject'
+  = f.input :message, as: :text, :hint => "Body"
+  = file_field_tag "post[documents][]", :multiple => true
+  = f.button :submit
