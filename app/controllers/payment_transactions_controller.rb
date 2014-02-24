@@ -23,9 +23,9 @@ class PaymentTransactionsController < ApplicationController
 
   def paypal_ipn
     my_logger ||= Logger.new("#{Rails.root}/log/paypal_ipn.log")
-    my_logger.info(Time.now)
     my_logger.info(params.to_s)
     render text: ''
   end
+  #//http://hatchboy2.shakuro.com/payment_transactions/paypal_ipn
 
 end
