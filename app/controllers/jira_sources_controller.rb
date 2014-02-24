@@ -1,5 +1,7 @@
 class JiraSourcesController < ApplicationController
 
+  include SourcesHelper
+
   before_filter :check_session!
 
   def new

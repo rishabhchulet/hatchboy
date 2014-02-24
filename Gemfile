@@ -21,6 +21,7 @@ gem "foreman", "~> 0.63.0"
 gem "carrierwave", "~> 0.9.0"
 gem "mini_magick", "~> 3.7.0"
 gem "jira-ruby", "~> 0.1.4", :require => 'jira'
+gem "ruby-trello", "~> 1.0.4"
 
 group :development do
   gem 'capistrano',  '~> 3.0.1'
@@ -50,9 +51,9 @@ group :test do
   gem 'shoulda-matchers', '~> 2.1'
   gem 'capybara'
   gem "poltergeist", "~> 1.4.1"
-  gem "selenium-webdriver", "~> 2.35.1"  
+  gem "selenium-webdriver", "~> 2.35.1"
   gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
   gem "webmock", "~> 1.16.1"
-  gem "rack_session_access", "~> 0.1.1"  
+  gem "rack_session_access", "~> 0.1.1"
 end

@@ -19,7 +19,7 @@
             .arrow
             %h3.popover-title Delete this source?
             .popover-content
-              =form_tag jira_source_path(sources_list_row), :method => :delete do
+              =form_tag sources_list_row, :method => :delete do
                 =submit_tag 'Delete', :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
                 .btn.btn-small.cancel Cancel
 

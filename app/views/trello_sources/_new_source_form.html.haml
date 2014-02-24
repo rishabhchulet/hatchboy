@@ -1,0 +1,8 @@
+.grid.simple
+  .grid-title.no-border
+    %h4
+      %span.semi-bold Create new Trello data source
+    .tools
+  .grid-body.no-border
+    = simple_form_for(new_source_form, :as => :trello_source, :html => { :method => :post }) do |f|
+      = render partial: "trello_sources/source_form", :locals => { f: f }
