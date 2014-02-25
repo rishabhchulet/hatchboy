@@ -1,6 +1,6 @@
 module Hatchboy
   module Payments
-    class Paypal < Factory
+    class Paypal
 
       attr_reader :api, :last_response
 
@@ -22,9 +22,9 @@ module Hatchboy
         @last_response = api.mass_pay({
           :ReceiverType => "EmailAddress",
           :EmailSubject => payment.description,
+          :NotifyURL => "http://hatchboy2.shakuro.com/payment_transactions/paypal_ipn",
           :MassPayItem => payment.recipients.map do |recipient| {
             :ReceiverEmail => recipient.user.account.email, 
-            :Note => payment.description,
             :UniqueId => recipient.id,
             :Amount => { 
               :currencyID => "USD", 

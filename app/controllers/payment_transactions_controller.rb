@@ -1,6 +1,8 @@
 class PaymentTransactionsController < ApplicationController
 
-  before_filter :authenticate_account!
+  before_action :authenticate_account!, :except => :paypal_ipn
+  skip_before_action :verify_authenticity_token, :only => :paypal_ipn
+
 
   def create
     payment = account_company.payments.where(id: params[:payment_id], status: Payment::STATUS_PREPARED).first or not_found
@@ -26,6 +28,15 @@ class PaymentTransactionsController < ApplicationController
     my_logger.info(params.to_s)
     render text: ''
   end
-  #//http://hatchboy2.shakuro.com/payment_transactions/paypal_ipn
+  def paypal_ipn1
+    my_logger ||= Logger.new("#{Rails.root}/log/paypal_ipn1.log")
+    my_logger.info(params.to_s)
+    render text: ''
+  end
+  def paypal_ipn2
+    my_logger ||= Logger.new("#{Rails.root}/log/paypal_ipn2.log")
+    my_logger.info(params.to_s)
+    render text: ''
+  end
 
 end
