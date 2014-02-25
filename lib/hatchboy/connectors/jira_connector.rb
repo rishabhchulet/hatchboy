@@ -40,7 +40,6 @@ module Hatchboy
 
       def read!
         self.connect_to_source
-        debugger
         @projects = []
         client.Project.all.each do |project|
           project_details = client.Project.find(project.id)
