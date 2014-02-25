@@ -1,5 +1,3 @@
-require "trello"
-
 module Hatchboy
   module Connectors
     module TrelloConnector
@@ -19,11 +17,7 @@ module Hatchboy
         params = {
           consumer_key: self.consumer_key,
           consumer_secret: self.consumer_secret,
-          return_url: "http://shakuro.com/team",
-          callback: lambda { |request_token| @r_token = request_token },
-
         }
-        # @client = Trello::Client.new(developer_public_key: 'e33e8c484cb1518122fe958e44a97650',  member_token: 'e792efeb1afd5d7a8ae9f9e254fb34b05d6a7fae9398118b6ebdb6193017b95d')
         @client ||= Trello::Client.new(params)
       end
 

@@ -29,22 +29,15 @@ class TrelloSourcesController < ApplicationController
 
   def update
     @trello_source = TrelloSource.where(id: params[:id]).first or not_found
-    session[:client] = Trello::Client.new(
-      :consumer_key => @trello_source.consumer_key,
-      :consumer_secret => @trello_source.consumer_secret,
-    )
-    url ="/trello_sources/callback" #trello_source_confirm_path(@trello_source, only_path: true),
-    request_token = session[:client].auth_policy.client.get_request_token(auth_callback: url)
-    session[:client].auth_policy.client(return_url: url)
-    redirect_to("#{request_token.authorize_url}&name=#{@trello_source.name}&expiration=never")
 
-#    if @trello_source.update_attributes(trello_source_params)
-#      debugger
-#       session[:trello_source] = {id: @trello_source.id, request_token: @trello_source.request_token}
-#       redirect_to  @trello_source.get_request_token.authorize_url oauth_callback: trello_source_confirm_path(@trello_source, only_path: false), name: @trello_source.name
-#    else
-#      render "trello_sources/edit"
-#    end
+    if @trello_source.update_attributes(trello_source_params)
+      oauth_callback = trello_callback_path(only_path: false)  #trello_source_confirm_path(@trello_source, only_path: true),
+      request_token = @trello_source.client.auth_policy.client.get_request_token(oauth_callback: oauth_callback)
+      session[:trello_source] = {id: @trello_source.id, request_token: request_token}
+      redirect_to("#{request_token.authorize_url}&name=#{@trello_source.name}&expiration=never")
+    else
+      render "trello_sources/edit"
+    end
   end
 
   def callback
