@@ -22,7 +22,7 @@ module Hatchboy
         @last_response = api.mass_pay({
           :ReceiverType => "EmailAddress",
           :EmailSubject => payment.description,
-          :NotifyURL => "http://hatchboy2.shakuro.com/payment_transactions/paypal_ipn",
+          :NotifyURL => "http://hatchboy2.shakuro.com/payment_transactions/paypal_ipn1",
           :MassPayItem => payment.recipients.map do |recipient| {
             :ReceiverEmail => recipient.user.account.email, 
             :UniqueId => recipient.id,

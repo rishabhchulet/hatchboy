@@ -1,7 +1,7 @@
 class PaymentTransactionsController < ApplicationController
 
-  before_action :authenticate_account!, :except => :paypal_ipn
-  skip_before_action :verify_authenticity_token, :only => :paypal_ipn
+  before_action :authenticate_account!, :except => [:paypal_ipn, :paypal_ipn1, :paypal_ipn2]
+  skip_before_action :verify_authenticity_token, :only => [:paypal_ipn, :paypal_ipn1, :paypal_ipn2]
 
 
   def create
