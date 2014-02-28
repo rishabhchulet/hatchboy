@@ -23,6 +23,8 @@ gem "mini_magick", "~> 3.7.0"
 gem "jira-ruby", "~> 0.1.4", :require => 'jira'
 gem "remotipart", "~> 1.2.1"
 gem 'rails-file-icons'
+gem "docusign_rest", "~> 0.1.1"
+gem "certified", "~> 0.1.1"
 
 group :development do
   gem 'capistrano',  '~> 3.0.1'
