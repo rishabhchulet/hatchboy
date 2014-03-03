@@ -1,0 +1,58 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a{:href => sources_path} Sources
+  %i.icon-angle-right
+  %li
+    %a.active{:href => @trello_source}= @trello_source.name
+
+.col-md-12
+  .grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold Browse Trello source
+      .tools
+        %a.reload{:href => "javascript:;"}
+        %a.collapse{:href => "javascript:;"}
+        = link_to "", edit_trello_source_path(@trello_source), :class => "config edit-jira-source"
+    .grid-body.no-border{style: "display:block"}
+      = simple_form_for(@trello_source, url: trello_source_sync_path(@trello_source), html: {:method => :put }) do |f|
+        %h3 Trello organizations
+        .row
+          %table.table.table-hover
+            %thead
+              %tr
+                %th #
+                %th organization
+                %th HatchBoy Team
+                %th Employees
+            %tbody
+              =render partial: "trello_sources/browse_trello_source_row", collection: @trello_source.organizations, locals: {f: f}
+        %h3 Trello boards
+        .row
+          %table.table.table-hover
+            %thead
+              %tr
+                %th #
+                %th board
+                %th HatchBoy Team
+                %th Employees
+            %tbody
+              =render partial: "trello_sources/browse_trello_source_row", collection: @trello_source.boards, locals: {f: f}
+        .form-actions
+          .pull-right
+            %button.btn.btn-success.btn-cons{:type => "submit"}
+              %i.icon-ok
+              Import
+        :coffeescript
+          $ ->
+            $(".use-project-switcher").change((e)->
+              $(this).parents(".data-row").find(".team-selector, .users-selector").attr('disabled', !this.checked)
+            ).change()
+

@@ -1,0 +1,11 @@
+%tr.data-row
+  %td.col-md-1
+    = check_box_tag "switcher", 1, true, { class: "use-project-switcher", name: "switcher" }
+  %td.col-md-3
+    =browse_trello_source_row[:name]
+  %td.col-md-3
+    =select_tag "projects[#{browse_trello_source_row[:id]}][team_id]", options_for_select([['new', 'new']] + account_company.teams.pluck("name", "id"), selected: browse_trello_source_row[:team] ? browse_trello_source_row[:team][:id] : "new"), class: "team-selector"
+  %td.col-md-2
+    =select_tag "projects[#{browse_trello_source_row[:id]}][users][]", options_for_select([['All', 'all']] + browse_trello_source_row[:members].map{|u| [u[:name], u[:id]]}), multiple: true, class: "users-selector"
+  %td.col-md-3
+

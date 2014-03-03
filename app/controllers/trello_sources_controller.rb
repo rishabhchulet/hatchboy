@@ -23,7 +23,7 @@ class TrelloSourcesController < ApplicationController
       oauth_callback = trello_source_confirm_path(@trello_source, only_path: true) #trello_callback_path(only_path: false)
       request_token = @trello_source.client.auth_policy.client.get_request_token(oauth_callback: oauth_callback)
       session[:trello_source] = {id: @trello_source.id, request_token: request_token}
-      redirect_to URI::encode "#{request_token.authorize_url}&name=#{@trello_source.name}&expiration=never"
+      redirect_to request_token.authorize_url(name: @trello_source.name, expiration: never, scope: "read,write,account")
     else
       render "trello_sources/new"
     end
@@ -34,9 +34,10 @@ class TrelloSourcesController < ApplicationController
 
     if @trello_source.update_attributes(trello_source_params)
       oauth_callback = trello_source_confirm_path(@trello_source, only_path: false)
-      request_token = @trello_source.client.auth_policy.client.get_request_token(oauth_callback: oauth_callback)
+      request_token = @trello_source.client.auth_policy.client.get_request_token(oauth_callback: oauth_callback, scope: "read")
+      debugger
       session[:trello_source] = {id: @trello_source.id, request_token: request_token}
-      redirect_to URI::encode "#{request_token.authorize_url}&name=#{@trello_source.name}&expiration=never"
+      redirect_to request_token.authorize_url(name: @trello_source.name, expiration: "never", scope: "read,write,account")
     else
       render "trello_sources/edit"
     end
@@ -44,11 +45,13 @@ class TrelloSourcesController < ApplicationController
 
   def browse
     @trello_source = TrelloSource.where(id: params[:trello_source_id]).first or not_found
-    @trello_source.connect_to_source
-    me = @trello_source.client.find(:members, :me)
-    me.organizations.first.members.second
-    debugger
-    123
+    @trello_source.read!
+  end
+
+  def sync
+    @trello_source = TrelloSource.where(id: params[:trello_source_id]).first or not_found
+    @trello_source.import! trello_sync_params
+    redirect_to trello_source_path(@trello_source)
   end
 
   def confirm
@@ -99,6 +102,10 @@ class TrelloSourcesController < ApplicationController
 
   def trello_source_params
     params.require(:trello_source).permit(:name, :consumer_key, :consumer_secret)
+  end
+
+  def trello_sync_params
+    params.require(:projects)
   end
 
 end
