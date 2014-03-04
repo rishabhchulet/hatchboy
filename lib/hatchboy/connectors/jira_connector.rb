@@ -55,31 +55,47 @@ module Hatchboy
         end
       end
 
-      def import!
-        self.connect_to_source
-        projects = client.Project.all
-        projects.each do |project|
-          project_details = client.Project.find(project.id)
-          if (team_source = self.source_teams.where(uid: project_details.id).first)
-            team = team_source.team
-          else
-            team = Team.create({company: self.company, name: project_details.name, description: project_details.description})
-            team_source = self.source_teams.create(team: team, uid: project_details.id)
-          end
-          issues = project_details.issues
-          issues.each do |issue|
-            worklogs = issue.fields["worklog"]["worklogs"]
-            worklogs.each do |worklog|
-              sources_user = SourcesUser.where(source: self, email: worklog["author"]["emailAddress"]).find_or_create_by({:name => worklog["author"]["name"]})
-              team.worklogs.where({
-                comment: worklog["comment"], issue: issue.summary, on_date: worklog["started"],
-                time: worklog["timeSpentSeconds"], sources_user: sources_user
-              }).find_or_create_by(source: self, uid_in_source: worklog["id"])
-            end if worklogs and worklogs.any?
+      
+      def import! params
+        read!
+
+        @projects.each do |project|
+
+          if project_params = params[project.name]
+            if project_params['team_id'] == 'new'
+              team = Team.create({company: self.company, name: project.name, description: project.description})
+              team_source = self.source_teams.create(team: team, uid: project.id)
+            elsif team = Team.where(id: project_params["team_id"]).first
+              team_source = self.source_teams.find_or_create_by(team: team, uid: project.id)
+            end
+
+            project.users.each do |jira_user|
+              if project_params["users"] and (project_params["users"].include?(jira_user.name) or project_params["users"].include?("all"))
+                source_user = self.source_users.where(uid: jira_user.name).first
+                unless source_user
+                  user = User.create_with(name: jira_user.displayName).find_or_create_by(contact_email: jira_user.emailAddress, company: self.company)
+                  source_user = self.source_users.create(uid: jira_user.name, user: user )
+                end
+                team.users << source_user.user unless team.users.include? source_user.user
+              end
+            end
+
+            project.issues.each do |issue|
+              issue.worklogs.each do |worklog|
+                if source_user = self.source_users.where(uid: worklog.author.name).first
+                  log = team.worklogs.create_with({
+                    comment: worklog.comment, issue: issue.summary, on_date: worklog.started,
+                    time: worklog.timeSpentSeconds, user: source_user.user
+                  }).find_or_create_by(source: self, uid_in_source: worklog.id)
+                end
+
+              end if issue.worklogs and issue.worklogs.any?
+            end
+
           end
         end
       end
-
+      
     end
   end
 end
