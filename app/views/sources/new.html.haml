@@ -21,30 +21,18 @@
 .row
   %ul#navigation-tab.nav.nav-tabs
     %li.active
-      %a{:href => "#jira-tab"} JIRA Data source
+      %a{:href => "#jira-tab"} JIRA Data Source
     %li
-      %a{:href => "#active-collab-tab"} ActiveCollab Source
+      %a{:href => "#active-collab-tab"} Trello Data Source
     %li
       %a{:href => "#redmine-tab"} Redmine Source
   .tab-content
     #jira-tab.tab-pane.active
       =render partial: "jira_sources/new_source_form", :object => new_jira_source
-      
+
     #active-collab-tab.tab-pane
-      .row
-        .col-md-12
-          %h3
-            “ Nothing is
-            %span.semi-bold> impossible
-            , the word itself says 'I'm
-            = succeed "'!" do
-              %span.semi-bold possible
-            ”
-          %p A style represents visual customizations on top of a layout. By editing a style, you can use Squarespace's visual interface to customize your...
-          %br/
-          %p.pull-right
-            %button.btn.btn-white.btn-cons{:type => "button"} White
-            %button.btn.btn-success.btn-cons{:type => "button"} Success
+      =render partial: "trello_sources/new_source_form", :object => new_trello_source
+
     #redmine-tab.tab-pane
       .row
         .col-md-12
@@ -67,3 +55,4 @@
 
 =content_for :javascript do
   =javascript_include_tag "js/tabs_accordian"
+

@@ -40,6 +40,7 @@ Hatchboy::Application.routes.draw do
       post "create", to: "teams_users#create_team", as: "create", on: :collection
     end
   end
+
   resources :sources, only: [:index, :new]
 
   get "jira_sources/callback", :to => "jira_sources#callback", :as => :jira_callback
@@ -48,6 +49,14 @@ Hatchboy::Application.routes.draw do
     get "confirm", :to => "jira_sources", :as => :confirm
     get "browse", :to => "jira_sources", :as => :browse
     put "sync", :to => "jira_sources", :as => :sync
+  end
+
+  get "trello_sources/callback", :to => "trello_sources#callback", :as => :trello_callback
+
+  resources :trello_sources do
+    get "confirm", :to => "trello_sources", :as => :confirm
+    get "browse", :to => "trello_sources", :as => :browse
+    put "sync", :to => "trello_sources", :as => :sync
   end
 
   resources :posts

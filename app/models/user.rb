@@ -14,8 +14,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of :name
   validates_presence_of :company
-  validates :contact_email, presence: true, :email => true, :if => "self.account.blank?"
-  validates_uniqueness_of :contact_email, scope: [:company_id], message: "has already been added"
+  validates :contact_email, presence: true, :email => true, :unless => "self.contact_email.blank?"
+#  validates_uniqueness_of :contact_email, scope: [:company_id], message: "has already been added"
 
   mount_uploader :avatar, AvatarUploader
 

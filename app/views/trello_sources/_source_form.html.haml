@@ -1,0 +1,12 @@
+= display_flash_message :error, f.error_notification
+= f.input :name, :required => true, :hint => 'e.g. "Runolfsson LLC"', :autofocus => true
+= f.input :consumer_key, :required => true, :hint => 'Valid Trello consumer key'
+= f.input :consumer_secret, :required => true, :hint => 'Valid Trello consumer secret'
+
+.form-actions
+  .pull-right
+    %button.btn.btn-success.btn-cons{:type => "submit"}
+      %i.icon-ok
+      Verify
+    = link_to "Cancel", sources_path, :class => "btn btn-white btn-cons"
+

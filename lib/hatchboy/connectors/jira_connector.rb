@@ -1,6 +1,6 @@
 module Hatchboy
-  module Connector
-    module Jira
+  module Connectors
+    module JiraConnector
 
       delegate :request_token, :set_request_token, :set_access_token, :init_access_token, :to => :client
 
@@ -55,6 +55,7 @@ module Hatchboy
         end
       end
 
+      
       def import! params
         read!
 
@@ -94,7 +95,7 @@ module Hatchboy
           end
         end
       end
-
+      
     end
   end
 end
