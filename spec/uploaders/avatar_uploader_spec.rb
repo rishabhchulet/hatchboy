@@ -22,8 +22,8 @@ describe AvatarUploader do
   end
 
   context 'the thumb version' do
-    it "should scale down a landscape image to fit within 50 by 50 pixels" do
-      @uploader.thumb.should have_dimensions(50, 50)
+    it "should scale down a landscape image to fit within 60 by 60 pixels" do
+      @uploader.thumb.should have_dimensions(60, 60)
     end
   end
 
