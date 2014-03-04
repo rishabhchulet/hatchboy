@@ -1,0 +1,10 @@
+= simple_form_for(@docu_sign) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :company
+    = f.association :user
+    = f.input :document, label: 'PDF file:' , input_html: {accept: ('application/pdf') }
+
+  .form-actions
+    = f.button :submit

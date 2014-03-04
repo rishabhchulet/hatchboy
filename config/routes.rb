@@ -1,4 +1,11 @@
 Hatchboy::Application.routes.draw do
+  #resources :docu_signs
+  resources :docu_signs do
+    member do
+      get 'server_response'
+    end
+  end
+
   root :to => "pages#home"
   devise_for :account, :controllers => {:registrations => "registrations" }, skip: [:invitations]
 

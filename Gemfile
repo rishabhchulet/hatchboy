@@ -26,6 +26,8 @@ gem "paypal-sdk-merchant", "~> 1.106.1"
 gem "dwolla-ruby", "~> 2.5.1"
 gem "remotipart", "~> 1.2.1"
 gem 'rails-file-icons'
+gem "docusign_rest", "~> 0.1.1"
+gem "certified", "~> 0.1.1"
 
 group :development do
   gem 'capistrano',  '~> 3.0.1'

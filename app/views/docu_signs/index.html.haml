@@ -1,0 +1,27 @@
+%h1 Listing docu_signs
+
+%table
+  %tr
+    %th Company
+    %th User
+    %th Document
+    %th Envelope
+    %th Status
+    %th
+    %th
+    %th
+
+  - @docu_signs.each do |docu_sign|
+    %tr
+      %td= docu_sign.company.name
+      %td= docu_sign.user.name
+      %td= docu_sign.document.url
+      %td= docu_sign.envelope_id
+      %td= docu_sign.status
+      %td= link_to 'Show', docu_sign
+      %td= link_to 'Edit', edit_docu_sign_path(docu_sign)
+      %td= link_to 'Destroy', docu_sign, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Docu sign', new_docu_sign_path
