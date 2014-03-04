@@ -20,7 +20,7 @@ class TrelloSourcesController < ApplicationController
     @trello_source = TrelloSource.new trello_source_params
     @trello_source.company = account_company
     if @trello_source.save
-      oauth_callback = trello_source_confirm_path(@trello_source, only_path: true) #trello_callback_path(only_path: false)
+      oauth_callback = trello_source_confirm_path(@trello_source, only_path: false) #trello_callback_path(only_path: false)
       request_token = @trello_source.client.auth_policy.client.get_request_token(oauth_callback: oauth_callback)
       session[:trello_source] = {id: @trello_source.id, request_token: request_token}
       redirect_to request_token.authorize_url(name: @trello_source.name, expiration: "never", scope: "read,write,account")
@@ -35,7 +35,6 @@ class TrelloSourcesController < ApplicationController
     if @trello_source.update_attributes(trello_source_params)
       oauth_callback = trello_source_confirm_path(@trello_source, only_path: false)
       request_token = @trello_source.client.auth_policy.client.get_request_token(oauth_callback: oauth_callback, scope: "read")
-      debugger
       session[:trello_source] = {id: @trello_source.id, request_token: request_token}
       redirect_to request_token.authorize_url(name: @trello_source.name, expiration: "never", scope: "read,write,account")
     else
