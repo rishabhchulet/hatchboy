@@ -1,0 +1,17 @@
+.grid-body.no-border
+  - if list_deleted.present?
+    %table.table.table-hover.table-bordered.no-more-tables.action-list#teams-short-list
+      %thead
+        %tr
+          %th #
+          %th Description
+          %th Total Amount
+          %th Created
+          %th Creator
+          %th Status
+          %th Transaction status
+          %th Actions
+      %tbody
+        =render partial: "payments/row_deleted", collection: list_deleted
+  - else
+    %p There are no payments yet

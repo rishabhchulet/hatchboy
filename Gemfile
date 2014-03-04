@@ -21,6 +21,8 @@ gem "foreman", "~> 0.63.0"
 gem "carrierwave", "~> 0.9.0"
 gem "mini_magick", "~> 3.7.0"
 gem "jira-ruby", "~> 0.1.4", :require => 'jira'
+gem "paypal-sdk-merchant", "~> 1.106.1"
+gem "dwolla-ruby", "~> 2.5.1"
 gem "remotipart", "~> 1.2.1"
 gem 'rails-file-icons'
 
@@ -57,4 +59,5 @@ group :test do
   gem 'email_spec'
   gem "webmock", "~> 1.16.1"
   gem "rack_session_access", "~> 0.1.1"  
+  gem "fuubar", "~> 1.3.2"
 end

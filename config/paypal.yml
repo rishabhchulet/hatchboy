@@ -1,0 +1,18 @@
+test: &default
+  mode: sandbox
+
+  # https://developer.paypal.com/docs/classic/api/apiCredentials/
+  # username: aglushkov_api1.shakuro.com
+  # password: 1375773901
+  # signature: A--8MSCLabuvN8L.-MHjxC9uypBtAFetCoCcp3ntAL0aS.jqhwGje6Gp
+
+development:
+  <<: *default
+
+staging:
+  <<: *default
+
+production:
+  <<: *default
+  mode: live
+

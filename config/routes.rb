@@ -15,7 +15,13 @@ Hatchboy::Application.routes.draw do
   get "account",   :to => "accounts#show", :as => :account
   get "dashboard", :to => "pages#dashboard", :as => :account_dashboard
   get "legal", :to => "pages#dashboard", :as => :legal
-  get "payments", :to => "pages#dashboard", :as => :payments
+
+  resources :payments
+  resources :payment_transactions, :only => [:create]
+  match "payment_transactions/paypal_ipn" => "payment_transactions#paypal_ipn", via: :post
+  match "payment_transactions/paypal_ipn1" => "payment_transactions#paypal_ipn1", via: :post
+  match "payment_transactions/paypal_ipn2" => "payment_transactions#paypal_ipn2", via: :post
+
   get "reports", :to => "pages#dashboard", :as => :reports
   get "messages", :to => "pages#dashboard", :as => :messages
 

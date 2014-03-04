@@ -1,0 +1,22 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a{:href => payments_path} Payments
+  %i.icon-angle-right
+  %li
+    %span.active New
+
+= simple_form_for(@payment, as: :payment, html: { method: :post, class: 'payment' }) do |f|
+  = render partial: "payments/form", locals: { f: f}
+
+=content_for :javascript do
+  =javascript_include_tag "js/payments"
+
+= content_for :page_specific_css do
+  = stylesheet_link_tag "css/payments"

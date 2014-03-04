@@ -1,0 +1,16 @@
+.grid-body.no-border
+  - if list_sent.present?
+    %table.table.table-hover.table-bordered.no-more-tables.action-list#teams-short-list
+      %thead
+        %tr
+          %th #
+          %th Description
+          %th Total Amount
+          %th Created
+          %th Creator
+          %th Transaction status
+          %th Actions
+      %tbody
+        =render partial: "payments/row_sent", collection: list_sent
+  - else
+    %p There are no payments yet

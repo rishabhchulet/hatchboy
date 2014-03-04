@@ -1,0 +1,80 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a{:href => payments_path} Payments
+  %i.icon-angle-right
+  %li
+    %span.active= "##{@payment.id} (#{@payment.description})"
+
+  %h1 Payment ##{@payment.id} (#{@payment.description})
+
+  %div.row
+    %div.col-md-4
+      %div.grid.simple.horizontal.green
+        %h2.grid-title General Info
+        %ul.grid-body
+          %li= "ID - #{@payment.id}"
+          %li= "Description - #{@payment.description}"
+          %li= "Total amount - #{number_to_currency(@payment.amount)}"
+          %li= "Created - #{@payment.updated_at}"
+          %li= "Creator - #{@payment.created_by.name}"
+          %li
+            %span="Status - #{@payment.status}"
+            - if @payment.deleted
+              %span deleted
+    %div.col-md-4
+      %div.grid.simple.horizontal.yellow
+        %h2.grid-title Recipients
+        %ul.grid-body
+          - @payment.recipients.each do |recipient|
+            %li= "#{recipient.user.name} - $#{recipient.amount}"
+
+    - if @payment.transaction
+      %div.col-md-4
+        %div.grid.simple.horizontal.red
+          %h2.grid-title Transaction
+          %div.grid-body
+            %div= "Status - #{@payment.transaction.status}"
+            %div
+            - unless @payment.transaction.status == "Success"
+              %div= @payment.transaction.info
+
+  .row
+    .col-md-9
+      .grid.simple.horizontal.blue
+        %p.grid-body.text-center
+          =link_to :back, :title => "Back" do
+            %button.btn.btn-primary.btn-cons
+              %i.icon-reply
+              Back
+          - if @payment.status == Payment::STATUS_PREPARED
+            =link_to edit_payment_path(@payment), :title => "Edit Payment" do
+              %button.btn.btn-primary.btn-cons
+                %i.icon-edit
+                Edit
+          - unless @payment.deleted
+            =link_to payment_path(@payment), :title => "Delete Payment", method: 'delete', data: {confirm: "Are you sure you want to delete payment?"} do
+              %button.btn.btn-danger.btn-cons
+                %i.icon-trash
+                Delete
+    - if @payment.status == Payment::STATUS_PREPARED
+      .col-md-3
+        .grid.simple.horizontal.blue
+          %p.grid-body.text-center
+            =link_to payment_transactions_path({payment_system: PaymentTransaction::TYPE_PAYPAL, payment_id: @payment.id}), title: "Process with Paypal", method: :post, data: {confirm: "Are you sure you want to process the payment with PayPal?"} do
+              %button.btn.btn-primary.btn-cons
+                %i.icon-share-alt
+                Paypal
+            =link_to payment_transactions_path({payment_system: PaymentTransaction::TYPE_DWOLLA, payment_id: @payment.id}), title: "Process with Dwolla", method: :post, data: {confirm: "Are you sure you want to process the payment with Dwolla?"} do
+              %button.btn.btn-primary.btn-cons
+                %i.icon-share-alt
+                Dwolla
+
+= content_for :page_specific_css do 
+  = stylesheet_link_tag "css/payments"
