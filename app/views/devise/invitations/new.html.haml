@@ -7,7 +7,7 @@
         - if @user
           = user.hidden_field :id, value: @user.id
         = user.input :name, placeholder: "Name", label: "Name", autofocus: true, hint: 'e.g "John Smith"', required: true, disabled: !@user.blank?
-      = f.input :email, placeholder: "Email", hint: 'e.g "mail@example.com"', required: true, disabled: !@user.blank?
+      = f.input :email, placeholder: "Email", hint: 'e.g "mail@example.com"', required: true, disabled: (!@user.blank? and !@user.contact_email.blank?)
       .form-group
         = f.submit t("devise.invitations.user.new.submit_button"), :class => 'btn btn-default text-center', :role => "button"
 

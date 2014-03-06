@@ -1,6 +1,7 @@
 class InvitationsController < Devise::InvitationsController
   before_filter :update_sanitized_params, if: :devise_controller?
-
+  #after_invitation_accepted :email_invited_by
+  
   def update_sanitized_params
     devise_parameter_sanitizer.for(:invite) {|u| u.permit(:email, user_attributes: [:name])}
   end
@@ -19,8 +20,8 @@ class InvitationsController < Devise::InvitationsController
 
   def create
     user_id = params["account"]["user_attributes"].delete("id")
-    if user_id and @user = account_company.users.without_account.where(id: user_id).first
-      params["account"]['email'] = @user.contact_email
+    if user_id and @user = account_company.users.find(user_id)
+      params["account"]['email'] = @user.contact_email unless @user.contact_email.blank?
     end
     super
   end
@@ -35,10 +36,11 @@ class InvitationsController < Devise::InvitationsController
         invitable.user.company = current_inviter.user.company
         invitable.user.contact_email = invitable.email
       end
-      invitable.valid?
+      if invitable.valid? and invitable.user.contact_email.blank?
+        invitable.user.contact_email = invitable.email
+      end
       invitable.errors[:email] = t("devise.invitations.user.errors.account_already_confirmed") if invitable.confirmed?
     end
   end
 
 end
-
