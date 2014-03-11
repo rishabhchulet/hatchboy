@@ -12,7 +12,7 @@ feature "customers_invitations#create" do
   context "with valid data" do
     background do
       @session.within "form#new_account" do
-        @session.fill_in "Username", :with => @name = Faker::Name.name
+        @session.fill_in "Name", :with => @name = Faker::Name.name
         @session.fill_in "Email", :with => @email = Faker::Internet.email
       end
     end
@@ -42,9 +42,47 @@ feature "customers_invitations#create" do
 
   end
 
+  context "for existing user" do
+    background do
+      @inviting_user = create :user_without_account, company: @user.company
+      @session.visit new_user_invitation_path(user_id: @inviting_user.id)
+    end
+
+    scenario "should name be disabled" do
+      @session.should have_css('input#account_user_attributes_name[disabled]')
+    end
+    scenario "should email be disabled" do
+      @session.should have_css('input#account_email[disabled]')
+    end
+    scenario "should form be filled by inviting user data" do
+      @session.should have_css("input#account_user_attributes_name[value='#{@inviting_user.name}']")
+      @session.should have_css("input#account_email[value='#{@inviting_user.contact_email}']")
+    end
+
+    context "for existing user without contact email" do
+      background do
+        @inviting_user.contact_email = ""
+        @inviting_user.save
+
+        @session.visit new_user_invitation_path(user_id: @inviting_user.id)
+      end
+
+      scenario "should not email be disabled" do
+        @session.should_not have_css('input#account_email[disabled]')
+      end
+      scenario "should save contact email from filled data" do
+        @session.within "form#new_account" do
+          @session.fill_in "Email", :with => @email = Faker::Internet.email
+        end
+        @session.click_button "Invite user"
+        @inviting_user.reload.contact_email.should eq @email
+      end
+    end
+  end
+
   scenario "should validate email" do
     @session.within "form#new_account" do
-      @session.fill_in "Username", :with => @name = Faker::Name.name
+      @session.fill_in "Name", :with => @name = Faker::Name.name
     end
     @session.click_button "Invite user"
     @session.all("span.error").first.should_not be_blank
@@ -52,7 +90,7 @@ feature "customers_invitations#create" do
 
   scenario "should validate email taken and confirmed" do
     @session.within "form#new_account" do
-      @session.fill_in "Username", :with => @name = Faker::Name.name
+      @session.fill_in "Name", :with => @name = Faker::Name.name
       @session.fill_in "Email",    :with => @account.email
     end
     @session.click_button "Invite user"
@@ -62,7 +100,7 @@ feature "customers_invitations#create" do
   scenario "should reinviite if email taken but not confirmed" do
     not_confirmed_account = create :not_confirmed_account, user: build(:user, company: @user.company)
     @session.within "form#new_account" do
-      @session.fill_in "Username", :with => @name = Faker::Name.name
+      @session.fill_in "Name", :with => @name = Faker::Name.name
       @session.fill_in "Email",    :with => not_confirmed_account.email
     end
     @session.click_button "Invite user"
@@ -76,6 +114,4 @@ feature "customers_invitations#create" do
     @session.click_button "Invite user"
     @session.all("span.error").first.should_not be_blank
   end
-
 end
-
