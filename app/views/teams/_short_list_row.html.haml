@@ -5,8 +5,7 @@
   %td= nice_time_difference short_list_row.worklogs.sum(:time)
   %td
     .col-md-6
-      .progress
-        .progress-bar.progress-bar-success.animate-progress-bar{"data-percentage" => "79%", :id => "", :style => "width: 79%;"}
+      = short_list_row.users.count
     .col-md-6
       .list-column.list-row-action
         .list-row-action-wrapper
@@ -33,4 +32,3 @@
                 =form_tag team_path(short_list_row), :method => :delete do
                   =submit_tag 'Delete', :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
                   .btn.btn-small.cancel Cancel
-
