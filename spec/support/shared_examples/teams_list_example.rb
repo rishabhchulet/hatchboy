@@ -9,7 +9,7 @@ shared_examples "teams list" do
   end
   
   scenario "should have link to create another team" do
-    page.click_link "Add another team" 
+    page.click_link "Create new team" 
     page.current_path.should eq new_team_path
   end
   
