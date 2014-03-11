@@ -43,27 +43,28 @@ feature "customers_invitations#create" do
   end
 
   context "for existing user" do
-    background do
-      @inviting_user = create :user_without_account, company: @user.company
-      @session.visit new_user_invitation_path(user_id: @inviting_user.id)
-    end
 
-    scenario "should name be disabled" do
-      @session.should have_css('input#account_user_attributes_name[disabled]')
-    end
-    scenario "should email be disabled" do
-      @session.should have_css('input#account_email[disabled]')
-    end
-    scenario "should form be filled by inviting user data" do
-      @session.should have_css("input#account_user_attributes_name[value='#{@inviting_user.name}']")
-      @session.should have_css("input#account_email[value='#{@inviting_user.contact_email}']")
-    end
-
-    context "for existing user without contact email" do
+    context "with contact email" do
       background do
-        @inviting_user.contact_email = ""
-        @inviting_user.save
+        @inviting_user = create :user_without_account, company: @user.company
+        @session.visit new_user_invitation_path(user_id: @inviting_user.id)
+      end
 
+      scenario "should name be disabled" do
+        @session.should have_css('input#account_user_attributes_name[disabled]')
+      end
+      scenario "should email be disabled" do
+        @session.should have_css('input#account_email[disabled]')
+      end
+      scenario "should form be filled by inviting user data" do
+        @session.should have_css("input#account_user_attributes_name[value='#{@inviting_user.name}']")
+        @session.should have_css("input#account_email[value='#{@inviting_user.contact_email}']")
+      end
+    end
+
+    context "without contact email" do
+      background do
+        @inviting_user = create :user_without_account, contact_email: "", company: @user.company
         @session.visit new_user_invitation_path(user_id: @inviting_user.id)
       end
 
