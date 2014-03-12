@@ -46,5 +46,9 @@ module ApplicationHelper
     
     components.reduce("") {|res, m| m[1] == 0 ? res : res + "#{m[1]}#{m[0]} "}
   end
+
+  def home_uri
+    request.protocol + request.domain + (request.port.nil? ? '' : ":#{request.port}")
+  end
     
 end
