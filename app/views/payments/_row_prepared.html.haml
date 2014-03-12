@@ -1,6 +1,7 @@
 %tr.data-row
   %td= row_prepared.id
-  %td= row_prepared.description
+  %td
+    %a{:href => payment_path(row_prepared)}= row_prepared.description
   %td= number_to_currency(row_prepared.amount)
   %td{title: row_prepared.updated_at}= "#{time_ago_in_words(row_prepared.updated_at)} ago"
   %td= row_prepared.created_by.name

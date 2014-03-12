@@ -7,7 +7,7 @@
     %a{:href => company_path} Company
   %i.icon-angle-right
   %li
-    %a.active{:href => sources_path} Payments
+    %a.active{:href => payments_path} Payments
 
 .row
   .col-md-11
@@ -17,13 +17,20 @@
   .col-md-1.text-right
 .row
   %ul#navigation-tab.nav.nav-tabs
+    %li.payments-tab#new
+      %a{href: "#payments-new"}
+        %i.icon-plus
+        New
     %li.payments-tab#prepared.active
       %a{href: "#payments-prepared"} Prepared Payments
     %li.payments-tab#sent
       %a{href: "#payments-sent"} Sent Payments
     %li.payments-tab#deleted
-      %a{href: "#payments-deleted", name: 'deleted'} Deleted Payments
+      %a{href: "#payments-deleted"} Deleted Payments
   .tab-content
+    #payments-new.tab-pane
+      = simple_form_for(@payment, as: :payment, html: { method: :post, class: 'payment' }) do |f|
+        = render partial: "payments/form", locals: { f: f}
     #payments-prepared.tab-pane.active
       =render partial: "payments/list_prepared", :object => @payments_prepared
     #payments-sent.tab-pane

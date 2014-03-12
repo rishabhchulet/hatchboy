@@ -35,15 +35,13 @@
           - @payment.recipients.each do |recipient|
             %li= "#{recipient.user.name} - $#{recipient.amount}"
 
-    - if @payment.transaction
+    - if @payment.transactions
       %div.col-md-4
         %div.grid.simple.horizontal.red
-          %h2.grid-title Transaction
+          %h2.grid-title Monetary movements
           %div.grid-body
-            %div= "Status - #{@payment.transaction.status}"
-            %div
-            - unless @payment.transaction.status == "Success"
-              %div= @payment.transaction.info
+            - @payment.transactions.each do |t|
+              %div= t.info
 
   .row
     .col-md-9

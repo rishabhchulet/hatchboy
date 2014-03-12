@@ -14,10 +14,4 @@
         =render partial: "payments/row_prepared", collection: list_prepared
   - else
     %p There are no payments yet    
-  .row
-    .col-md-10
-    .col-md-2
-      =link_to new_payment_path do
-        %button.btn.btn-primary.btn-cons
-          %i.icon-plus
-          Add Payment
+
