@@ -29,6 +29,8 @@ gem 'rails-file-icons'
 gem "docusign_rest", "~> 0.1.1"
 gem "certified", "~> 0.1.1"
 
+gem "activemerchant", "~> 1.42.6"
+
 group :development do
   gem 'capistrano',  '~> 3.0.1'
   gem 'capistrano-rails', '~> 1.1.0'
