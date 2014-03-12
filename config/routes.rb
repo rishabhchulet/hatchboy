@@ -24,10 +24,9 @@ Hatchboy::Application.routes.draw do
   get "legal", :to => "pages#dashboard", :as => :legal
 
   resources :payments
+  resources :paypal_configurations, :only => [:new, :create]
   resources :payment_transactions, :only => [:create]
-  match "payment_transactions/paypal_ipn" => "payment_transactions#paypal_ipn", via: :post
-  match "payment_transactions/paypal_ipn1" => "payment_transactions#paypal_ipn1", via: :post
-  match "payment_transactions/paypal_ipn2" => "payment_transactions#paypal_ipn2", via: :post
+  post "paypal_ipn", :to => "pages#paypal_ipn", :as => :paypal_ipn
 
   get "reports", :to => "pages#dashboard", :as => :reports
   get "messages", :to => "pages#dashboard", :as => :messages
