@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140228121733) do
+ActiveRecord::Schema.define(version: 20140312134905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,15 @@ ActiveRecord::Schema.define(version: 20140228121733) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "paypal_configurations", force: true do |t|
+    t.integer "company_id"
+    t.string  "login"
+    t.string  "password"
+    t.string  "signature"
+  end
+
+  add_index "paypal_configurations", ["company_id"], name: "index_paypal_configurations_on_company_id", using: :btree
 
   create_table "post_receivers", force: true do |t|
     t.integer  "post_id"

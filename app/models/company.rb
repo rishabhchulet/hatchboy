@@ -6,6 +6,7 @@ class Company < ActiveRecord::Base
   has_many :sources
   has_many :teams
   has_many :payments
+  has_one :paypal_configuration
 
   validates_presence_of :created_by
   validates :name, uniqueness: { case_sensitive: false }, presence: true
