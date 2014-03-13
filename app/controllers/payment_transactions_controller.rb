@@ -29,6 +29,9 @@ class PaymentTransactionsController < ApplicationController
   end
 
   def paypal_notify
+    my_logger ||= Logger.new("#{Rails.root}/log/paypal_notify.log")
+    my_logger.info(params.to_s)
+
     notify = ActiveMerchant::Billing::Integrations::Paypal::Notification.new(request.raw_post)
     PaymentTransaction.create(info: notify.to_json, payment_system: 'paypal', status: notify.status)
 
