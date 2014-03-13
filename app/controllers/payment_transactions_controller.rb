@@ -10,7 +10,7 @@ class PaymentTransactionsController < ApplicationController
     
     unless payment_configuration
       flash[:alert] = "You should configurate this service to use you paypal account before sending payments"
-      redirect_to(paypal_configuration) and return
+      redirect_to(new_paypal_configuration_path) and return
     end  
 
     payment = account_company.payments.where(id: params[:payment_id], status: Payment::STATUS_PREPARED).first or not_found
