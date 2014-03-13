@@ -26,7 +26,7 @@ Hatchboy::Application.routes.draw do
   resources :payments
   resources :paypal_configurations, :only => [:new, :create]
   resources :payment_transactions, :only => [:create]
-  post "paypal_ipn", :to => "pages#paypal_ipn", :as => :paypal_ipn
+  post "payment_transactions/paypal_notify", :to => "payment_transactions#paypal_notify", :as => :paypal_notify
 
   get "reports", :to => "pages#dashboard", :as => :reports
   get "messages", :to => "pages#dashboard", :as => :messages

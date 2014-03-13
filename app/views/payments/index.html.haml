@@ -27,6 +27,16 @@
       %a{href: "#payments-sent"} Sent Payments
     %li.payments-tab#deleted
       %a{href: "#payments-deleted"} Deleted Payments
+    %li.dropdown.pull-right
+      %a.dropdown-toggle{"data-toggle" => "dropdown", class: "payment-config"}
+        %i.icon-gear
+        %span Configuration
+        %i.icon-caret-down
+      %ul.dropdown-menu
+        %li
+          =link_to "Dwolla Configuration", '#', {class: "payment-config"}
+          =link_to "Paypal Configuration", new_paypal_configuration_path, {class: "payment-config"}
+
   .tab-content
     #payments-new.tab-pane
       = simple_form_for(@payment, as: :payment, html: { method: :post, class: 'payment' }) do |f|
@@ -46,3 +56,4 @@
 
 = content_for :page_specific_css do 
   = stylesheet_link_tag "css/payments"
+

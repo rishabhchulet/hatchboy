@@ -10,19 +10,19 @@ module Hatchboy
           password: params[:password],
           signature: params[:signature]
         )
-          # login: 'aglushkov_api1.shakuro.com',
-          # password: '1375773901',
-          # signature: 'A--8MSCLabuvN8L.-MHjxC9uypBtAFetCoCcp3ntAL0aS.jqhwGje6Gp'
       end
 
       def pay payment
         recipients = payment.recipients.map { |recipient| [recipient.amount, recipient.user.account.email] }
-        result = api.transfer(*recipients, [1, 'aglushkovshakuro.com'], {:subject => payment.description})
+        result = api.transfer(*recipients, {:subject => payment.description})
 
-        if result.message == "Success"
-          { success: true }
+        additional_info = result.params.select { |key| %w(timestamp ack correlation_id version build).include? key }
+        additional_info.merge!('test' => result.test?)
+
+        if result.success?
+          {success: true, additional_info: additional_info}
         else
-          { success: false, message: "Paypal server error: #{result.message}. Error code: #{result.Errors['error_code']}. Correlation id: #{result.correlation_id}" }
+          {success: false, message: "Paypal server error: #{result.message}. Error code: #{result.params['Errors']['error_code']}. Correlation id: #{result.params['correlation_id']}"}
         end
       end
 

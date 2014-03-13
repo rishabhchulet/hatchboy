@@ -38,23 +38,10 @@ var Tabs = function() {
   this.init = function() {
     /* Automagically jump on good tab based on anchor; for page reloads or links */
     if(location.hash) {
-      console.log(1)
       $('a[href=' + location.hash + ']').tab('show');
     }
 
-    /* Update hash based on tab, basically restores browser default behavior to
-       fix bootstrap tabs */
-    $(document.body).on("click", ".nav-tabs a", function(e) {
-      console.log(2)
-      location.hash = this.getAttribute("href");
-    });
-
-    /* on history back activate the tab of the location hash
-       if exists or the default tab if no hash exists */
-    $(window).on('popstate', function() {
-      var anchor = location.hash || $(".nav-tabs li.active a").attr("href") || $(".nav-tabs a").first().attr("href");;
-      $('a[href=' + anchor + ']').tab('show');
-    });
-
+    /* removing events from configuration links to make them clickable */
+    $('a.payment-config').unbind('click');
   }
 }

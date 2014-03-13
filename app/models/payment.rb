@@ -5,9 +5,8 @@ class Payment < ActiveRecord::Base
 
   belongs_to :company
   belongs_to :created_by,  class_name: "User"
-  has_one    :transaction, class_name: "PaymentTransaction"
+  has_many   :transactions, class_name: "PaymentTransaction"
   has_many   :recipients,  class_name: "PaymentRecipient"
-  accepts_nested_attributes_for :transaction
   accepts_nested_attributes_for :recipients
 
   validates :company, :created_by, :description, presence: true

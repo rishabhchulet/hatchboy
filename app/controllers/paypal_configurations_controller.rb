@@ -18,7 +18,7 @@ class PaypalConfigurationsController < ApplicationController
   end
 
   def new
-    @config = (account_company.paypal_configuration.dup || account_company.build_paypal_configuration)
+    @config = (account_company.paypal_configuration || account_company.build_paypal_configuration).dup
   end
 
   private
