@@ -11,25 +11,29 @@
       %i.icon-custom-ui
       %h3
         = @company.name
-.row
-  .col-md-12
-    .row
-      .col-md-12
-        .grid.simple
-          .grid-title.no-border
-            %h4
-              %span.semi-bold About company
-            .tools
-              %a.collapse{:href => "javascript:;"}
-              = link_to "", edit_company_path, class: "config edit-company"
-          .grid-body.no-border{:style => "display: block;"}
-            =@company.description
-            %br
-            %br
-            Have any question? Contact &nbsp;
-            %span.semi-bold><
-              =link_to  @company.contact_person.name, user_path(@company.contact_person), :id => "contact-person-link"
-            \.
+        = link_to edit_company_path, :rel => :tooltip, :class => "edit-link", :title => "edit company" do
+          %i.icon-edit
+- unless @company.description.blank? and @company.contact_person.blank? 
+  .row
+    .col-md-12
+      .row
+        .col-md-12
+          .grid.simple
+            .grid-title.no-border
+              %h4
+              .tools
+                %a.collapse{:href => "javascript:;"}
+            .grid-body.no-border{:style => "display: block;"}
+              - unless @company.description.blank?
+                =@company.description
+              - unless @company.contact_person.blank?
+                - unless @company.description.blank?
+                  %br
+                  %br
+                Have any question? Contact &nbsp;
+                %span.semi-bold><
+                  =link_to  @company.contact_person.name, user_path(@company.contact_person), :id => "contact-person-link"
+                \.
 
 .row
   .col-md-12

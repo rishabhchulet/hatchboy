@@ -1652,6 +1652,11 @@ display:none;
   font-weight: 300;
   color: #888;
 }
+.page-title a.edit-link .icon-edit{	
+    font-size: 15px;
+    float: none;
+    position: initial;
+}
 
 /* Breadcrumb */
 .page-content .breadcrumb {
