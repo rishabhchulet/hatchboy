@@ -34,14 +34,15 @@
         %ul.grid-body
           - @payment.recipients.each do |recipient|
             %li= "#{recipient.user.name} - $#{recipient.amount}"
-
-    - if @payment.transactions
-      %div.col-md-4
-        %div.grid.simple.horizontal.red
-          %h2.grid-title Monetary movements
-          %div.grid-body
-            - @payment.transactions.each do |t|
-              %div= t.info
+    
+    %div.col-md-4
+      %div.grid.simple.horizontal.red
+        %h2.grid-title Information from payment system
+        %div.grid-body
+          - if @payment.transactions.present?
+            =render partial: "payents/transaction_#{@payment.transactions.first.type}", locals: {transactions: @payment.transactions}
+          - else
+            %p No information yet  
 
   .row
     .col-md-9
@@ -65,11 +66,11 @@
       .col-md-3
         .grid.simple.horizontal.blue
           %p.grid-body.text-center
-            =link_to payment_transactions_path({payment_system: PaymentTransaction::TYPE_PAYPAL, payment_id: @payment.id}), title: "Process with Paypal", method: :post, data: {confirm: "Are you sure you want to process the payment with PayPal?"} do
+            =link_to payment_transactions_path({type: PaymentTransaction::TYPE_PAYPAL, payment_id: @payment.id}), title: "Process with Paypal", method: :post, data: {confirm: "Are you sure you want to process the payment with PayPal?"} do
               %button.btn.btn-primary.btn-cons
                 %i.icon-share-alt
                 Paypal
-            =link_to payment_transactions_path({payment_system: PaymentTransaction::TYPE_DWOLLA, payment_id: @payment.id}), title: "Process with Dwolla", method: :post, data: {confirm: "Are you sure you want to process the payment with Dwolla?"} do
+            =link_to payment_transactions_path({type: PaymentTransaction::TYPE_DWOLLA, payment_id: @payment.id}), title: "Process with Dwolla", method: :post, data: {confirm: "Are you sure you want to process the payment with Dwolla?"} do
               %button.btn.btn-primary.btn-cons
                 %i.icon-share-alt
                 Dwolla

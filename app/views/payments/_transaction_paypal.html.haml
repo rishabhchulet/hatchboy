@@ -1,0 +1,74 @@
+- transactions.each do |payment_transaction|
+  - info = JSON.parse(payment_transaction.info)
+  - transaction = info[:transaction],
+  - payment = info[:payment],
+  - recepients = info[:recepients],
+  - currency = recepients.first[:currency]
+  %table.table
+    %tr
+      %th{colspan: 2} Transaction Details
+    %tr
+      %td Type
+      %td= transaction[:type]
+    %tr
+      %td IPN Track ID: 
+      %td= transaction[:ipn_track_id]
+    - if transaction[:test_ipn]
+      %tr
+        %td Test
+        %td= transaction[:test_ipn]
+
+  %table.table
+    %tr
+      %th Payment Details
+    %tr
+      %td Payment date:
+      %td= payment[:payment_date]
+    %tr
+      %td Payment status:
+      %td= payment[:payment_status]
+    %tr
+      %td Payment amount:
+      %td= payment[:payment_amount] + currency
+    %tr
+      %td Fee amount:
+      %td= payment[:fee_amount] + currency
+    %tr
+      %td Total amount:
+      %td= payment[:total_amount] + currency
+
+  %table.table
+    %tr
+      %td Completed amount:
+      %td= payment[:completed_amount] + currency
+    - if payment[:unclaimed_amount]
+      %tr
+        %td Unclaimed amount:
+        %td= payment[:unclaimed_amount] + currency
+    - if payment[:returned_amount]  
+      %tr
+        %td Returned amount:
+        %td= payment[:returned_amount] + currency
+    - if payment[:denied_amount]
+      %tr
+        %td Denied amount:
+        %td= payment[:denied_amount] + currency
+    - if payment[:blocked_amount]
+      %tr
+        %td Blocked amount:
+        %td= payment[:blocked_amount] + currency
+
+  %table.table
+    %tr
+      %th Transaction ID
+      %th Recipient Unique Identifier
+      %th Amount
+      %th Fee
+      %th Status
+    - recepients.each do |r|
+      %tr
+        %td= r[:transaction_id]
+        %td= r[:email]
+        %td= "#{r[:amount]} #{r[:currency]}"
+        %td= "#{r[:fee]} #{r[:currency]}"
+        %td= r[:status]
