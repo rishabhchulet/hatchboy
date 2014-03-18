@@ -19,11 +19,11 @@
         %i.icon-trash
         Delete
   %td
-    =link_to payment_transactions_path({payment_system: PaymentTransaction::TYPE_PAYPAL, payment_id: row_prepared.id}), title: "Process with Paypal", method: :post, data: {confirm: "Are you sure you want to process the payment with PayPal?"} do
+    =link_to payment_transactions_path({type: PaymentTransaction::TYPE_PAYPAL, payment_id: row_prepared.id}), title: "Process with Paypal", method: :post, data: {confirm: "Are you sure you want to process the payment with PayPal?"} do
       %button.btn.btn-sm.btn-small.btn-primary
         %i.icon-share-alt
         Paypal
-    =link_to payment_transactions_path({payment_system: PaymentTransaction::TYPE_DWOLLA, payment_id: row_prepared.id}), title: "Process with Dwolla", method: :post, data: {confirm: "Are you sure you want to process the payment with Dwolla?"} do
+    =link_to payment_transactions_path({type: PaymentTransaction::TYPE_DWOLLA, payment_id: row_prepared.id}), title: "Process with Dwolla", method: :post, data: {confirm: "Are you sure you want to process the payment with Dwolla?"} do
       %button.btn.btn-sm.btn-small.btn-primary
         %i.icon-share-alt
         Dwolla

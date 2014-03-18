@@ -12,13 +12,14 @@ describe Payment do
     should respond_to :recipients
     should respond_to :created_at
     should respond_to :updated_at
+    should respond_to :transactions
   end
 
   specify do
     should validate_presence_of :company
     should validate_presence_of :created_by
   end
-  
+
   describe "default values" do
     subject { create :payment }
     its(:status) { should eq described_class::STATUS_PREPARED }

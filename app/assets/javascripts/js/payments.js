@@ -1,3 +1,15 @@
+var Tabs = function() {
+  this.init = function() {
+    /* Automagically jump on good tab based on anchor; for page reloads or links */
+    if(location.hash) {
+      $('a[href=' + location.hash + ']').tab('show');
+    }
+
+    /* removing events from configuration links to make them clickable */
+    $('a.payment-config').unbind('click');
+  }
+}
+
 $(document).ready(function() {
   var tabs = new Tabs
   tabs.init()
@@ -31,17 +43,5 @@ function checkRecipient(obj, to_check) {
     line.addClass('row_selected');
   } else {
     line.removeClass('row_selected');
-  }
-}
-
-var Tabs = function() {
-  this.init = function() {
-    /* Automagically jump on good tab based on anchor; for page reloads or links */
-    if(location.hash) {
-      $('a[href=' + location.hash + ']').tab('show');
-    }
-
-    /* removing events from configuration links to make them clickable */
-    $('a.payment-config').unbind('click');
   }
 }

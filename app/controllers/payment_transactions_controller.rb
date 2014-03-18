@@ -3,7 +3,7 @@ class PaymentTransactionsController < ApplicationController
   skip_before_action :verify_authenticity_token, :only => :paypal_notify
 
   def create
-    payment_configuration = case params[:payment_system]
+    payment_configuration = case params[:type]
       when 'paypal' then account_company.paypal_configuration
       when 'dwolla' then account_company.dwolla_configuration 
     end
@@ -11,10 +11,10 @@ class PaymentTransactionsController < ApplicationController
     unless payment_configuration
       flash[:alert] = "You should configurate this service to use you paypal account before sending payments"
       redirect_to(new_paypal_configuration_path) and return
-    end  
+    end
 
     payment = account_company.payments.where(id: params[:payment_id], status: Payment::STATUS_PREPARED).first or not_found
-    payer = Hatchboy::Payments::Factory.get(params[:payment_system], payment_configuration)
+    payer = Hatchboy::Payments::Factory.get(params[:type], payment_configuration)
     response = payer.pay payment
 
     if response[:success]
@@ -29,25 +29,21 @@ class PaymentTransactionsController < ApplicationController
   end
 
   def paypal_notify
-    my_logger ||= Logger.new("#{Rails.root}/log/paypal_notify.log")
-    my_logger.info(params.to_s)
-
     notify = ActiveMerchant::Billing::Integrations::Paypal::Notification.new(request.raw_post)
-    PaymentTransaction.create(info: notify.to_json, payment_system: 'paypal', status: notify.status)
 
-    # t.integer  "payment_id"
-    # t.string   "payment_system"
-    # t.string   "status"
-    # t.text     "info"
-    # t.datetime "created_at"
-    # t.datetime "updated_at"
+    if notify.params['txn_type'] == "masspay"
+      if notify.acknowledge
+        if notify.params['unique_id_1'] and first_recipient = PaymentRecipient.find(notify.params['unique_id_1'])
+          transaction = Hatchboy::Payments::Paypal.parse_ipn params
+          payment = first_recipient.payment
+          payment.transactions.create(info: transaction.to_json)
+        end
+      else
+        paypal_ipn_logger ||= Logger.new("#{Rails.root}/log/paypal_ipn.log")
+        paypal_ipn_logger.warn('Can\'t verify paypal notification !')
+      end
+    end
 
-    # p "Notification object is #{notify}"
-    # if notify.acknowledge
-    #   p "Transaction ID is #{notify.transaction_id}"
-    #   p "Notification object is #{notify}"
-    #   p "Notification status is #{notify.status}"
-    # end
     render :nothing => true
   end
 
