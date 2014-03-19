@@ -1,13 +1,33 @@
 class DocuSignsController < ApplicationController
+  #autocomplete :user, :name, :full => true, :display_value => :users_and_teams, :extra_data => [:slogan]
+
   before_action :set_docu_sign, only: [:server_response, :show, :edit, :update, :destroy]
   before_filter :authenticate_account!
   
   after_action :allow_docusign_iframe , only: :show
 
+  def autocomplete_user_name
+    users = account_company.users.where( ["name LIKE ?", "%#{params[:q]}%" ] )
+    users = users.map { |a| { :id => "user_#{a.id}", :text => a.name, :type => "user" } }
+    
+    teams = account_company.teams.where( ["name LIKE ?", "%#{params[:q]}%" ] )
+    teams = teams.map { |a| { :id => "team_#{a.id}", :text => a.name, :type => "team" } }
+
+    data= users.inject(teams, :<<)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => data }
+      format.js   { render :json => data }
+      format.json { render :json => data }
+    end
+  end
+
   # GET /docu_signs
   # GET /docu_signs.json
   def index
-    @docu_signs = DocuSign.all
+    @docu_signs = DocuSign.where(:user => current_account.user)
+    @docs_to_sign = @docu_signs.select{|doc| doc.status == DocuSign::STATUS_PROCESSING }.count
   end
 
   # GET /docu_signs/1
@@ -16,16 +36,19 @@ class DocuSignsController < ApplicationController
     client = DocusignRest::Client.new
 
     @url = client.get_recipient_view(
-      envelope_id: @docu_sign.envelope_id,
+      envelope_id: @docu_sign.envelope_key,
       name: current_account.user.name,
       email: current_account.email,
-      return_url: "http://localhost:3000/docu_signs/#{@docu_sign.id}/server_response"
+      return_url: "#{request.url}/server_response"
     )
   end
 
   # GET /docu_signs/new
   def new
-    @docu_sign = DocuSign.new
+    @docu_template = DocuTemplate.new
+    
+    #@users = account_company.users
+    #@teams = account_company.teams
   end
 
   # GET /docu_signs/1/edit
@@ -35,15 +58,18 @@ class DocuSignsController < ApplicationController
   # POST /docu_signs
   # POST /docu_signs.json
   def create
-    @docu_sign = DocuSign.new(docu_sign_params)
+    @docu_template = DocuTemplate.new(docu_sign_params)
+    @docu_template.company = account_company
 
     respond_to do |format|
-      if @docu_sign.save
-        format.html { redirect_to @docu_sign, notice: 'Docu sign was successfully created.' }
+      if @docu_template.save
+        format.html { redirect_to docu_signs_path, notice: 'Docu sign was successfully created.' }
         format.json { render action: 'show', status: :created, location: @docu_sign }
       else
+
+        puts @docu_template.errors.to_yaml
         format.html { render action: 'new' }
-        format.json { render json: @docu_sign.errors, status: :unprocessable_entity }
+        format.json { render json: @docu_template.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -78,20 +104,21 @@ class DocuSignsController < ApplicationController
     if params[:event] == "signing_complete"
       client = DocusignRest::Client.new
       recipients = client.get_envelope_recipients(
-        envelope_id: @docu_sign.envelope_id,
+        envelope_id: @docu_sign.envelope_key,
         include_tabs: true,
         include_extended: true
       )
 
       rcheck = recipients["signers"][0]
+
       if rcheck["status"]=="completed" and rcheck["name"]==current_account.user.name and rcheck["email"]==current_account.email
-        @docu_sign.status = DocuSign::STATUS_SIGNED
-        @docu_sign.save!
+        @docu_sign.update_attribute(:status, DocuSign::STATUS_SIGNED)
       end
       flash[:notice] = "Thanks! Successfully signed"
       render :text => utility.breakout_path(docu_signs_url), content_type: 'text/html'
     else
       flash[:notice] = "You chose not to sign the document."
+      @docu_sign.update_attribute(:status, DocuSign::STATUS_CANCELLED)
       render :text => utility.breakout_path(docu_signs_url), content_type: 'text/html'
     end
   end
@@ -104,7 +131,7 @@ class DocuSignsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def docu_sign_params
-      params.require(:docu_sign).permit(:company_id, :user_id, :envelope_id, :status, :document)
+      params.require(:docu_template).permit(:users, :document, :title)
     end
 
     def allow_docusign_iframe
