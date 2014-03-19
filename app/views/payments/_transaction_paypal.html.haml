@@ -64,7 +64,7 @@
     .col-md-3
       %table.table.table-bordered.no-more-tables
         %tr
-           %th{colspan: 2} Payer Details
+          %th{colspan: 2} Payer Details
         %tr
           %td Name:
           %td= payer['name']
@@ -93,7 +93,6 @@
       %th Amount
       %th Fee
       %th Status
-      %th Error
     - recepients.each do |r|
       %tr
         %td= r['transaction_id']
@@ -102,9 +101,7 @@
         %td= "#{r['fee']} #{currency}"
         %td
           %span= r['status']
-          %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => paypal_receiver_status_message(r['status'])} ?
-        %td
-          - if r['error_code'].present?
-            %span= r['error_code']
-            %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => paypal_receiver_error_message(r['error_code'])} ?
+          -if r['status'].present?
+            %span= "(reason code #{r['status']})"
+          %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => paypal_receiver_status_message(r['status'], r['error_code'])} ?
     %hr
