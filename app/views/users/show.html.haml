@@ -26,7 +26,7 @@
             .tools
               %a.collapse{:href => "javascript:;"}
               = link_to "", edit_user_path(@user), :class => "config edit-user"
-          .grid-body.no-border{:class => "user-info-avatar"}
+          .grid-body.no-border
             .row
               .col-md-2
                 = image_tag @user.avatar.url, :height => "130", :width => "130"
