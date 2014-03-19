@@ -24,6 +24,6 @@ class User < ActiveRecord::Base
     company[:contact_person] = self
     super company
   end
-
+  
 end
 
