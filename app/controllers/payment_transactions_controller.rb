@@ -34,9 +34,23 @@ class PaymentTransactionsController < ApplicationController
     if notify.params['txn_type'] == "masspay"
       if notify.acknowledge
         if notify.params['unique_id_1'] and first_recipient = PaymentRecipient.find(notify.params['unique_id_1'])
+          
+          paypal_ipn_logger ||= Logger.new("#{Rails.root}/log/paypal_ipn_test.log")  
+
           transaction = Hatchboy::Payments::Paypal.parse_ipn params
+
+          paypal_ipn_logger.info("1")
+          paypal_ipn_logger.info(transaction)
+
           payment = first_recipient.payment
+
+          paypal_ipn_logger.info("2")
+          paypal_ipn_logger.info(payment)
+
           payment.transactions.create(info: transaction.to_json)
+
+          paypal_ipn_logger.info("3")
+          paypal_ipn_logger.info(payment.transactions.last)          
         end
       else
         paypal_ipn_logger ||= Logger.new("#{Rails.root}/log/paypal_ipn.log")
