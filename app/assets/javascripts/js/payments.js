@@ -11,6 +11,8 @@ var Tabs = function() {
 }
 
 $(document).ready(function() {
+  $('[data-toggle="tooltip"]').tooltip()
+
   var tabs = new Tabs
   tabs.init()
 

@@ -1,11 +1,12 @@
 - transactions.each do |payment_transaction|
   - info = JSON.parse(payment_transaction.info)
   - transaction = info['transaction']
+  - payer = info['payer']
   - payment = info['payment']
   - recepients = info['receivers']
   - currency = recepients.first['currency']
   .row
-    .col-md-4
+    .col-md-3
       %table.table.table-bordered.no-more-tables
         %tr
           %th{colspan: 2} Transaction Details
@@ -19,7 +20,7 @@
           %tr
             %td Test
             %td= transaction['test_ipn']
-    .col-md-4
+    .col-md-3
       %table.table.table-bordered.no-more-tables
         %tr
           %th{colspan: 2} Payment Details
@@ -28,7 +29,9 @@
           %td= payment['payment_date']
         %tr
           %td Payment status:
-          %td= payment['payment_status']
+          %td
+            %span= payment['payment_status']
+            %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => paypal_payment_status_message(payment['payment_status'])} ?
         %tr
           %td Payment amount:
           %td= number_to_currency(payment['payment_amount'], unit: currency, format: '%n %u')
@@ -38,31 +41,50 @@
         %tr
           %td Total amount:
           %td= number_to_currency(payment['total_amount'], unit: currency, format: '%n %u')
-    .col-md-4
+    .col-md-3
       %table.table.table-bordered.no-more-tables
         %tr
           %td Completed amount:
           %td= number_to_currency(payment['completed_amount'], unit: currency, format: '%n %u')
-        - if payment['unclaimed_amount'] > 0
           %tr
             %td Unclaimed amount:
             %td= number_to_currency(payment['unclaimed_amount'], unit: currency, format: '%n %u')
-        - if payment['returned_amount'] > 0
           %tr
             %td Returned amount:
             %td= number_to_currency(payment['returned_amount'], unit: currency, format: '%n %u')
-        - if payment['denied_amount'] > 0
           %tr
             %td Denied amount:
             %td= number_to_currency(payment['denied_amount'], unit: currency, format: '%n %u')
-        - if payment['pending_amount'] > 0
           %tr
             %td Denied amount:
             %td= number_to_currency(payment['denied_amount'], unit: currency, format: '%n %u')
-        - if payment['blocked_amount'] > 0
           %tr
             %td Blocked amount:
             %td= number_to_currency(payment['blocked_amount'], unit: currency, format: '%n %u')
+    .col-md-3
+      %table.table.table-bordered.no-more-tables
+        %tr
+           %th{colspan: 2} Payer Details
+        %tr
+          %td Name:
+          %td= payer['name']
+        %tr
+          %td Business name:
+          %td= payer['business_name']
+        %tr
+          %td Email
+          %td= payer['email']
+        %tr
+          %td Country
+          %td= payer['country']
+        %tr
+          %td Status
+          %td
+            %span= payer['status']
+            %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => paypal_payer_status_message(payer['status'])} ?
+        %tr
+          %td Payer paypal id
+          %td= payer['payer_id']
 
   %table.table.table-bordered.no-more-tables
     %tr
@@ -71,10 +93,18 @@
       %th Amount
       %th Fee
       %th Status
+      %th Error
     - recepients.each do |r|
       %tr
         %td= r['transaction_id']
         %td= r['email']
         %td= "#{r['amount']} #{currency}"
         %td= "#{r['fee']} #{currency}"
-        %td= r['status']
+        %td
+          %span= r['status']
+          %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => paypal_receiver_status_message(r['status'])} ?
+        %td
+          - if r['error_code'].present?
+            %span= r['error_code']
+            %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => paypal_receiver_error_message(r['error_code'])} ?
+    %hr
