@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :store_docs_to_sign
-
   include ApplicationHelper
 
   helper_method :account_company
@@ -24,5 +22,9 @@ class ApplicationController < ActionController::Base
     session[:docs_to_sign] = DocuSign.where(:user => current_account.user).select{|doc| doc.status == DocuSign::STATUS_PROCESSING }.count if current_account
   end  
 
+  def after_sign_in_path_for(resource)
+    store_docs_to_sign
+    super
+  end
 end
 

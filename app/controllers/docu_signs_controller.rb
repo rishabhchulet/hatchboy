@@ -13,7 +13,7 @@ class DocuSignsController < ApplicationController
     teams = account_company.teams.where( ["name LIKE ?", "%#{params[:q]}%" ] )
     teams = teams.map { |a| { :id => "team_#{a.id}", :text => a.name, :type => "team" } }
 
-    data= users.inject(teams, :<<)
+    data = users.inject(teams, :<<)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -101,6 +101,7 @@ class DocuSignsController < ApplicationController
   def server_response
     utility = DocusignRest::Utility.new
 
+
     if params[:event] == "signing_complete"
       client = DocusignRest::Client.new
       recipients = client.get_envelope_recipients(
@@ -121,6 +122,7 @@ class DocuSignsController < ApplicationController
       @docu_sign.update_attribute(:status, DocuSign::STATUS_CANCELLED)
       render :text => utility.breakout_path(docu_signs_url), content_type: 'text/html'
     end
+    store_docs_to_sign
   end
 
   private
