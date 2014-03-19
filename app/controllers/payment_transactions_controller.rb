@@ -47,7 +47,7 @@ class PaymentTransactionsController < ApplicationController
           paypal_ipn_logger.info("2")
           paypal_ipn_logger.info(payment)
 
-          payment.transactions.create(info: transaction.to_json)
+          payment.transactions.create(info: transaction.to_json, type: PaymentTransaction::TYPE_PAYPAL)
 
           paypal_ipn_logger.info("3")
           paypal_ipn_logger.info(payment.transactions.last)          

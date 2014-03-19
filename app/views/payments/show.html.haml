@@ -15,7 +15,7 @@
   %h1 Payment ##{@payment.id} (#{@payment.description})
 
   %div.row
-    %div.col-md-4
+    %div.col-md-6
       %div.grid.simple.horizontal.green
         %h2.grid-title General Info
         %ul.grid-body
@@ -28,21 +28,12 @@
             %span="Status - #{@payment.status}"
             - if @payment.deleted
               %span deleted
-    %div.col-md-4
+    %div.col-md-6
       %div.grid.simple.horizontal.yellow
         %h2.grid-title Recipients
         %ul.grid-body
           - @payment.recipients.each do |recipient|
             %li= "#{recipient.user.name} - $#{recipient.amount}"
-    
-    %div.col-md-4
-      %div.grid.simple.horizontal.red
-        %h2.grid-title Information from payment system
-        %div.grid-body
-          - if @payment.transactions.present?
-            =render partial: "payents/transaction_#{@payment.transactions.first.type}", locals: {transactions: @payment.transactions}
-          - else
-            %p No information yet  
 
   .row
     .col-md-9
@@ -75,5 +66,15 @@
                 %i.icon-share-alt
                 Dwolla
 
-= content_for :page_specific_css do 
+  .row
+    .col-md-12
+      .grid.simple.horizontal.red
+        %h2.grid-title Information from payment system
+        .grid-body
+          - if @payment.transactions.present?
+            =render partial: "payments/transaction_#{@payment.transactions.first.type}", locals: {transactions: @payment.transactions}
+          - else
+            %p No information yet
+
+= content_for :page_specific_css do
   = stylesheet_link_tag "css/payments"

@@ -1,64 +1,70 @@
 - transactions.each do |payment_transaction|
   - info = JSON.parse(payment_transaction.info)
-  - transaction = info[:transaction],
-  - payment = info[:payment],
-  - recepients = info[:recepients],
-  - currency = recepients.first[:currency]
-  %table.table
-    %tr
-      %th{colspan: 2} Transaction Details
-    %tr
-      %td Type
-      %td= transaction[:type]
-    %tr
-      %td IPN Track ID: 
-      %td= transaction[:ipn_track_id]
-    - if transaction[:test_ipn]
-      %tr
-        %td Test
-        %td= transaction[:test_ipn]
+  - transaction = info['transaction']
+  - payment = info['payment']
+  - recepients = info['receivers']
+  - currency = recepients.first['currency']
+  .row
+    .col-md-4
+      %table.table.table-bordered.no-more-tables
+        %tr
+          %th{colspan: 2} Transaction Details
+        %tr
+          %td Type
+          %td= transaction['type']
+        %tr
+          %td IPN Track ID:
+          %td= transaction['ipn_track_id']
+        - if transaction['test_ipn']
+          %tr
+            %td Test
+            %td= transaction['test_ipn']
+    .col-md-4
+      %table.table.table-bordered.no-more-tables
+        %tr
+          %th{colspan: 2} Payment Details
+        %tr
+          %td Payment date:
+          %td= payment['payment_date']
+        %tr
+          %td Payment status:
+          %td= payment['payment_status']
+        %tr
+          %td Payment amount:
+          %td= number_to_currency(payment['payment_amount'], unit: currency, format: '%n %u')
+        %tr
+          %td Fee amount:
+          %td= number_to_currency(payment['fee_amount'], unit: currency, format: '%n %u')
+        %tr
+          %td Total amount:
+          %td= number_to_currency(payment['total_amount'], unit: currency, format: '%n %u')
+    .col-md-4
+      %table.table.table-bordered.no-more-tables
+        %tr
+          %td Completed amount:
+          %td= number_to_currency(payment['completed_amount'], unit: currency, format: '%n %u')
+        - if payment['unclaimed_amount'] > 0
+          %tr
+            %td Unclaimed amount:
+            %td= number_to_currency(payment['unclaimed_amount'], unit: currency, format: '%n %u')
+        - if payment['returned_amount'] > 0
+          %tr
+            %td Returned amount:
+            %td= number_to_currency(payment['returned_amount'], unit: currency, format: '%n %u')
+        - if payment['denied_amount'] > 0
+          %tr
+            %td Denied amount:
+            %td= number_to_currency(payment['denied_amount'], unit: currency, format: '%n %u')
+        - if payment['pending_amount'] > 0
+          %tr
+            %td Denied amount:
+            %td= number_to_currency(payment['denied_amount'], unit: currency, format: '%n %u')
+        - if payment['blocked_amount'] > 0
+          %tr
+            %td Blocked amount:
+            %td= number_to_currency(payment['blocked_amount'], unit: currency, format: '%n %u')
 
-  %table.table
-    %tr
-      %th Payment Details
-    %tr
-      %td Payment date:
-      %td= payment[:payment_date]
-    %tr
-      %td Payment status:
-      %td= payment[:payment_status]
-    %tr
-      %td Payment amount:
-      %td= payment[:payment_amount] + currency
-    %tr
-      %td Fee amount:
-      %td= payment[:fee_amount] + currency
-    %tr
-      %td Total amount:
-      %td= payment[:total_amount] + currency
-
-  %table.table
-    %tr
-      %td Completed amount:
-      %td= payment[:completed_amount] + currency
-    - if payment[:unclaimed_amount]
-      %tr
-        %td Unclaimed amount:
-        %td= payment[:unclaimed_amount] + currency
-    - if payment[:returned_amount]  
-      %tr
-        %td Returned amount:
-        %td= payment[:returned_amount] + currency
-    - if payment[:denied_amount]
-      %tr
-        %td Denied amount:
-        %td= payment[:denied_amount] + currency
-    - if payment[:blocked_amount]
-      %tr
-        %td Blocked amount:
-        %td= payment[:blocked_amount] + currency
-
-  %table.table
+  %table.table.table-bordered.no-more-tables
     %tr
       %th Transaction ID
       %th Recipient Unique Identifier
@@ -67,8 +73,8 @@
       %th Status
     - recepients.each do |r|
       %tr
-        %td= r[:transaction_id]
-        %td= r[:email]
-        %td= "#{r[:amount]} #{r[:currency]}"
-        %td= "#{r[:fee]} #{r[:currency]}"
-        %td= r[:status]
+        %td= r['transaction_id']
+        %td= r['email']
+        %td= "#{r['amount']} #{currency}"
+        %td= "#{r['fee']} #{currency}"
+        %td= r['status']
