@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require ui/jquery-ui.custom
+//= require autocomplete-rails
 //= require jquery.remotipart
 //= require turbolinks
 //= require bootstrap-custom

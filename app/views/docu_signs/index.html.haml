@@ -1,27 +1,46 @@
-%h1 Listing docu_signs
-
-%table
-  %tr
-    %th Company
-    %th User
-    %th Document
-    %th Envelope
-    %th Status
-    %th
-    %th
-    %th
-
-  - @docu_signs.each do |docu_sign|
-    %tr
-      %td= docu_sign.company.name
-      %td= docu_sign.user.name
-      %td= docu_sign.document.url
-      %td= docu_sign.envelope_id
-      %td= docu_sign.status
-      %td= link_to 'Show', docu_sign
-      %td= link_to 'Edit', edit_docu_sign_path(docu_sign)
-      %td= link_to 'Destroy', docu_sign, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Docu sign', new_docu_sign_path
+%ul.breadcrumb
+  %li
+    %p YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a.active{:href => "#"} Tables
+.page-title
+  %i.icon-custom-left
+  %h3
+    Advance -
+    %span.semi-bold Tables
+.row-fluid
+  .span12
+    .grid.simple
+      .grid-title
+        %h4
+          Advance
+          %span.semi-bold
+            Options
+        .tools
+          %a.collapse{:href => "javascript:;"}
+          %a.config{"data-toggle" => "modal", :href => "#grid-config"}
+          %a.reload{:href => "javascript:;"}
+          %a.remove{:href => "javascript:;"}
+      .grid-body
+        .toolbar
+          .table-tools-actions
+            %button#test2.btn.btn-primary{:style => "margin-left:12px"}
+              = link_to 'Add', new_docu_sign_path
+        %table#example3.table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+          %thead
+            %tr
+              %th Title
+              %th User
+              %th Status
+              %th Action
+          %tbody
+            - @docu_signs.each do |docu_sign|
+              %tr
+                %td= docu_sign.docu_template.title
+                %td= docu_sign.user.name
+                %td= docu_sign.status
+                %td
+                  = link_to 'Show', docu_sign
+                  = #link_to 'Edit', edit_docu_sign_path(docu_sign)
+                  = link_to 'Destroy', docu_sign, :method => :delete, :data => { :confirm => 'Are you sure?' }
