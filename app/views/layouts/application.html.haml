@@ -8,6 +8,8 @@
   = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
   = yield :page_specific_css
   = javascript_include_tag "application", "data-turbolinks-track" => true
+  = javascript_include_tag 'plugins/bootstrap-select2/select2.js'
+  = stylesheet_link_tag "plugins/bootstrap-select2/select2.css"
   = yield :page_specific_js
   = csrf_meta_tags
 

@@ -1,10 +1,88 @@
-= simple_form_for(@docu_sign) do |f|
-  = f.error_notification
-
-  .form-inputs
-    = f.association :company
-    = f.association :user
-    = f.input :document, label: 'PDF file:' , input_html: {accept: ('application/pdf') }
-
+= simple_form_for(@docu_template, :url => docu_signs_path) do |f|
+  = display_flash_message :error, f.error_notification
+  = f.input :title, label: 'Title:'
+  = f.input :users , input_html: {type: "hidden", id:"e6", style:"width:600px" }
+  = f.input :document, as: :file, label: 'PDF file:' , input_html: {accept: ('application/pdf') }
   .form-actions
-    = f.button :submit
+    .pull-right
+      %button.btn.btn-success.btn-cons{:type => "submit"}
+        %i.icon-ok
+        Send
+      = link_to "Cancel", docu_signs_path, :class => "btn btn-white btn-cons"
+
+:javascript 
+  $(document).ready(function() {
+    function userFormatResult(user) {
+      console.log("userFormatResult");
+      console.log(user);
+      var markup = "<div'>";
+      if (user.type !== undefined) {
+         if (user.type == "user") {
+          markup += "<span>User-</span>";
+         } else {
+          markup += "<span>Team-</span>";
+         }
+
+        markup += "<span>" + user.text + "</span>";
+      }
+
+      markup += "</div>";
+      return markup;
+    }
+
+    function userFormatSelection(data) {
+      console.log("userFormatSelection");
+      console.log(data);
+
+      if (data.type == "user") {
+        return data.text + "(U)";
+      } else {
+        return data.text + "(T)";
+      }
+    }
+
+    $("#e6").select2({
+      minimumInputLength: 1,
+      multiple: true,
+      placeholder: "Search for a User or a Team",
+      formatResult: userFormatResult, // omitted for brevity, see the source of this page
+      formatSelection: userFormatSelection,  // omitted for brevity, see the source of this page
+      escapeMarkup: function (m) { return m; }, // we do not want to escape markup since we are displaying html in results
+      ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+          url: "#{autocomplete_user_name_docu_signs_path}",
+          dataType: 'json',
+          data: function (term, page) {
+              return {
+                  q: term, // search term
+              };
+          },
+          results: function (data, page) { // parse the results into the format expected by Select2.
+              // since we are using custom formatting functions we do not need to alter remote JSON data
+              console.log("ajax");
+              console.log(data);
+              console.log(page);
+              
+              return {results: data};
+          }
+      },
+      initSelection: function(element, callback) {
+          // the input tag has a value attribute preloaded that points to a preselected movie's id
+          // this function resolves that id attribute to an object that select2 can render
+          // using its formatResult renderer - that way the movie name is shown preselected
+          var id=$(element).val();
+          if (id!=="") {
+              $.ajax("#{ autocomplete_user_name_docu_signs_path }", {
+                  data: {
+                      apikey: "ju6z9mjyajq2djue3gbv"
+                  },
+                  dataType: "json"
+              }).done(function(data) { 
+                console.log("Init");
+                console.log(data);
+                callback(data); 
+              });
+          }
+      },
+    });
+
+  });

@@ -28,6 +28,7 @@ gem "remotipart", "~> 1.2.1"
 gem 'rails-file-icons'
 gem "docusign_rest", "~> 0.1.1"
 gem "certified", "~> 0.1.1"
+gem "rails3-jquery-autocomplete", "~> 1.0.12"
 
 group :development do
   gem 'capistrano',  '~> 3.0.1'

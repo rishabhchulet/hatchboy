@@ -3,7 +3,8 @@ class CreateDocuSigns < ActiveRecord::Migration
     create_table :docu_signs do |t|
       t.references :company, index: true
       t.references :user, index: true
-      t.string :envelope_id
+      t.references :docu_template, index: true
+      t.string :envelope_key
       t.string :status
 
       t.timestamps

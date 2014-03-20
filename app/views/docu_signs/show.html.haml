@@ -1,21 +1,10 @@
 %p#notice= notice
 
 %p
-  %b Company:
-  = @docu_sign.company
-%p
-  %b User:
-  = @docu_sign.user
-%p
-  %b Envelope:
-  = @docu_sign.envelope_id
-%p
   %b Status:
   = @docu_sign.status
 
-= link_to 'Edit', edit_docu_sign_path(@docu_sign)
-\|
 = link_to 'Back', docu_signs_path
 
-%iframe{:src => @url["url"], :style => "width:1500px;height:500px"}
+%iframe{:src => @url["url"], :style => "width:1500px;height:1000px"}
   %p DocuSign iFrame
