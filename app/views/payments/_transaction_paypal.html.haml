@@ -106,8 +106,7 @@
             %td= "#{r['amount']} #{currency}"
             %td= "#{r['fee']} #{currency}"
             %td
-              %span= r['status']
-              -if r['error_code'].present?
+              %b{class: "label label-#{r['status'] != 'Completed' ? 'important' : 'success'}"}= r['status']
+              - if r['error_code'].present?
                 %span= "(reason code #{r['error_code']})"
               %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => paypal_receiver_status_message(r['status'], r['error_code'])} ?
-

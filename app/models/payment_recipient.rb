@@ -22,7 +22,7 @@ class PaymentRecipient < ActiveRecord::Base
 
   def should_have_account
     #user should have account email to pay on
-    errors.add(:user, "should login at least one time before you can pay him") unless user.account
+    errors.add(:user, "should login at least one time before you can pay him") if user.nil? or user.account.nil?
   end
 
  
