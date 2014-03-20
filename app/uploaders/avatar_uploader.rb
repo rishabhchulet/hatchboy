@@ -1,7 +1,5 @@
 # encoding: utf-8
-require 'carrierwave/processing/mime_types'
-
-class AvatarUploader < CarrierWave::Uploader::Base
+class AvatarUploader < BaseUploader
   include CarrierWave::MimeTypes
   include CarrierWave::MiniMagick
 
@@ -22,10 +20,6 @@ class AvatarUploader < CarrierWave::Uploader::Base
     "uploads/#{Rails.env}/#{model.class.to_s.underscore}/#{mounted_as}/"
   end
   
-  def root
-    Rails.root.to_s + '/public/'
-  end
-
   def default_url
     ActionController::Base.helpers.asset_path("images/" + [version_name, "userpic.jpg"].compact.join('_'))
   end
