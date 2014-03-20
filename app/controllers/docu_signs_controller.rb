@@ -1,5 +1,4 @@
 class DocuSignsController < ApplicationController
-  #autocomplete :user, :name, :full => true, :display_value => :users_and_teams, :extra_data => [:slogan]
 
   before_action :set_docu_sign, only: [:server_response, :show, :edit, :update, :destroy]
   before_filter :authenticate_account!
@@ -13,14 +12,7 @@ class DocuSignsController < ApplicationController
     teams = account_company.teams.where( ["name LIKE ?", "%#{params[:q]}%" ] )
     teams = teams.map { |a| { :id => "team_#{a.id}", :text => a.name, :type => "team" } }
 
-    data = users.inject(teams, :<<)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => data }
-      format.js   { render :json => data }
-      format.json { render :json => data }
-    end
+    render :json => users.inject(teams, :<<)
   end
 
   # GET /docu_signs
@@ -39,16 +31,14 @@ class DocuSignsController < ApplicationController
       envelope_id: @docu_sign.envelope_key,
       name: current_account.user.name,
       email: current_account.email,
-      return_url: "#{request.url}/server_response"
+      return_url: url_for(  action: 'server_response',only_path: false )
     )
+
   end
 
   # GET /docu_signs/new
   def new
     @docu_template = DocuTemplate.new
-    
-    #@users = account_company.users
-    #@teams = account_company.teams
   end
 
   # GET /docu_signs/1/edit
@@ -137,7 +127,6 @@ class DocuSignsController < ApplicationController
     end
 
     def allow_docusign_iframe
-      #response.headers['X-Frame-Options'] = 'ALLOWALL' #'ALLOW-FROM https://apps.facebook.com'
       response.headers.except! 'X-Frame-Options'
     end    
 end
