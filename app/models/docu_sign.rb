@@ -36,7 +36,7 @@ class DocuSign < ActiveRecord::Base
     )
 
     self.status = DocuSign::STATUS_PROCESSING
-    self.errors.add(:envelope_key, response["message"] ) unless self.envelope_key = response["envelopeId"]
+    self.errors.add(:users, response["message"] ) unless self.envelope_key = response["envelopeId"]
   end
 
 end
