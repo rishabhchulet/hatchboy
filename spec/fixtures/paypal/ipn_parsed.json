@@ -1,0 +1,55 @@
+{
+  "transaction" : {
+    "type" : "Mass Payment",
+    "ipn_track_id" : "1494e7ffd437b",
+    "test_ipn" : true
+  },
+  "payment" : {
+    "payment_date" : "03:15:56 Mar 12, 2014 PDT",
+    "payment_status" : "Completed",
+    "payment_amount" : 9.0,
+    "fee_amount" : 0.14,
+    "total_amount" : 9.14,
+    "completed_amount" : 7.0,
+    "unclaimed_amount" : 0.0,
+    "returned_amount" : 0.0,
+    "denied_amount" : 2.0,
+    "pending_amount" : 0.0,
+    "blocked_amount" : 0.0
+  },
+  "payer" : {
+    "name" : "test business account test",
+    "business_name" : "test business account  test's Test Store",
+    "email" : "test@test.com",
+    "country" : "US",
+    "status" : "verified",
+    "payer_id" : "8QY54YW733AVC92"
+  },
+  "receivers" : [
+    {
+      "status" : "Failed",
+      "error_code" : "3004",
+      "email" : "test@test.com",
+      "amount" : 2.0,
+      "currency" : "USD",
+      "fee" : 0.0,
+      "transaction_id" : ""
+    }, {
+      "status" : "Completed",
+      "error_code" : "",
+      "email" : "samtester@yandex.ua",
+      "amount" : 3.0,
+      "currency" : "USD",
+      "fee" : 0.06,
+      "transaction_id" : "41F19638AY4375728"
+    }, {
+      "status" : "Completed",
+      "error_code" : "",
+      "email" : "vasiateste@hotmail.com",
+      "amount" : 4.0,
+      "currency" : "USD",
+      "fee" : 0.08,
+      "transaction_id" : "9GT4944682186513F"
+    }
+  ]
+}
