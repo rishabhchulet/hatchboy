@@ -1,42 +1,50 @@
 class PaymentTransactionsController < ApplicationController
-
-  before_action :authenticate_account!, :except => [:paypal_ipn, :paypal_ipn1, :paypal_ipn2]
-  skip_before_action :verify_authenticity_token, :only => [:paypal_ipn, :paypal_ipn1, :paypal_ipn2]
-
+  before_action :authenticate_account!, :except => :paypal_notify 
+  skip_before_action :verify_authenticity_token, :only => :paypal_notify
 
   def create
-    payment = account_company.payments.where(id: params[:payment_id], status: Payment::STATUS_PREPARED).first or not_found
-
-    payer = Hatchboy::Payments::Factory.get(params[:payment_system])
-    transaction = payer.mass_pay payment
-
-    payment.update_attributes(status: Payment::STATUS_SENT, transaction_attributes: {
-      payment_system: params[:payment_system], status: payer.status, info: transaction.to_json
-    })
-
-    if payer.status_success?
-      flash[:notice] = "You have succesfully sent a payment"
-    else
-      flash[:alert] = "Payment was not successfull"
+    payment_configuration = case params[:type]
+      when 'paypal' then account_company.paypal_configuration
+      when 'dwolla' then account_company.dwolla_configuration 
+    end
+    
+    unless payment_configuration
+      flash[:alert] = "You should configurate this service to use you paypal account before sending payments"
+      redirect_to(new_paypal_configuration_path) and return
     end
 
-    redirect_to payments_path(:anchor => 'sent')
+    payment = account_company.payments.where(id: params[:payment_id], status: Payment::STATUS_PREPARED).first or not_found
+    payer = Hatchboy::Payments::Factory.get(params[:type], payment_configuration)
+    response = payer.pay payment
+
+    if response[:success]
+      payment.update_attributes(status: Payment::STATUS_SENT, additional_info: response[:additional_info].to_json)
+
+      flash[:notice] = "You have succesfully sent a payment"
+      redirect_to payments_path(:anchor => 'payments-sent')
+    else
+      flash[:alert] = response[:message]
+      redirect_to payments_path
+    end
   end
 
-  def paypal_ipn
-    my_logger ||= Logger.new("#{Rails.root}/log/paypal_ipn.log")
-    my_logger.info(params.to_s)
-    render text: ''
-  end
-  def paypal_ipn1
-    my_logger ||= Logger.new("#{Rails.root}/log/paypal_ipn1.log")
-    my_logger.info(params.to_s)
-    render text: ''
-  end
-  def paypal_ipn2
-    my_logger ||= Logger.new("#{Rails.root}/log/paypal_ipn2.log")
-    my_logger.info(params.to_s)
-    render text: ''
+  def paypal_notify
+    notify = ActiveMerchant::Billing::Integrations::Paypal::Notification.new(request.raw_post)
+
+    if notify.params['txn_type'] == "masspay"
+      if notify.acknowledge
+        if notify.params['unique_id_1'] and first_recipient = PaymentRecipient.find(notify.params['unique_id_1'])
+          transaction = Hatchboy::Payments::Paypal.parse_ipn params
+          payment = first_recipient.payment
+          payment.transactions.create(info: transaction.to_json, type: PaymentTransaction::TYPE_PAYPAL)
+        end
+      else
+        paypal_ipn_logger ||= Logger.new("#{Rails.root}/log/paypal_ipn.log")
+        paypal_ipn_logger.warn('Can\'t verify paypal notification !')
+      end
+    end
+
+    render :nothing => true
   end
 
 end

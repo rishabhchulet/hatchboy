@@ -22,29 +22,30 @@ module ApplicationHelper
     HTML
     html.html_safe
   end
-  
+
   def title page_title
     content_for :title, page_title.to_s
   end
-  
+
   def not_found
     raise ActionController::RoutingError.new('Not Found')
   end
 
   def nice_time_difference delta
-    
+
     return "0h" if delta.to_i == 0
-    
+
     map = {days: 'd', hours: 'h', minutes: 'm', seconds: 's'}
-    
+
     components = map.keys.collect do |step|
       seconds = 1.send(step)
       [map[step], (delta / seconds).to_i].tap do
         delta %= seconds
       end
     end
-    
+
     components.reduce("") {|res, m| m[1] == 0 ? res : res + "#{m[1]}#{m[0]} "}
   end
-    
+
 end
+

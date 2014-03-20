@@ -1,0 +1,16 @@
+= display_flash_message :error, f.error_notification
+
+= f.input :login, :required => true, :autofocus => true, label: 'API Username'
+= f.input :password, :required => true, label: 'API Password', input_html: { type: :text, value: @config.password }
+= f.input :signature, :required => true
+
+.form-actions
+  .pull-right
+    %button.btn.btn-success.btn-cons{:type => "submit"}
+      %i.icon-ok
+      Save
+    = link_to payments_path, class: 'btn btn-danger btn-cons' do
+      %i.icon-remove
+      Cancel
+
+

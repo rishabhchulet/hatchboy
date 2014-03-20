@@ -15,7 +15,7 @@
   %h1 Payment ##{@payment.id} (#{@payment.description})
 
   %div.row
-    %div.col-md-4
+    %div.col-md-6
       %div.grid.simple.horizontal.green
         %h2.grid-title General Info
         %ul.grid-body
@@ -28,22 +28,12 @@
             %span="Status - #{@payment.status}"
             - if @payment.deleted
               %span deleted
-    %div.col-md-4
+    %div.col-md-6
       %div.grid.simple.horizontal.yellow
         %h2.grid-title Recipients
         %ul.grid-body
           - @payment.recipients.each do |recipient|
             %li= "#{recipient.user.name} - $#{recipient.amount}"
-
-    - if @payment.transaction
-      %div.col-md-4
-        %div.grid.simple.horizontal.red
-          %h2.grid-title Transaction
-          %div.grid-body
-            %div= "Status - #{@payment.transaction.status}"
-            %div
-            - unless @payment.transaction.status == "Success"
-              %div= @payment.transaction.info
 
   .row
     .col-md-9
@@ -67,14 +57,27 @@
       .col-md-3
         .grid.simple.horizontal.blue
           %p.grid-body.text-center
-            =link_to payment_transactions_path({payment_system: PaymentTransaction::TYPE_PAYPAL, payment_id: @payment.id}), title: "Process with Paypal", method: :post, data: {confirm: "Are you sure you want to process the payment with PayPal?"} do
+            =link_to payment_transactions_path({type: PaymentTransaction::TYPE_PAYPAL, payment_id: @payment.id}), title: "Process with Paypal", method: :post, data: {confirm: "Are you sure you want to process the payment with PayPal?"} do
               %button.btn.btn-primary.btn-cons
                 %i.icon-share-alt
                 Paypal
-            =link_to payment_transactions_path({payment_system: PaymentTransaction::TYPE_DWOLLA, payment_id: @payment.id}), title: "Process with Dwolla", method: :post, data: {confirm: "Are you sure you want to process the payment with Dwolla?"} do
+            =link_to payment_transactions_path({type: PaymentTransaction::TYPE_DWOLLA, payment_id: @payment.id}), title: "Process with Dwolla", method: :post, data: {confirm: "Are you sure you want to process the payment with Dwolla?"} do
               %button.btn.btn-primary.btn-cons
                 %i.icon-share-alt
                 Dwolla
 
-= content_for :page_specific_css do 
-  = stylesheet_link_tag "css/payments"
+  .row
+    .col-md-12
+      .grid.simple.horizontal
+        %h2.grid-title Information from payment system
+        .grid-body
+          - if @payment.transactions.present?
+            =render partial: "payments/transaction_#{@payment.transactions.first.type}", locals: {transactions: @payment.transactions}
+          - else
+            %p No information yet
+
+=content_for :javascript do
+  =javascript_include_tag "payments"
+
+= content_for :page_specific_css do
+  = stylesheet_link_tag "payments"

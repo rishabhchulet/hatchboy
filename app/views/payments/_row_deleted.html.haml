@@ -1,11 +1,11 @@
 %tr.data-row
   %td= row_deleted.id
-  %td= row_deleted.description
+  %td
+    %a{:href => payment_path(row_deleted)}= row_deleted.description
   %td= number_to_currency(row_deleted.amount)
   %td{title: row_deleted.updated_at}= "#{time_ago_in_words(row_deleted.updated_at)} ago"
   %td= row_deleted.created_by.name
   %td= row_deleted.status
-  %td= row_deleted.transaction ? row_deleted.transaction.status : ''
   %td
     =link_to payment_path(row_deleted), :title => "View Payment" do
       %button.btn.btn-sm.btn-small.btn-primary

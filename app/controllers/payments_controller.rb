@@ -2,15 +2,17 @@ class PaymentsController < ApplicationController
 
   before_filter :authenticate_account!
   
-  def new 
+  def new
     @payment = Payment.new
     @users = users_without_recipients
   end
 
   def index
+    # render :nothing => true
+    self.new
     @payments_prepared = account_company.payments.includes({recipients: :user}).where(status: Payment::STATUS_PREPARED).where.not(deleted: true).order(created_at: :desc)
-    @payments_sent = account_company.payments.includes({recipients: :user}, :transaction).where(status: Payment::STATUS_SENT).where.not(deleted: true).order(created_at: :desc)
-    @payments_deleted = account_company.payments.includes({recipients: :user}, :transaction).where(deleted: true).order(created_at: :desc)
+    @payments_sent = account_company.payments.includes({recipients: :user}, :transactions).where(status: Payment::STATUS_SENT).where.not(deleted: true).order(created_at: :desc)
+    @payments_deleted = account_company.payments.includes({recipients: :user}, :transactions).where(deleted: true).order(created_at: :desc)
   end
 
   def create
@@ -20,8 +22,8 @@ class PaymentsController < ApplicationController
       redirect_to :payments
     else
       @users = users_without_recipients
-      render :new        
-    end  
+      render :new
+    end
   end
 
   def show
@@ -47,7 +49,7 @@ class PaymentsController < ApplicationController
     else
       @users = users_without_recipients
       render :edit
-    end  
+    end
   end
 
   def destroy

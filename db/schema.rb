@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140319083607) do
+ActiveRecord::Schema.define(version: 20140319173729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,15 +63,14 @@ ActiveRecord::Schema.define(version: 20140319083607) do
   create_table "docu_signs", force: true do |t|
     t.integer  "company_id"
     t.integer  "user_id"
-    t.integer  "docu_template_id"
-    t.string   "envelope_key"
+    t.string   "envelope_id"
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "document"
   end
 
   add_index "docu_signs", ["company_id"], name: "index_docu_signs_on_company_id", using: :btree
-  add_index "docu_signs", ["docu_template_id"], name: "index_docu_signs_on_docu_template_id", using: :btree
   add_index "docu_signs", ["user_id"], name: "index_docu_signs_on_user_id", using: :btree
 
   create_table "docu_templates", force: true do |t|
@@ -105,8 +104,7 @@ ActiveRecord::Schema.define(version: 20140319083607) do
 
   create_table "payment_transactions", force: true do |t|
     t.integer  "payment_id"
-    t.string   "payment_system"
-    t.string   "status"
+    t.string   "type"
     t.text     "info"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -120,7 +118,17 @@ ActiveRecord::Schema.define(version: 20140319083607) do
     t.boolean  "deleted"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "additional_info"
   end
+
+  create_table "paypal_configurations", force: true do |t|
+    t.integer "company_id"
+    t.string  "login"
+    t.string  "password"
+    t.string  "signature"
+  end
+
+  add_index "paypal_configurations", ["company_id"], name: "index_paypal_configurations_on_company_id", using: :btree
 
   create_table "post_receivers", force: true do |t|
     t.integer  "post_id"

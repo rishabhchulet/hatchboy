@@ -12,11 +12,19 @@
   %li
     %span.active New
 
-= simple_form_for(@payment, as: :payment, html: { method: :post, class: 'payment' }) do |f|
-  = render partial: "payments/form", locals: { f: f}
+.row
+  .col-md-12
+    .grid.simple
+      .grid-title.no-border
+        %h3
+          %i.icon-money
+          %span.semi-bold New Payment
+      .grid-body.no-border
+        = simple_form_for(@payment, as: :payment, html: { method: :post, class: 'payment' }) do |f|
+          = render partial: "payments/form", locals: { f: f}
 
 =content_for :javascript do
-  =javascript_include_tag "js/payments"
+  =javascript_include_tag "payments"
 
 = content_for :page_specific_css do
-  = stylesheet_link_tag "css/payments"
+  = stylesheet_link_tag "payments"

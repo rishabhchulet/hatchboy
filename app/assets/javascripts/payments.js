@@ -1,27 +1,21 @@
-select_tab({
-  'tabs_class': 'payments-tab',
-  'panes_class': 'tab-pane',
-  'goto': window.location.hash.substring(1)
-});
-
-function select_tab(config) {
-  if (config.goto !== '') {
-    var tabs = document.getElementsByClassName(config.tabs_class);
-    var panes = document.getElementsByClassName(config.panes_class);
-    var hash_tab = document.getElementById(config.goto);
-    for (var i = 0; i < tabs.length; i++) {
-      if (tabs[i] == hash_tab) {
-        tabs[i].className = config.tabs_class+" active";
-        panes[i].className = config.panes_class+" active";
-      } else {
-        tabs[i].className = config.tabs_class;
-        panes[i].className = config.panes_class;
-      }
+var Tabs = function() {
+  this.init = function() {
+    /* Automagically jump on good tab based on anchor; for page reloads or links */
+    if(location.hash) {
+      $('a[href=' + location.hash + ']').tab('show');
     }
+
+    /* removing events from configuration links to make them clickable */
+    $('a.payment-config').unbind('click');
   }
 }
 
 $(document).ready(function() {
+  $('[data-toggle="tooltip"]').tooltip()
+
+  var tabs = new Tabs
+  tabs.init()
+
   $('.payment .amount').on('keyup change', function(){
     var val = $(this).val();
     if (val != '0' && val != '') {
@@ -52,4 +46,4 @@ function checkRecipient(obj, to_check) {
   } else {
     line.removeClass('row_selected');
   }
-};
+}

@@ -7,11 +7,19 @@ describe PaymentRecipient do
     should respond_to :payment
     should respond_to :user
     should respond_to :amount
-  end
 
-  specify do
     should validate_presence_of :user
     should validate_presence_of :amount
+  end
+
+  describe "custom validations" do
+    subject(:recipient) { described_class.new }
+    before { recipient.valid? }
+
+    specify do
+      expect(recipient.errors.to_a).to include "Amount can't be less or equal to zero"
+      expect(recipient.errors.to_a).to include "User should login at least one time before you can pay him"
+    end
   end
 
   describe "rounding amount" do
@@ -19,7 +27,7 @@ describe PaymentRecipient do
     it "should round amount before save" do
       expect(subject.amount).to eq 1.33
     end
-  end  
+  end
 
   describe "validation of amount" do
     context "when 0" do
@@ -44,7 +52,7 @@ describe PaymentRecipient do
         expect(subject.valid?).to eq true
         expect{ subject.save }.not_to raise_error
       end
-    end    
+    end
   end
 
 end

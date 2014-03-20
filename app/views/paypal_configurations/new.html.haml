@@ -1,0 +1,34 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %span.active Paypal Configuration
+
+.row
+  .col-md-12
+    .grid.simple
+      .grid-title.no-border
+        %h4
+          %span.semi-bold Paypal Configuration
+      .grid-body.no-border
+        = simple_form_for(@config, as: :paypal_configuration, html: {method: :post}) do |f|
+          = render partial: "paypal_configurations/form", locals: {f: f}
+
+%div.grid.simple.vertical.green
+  %div.grid-title FAQ
+  %ul.grid-body.no-border
+    %li
+      %span You can find out your credentials using
+      %a{href: "https://developer.paypal.com/docs/classic/api/apiCredentials/", target: '_blank', rel: 'nofollow'} this tutorial.
+    %li
+      %span Also if you want to know additional information about your paypal payment after sending, such as view payment fee or view status of payment for each recepient, please add our Instant Payment Notification Listener url
+      %input{type: "text", readonly: "true", value: paypal_notify_url, onClick: "this.select();", style: "vertical-align: middle;", size: paypal_notify_url.length}
+      %span to your paypal account configuration. You can find how to do this using
+      %a{href: "https://developer.paypal.com/docs/classic/ipn/integration-guide/IPNSetup/", target: '_blank', rel: 'nofollow'} this tutorial.
+    %li We recommend you to use a separate paypal account with this service beckouse you propably already set IPN Listener for another service or you don't want that we receive information about all transactions you made. We'll not gather information not connected with payments you made using our service in any case.
+    %li You can use this service without setup Instant Payment Notification Listener, and you always can find all the information about payments you've made on Paypal site.
