@@ -18,7 +18,9 @@
           %div.checkbox.check-default
             %input.check{type: 'checkbox', id: "checkbox#{index}", value: 1, checked: true}
             %label{for: "checkbox#{index}"}
-        %td= "#{r.object.user.name}"
+        %td
+          = "#{r.object.user.name}"
+          = r.error :user
         %td
           =r.input :user_id, :as => :hidden
           =r.input :amount, :min => 0, class: 'amount', 'data-index' => index, label: false

@@ -8,7 +8,6 @@ class PaymentsController < ApplicationController
   end
 
   def index
-    # render :nothing => true
     self.new
     @payments_prepared = account_company.payments.includes({recipients: :user}).where(status: Payment::STATUS_PREPARED).where.not(deleted: true).order(created_at: :desc)
     @payments_sent = account_company.payments.includes({recipients: :user}, :transactions).where(status: Payment::STATUS_SENT).where.not(deleted: true).order(created_at: :desc)
