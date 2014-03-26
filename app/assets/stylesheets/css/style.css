@@ -6951,3 +6951,7 @@ ul.my-friends li .profile-pic{
 	font-weight: 300;
 	text-indent: -2px;
 }
+
+#jira-source-grid .col-md-1-button-area {
+  margin-top: 1.7%;
+}

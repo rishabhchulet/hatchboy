@@ -54,6 +54,7 @@ Hatchboy::Application.routes.draw do
   get "jira_sources/callback", :to => "jira_sources#callback", :as => :jira_callback
 
   resources :jira_sources do
+    get "generate_public_cert", :to => "jira_sources", on: :collection
     get "confirm", :to => "jira_sources", :as => :confirm
     get "browse", :to => "jira_sources", :as => :browse
     put "sync", :to => "jira_sources", :as => :sync
