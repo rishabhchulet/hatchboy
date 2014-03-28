@@ -6953,5 +6953,13 @@ ul.my-friends li .profile-pic{
 }
 
 #jira-source-grid .col-md-1-button-area {
-  margin-top: 1.7%;
+  margin-top: 25px;
+}
+
+#jira-source-grid .col-md-1-button-area .btn{
+  min-width: 75px;
+}
+
+#jira-source-grid .faq-block {
+  margin-top: 60px;
 }
