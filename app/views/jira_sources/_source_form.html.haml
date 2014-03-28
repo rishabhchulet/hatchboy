@@ -5,7 +5,7 @@
   .col-md-11
     = f.input :consumer_key, :required => true, :hint => 'Valid JIRA consumer key'
   .col-md-1{:class => "col-md-1-button-area"}
-    = link_to("Generate", "#", :id => "jira-generate-consumer-key", :class => "btn btn-primary btn-cons")
+    = link_to("Generate", "#", :id => "jira-generate-consumer-key", :class => "btn btn-block btn-primary")
 .row
   .col-md-11
     = f.input :private_key, :required => true, :hint => 'Private key that is authorized in your JIRA application '
@@ -14,7 +14,7 @@
         Public key
       .right
   .col-md-1{:class => "col-md-1-button-area"}
-    = link_to("Generate", "#", :id => "jira-generate-rsa-key", :class => "btn btn-primary btn-cons")
+    = link_to("Generate", "#", :id => "jira-generate-rsa-key", :class => "btn btn-block btn-primary")
 
 .form-actions
   .pull-right
@@ -22,6 +22,16 @@
       %i.icon-ok
       Verify
     = link_to "Cancel", sources_path, :class => "btn btn-white btn-cons"
+
+%div.grid.simple.vertical.green{:class => 'faq-block'}
+  %div.grid-body.no-padding
+    %div.grid-title.no-border FAQ
+    %ul.grid-body.no-border
+      %li Specify data source name and URL of your Jira project, and generate Consumer and Private keys.
+      %li Go to Jira Settings -> Add-ons -> Application Links (you should be an administrator).
+      %li Create new link, and Edit it.
+      %li In Incoming Authentication section, copy Consumer Key and Public Key from generated fields in Hatchboy.
+      %li Press "Verify".
 
 =content_for :javascript do
   =javascript_include_tag "js/jira_sources"
