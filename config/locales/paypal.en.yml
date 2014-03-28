@@ -1,0 +1,48 @@
+en:
+  paypal:
+    payer_status:
+      verified: Customer has a verified PayPal account.
+      unverified: Customer has an unverified PayPal account.
+    payment_status:
+      Completed: All of your payments have been claimed, or after a period of 30 days, unclaimed payments have been returned to you.
+      Denied: Your funds were not sent and the Mass Payment was not initiated. This may have been caused by lack of funds.
+      Processed: Your Mass Payment has been processed and all payments have been sent.
+    receiver_status:
+      Completed: The payment has been processed, regardless of whether this was originally a unilateral payment
+      Failed: The payment failed because of an insufficient PayPal balance.
+      Returned: When an unclaimed payment remains unclaimed for more than 30 days, it is returned to the sender.
+      Reversed: PayPal has reversed the transaction.
+      Unclaimed: This is for unilateral payments that are unclaimed.
+      Pending: The payment is pending because it is being reviewed for compliance with government regulations. The review will be completed and the payment status will be updated within 72 hours.
+      Blocked: This payment    
+    receiver_error_status:
+      '1001': Receiver's account is invalid
+      '1002': Sender has insufficient funds
+      '1003': User's country is not allowed
+      '1004': User's credit card is not in the list of allowed countries of the gaming merchant
+      '3004': Cannot pay self
+      '3014': Sender's account is locked or inactive
+      '3015': Receiver's account is locked or inactive
+      '3016': Either the sender or receiver exceeded the transaction limit
+      '3017': Spending limit exceeded
+      '3047': User is restricted
+      '3078': Negative balance
+      '3148': Receiver's address is in a non-receivable country or a PayPal zero country
+      '3535': Invalid currency
+      '3547': Sender's address is located in a restricted State
+      '3558': Receiver's address is located in a restricted State
+      '3769': Market closed and transaction is between 2 different countries
+      '4001': Internal error
+      '4002': Internal error
+      '8319': Zero amount
+      '8330': Receiving limit exceeded
+      '9302': Transaction was declined
+      '11711': Per-transaction sending limit exceeded
+      '14159': Transaction currency cannot be received by the recipient
+      '14550': Currency compliance
+      '14764': Regulatory review - Pending
+      '14765': Regulatory review - Blocked
+      '14767': Receiver is unregistered
+      '14768': Receiver is unconfirmed
+      '14769': Youth account recipient
+      '14800': POS cumulative sending limit exceeded

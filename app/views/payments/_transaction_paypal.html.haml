@@ -36,7 +36,7 @@
               %td Payment status:
               %td
                 %span= payment['payment_status']
-                %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => paypal_payment_status_message(payment['payment_status'])} ?
+                %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => t("paypal.payment_status.#{payment['payment_status']}") } ?
             %tr
               %td Payment amount:
               %td= number_to_currency(payment['payment_amount'], unit: currency, format: '%n %u')
@@ -87,7 +87,7 @@
               %td Status
               %td
                 %span= payer['status']
-                %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => paypal_payer_status_message(payer['status'])} ?
+                %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => t("paypal.payer_status.#{payer['status']}") } ?
             %tr
               %td Payer paypal id
               %td= payer['payer_id']
@@ -109,4 +109,6 @@
               %b{class: "label label-#{r['status'] != 'Completed' ? 'important' : 'success'}"}= r['status']
               - if r['error_code'].present?
                 %span= "(reason code #{r['error_code']})"
-              %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => paypal_receiver_status_message(r['status'], r['error_code'])} ?
+                %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => t("paypal.receiver_error_status.#{r['error_code']}")} ?
+              - else
+                %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => t("paypal.receiver_status.#{r['status']}")} ?
