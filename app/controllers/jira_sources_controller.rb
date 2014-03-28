@@ -79,7 +79,7 @@ class JiraSourcesController < ApplicationController
     private_key = Tempfile.new(['rsakey', '.pem'])
     system("openssl req -x509 -subj \"/C=US/ST=New York/L=New York/O=Hatchboy/CN=#{request.host_with_port}\" -nodes -newkey rsa:1024 -sha1 -keyout #{private_key.path} -out #{public_key.path}")
     respond_to do |format|
-      responce = { :private_key => File.read(private_key.path).gsub(/\-(.*?)\-/,'').delete("\n"), :public_key => File.read(public_key.path).gsub(/\n/, '<br>') }
+      responce = { :private_key => File.read(private_key.path), :public_key => File.read(public_key.path).gsub(/\n/, '<br>') }
       format.json { render :json => responce }
     end
     public_key.delete
