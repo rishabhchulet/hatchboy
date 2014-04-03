@@ -25,6 +25,10 @@ module Hatchboy
         self.class.new @scope
       end
 
+      def with_sended_payments
+        self.class.new @scope.joins(:payment).where("payments.status = ?", Payment::STATUS_SENT)
+      end
+
       def with_group_by_hours
         self.class.new @scope.joins(:payment).select("DATE_TRUNC('hour', payments.created_at) AS created_at").group("created_at").order("created_at")
       end

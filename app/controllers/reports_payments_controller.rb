@@ -6,7 +6,7 @@ class ReportsPaymentsController < ApplicationController
 
   def index
     params[:date] ||= "all_time"
-    payments = Hatchboy::ReportsFilters::PaymentsFilter.new.with_summ_amount
+    payments = Hatchboy::ReportsFilters::PaymentsFilter.new.with_sended_payments.with_summ_amount
     payments = payments.filter_by_params(params)
 
     @users = payments.with_group_by_users.includes(:user).to_a
