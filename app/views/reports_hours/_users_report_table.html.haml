@@ -1,0 +1,16 @@
+%table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#users-report-hours-list
+  %thead
+    %tr
+      %th{:width => "2%"}
+        .checkbox
+          %input.checkall#checkall{type: 'checkbox', value: 1  }
+          %label{for: 'checkall'}
+      %th{:width => "49%"} User Name
+      %th{:width => "49%"} Total time
+  %tbody
+    - if @users and @users.count > 0
+      = render partial: "reports_hours/users_list_row", collection: @users
+    - else 
+      %tr.text-center
+        %td{:colspan => "3"}
+          No data to display

@@ -1,0 +1,41 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a{:href => reports_path} Reports
+  %i.icon-angle-right
+  %li
+    %a{:href => reports_hours_path} Hours
+  %i.icon-angle-right
+  %li
+    %a.active{:href => team_reports_hours_path(@team)} Team
+
+.row
+  .col-md-11
+    .page-title
+      %i.icon-custom-ui
+      %h3 Team's hours report
+  .col-md-1.text-right
+
+.row
+  .action-list.grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold
+        = @team.name
+      .tools
+        %a.collapse{:href => "javascript:;"}
+    .grid-body.no-border
+      .row
+        %table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#teams-short-list
+          %thead
+            %tr
+              %th{:width => "40%"} User name
+              %th{:width => "30%"} Time
+          %tbody
+            = render partial: "reports_hours/team_worklogs_list_row", collection: @worklogs

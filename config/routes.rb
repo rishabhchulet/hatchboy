@@ -30,6 +30,20 @@ Hatchboy::Application.routes.draw do
   resources :payment_transactions, :only => [:create]
   post "payment_transactions/paypal_notify", :to => "payment_transactions#paypal_notify", :as => :paypal_notify
 
+  scope "/reports" do
+
+    resources :hours, :controller => 'reports_hours', only: [:index], as: :reports_hours do
+      collection do
+        get "team/:team_id", to: "reports_hours#team", as: :team
+        get "user/:user_id", to: "reports_hours#user", as: :user
+      end
+    end
+
+    resources :payments, :controller => 'reports_payments', only: [:index], as: :reports_payments do
+      get "user/:user_id", to: "reports_payments#user", as: :user, on: :collection
+    end
+  end
+
   get "reports", :to => "pages#dashboard", :as => :reports
   get "messages", :to => "pages#dashboard", :as => :messages
 

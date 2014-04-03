@@ -6963,3 +6963,7 @@ ul.my-friends li .profile-pic{
 #jira-source-grid .faq-block {
   margin-top: 60px;
 }
+
+#teams-report-hours-list .accordian-body .row{
+  margin-left: 60px;
+}

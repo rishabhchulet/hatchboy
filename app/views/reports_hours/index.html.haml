@@ -1,0 +1,50 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a{:href => reports_path} Reports
+  %i.icon-angle-right
+  %li
+    %a.active{:href => reports_hours_path} Hours
+
+.row
+  .col-md-11
+    .page-title
+      %i.icon-custom-ui
+      %h3 Hours report
+  .col-md-1.text-right
+
+.row
+  .action-list.grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold Some object
+      .tools
+        %a.collapse{:href => "javascript:;"}
+    .grid-body.no-border
+      = form_tag(reports_hours_path, method: "get", id: "report-filter-form") do
+        #report-filter-block.row{style: "margin-bottom: 20px;"}
+          = render partial: "reports_hours/filter"
+        #report-data-block.row
+          - if params[:group_by] == "users"
+            = render partial: "reports_hours/users_report_table"
+          - else
+            = render partial: "reports_hours/teams_report_table"
+
+- if @chart
+  .row
+    = high_chart("main_chart", @chart)
+
+=content_for :javascript do
+  =javascript_include_tag "js/reports"
+
+:coffeescript
+  $ ->
+    $.reports.init(
+      with_date_filter: true
+    )

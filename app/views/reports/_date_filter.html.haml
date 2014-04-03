@@ -1,0 +1,27 @@
+.col-md-4
+  = label_tag "Select date"
+  .row
+    = select_tag :date, options_for_select([ ["All time", :all_time], ["Today", :today], ["Last week", :last_week], ["Last month", :last_month], ["Specific date", :specific], ["Time period", :period] ], (params[:date] or :all_time))
+  .row{:style => "margin-top: 20px;"}
+    .filter-specific-date{style: "display: none;"}
+      .col-md-12.no-padding
+        .input-append.date
+          = text_field_tag :specific_date, params[:specific_date]
+          %span.add-on
+            %span.arrow
+            %i.icon-th
+    .filter-period-date{style: "display: none;"}
+      .col-md-6.no-padding
+        = label_tag "From"
+        .input-append.date
+          = text_field_tag :period_from, params[:period_from]
+          %span.add-on
+            %span.arrow
+            %i.icon-th
+      .col-md-6.no-padding
+        = label_tag "To"
+        .input-append.date
+          = text_field_tag :period_to, params[:period_to]
+          %span.add-on
+            %span.arrow
+            %i.icon-th
