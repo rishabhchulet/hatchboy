@@ -1,0 +1,24 @@
+- if @docu_template.errors.count == 0
+  $('#new_form').html('#{j render :partial => "form", :object => DocuTemplate.new}');
+- else
+  $('#new_form').html('#{j render :partial => "form", :object => @docu_template}');
+  
+
+- if  session[:docusign] and session[:docusign][:status] == "created"
+  console.log("session docusign")
+  var iframe = document.createElement('iframe');
+  // iframe.style.display = "none";
+  iframe.src = "#{ @recipient_view["url"] }";
+  iframe.style = "width:1500px;height:1000px"
+  $("#docusign_iframe").show();
+  $("#docusign_iframe").append(iframe);
+
+  
+
+-#
+  alert('success!');
+  - if remotipart_submitted?
+    alert('submitted via remotipart')
+  - else
+    alert('submitted via native jquery-ujs')
+

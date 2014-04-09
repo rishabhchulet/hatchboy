@@ -1,0 +1,73 @@
+= simple_form_for(form, :url => docu_templates_path, :html => { :multipart => true, :id => "create_docu_template" }, :remote => true) do |f|
+  .grid-title.no-border#flash_message
+    = display_flash_message :error, f.error_notification
+  .grid-body.no-border
+    .row
+      .col-md-6
+        %br/
+        .form-group
+          %label.form-label Title
+          %span.help e.g. "Tax form"
+          .controls
+            = f.input_field :title
+            = f.full_error :title
+        .form-group
+          %label.form-label Document
+          %span.help click to upload
+          .controls
+            = f.input_field :document, as: :file, accept: 'application/pdf'
+            = f.full_error :document
+      .col-md-6
+        %br/
+        .form-group
+          %label.form-label Send to users or teams
+          %span.help start typing to add 
+          .controls
+            = f.input_field :recipients, class: "span12 tagsinput"
+            = f.full_error :recipients
+        .row-fluid
+          %br/
+          .checkbox.check-success
+            = f.input_field :self_sign, as: :boolean, :value=>1
+            %label{:for => "docu_template_self_sign"}
+              %span#doc_sign{:style => "display:block;"}
+                Sign uploaded document
+              %span#doc_signed{:style => "display:none;"}
+                Document signed
+            %button.btn.btn-success.btn-cons{:type => "submit"}
+              %i.icon-ok
+              Send
+            = link_to "Cancel", docu_templates_path, :class => "btn btn-white btn-cons"
+:javascript
+  $(document).ready(function() {
+    recipients_input = $('#docu_template_recipients')
+
+    if ( recipients_input ) {
+      recipients_input.tagsinput({
+        tagClass: function(item) {
+          switch (item.type) {
+            case 'team'   : return 'label label-success';
+            case 'user'   : return 'label label-info';
+          }
+        },
+        itemValue: 'value',
+        itemText: 'text',
+        typeahead: {
+          source: function(query) {
+            return $.getJSON('#{autocomplete_user_name_docu_templates_path}.json?q='+query);
+          }
+        }      
+      });
+    }
+
+    if ( recipients_input.val() )
+    {
+      result = $.getJSON('#{autocomplete_user_name_docu_templates_path}.json?q=' + encodeURIComponent( recipients_input.val() ),
+        function( data ) {
+          $.each( data, function( key, val ) {
+            recipients_input.tagsinput('add', val);
+          });
+        } 
+      );
+    }
+  });

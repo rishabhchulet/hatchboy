@@ -9,38 +9,86 @@
   %h3
     Advance -
     %span.semi-bold Tables
-.row-fluid
-  .span12
-    .grid.simple
-      .grid-title
-        %h4
-          Advance
-          %span.semi-bold
-            Options
-        .tools
-          %a.collapse{:href => "javascript:;"}
-          %a.config{"data-toggle" => "modal", :href => "#grid-config"}
-          %a.reload{:href => "javascript:;"}
-          %a.remove{:href => "javascript:;"}
-      .grid-body
-        .toolbar
-          .table-tools-actions
-            %button#test2.btn.btn-primary{:style => "margin-left:12px"}
-              = link_to 'Add', new_docu_sign_path
-        %table#example3.table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
-          %thead
-            %tr
-              %th Title
-              %th User
-              %th Status
-              %th Action
-          %tbody
-            - @docu_signs.each do |docu_sign|
-              %tr
-                %td= docu_sign.docu_template.title
-                %td= docu_sign.user.name
-                %td= docu_sign.status
-                %td
-                  = link_to 'Show', docu_sign
-                  = #link_to 'Edit', edit_docu_sign_path(docu_sign)
-                  = link_to 'Destroy', docu_sign, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+.row
+  %ul#navigation-tab.nav.nav-tabs
+    %li.active
+      %a{:href => "#users-tab"} My documents
+    %li
+      %a{:href => "#work-logs-tab"} Company's documents
+  .tab-content
+    #users-tab.tab-pane.active
+      =#render partial: "users/team_users", :object => @team.users, locals: { team: @team }
+      .row-fluid
+        .span12
+          .grid.simple
+            .grid-title
+              %h4
+                Advance
+                %span.semi-bold
+                  Options
+              .tools
+                %a.collapse{:href => "javascript:;"}
+                %a.config{"data-toggle" => "modal", :href => "#grid-config"}
+                %a.reload{:href => "javascript:;"}
+                %a.remove{:href => "javascript:;"}
+            .grid-body
+              .toolbar
+                .table-tools-actions
+              %table#example3.table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                %thead
+                  %tr
+                    %th Title
+                    %th User
+                    %th Status
+                    %th Action
+                %tbody
+                  - @docu_signs.each do |docu_sign|
+                    %tr
+                      %td= docu_sign.docu_template.title
+                      %td= docu_sign.user.name
+                      %td= docu_sign.status
+                      %td
+                        = link_to 'Show', docu_sign
+                        = #link_to 'Edit', edit_docu_sign_path(docu_sign)
+                        = link_to 'Destroy', docu_sign, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    #work-logs-tab.tab-pane
+      =#render partial: "work_logs/team_work_logs", :object => @team.worklogs, locals: { team: @team }
+      .row-fluid
+        .span12
+          .grid.simple
+            .grid-title
+              %h4
+                Advance
+                %span.semi-bold
+                  Options
+              .tools
+                %a.collapse{:href => "javascript:;"}
+                %a.config{"data-toggle" => "modal", :href => "#grid-config"}
+                %a.reload{:href => "javascript:;"}
+                %a.remove{:href => "javascript:;"}
+            .grid-body
+              .toolbar
+                .table-tools-actions
+                  %button#test2.btn.btn-primary{:style => "margin-left:12px"}
+                    = link_to 'Add', new_docu_template_path
+              %table#example3.table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                %thead
+                  %tr
+                    %th Title
+                    %th User
+                    %th Status
+                    %th Action
+                %tbody
+                  - @docu_signs.each do |docu_sign|
+                    %tr
+                      %td= docu_sign.docu_template.title
+                      %td= docu_sign.user.name
+                      %td= docu_sign.status
+                      %td
+                        = link_to 'Show', docu_sign
+                        = #link_to 'Edit', edit_docu_sign_path(docu_sign)
+                        = link_to 'Destroy', docu_sign, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+=content_for :javascript do
+  =javascript_include_tag "js/tabs_accordian"
