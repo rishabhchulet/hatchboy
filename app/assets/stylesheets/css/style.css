@@ -6951,3 +6951,15 @@ ul.my-friends li .profile-pic{
 	font-weight: 300;
 	text-indent: -2px;
 }
+
+#jira-source-grid .col-md-1-button-area {
+  margin-top: 25px;
+}
+
+#jira-source-grid .col-md-1-button-area .btn{
+  min-width: 75px;
+}
+
+#jira-source-grid .faq-block {
+  margin-top: 60px;
+}
