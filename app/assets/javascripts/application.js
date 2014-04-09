@@ -13,9 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require ui/jquery-ui.custom
-//= require autocomplete-rails
 //= require jquery.remotipart
 //= require turbolinks
 //= require bootstrap-custom
 //= require lists_row_actions
-//= require plugins/bootstrap-select2/select2
