@@ -4,7 +4,10 @@ Hatchboy::Application.routes.draw do
     member do
       get 'server_response'
     end
+  end
 
+  resources :docu_templates do
+    get :server_response, :on => :collection
     get :autocomplete_user_name, :on => :collection
   end
 

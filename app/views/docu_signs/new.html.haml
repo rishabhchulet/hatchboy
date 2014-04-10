@@ -1,3 +1,32 @@
+-#
+  %ul.breadcrumb
+    %li
+      %p
+        YOU ARE HERE
+    %i.icon-angle-right
+    %li
+      %a{:href => docu_signs_path}< Documents
+    %i.icon-angle-right
+    %li
+      %a.active{:href => docu_signs_path} New  
+  .row
+    .col-md-12    
+      .page-title
+        %i.icon-custom-ui
+        %h3 Add Document
+  .row
+    .col-md-12
+      .grid.simple
+        .grid-title.no-border
+          %h4
+            %span.semi-bold 
+              Document for
+              = account_company.name
+              company
+          .tools
+        .grid-body.no-border
+          = render 'form'
+
 %ul.breadcrumb
   %li
     %p
@@ -19,9 +48,64 @@
       .grid-title.no-border
         %h4
           %span.semi-bold 
-            Document for
+            Add Document for
             = account_company.name
             company
         .tools
-      .grid-body.no-border
-        = render 'form'
+        #new_form
+          =render partial: "docu_templates/form", :object => @docu_template
+      #docusign_iframe.grid-body.no-border
+        %h3
+          Uploaded document
+%iframe{:src => "https://demo.docusign.net/Member/StartInSession.aspx?t=cfdf6c34-6ecb-4b1c-ba4e-af4366cb1330&cache=#{Time.now.to_i}", :style => "width:1500px;height:1000px"}
+
+
+
+:javascript
+  
+  var docusign_complete = function () {
+    alert("docusign_completed");
+    console.log("docusign_completed");
+  };
+
+  var docusign_cancelled = function () {
+    alert("docusign_cancelled");
+    console.log("docusign_cancelled");
+  };
+
+-#
+  = simple_form_for(@docu_template, :url => docu_templates_path, :html => { :multipart => true }, :remote => true) do |f|
+    .grid-title.no-border
+      = display_flash_message :error, f.error_notification
+    .grid-body.no-border
+      .row
+        .col-md-6
+          %br/
+          .form-group
+            %label.form-label Title
+            %span.help e.g. "Tax form"
+            .controls
+              = f.input_field :title
+          .form-group
+            %label.form-label Document
+            %span.help click to upload
+            .controls
+              = f.input_field :document, as: :file, accept: 'application/pdf'
+        .col-md-6
+          %br/
+          .form-group
+            %label.form-label Send to users or teams
+            %span.help click to add 
+            .controls
+              = f.simple_fields_for :docu_signs do |docu|
+                = docu.input_field :users, input_html: {type: "hidden", id:"e6", style:"width:600px" }
+          .row-fluid
+            %br/
+            %br/
+            .checkbox.check-success
+              %input#docu_template_self_sign{:checked => false, :type => "checkbox", :value => "0", :name => "docu_template[self_sign]"}
+                %label{:for => "docu_template_self_sign"} Sign uploaded document
+              %button.btn.btn-success.btn-cons{:type => "submit"}
+                %i.icon-ok
+                Send
+              = link_to "Cancel", docu_templates_path, :class => "btn btn-white btn-cons"

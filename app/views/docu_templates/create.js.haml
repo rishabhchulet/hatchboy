@@ -1,0 +1,17 @@
+$('#new_form').html('#{j render :partial => "form", :object => @docu_template}');
+
+- if remotipart_submitted? and session[:docusign] and session[:docusign][:status] == "created"
+  var iframe = document.createElement('iframe');
+  iframe.src = "#{ @recipient_view["url"] }";
+  iframe.style = "width:1500px;height:1000px"
+  $("#docusign_iframe").show().append(iframe);
+
+- if session[:docusign] and session[:docusign][:status] == "completed"
+  $('#doc_sign').hide()
+  $('#doc_signed').show()
+- else
+  $('#doc_sign').show()
+  $('#doc_signed').hide()
+
+- if @success
+  $("#flash_message").append("#{j display_flash_message :notice, 'Document was sent successfully'}");

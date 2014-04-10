@@ -1,0 +1,168 @@
+%ul.breadcrumb
+  %li
+    %p YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a.active{:href => "#"} Tables
+.page-title
+  %i.icon-custom-left
+  %h3
+    Advance -
+    %span.semi-bold Tables
+
+.row
+  %ul#navigation-tab.nav.nav-tabs
+    %li.active
+      %a{:href => "#users-tab"} My documents
+    %li
+      %a{:href => "#work-logs-tab"} Company's documents
+  .tab-content
+    #users-tab.tab-pane.active
+      .row-fluid
+        .span12
+          .grid.simple
+            .grid-title
+              %h4
+                Advance
+                %span.semi-bold
+                  Options
+              .tools
+                %a.collapse{:href => "javascript:;"}
+                %a.config{"data-toggle" => "modal", :href => "#grid-config"}
+                %a.reload{:href => "javascript:;"}
+                %a.remove{:href => "javascript:;"}
+            .grid-body
+              .toolbar
+                .table-tools-actions
+              %table#example3.table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                %thead
+                  %tr
+                    %th Title
+                    %th User
+                    %th Status
+                    %th Action
+                %tbody
+                  - @docu_signs.each do |docu_sign|
+                    %tr
+                      %td= docu_sign.docu_template.title
+                      %td= docu_sign.user.name
+                      %td= docu_sign_status docu_sign
+                      %td
+                        = link_to 'Show', docu_sign
+                        = #link_to 'Edit', edit_docu_sign_path(docu_sign)
+                        = link_to 'Destroy', docu_sign, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    #work-logs-tab.tab-pane
+      .row-fluid
+        .span12
+          .grid.simple
+            .grid-title
+              %h4
+                = link_to new_docu_template_path do
+                  %button.btn.btn-success.btn-cons{:type => "button"} Upload Document
+              .tools
+                %a.collapse{:href => "javascript:;"}
+                %a.config{"data-toggle" => "modal", :href => "#grid-config"}
+                %a.reload{:href => "javascript:;"}
+                %a.remove{:href => "javascript:;"}
+            .grid-body
+              %table#example2.table.table-striped{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                %thead
+                  %tr
+                    %th Title
+                    %th User
+                    %th Status
+                    %th Action
+                %tbody
+                  - @docu_templates.each do |docu_template|
+                    %tr{ :class => cycle( 'even', 'odd' ), :id => docu_template.id }
+                      %td= docu_template.title
+                      %td= docu_template.user.name
+                      %td= docu_template_status docu_template
+                      %td.center
+                        = link_to 'Show', docu_template
+                        = link_to 'Destroy', docu_template, :method => :delete, :data => { :confirm => 'Are you sure?' }
+=content_for :page_specific_js do
+  =javascript_include_tag "plugins/jquery-datatable/js/jquery.dataTables.min.js", "data-turbolinks-track" => true
+  =javascript_include_tag "plugins/jquery-datatable/extra/js/TableTools.min.js", "data-turbolinks-track" => true
+  =javascript_include_tag "plugins/datatables-responsive/js/datatables.responsive.js", "data-turbolinks-track" => true
+  =javascript_include_tag "plugins/datatables-responsive/js/lodash.min.js", "data-turbolinks-track" => true
+  =javascript_include_tag "js/docu_templates.js", "data-turbolinks-track" => true
+  =javascript_include_tag "js/tabs_accordian", "data-turbolinks-track" => true
+
+:javascript
+  $(document).ready(function() {  
+
+    var nCloneTh = document.createElement( 'th' );
+    var nCloneTd = document.createElement( 'td' );
+    nCloneTd.innerHTML = '<i class="icon-plus-sign"></i>';
+    nCloneTd.className = "center";
+
+    $('#example2 thead tr').each( function () {
+        this.insertBefore( nCloneTh, this.childNodes[0] );
+    } );
+     
+    $('#example2 tbody tr').each( function () {
+        this.insertBefore(  nCloneTd.cloneNode( true ), this.childNodes[0] );
+    } );
+     
+    /*
+     * Initialse DataTables, with no sorting on the 'details' column
+     */
+    var oTable = $('#example2').dataTable( {
+     "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'p i>>",
+       "aaSorting": [],
+        "oLanguage": {
+      "sLengthMenu": "_MENU_ ",
+      "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+    },
+    });
+
+    $('#example2_wrapper .dataTables_filter input').addClass("input-medium ");
+    $('#example2_wrapper .dataTables_length select').addClass("select2-wrapper span12"); 
+    
+    /* Add event listener for opening and closing details
+     * Note that the indicator for showing which row is open is not controlled by DataTables,
+     * rather it is done here
+     */
+    $('#example2 tbody td i').on('click', function () {
+        var nTr = $(this).parents('tr')[0];
+        if ( oTable.fnIsOpen(nTr) )
+        {
+            /* This row is already open - close it */
+            this.className = "icon-plus-sign";
+            oTable.fnClose( nTr );
+        }
+        else
+        {
+            /* Open this row */
+            this.className = "icon-minus-sign";
+            oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
+        }
+    });
+    
+    /* Formating function for row details */
+    function fnFormatDetails ( oTable, nTr )
+    {
+        $.ajax({
+            type: 'GET',
+            url: '#{ url_for(:controller => "docu_templates" ) }/' + $(nTr).attr("id") + '.json',
+            dataType: 'json',
+            complete: function(response) {
+               aData = eval('(' + response.responseText + ')');
+            },
+            async: false
+        });
+
+        var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table">';
+        sOut += '<thead><tr><th>User</th><th>Status</th></tr></thead>';
+        sOut += '<tbody>';
+        for (i in aData) {
+          console.log(aData[i])
+          sOut += '<tr><td>' + aData[i].name + '</td><td><span class="label label-'+aData[i].class+'">' + aData[i].status + '</span></td></tr>';
+        }
+        sOut += '</tbody>';
+        sOut += '</table>';
+         
+        return sOut;
+    }
+  });

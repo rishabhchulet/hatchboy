@@ -1,0 +1,51 @@
+=content_for :page_specific_js do
+  =javascript_include_tag "plugins/bootstrap-tag/bootstrap-tagsinput.js"
+  =javascript_include_tag "js/bootstrap3-typeahead.js"
+
+=content_for :page_specific_css do
+  = stylesheet_link_tag "plugins/bootstrap-tag/bootstrap-tagsinput.css"
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => docu_signs_path}< Documents
+  %i.icon-angle-right
+  %li
+    %a.active{:href => docu_signs_path} New 
+.row
+  .col-md-12    
+    .page-title
+      %i.icon-custom-ui
+      %h3 Add Document
+.row
+  .col-md-12
+    .grid.simple
+      .grid-title.no-border
+        %h4
+          %span.semi-bold 
+            Add Document for
+            = account_company.name
+            company
+        .tools
+        #new_form
+          =render partial: "docu_templates/form", :object => @docu_template
+      #docusign_iframe.grid-body.no-border{ :style => "display:none;" }
+        %h3
+          Uploaded document
+        %br/
+
+:javascript
+  $(document).ready(function() {
+    var docusign_complete = function () {
+      console.log("docusign_completed");
+      $('#docusign_iframe').html("")
+      $('#create_docu_template').submit();
+    };
+
+    var docusign_cancelled = function () {
+      $('#docusign_iframe').html("")
+      console.log("docusign_cancelled");
+    };
+  });

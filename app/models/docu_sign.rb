@@ -1,12 +1,8 @@
 class DocuSign < ActiveRecord::Base
   
   belongs_to :user
-  belongs_to :docu_template, :validate => true
+  belongs_to :docu_template
   
-  validates :user, presence: true
-
-  attr_reader :users
-
   STATUS_PROCESSING = "processing"
   STATUS_SIGNED = "signed"
   STATUS_CANCELLED = "cancelled"

@@ -1,17 +1,23 @@
 class DocuTemplate < ActiveRecord::Base
   belongs_to :company
+  belongs_to :user
+
   has_many :docu_signs, :autosave => true
 
   mount_uploader :document, DocumentUploader
   
-  validates :company, :title, :document, :docu_signs, presence: true
-  attr_reader :users
+  validates :company, :title, :document, :recipients, presence: true
+
+  attr_accessor :self_sign
+  attr_accessor :envelope_key
+  attr_accessor :recipients
 
   before_validation :get_template
+  before_validation :set_docusigns
 
-  def users= params
+  def set_docusigns
     usersObj = []
-    params = params.split(",")
+    params = self.recipients.split(",")
 
     params.each do |t|
       uGroup = t.split("_")
@@ -20,7 +26,7 @@ class DocuTemplate < ActiveRecord::Base
         when "user" then usersObj.push( User.find( uGroup[1] ) )
       end
     end
-
+  
     usersObj.uniq.each do |user|
       self.docu_signs << DocuSign.new( { :user => user, :docu_template => self } )
     end
