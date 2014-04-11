@@ -21,12 +21,13 @@ class DocuTemplate < ActiveRecord::Base
 
     params.each do |t|
       uGroup = t.split("_")
+
       case uGroup[0]
         when "team" then usersObj = usersObj.inject( Team.find(uGroup[1]).users.to_a, :<< )
         when "user" then usersObj.push( User.find( uGroup[1] ) )
       end
     end
-  
+
     usersObj.uniq.each do |user|
       self.docu_signs << DocuSign.new( { :user => user, :docu_template => self } )
     end
