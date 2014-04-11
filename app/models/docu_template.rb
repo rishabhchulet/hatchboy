@@ -29,7 +29,7 @@ class DocuTemplate < ActiveRecord::Base
     end
 
     usersObj.uniq.each do |user|
-      self.docu_signs << DocuSign.new( { :user => user, :docu_template => self } ) if user.account.email
+      self.docu_signs << DocuSign.new( { :user => user, :docu_template => self } ) if user.account
     end
   end
 
