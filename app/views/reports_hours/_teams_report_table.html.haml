@@ -1,0 +1,18 @@
+%table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#teams-report-hours-list
+  %thead
+    %tr
+      %th{:width => "2%"}
+        &nbsp;
+      %th{:width => "2%"}
+        .checkbox
+          %input.checkall#checkall{type: 'checkbox', value: 1  }
+          %label{for: 'checkall'}
+      %th{:width => "48%"} Team Name
+      %th{:width => "48%"} Total time
+  %tbody
+    - if @teams and @teams.count > 0
+      = render partial: "reports_hours/teams_list_row", collection: @teams
+    - else
+      %tr.text-center
+        %td{:colspan => "4"}
+          No data to display

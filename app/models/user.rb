@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 
   has_many :user_teams, class_name: "TeamsUsers"
   has_many :teams, through: :user_teams
+  has_many :worklogs, :class_name => "WorkLog", :dependent => :destroy
 
   scope :without_account, -> { joins("LEFT JOIN accounts AS r10 ON r10.user_id = users.id").where("r10.id IS NULL") }
   scope :with_account, -> { joins("LEFT JOIN accounts AS r11 ON r11.user_id = users.id").where("r11.id IS NOT NULL") }
@@ -26,4 +27,3 @@ class User < ActiveRecord::Base
   end
   
 end
-

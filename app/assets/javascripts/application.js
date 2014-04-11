@@ -17,3 +17,7 @@
 //= require turbolinks
 //= require bootstrap-custom
 //= require lists_row_actions
+//
+//= require plugins/bootstrap-select2/select2
+//= require bootstrap-datepicker
+//= require highcharts/highcharts

@@ -1,5 +1,7 @@
 class WorkLog < ActiveRecord::Base
 
+  paginates_per 50
+  
   belongs_to :team
   belongs_to :source
   belongs_to :user
@@ -12,4 +14,3 @@ class WorkLog < ActiveRecord::Base
     group(:team_id, :user_id).select(:team_id, :user_id, "sum(time) as time")
   end
 end
-
