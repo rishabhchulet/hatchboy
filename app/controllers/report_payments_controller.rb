@@ -1,4 +1,4 @@
-class ReportsPaymentsController < ApplicationController
+class ReportPaymentsController < ApplicationController
   
   before_filter :check_session!
 

@@ -1,0 +1,9 @@
+- @aspect_scores.each do |score|
+  .row
+    .col-md-8
+      = USER_MULTI_RATING_ASPECTS[score.aspect_code]
+    .col-md-3
+      .progress
+        .progress-bar.progress-bar-success{style: "width: #{val_in_percent(score.aspect_score, UserMultiRating::MAX_RATING)}%", role: "progressbar-bar", data: {percentage: "#{val_in_percent(score.aspect_score, UserMultiRating::MAX_RATING)}%"}}
+    .col-md-1
+      = "#{score.aspect_score.round(2)} / #{UserMultiRating::MAX_RATING}"

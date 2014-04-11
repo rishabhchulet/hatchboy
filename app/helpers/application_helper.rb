@@ -31,6 +31,10 @@ module ApplicationHelper
     raise ActionController::RoutingError.new('Not Found')
   end
 
+  def val_in_percent value, max_value
+    100 - ((max_value - value.to_f)/max_value * 100)
+  end
+
   def nice_time_difference delta
 
     return "0h" if delta.to_i == 0

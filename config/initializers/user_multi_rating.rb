@@ -1,0 +1,1 @@
+USER_MULTI_RATING_ASPECTS = YAML.load_file("#{Rails.root}/config/user_multi_rating.yml")['aspects']

@@ -1,0 +1,19 @@
+$("#new_user_rating").hide('fast')
+
+var perc = parseInt("<%= user_rating_in_percent(@rated_user.rating) =%>") || 0;
+var bar = $("#user-rating-bar");
+var progress_bar = bar.find('.progress-bar')
+var current_perc = parseInt(progress_bar.data('percentage')) || 0;
+
+var rating = setInterval(function() {
+  if (current_perc == perc) {
+    bar.find('.user-rating-value').text("<%= "#{@rated_user.rating.to_f.round(2)} / #{UserRating::MAX_RATING}" =%>");
+    clearInterval(rating);
+  } else if(current_perc > perc){
+    current_perc -=1;
+    progress_bar.css('width', (current_perc)+'%');
+  } else {
+    current_perc +=1;
+    progress_bar.css('width', (current_perc)+'%');
+  }
+}, 10);

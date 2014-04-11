@@ -1,0 +1,34 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a{:href => reports_path} Reports
+  %i.icon-angle-right
+  %li
+    %a.active{:href => report_ratings_path} 360-degree
+
+.row
+  .col-md-11
+    .page-title
+      %i.icon-custom-ui
+      %h3 360-degree report
+  .col-md-1.text-right
+
+.row
+  .action-list.grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold Users
+      .tools
+        %a.collapse{:href => "javascript:;"}
+    .grid-body.no-border
+      = render partial: "report_ratings/users_list"
+
+- if @chart
+  .row
+    = high_chart("main_chart", @chart)
