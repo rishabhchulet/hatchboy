@@ -3,19 +3,17 @@
     %p YOU ARE HERE
   %i.icon-angle-right
   %li
-    %a.active{:href => "#"} Tables
+    %a.active{:href => "#"} Legal & Tax
 .page-title
-  %i.icon-custom-left
+  %i.icon-custom-gallery
   %h3
-    Advance -
-    %span.semi-bold Tables
-
+    Documents
 .row
   %ul#navigation-tab.nav.nav-tabs
     %li.active
       %a{:href => "#users-tab"} My documents
     %li
-      %a{:href => "#work-logs-tab"} Company's documents
+      %a{:href => "#template"} Company's documents
   .tab-content
     #users-tab.tab-pane.active
       .row-fluid
@@ -51,7 +49,7 @@
                         = link_to 'Show', docu_sign
                         = #link_to 'Edit', edit_docu_sign_path(docu_sign)
                         = link_to 'Destroy', docu_sign, :method => :delete, :data => { :confirm => 'Are you sure?' }
-    #work-logs-tab.tab-pane
+    #template.tab-pane
       .row-fluid
         .span12
           .grid.simple
@@ -71,16 +69,13 @@
                     %th Title
                     %th User
                     %th Status
-                    %th Action
                 %tbody
                   - @docu_templates.each do |docu_template|
                     %tr{ :class => cycle( 'even', 'odd' ), :id => docu_template.id }
                       %td= docu_template.title
                       %td= docu_template.user.name
                       %td= docu_template_status docu_template
-                      %td.center
-                        = link_to 'Show', docu_template
-                        = link_to 'Destroy', docu_template, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
 =content_for :page_specific_js do
   =javascript_include_tag "plugins/jquery-datatable/js/jquery.dataTables.min.js", "data-turbolinks-track" => true
   =javascript_include_tag "plugins/jquery-datatable/extra/js/TableTools.min.js", "data-turbolinks-track" => true
@@ -154,11 +149,11 @@
         });
 
         var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table">';
-        sOut += '<thead><tr><th>User</th><th>Status</th></tr></thead>';
+        sOut += '<thead><tr><th>User</th><th>Status</th><th>Action</th></tr></thead>';
         sOut += '<tbody>';
         for (i in aData) {
-          console.log(aData[i])
-          sOut += '<tr><td>' + aData[i].name + '</td><td><span class="label label-'+aData[i].class+'">' + aData[i].status + '</span></td></tr>';
+          sOut += '<tr><td>' + aData[i].name + '</td><td><span class="label label-'+aData[i].class+'">' + aData[i].status + '</span></td>';
+          sOut += '<td><span class="label"><a href="' + aData[i].link + '">Show</a></span></td></tr>';
         }
         sOut += '</tbody>';
         sOut += '</table>';

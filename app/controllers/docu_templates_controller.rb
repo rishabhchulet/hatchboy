@@ -42,11 +42,11 @@ class DocuTemplatesController < ApplicationController
     json_to_render = []
 
     @docu_template.docu_signs.each do |ds|
-      info_class = 'success' if ds.status == DocuSign::STATUS_SIGNED
+      info_class = 'success'   if ds.status == DocuSign::STATUS_SIGNED
       info_class = 'important' if ds.status == DocuSign::STATUS_CANCELLED
-      info_class = 'warning' if ds.status == DocuSign::STATUS_PROCESSING
+      info_class = 'warning'   if ds.status == DocuSign::STATUS_PROCESSING
 
-      infobox = {:id => ds.id, :name => ds.user.name, :status => ds.status.upcase, :class => info_class}
+      infobox = {:id => ds.id, :name => ds.user.name, :status => ds.status.upcase, :class => info_class, :link => docu_sign_path(ds) }
       json_to_render << infobox
     end
 
@@ -128,12 +128,11 @@ class DocuTemplatesController < ApplicationController
         @success = true
         
         store_docs_to_sign
-
-        format.html { redirect_to docu_signs_path, notice: 'Docu sign was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @docu_template }
+        
+        format.html { redirect_to url_for( action: 'index', anchor: 'template') , notice: 'Docu sign was successfully created.' }
+        #format.json { render action: 'show', status: :created, location: @docu_template }
         format.js
       else
-        puts @docu_template.errors.to_yaml
         format.html { render action: 'new' }
         format.json { render json: @docu_template.errors, status: :unprocessable_entity }
         format.js

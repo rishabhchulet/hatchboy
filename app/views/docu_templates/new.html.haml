@@ -31,21 +31,19 @@
         .tools
         #new_form
           =render partial: "docu_templates/form", :object => @docu_template
-      #docusign_iframe.grid-body.no-border{ :style => "display:none;" }
+      #docusign_iframe.grid-body.no-border{ :style => "display:none;width:1500px;height:1000px;" }
         %h3
           Uploaded document
         %br/
 
 :javascript
-  $(document).ready(function() {
-    var docusign_complete = function () {
-      console.log("docusign_completed");
-      $('#docusign_iframe').html("")
-      $('#create_docu_template').submit();
-    };
+  var docusign_complete = function () {
+    console.log("docusign_completed");
+    $('#docusign_iframe').html("").hide();
+    $('#create_docu_template').submit();
+  };
 
-    var docusign_cancelled = function () {
-      $('#docusign_iframe').html("")
-      console.log("docusign_cancelled");
-    };
-  });
+  var docusign_cancelled = function () {
+    $('#docusign_iframe').html("").hide();
+    console.log("docusign_cancelled");
+  };

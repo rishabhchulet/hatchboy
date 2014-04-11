@@ -3,7 +3,7 @@ module DocuTemplatesHelper
     ret_val = '<span class="label"> EMPTY </span>'
 
     docu_template.docu_signs.each do |value|
-      return if value.status == DocuSign::STATUS_PROCESSING
+      #return if value.status == DocuSign::STATUS_PROCESSING
       if value.status == DocuSign::STATUS_CANCELLED
         ret_val = '<span class="label label-important">' + DocuSign::STATUS_CANCELLED.upcase + '</span>'
         break
