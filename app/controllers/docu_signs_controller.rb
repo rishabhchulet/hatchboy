@@ -29,8 +29,8 @@ class DocuSignsController < ApplicationController
 
     @url = client.get_recipient_view(
       envelope_id: @docu_sign.envelope_key,
-      name: current_account.user.name,
-      email: current_account.email,
+      name: @docu_sign.user.name,
+      email: @docu_sign.user.account.email,
       return_url: url_for(  action: 'server_response',only_path: false )
     )
 
