@@ -92,8 +92,6 @@ class DocuSignsController < ApplicationController
   def server_response
     utility = DocusignRest::Utility.new
 
-puts params.to_yaml
-
     if params[:event] == "signing_complete"
       client = DocusignRest::Client.new
       recipients = client.get_envelope_recipients(
