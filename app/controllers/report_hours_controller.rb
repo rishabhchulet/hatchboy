@@ -36,7 +36,8 @@ class ReportHoursController < ApplicationController
     @chart = LazyHighCharts::HighChart.new('graph') do |f|
       f.title({ :text=>"Work Logs"})
       f.options[:xAxis][:categories] = chart_data.keys
-
+      f.options[:chart][:zoomType] = 'x,y'
+      
       if params[:group_by] == "teams"
         chart_data.values.flatten.group_by{|u| u[:team].id}.each do |team_id, team|
           f.series(:type=> 'column',:name=> team.first[:team].name,:data=> team.map{|d| d[:time]})

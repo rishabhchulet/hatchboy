@@ -21,6 +21,7 @@ class ReportPaymentsController < ApplicationController
     @chart = LazyHighCharts::HighChart.new('graph') do |f|
       f.title({ :text=>"Payments"})
       f.options[:xAxis][:categories] = chart_data.keys
+      f.options[:chart][:zoomType] = 'x,y'
       chart_data.values.flatten.group_by{|u| u[:user].id}.each do |id, user|
         f.series(:type=> 'column',:name=> user.first[:user].name,:data=> user.map{|d| d[:time]})
       end

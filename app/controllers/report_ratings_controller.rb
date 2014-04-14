@@ -8,6 +8,7 @@ class ReportRatingsController < ApplicationController
     if scores.length > 1
       @chart = LazyHighCharts::HighChart.new('graph') do |f|
         f.title({ :text=>"Users rating"})
+        f.options[:chart][:zoomType] = 'x,y'
         f.options[:xAxis][:categories] = scores.map(&:date_period).uniq
         scores.group_by(&:rated_id).each do |rated_id, scores|
           f.series(:type=> 'column',:name=> @users.select{|user| user.id == rated_id}.first.name,:data=> scores.map(&:rating).collect{|r| r.round(2)})
@@ -30,6 +31,7 @@ class ReportRatingsController < ApplicationController
       @chart = LazyHighCharts::HighChart.new('graph') do |f|
         f.title({ :text=>"Rating of #{@user.name}"})
         f.options[:xAxis][:categories] = scores.map(&:date_period)
+        f.options[:chart][:zoomType] = 'x,y'
         f.series(:type=> 'spline',:name=> 'Rating', :data=> scores.map(&:rating).collect{|score| score.round(2)})
         f.yAxis [
           {:title => {:text => "Rating value", :margin => 10}, :min => 0, :max => UserMultiRating::MAX_RATING},
