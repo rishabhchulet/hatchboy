@@ -92,6 +92,8 @@ class DocuSignsController < ApplicationController
   def server_response
     utility = DocusignRest::Utility.new
 
+puts params.to_yaml
+
     if params[:event] == "signing_complete"
       client = DocusignRest::Client.new
       recipients = client.get_envelope_recipients(
@@ -107,9 +109,12 @@ class DocuSignsController < ApplicationController
       end
       flash[:notice] = "Thanks! Successfully signed"
       render :text => utility.breakout_path(docu_templates_url), content_type: 'text/html'
-    else
+    elsif params[:event] == "decline"
       flash[:notice] = "You chose not to sign the document."
       @docu_sign.update_attribute(:status, DocuSign::STATUS_CANCELLED)
+      render :text => utility.breakout_path(docu_templates_url), content_type: 'text/html'
+    else
+      flash[:notice] = "You chose to cancel signing process."
       render :text => utility.breakout_path(docu_templates_url), content_type: 'text/html'
     end
 
