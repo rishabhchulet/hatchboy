@@ -12,21 +12,47 @@ class ReportHoursController < ApplicationController
     worklogs = worklogs.filter_by_params(params)
     
     if params[:group_by] == "teams"
-      list = worklogs.with_group_by_teams.to_a
+      list = worklogs.to_a
       @teams = list.map(&:team).uniq{|team| team.id}.sort{|team| team.created_at.to_date}
       @teams_users = list.group_by{|w| w.team.id}
     else
-      @users = worklogs.with_group_by_users.to_a
+      @users = worklogs.to_a
     end
 
-    chart_data = prepare_chart_data_scope worklogs, params do |data_scope, date|
-      workflow = (date.is_a? Integer) ? data_scope.select{|w| w.created_at.to_time.hour == date}.first : data_scope.select{|w| w.created_at.to_time == date}.first
-      if workflow
-        (workflow.time/3600).round(4)
+    chart_data = group_scope_from_params worklogs, params do |scope, date|
+      if params[:group_by] == "teams"
+        @teams.collect do |team|
+          worklog = scope.select{|w| team.id == w.team_id}.first if scope
+          { time: worklog ? (worklog.time/3600).round(4) : 0, team: team }
+        end
+      else
+        @users.map(&:user).uniq.collect do |user|
+          worklog = scope.select{|w| user.id == w.user_id}.first if scope
+          { time: worklog ? (worklog.time/3600).round(4) : 0, user: user }
+        end
       end
     end
-    @chart = build_chart_object("Tracked time","Hours",chart_data)
-      
+
+    @chart = LazyHighCharts::HighChart.new('graph') do |f|
+      f.title({ :text=>"Work Logs"})
+      f.options[:xAxis][:categories] = chart_data.keys
+
+      if params[:group_by] == "teams"
+        chart_data.values.flatten.group_by{|u| u[:team].id}.each do |team_id, team|
+          f.series(:type=> 'column',:name=> team.first[:team].name,:data=> team.map{|d| d[:time]})
+        end
+      else
+        chart_data.values.flatten.group_by{|u| u[:user].id}.each do |user_id, user|
+          f.series(:type=> 'column',:name=> user.first[:user].name,:data=> user.map{|d| d[:time]})
+        end
+      end
+
+      f.series(:type=> 'spline',:name=> 'Average', :data=> chart_data.values.collect{|w| w.map{|e| e[:time]}.instance_eval { (reduce(:+) / size.to_f).round(2) } })
+      f.yAxis [
+        {:title => {:text => "Hours", :margin => 10}, :min => 0},
+      ]
+      f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical')
+    end
   rescue Exception => e
     flash.now[:error] = e.message
     render :index
