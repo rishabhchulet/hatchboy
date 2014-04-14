@@ -28,6 +28,8 @@ class DocuTemplate < ActiveRecord::Base
       end
     end
 
+    usersObj.delete_if { |user| user.id == self.user.id } unless self.self_sign.to_i == 0
+
     usersObj.uniq.each do |user|
       self.docu_signs << DocuSign.new( { :user => user, :docu_template => self } ) if user.account
     end
