@@ -16,6 +16,7 @@ class ReportRatingsController < ApplicationController
         f.yAxis [
           {:title => {:text => "Rating value", :margin => 10}, :min => 0, :max => UserMultiRating::MAX_RATING},
         ]
+        f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical')
       end
     end
   end
