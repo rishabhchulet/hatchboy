@@ -38,6 +38,6 @@ class ReportPaymentsController < ApplicationController
 
   def user
     @user = User.where(id: params[:user_id]).first or not_found
-    @payments = Payment.includes(:created_by).joins(:recipients).where("payment_recipients.user_id = ?", @user.id).order("pr_created_at DESC").select("payments.*, amount AS user_amount").page params[:page]
+    @payments = Payment.includes(:created_by).joins(:recipients).where("payment_recipients.user_id = ?", @user.id).order("created_at DESC").select("payments.*, amount AS user_amount").page params[:page]
   end
 end
