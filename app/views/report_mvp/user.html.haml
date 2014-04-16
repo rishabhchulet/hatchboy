@@ -1,0 +1,39 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a{:href => reports_path} Reports
+  %i.icon-angle-right
+  %li
+    %a{:href => report_mvp_index_path} MVP
+  %i.icon-angle-right
+  %li
+    %a.active{:href => user_report_mvp_index_path(@user)} User
+
+.row
+  .col-md-11
+    .page-title
+      %i.icon-custom-ui
+      %h3= @user.name
+  .col-md-1.text-right
+
+.row
+  %table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#teams-short-list
+    %thead
+      %tr
+        %th{:width => "50%"} Month
+        %th{:width => "50%"} Rate
+    %tbody
+      - @scores.each do |score|
+        %tr
+          %td= score[:date]
+          %td= score[:rate]
+
+- if @chart
+  .row
+    = high_chart("main_chart", @chart)

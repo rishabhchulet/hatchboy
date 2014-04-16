@@ -43,6 +43,9 @@ Hatchboy::Application.routes.draw do
     resources :ratings, :controller => 'report_ratings', only: [:index], as: :report_ratings do
       get "user/:user_id", to: "report_ratings#user", as: :user, on: :collection
     end
+    resources :mvp, :controller => 'report_mvp', only: [:index], as: :report_mvp do
+      get "user/:user_id", to: "report_mvp#user", as: :user, on: :collection
+    end
   end
   resources :user_multi_ratings, :only => [:create]
 
