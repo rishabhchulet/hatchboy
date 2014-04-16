@@ -1,4 +1,4 @@
-$("#new_user_rating").hide('fast')
+$('#user-current-rating').html('<%= @rated_user.rating %>');
 
 var aspects = <%= @aspect_scores.map{|s| [s.aspect_code, s.aspect_score.to_f]}.to_json.html_safe %>;
 var max_rating = parseFloat("<%= UserMultiRating::MAX_RATING %>");

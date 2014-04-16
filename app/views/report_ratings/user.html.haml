@@ -26,7 +26,12 @@
   .action-list.grid.simple
     .grid-title.no-border
       %h4
-        %span.semi-bold= "Current rating - #{@user.rating.to_f} / #{UserMultiRating::MAX_RATING}"
+        %span.semi-bold
+          Current rating - 
+          %span#user-current-rating= @user.rating.to_f
+          \/
+          %span= UserMultiRating::MAX_RATING
+
       .tools
         %a.collapse{:href => "javascript:;"}
     .grid-body.no-border
