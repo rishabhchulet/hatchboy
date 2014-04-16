@@ -1,4 +1,4 @@
-= form_for(current_account.user.user_multi_ratings.build(rated_id: @user.id), url: user_multi_ratings_path, remote: false) do |f|
+= form_for(current_account.user.user_multi_ratings.build(rated_id: @user.id), url: user_multi_ratings_path, remote: true) do |f|
   = f.hidden_field :rated_id
   = f.hidden_field :rater_id
   %table.table.table-hover.table-condensed.dataTable

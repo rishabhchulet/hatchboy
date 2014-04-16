@@ -1,19 +1,30 @@
 $("#new_user_rating").hide('fast')
 
-var perc = parseInt("<%= user_rating_in_percent(@rated_user.rating) =%>") || 0;
-var bar = $("#user-rating-bar");
-var progress_bar = bar.find('.progress-bar')
-var current_perc = parseInt(progress_bar.data('percentage')) || 0;
+var aspects = <%= @aspect_scores.map{|s| [s.aspect_code, s.aspect_score.to_f]}.to_json.html_safe %>;
+var max_rating = parseFloat("<%= UserMultiRating::MAX_RATING %>");
+var rating_intervals = [];
 
-var rating = setInterval(function() {
-  if (current_perc == perc) {
-    bar.find('.user-rating-value').text("<%= "#{@rated_user.rating.to_f.round(2)} / #{UserRating::MAX_RATING}" =%>");
-    clearInterval(rating);
-  } else if(current_perc > perc){
-    current_perc -=1;
-    progress_bar.css('width', (current_perc)+'%');
-  } else {
-    current_perc +=1;
-    progress_bar.css('width', (current_perc)+'%');
-  }
-}, 10);
+for(var i=0; i < aspects.length; i++)
+{
+  var perc = 100 - ((max_rating - aspects[i][1])/max_rating * 100);
+  var bar = $(".row[data-aspect-code='"+aspects[i][0]+"']");
+  var progress_bar = bar.find('.progress-bar');
+  var current_perc = parseInt(progress_bar.data('percentage')) || 0;
+  $('input[name="user_multi_rating[score]['+aspects[i][0]+']"]').prop('disabled', true);
+  bar.find('.total_score').text(aspects[i][1] + " / " + max_rating);
+
+  create_load_interval(i, current_perc, perc, progress_bar);
+}
+
+function create_load_interval(id, per_from, per_to, progress_bar)
+{
+  rating_intervals[id] = setInterval(function() {
+    if (per_from == per_to) {
+      clearInterval(rating_intervals[id]);
+    } else {
+      per_from = (per_from > per_to) ? per_from - 1 : per_from + 1;
+      progress_bar.css('width', (per_from)+'%');
+      progress_bar.data('percentage', per_from+'%');
+    }
+  }, 10);
+}

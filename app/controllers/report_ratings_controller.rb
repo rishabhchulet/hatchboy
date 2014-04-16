@@ -3,7 +3,7 @@ class ReportRatingsController < ApplicationController
   before_filter :check_session!
 
   def index
-    @users = User.page(params[:page]).per(10)
+    @users = User.page(params[:page]).per(20)
     scores = UserAvgRating.where(rated_id: @users).group(:date_period, :rated_id).order(:date_period).select('rated_id, date_period, avg(avg_score) AS rating')
     if scores.length > 1
       @chart = LazyHighCharts::HighChart.new('graph') do |f|
