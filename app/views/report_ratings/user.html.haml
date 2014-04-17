@@ -1,0 +1,53 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a{:href => reports_path} Reports
+  %i.icon-angle-right
+  %li
+    %a{:href => report_ratings_path} 360-degree
+  %i.icon-angle-right
+  %li
+    %a.active{:href => user_report_ratings_path(@user)} User
+
+.row
+  .col-md-11
+    .page-title
+      %i.icon-custom-ui
+      %h3= @user.name
+  .col-md-1.text-right
+
+.row
+  .action-list.grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold
+          Current rating - 
+          %span#user-current-rating= @user.rating.to_f
+          \/
+          %span= UserMultiRating::MAX_RATING
+
+      .tools
+        %a.collapse{:href => "javascript:;"}
+    .grid-body.no-border
+      = render 'report_ratings/user_rating'
+
+- if current_account.user != @user
+  .row
+    .action-list.grid.simple
+      .grid-title.no-border
+        %h4
+          %span.semi-bold Rating form
+        .tools
+          %a.collapse{:href => "javascript:;"}
+      .grid-body.no-border
+        = render 'report_ratings/user_rating_form'
+
+- if @chart
+  .row
+    = high_chart("main_chart", @chart)

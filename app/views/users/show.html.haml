@@ -51,6 +51,7 @@
                   .col-md-2
                     %label Status:
                   .col-md-4= @user.status
+
                 -unless @user.account
                   .row.pull-right
                     = link_to "Invite employee", new_user_invitation_path(user_id: @user.id), :class => "btn btn-primary btn-cons"

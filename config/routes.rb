@@ -34,18 +34,23 @@ Hatchboy::Application.routes.draw do
   post "payment_transactions/paypal_notify", :to => "payment_transactions#paypal_notify", :as => :paypal_notify
 
   scope "/reports" do
-
-    resources :hours, :controller => 'reports_hours', only: [:index], as: :reports_hours do
+    resources :hours, :controller => 'report_hours', only: [:index], as: :report_hours do
       collection do
-        get "team/:team_id", to: "reports_hours#team", as: :team
-        get "user/:user_id", to: "reports_hours#user", as: :user
+        get "team/:team_id", to: "report_hours#team", as: :team
+        get "user/:user_id", to: "report_hours#user", as: :user
       end
     end
-
-    resources :payments, :controller => 'reports_payments', only: [:index], as: :reports_payments do
-      get "user/:user_id", to: "reports_payments#user", as: :user, on: :collection
+    resources :payments, :controller => 'report_payments', only: [:index], as: :report_payments do
+      get "user/:user_id", to: "report_payments#user", as: :user, on: :collection
+    end
+    resources :ratings, :controller => 'report_ratings', only: [:index], as: :report_ratings do
+      get "user/:user_id", to: "report_ratings#user", as: :user, on: :collection
+    end
+    resources :mvp, :controller => 'report_mvp', only: [:index], as: :report_mvp do
+      get "user/:user_id", to: "report_mvp#user", as: :user, on: :collection
     end
   end
+  resources :user_multi_ratings, :only => [:create]
 
   get "reports", :to => "pages#dashboard", :as => :reports
   get "messages", :to => "pages#dashboard", :as => :messages

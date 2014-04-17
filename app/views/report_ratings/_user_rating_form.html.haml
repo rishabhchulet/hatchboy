@@ -1,0 +1,22 @@
+= form_for(current_account.user.user_multi_ratings.build(rated_id: @user.id), url: user_multi_ratings_path, remote: true) do |f|
+  = f.hidden_field :rated_id
+  = f.hidden_field :rater_id
+  %table.table.table-hover.table-condensed.dataTable
+    %thead
+      %tr
+        %th{width: "#{100 - UserMultiRating::MAX_RATING}%"} Aspect
+        - (1..UserMultiRating::MAX_RATING).each do |score|
+          %th{width: "1%"}= score
+    
+      %tbody
+        - USER_MULTI_RATING_ASPECTS.each do |code, aspect|
+          %tr
+            %td= aspect
+            - (1..UserMultiRating::MAX_RATING).each do |score|
+              %td
+                .radio.radio-success
+                  = radio_button_tag "user_multi_rating[score][#{code}]", score, (@current_user_scores[code] and @current_user_scores[code].first.score == score ? true : false), disabled: !@current_user_scores[code].nil?
+                  = label_tag "user_multi_rating_score_#{code}_#{score}", "&nbsp;".html_safe
+  
+  - unless @current_user_scores.count == USER_MULTI_RATING_ASPECTS.count
+    =f.submit "Rate", class: "btn btn-primary"

@@ -7,6 +7,11 @@ class User < ActiveRecord::Base
   has_many :teams, through: :user_teams
   has_many :worklogs, :class_name => "WorkLog", :dependent => :destroy
 
+  has_many :user_multi_ratings, foreign_key: "rater_id", dependent: :destroy
+  has_many :user_avg_ratings, foreign_key: "rater_id", dependent: :destroy
+  has_many :multi_ratings_by_users, foreign_key: "rated_id", class_name: "UserMultiRating", dependent: :destroy
+  has_many :avg_ratings_by_users, foreign_key: "rated_id", class_name: "UserAvgRating", dependent: :destroy
+
   scope :without_account, -> { joins("LEFT JOIN accounts AS r10 ON r10.user_id = users.id").where("r10.id IS NULL") }
   scope :with_account, -> { joins("LEFT JOIN accounts AS r11 ON r11.user_id = users.id").where("r11.id IS NOT NULL") }
 
@@ -26,4 +31,12 @@ class User < ActiveRecord::Base
     super company
   end
   
+  def update_rating!
+    self.rating = avg_ratings_by_users.current_period.average(:avg_score)
+    save!
+  end
+
+  def can_rate?(rated_user)
+    user_multi_ratings.current_period.where(rated_id: rated_user.id).count < USER_MULTI_RATING_ASPECTS.count
+  end
 end

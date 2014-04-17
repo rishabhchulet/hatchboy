@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140324153623) do
+ActiveRecord::Schema.define(version: 20140410073700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,6 +200,35 @@ ActiveRecord::Schema.define(version: 20140324153623) do
     t.datetime "updated_at"
   end
 
+  create_table "user_avg_ratings", force: true do |t|
+    t.integer  "rated_id"
+    t.integer  "rater_id"
+    t.float    "avg_score"
+    t.date     "date_period"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_avg_ratings", ["rated_id", "date_period"], name: "index_user_avg_ratings_on_rated_id_and_date_period", using: :btree
+  add_index "user_avg_ratings", ["rated_id"], name: "index_user_avg_ratings_on_rated_id", using: :btree
+  add_index "user_avg_ratings", ["rater_id", "date_period"], name: "index_user_avg_ratings_on_rater_id_and_date_period", using: :btree
+  add_index "user_avg_ratings", ["rater_id"], name: "index_user_avg_ratings_on_rater_id", using: :btree
+
+  create_table "user_multi_ratings", force: true do |t|
+    t.integer  "rated_id"
+    t.integer  "rater_id"
+    t.integer  "score"
+    t.string   "aspect_code"
+    t.date     "date_period"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_multi_ratings", ["rated_id", "date_period"], name: "index_user_multi_ratings_on_rated_id_and_date_period", using: :btree
+  add_index "user_multi_ratings", ["rated_id"], name: "index_user_multi_ratings_on_rated_id", using: :btree
+  add_index "user_multi_ratings", ["rater_id", "date_period"], name: "index_user_multi_ratings_on_rater_id_and_date_period", using: :btree
+  add_index "user_multi_ratings", ["rater_id"], name: "index_user_multi_ratings_on_rater_id", using: :btree
+
   create_table "users", force: true do |t|
     t.integer  "company_id"
     t.string   "name"
@@ -209,6 +238,7 @@ ActiveRecord::Schema.define(version: 20140324153623) do
     t.string   "avatar"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "rating",        precision: 6, scale: 2
   end
 
   create_table "work_logs", force: true do |t|

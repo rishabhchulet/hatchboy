@@ -1,0 +1,7 @@
+%tr.data-row
+  %td= users_list_row.id
+  %td
+    = link_to users_list_row.name, user_report_ratings_path(users_list_row)
+    - if current_account.user != users_list_row and current_account.user.can_rate? users_list_row
+      %span.label.label-important Waiting for rating
+  %td= users_list_row.rating.to_f

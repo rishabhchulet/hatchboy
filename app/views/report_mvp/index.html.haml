@@ -10,28 +10,28 @@
     %a{:href => reports_path} Reports
   %i.icon-angle-right
   %li
-    %a.active{:href => reports_payments_path} Payments
+    %a.active{:href => report_mvp_index_path} MVP
 
 .row
   .col-md-11
     .page-title
       %i.icon-custom-ui
-      %h3 Payments report
+      %h3 Most valuable players
   .col-md-1.text-right
 
 .row
   .action-list.grid.simple
     .grid-title.no-border
       %h4
-        %span.semi-bold Some object
+        %span.semi-bold Ratings
       .tools
         %a.collapse{:href => "javascript:;"}
     .grid-body.no-border
-      = form_tag(reports_payments_path, method: "get", id: "report-filter-form") do
+      = form_tag(report_mvp_index_path, method: "get", id: "report-filter-form") do
         #report-filter-block.row{style: "margin-bottom: 20px;"}
-          = render partial: "reports_payments/filter"
+          = render partial: "report_mvp/filter"
         #report-data-block.row
-          = render partial: "reports_payments/users_report_table"
+          = render partial: "report_mvp/users_report_table"
 
 - if @chart
   .row

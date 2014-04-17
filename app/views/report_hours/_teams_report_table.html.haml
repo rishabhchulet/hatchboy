@@ -11,7 +11,7 @@
       %th{:width => "48%"} Total time
   %tbody
     - if @teams and @teams.count > 0
-      = render partial: "reports_hours/teams_list_row", collection: @teams
+      = render partial: "report_hours/teams_list_row", collection: @teams
     - else
       %tr.text-center
         %td{:colspan => "4"}

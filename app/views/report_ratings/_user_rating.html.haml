@@ -1,0 +1,11 @@
+- USER_MULTI_RATING_ASPECTS.each do |code, aspect|
+  - score = @aspect_scores.select{|s| s.aspect_code == code}.first
+  - aspect_score = score ? score.aspect_score : 0
+  .row{data: {aspect_code: code}}
+    .col-md-8
+      = aspect
+    .col-md-3
+      .progress
+        .progress-bar.progress-bar-success{style: "width: #{val_in_percent(aspect_score, UserMultiRating::MAX_RATING)}%", role: "progressbar-bar", data: {percentage: "#{val_in_percent(aspect_score, UserMultiRating::MAX_RATING)}%"}}
+    .col-md-1.total_score
+      = "#{aspect_score.round(2)} / #{UserMultiRating::MAX_RATING}"

@@ -5,7 +5,7 @@
     .checkbox
       %input.check{id: "check-team-#{teams_list_row.id}", type: 'checkbox', value: teams_list_row.id, name: 'teams[]', checked: (params[:teams] and params[:teams].include? teams_list_row.id.to_s)}
       %label{for: "check-team-#{teams_list_row.id}"}
-  %td= link_to teams_list_row.name, team_reports_hours_path( teams_list_row )
+  %td= link_to teams_list_row.name, team_report_hours_path( teams_list_row )
   %td= nice_time_difference(@teams_users[teams_list_row.id].map(&:time).reduce(:+))
   
 %tr.hiddenRow.accordian-body.collapse{:id => "team-#{teams_list_row.id}"}
@@ -13,6 +13,6 @@
     - @teams_users[teams_list_row.id].each do |w|
       .row
         .col-md-6
-          = link_to w.user.name, user_reports_hours_path( w.user )
+          = link_to w.user.name, user_report_hours_path( w.user )
         .col-md-6
           = nice_time_difference w.time

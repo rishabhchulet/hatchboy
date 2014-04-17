@@ -1,0 +1,10 @@
+%table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#users-short-list
+  %thead
+    %tr
+      %th #
+      %th Name
+      %th Rating
+  %tbody
+    = render partial: "report_ratings/users_list_row", collection: @users
+
+= paginate @users

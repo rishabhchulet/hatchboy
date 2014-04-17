@@ -10,10 +10,10 @@
     %a{:href => reports_path} Reports
   %i.icon-angle-right
   %li
-    %a{:href => reports_payments_path} Payments
+    %a{:href => report_payments_path} Payments
   %i.icon-angle-right
   %li
-    %a.active{:href => user_reports_hours_path(@user)} User
+    %a.active{:href => user_report_hours_path(@user)} User
 
 .row
   .col-md-11
@@ -39,6 +39,6 @@
               %th{:width => "30%"} Amount
               %th{:width => "30%"} Date
           %tbody
-            = render partial: "reports_payments/user_payments_list_row", collection: @payments
+            = render partial: "report_payments/user_payments_list_row", collection: @payments
       .row
         = paginate @payments
