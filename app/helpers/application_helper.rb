@@ -37,12 +37,12 @@ module ApplicationHelper
 
   def nice_time_difference delta
 
-    return "0h" if delta.to_i == 0
+    return "0h" if delta.to_f == 0
 
     map = {days: 'd', hours: 'h', minutes: 'm', seconds: 's'}
 
     components = map.keys.collect do |step|
-      seconds = 1.send(step)
+      seconds = 1.send(step) / 3600.0
       [map[step], (delta / seconds).to_i].tap do
         delta %= seconds
       end
@@ -52,4 +52,3 @@ module ApplicationHelper
   end
 
 end
-

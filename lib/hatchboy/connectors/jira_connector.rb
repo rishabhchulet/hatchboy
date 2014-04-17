@@ -85,7 +85,7 @@ module Hatchboy
                 if source_user = self.source_users.where(uid: worklog.author.name).first
                   log = team.worklogs.create_with({
                     comment: worklog.comment, issue: issue.summary, on_date: worklog.started,
-                    time: worklog.timeSpentSeconds, user: source_user.user
+                    time: (worklog.timeSpentSeconds.to_i / 3600.0), user: source_user.user
                   }).find_or_create_by(source: self, uid_in_source: worklog.id)
                 end
 

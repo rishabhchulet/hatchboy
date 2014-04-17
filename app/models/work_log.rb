@@ -13,4 +13,8 @@ class WorkLog < ActiveRecord::Base
   def self.grouped
     group(:team_id, :user_id).select(:team_id, :user_id, "sum(time) as time")
   end
+
+  def time=(t)
+    write_attribute :time, (t.is_a?(String) ? (t.to_hours || t) : t)
+  end
 end
