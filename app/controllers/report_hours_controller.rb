@@ -20,21 +20,21 @@ class ReportHoursController < ApplicationController
       @users = worklogs.map(&:user).uniq
     end
 
-    chart_data = group_timeline_from_params worklogs, params do |scope, date|
-      if params[:group_by] == "teams"
-        @teams.collect do |team|
-          worklog = scope.select{|w| team.id == w.team_id}.first if scope
-          { time: worklog ? (worklog.time/3600).round(4) : 0, team: team }
-        end
-      else
-        @users.collect do |user|
-          worklog = scope.select{|w| user.id == w.user_id}.first if scope
-          { time: worklog ? (worklog.time/3600).round(4) : 0, user: user }
+    if worklogs.count > 0
+      chart_data = group_timeline_from_params worklogs, params do |scope, date|
+        if params[:group_by] == "teams"
+          @teams.collect do |team|
+            worklog = scope.select{|w| team.id == w.team_id}.first if scope
+            { time: worklog ? (worklog.time/3600).round(4) : 0, team: team }
+          end
+        else
+          @users.collect do |user|
+            worklog = scope.select{|w| user.id == w.user_id}.first if scope
+            { time: worklog ? (worklog.time/3600).round(4) : 0, user: user }
+          end
         end
       end
-    end
 
-    if chart_data.length > 0
       @chart = LazyHighCharts::HighChart.new('graph') do |f|
         f.title({ :text=>"Work Logs"})
         f.options[:xAxis][:categories] = chart_data.keys

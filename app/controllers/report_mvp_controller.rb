@@ -22,17 +22,17 @@ class ReportMvpController < ApplicationController
       end
     end
 
-    worklogs = (params[:date] == "today" or params[:date] == "specific") ? worklogs.group_by{|w| w.g_created_at.to_time} : worklogs.group_by{|w| w.g_created_at.to_date}
-    chart_data = group_timeline_from_params payments, params do |scope, date|
-      period_worklogs = (date.is_a? Integer) ? worklogs[Time.at(date)] : worklogs[date]
-      @users.collect do |user|
-        payment = scope.select{|p| user.id == p.user_id}.first if scope
-        worklog = period_worklogs.select{|p| user.id == p.user_id}.first if period_worklogs
-        { rate: payment ? ((worklog ? worklog.time : 0) / 3600 / payment.amount).round(2) : 0, user: user }
+    if payments.count > 0
+      worklogs = (params[:date] == "today" or params[:date] == "specific") ? worklogs.group_by{|w| w.g_created_at.to_time} : worklogs.group_by{|w| w.g_created_at.to_date}
+      chart_data = group_timeline_from_params payments, params do |scope, date|
+        period_worklogs = (date.is_a? Integer) ? worklogs[Time.at(date)] : worklogs[date]
+        @users.collect do |user|
+          payment = scope.select{|p| user.id == p.user_id}.first if scope
+          worklog = period_worklogs.select{|p| user.id == p.user_id}.first if period_worklogs
+          { rate: payment ? ((worklog ? worklog.time : 0) / 3600 / payment.amount).round(2) : 0, user: user }
+        end
       end
-    end
 
-    if chart_data.length > 0
       @chart = LazyHighCharts::HighChart.new('graph') do |f|
         f.title({ :text=>"MVP"})
         f.options[:xAxis][:categories] = chart_data.keys

@@ -11,14 +11,14 @@ class ReportPaymentsController < ApplicationController
     @users_payments = payments.group_by(&:user_id)
     @users = payments.map(&:user).uniq
 
-    chart_data = group_timeline_from_params payments, params do |scope, date|
-      @users.collect do |user|
-        payment = scope.select{|p| user.id == p.user_id}.first if scope
-        { time: payment ? payment.amount.round(2) : 0, user: user }
+    if payments.count > 0
+      chart_data = group_timeline_from_params payments, params do |scope, date|
+        @users.collect do |user|
+          payment = scope.select{|p| user.id == p.user_id}.first if scope
+          { time: payment ? payment.amount.round(2) : 0, user: user }
+        end
       end
-    end
     
-    if chart_data.length > 0
       @chart = LazyHighCharts::HighChart.new('graph') do |f|
         f.title({ :text=>"Payments"})
         f.options[:xAxis][:categories] = chart_data.keys
