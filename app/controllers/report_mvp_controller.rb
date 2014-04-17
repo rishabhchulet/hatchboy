@@ -16,7 +16,7 @@ class ReportMvpController < ApplicationController
       user_time = worklogs.select{|w| w.user_id == user_id}.map(&:time).reduce(:+)
       if user_time and user_amount
         @scores << {
-          rate: (user_time / 3600 / user_amount).round(4),
+          rate: (user_time / user_amount).round(4),
           user: user_payments.first.user
         }
       end
@@ -29,7 +29,7 @@ class ReportMvpController < ApplicationController
         @users.collect do |user|
           payment = scope.select{|p| user.id == p.user_id}.first if scope
           worklog = period_worklogs.select{|p| user.id == p.user_id}.first if period_worklogs
-          { rate: payment ? ((worklog ? worklog.time : 0) / 3600 / payment.amount).round(2) : 0, user: user }
+          { rate: payment ? ((worklog ? worklog.time : 0) / payment.amount).round(2) : 0, user: user }
         end
       end
 
@@ -63,7 +63,7 @@ class ReportMvpController < ApplicationController
       worklog = worklogs.select{|w| w.g_created_at == payment.g_created_at}.first
       if worklog
         @scores << {
-          rate: (worklog.time / 3600 / payment.amount).round(4),
+          rate: (worklog.time / payment.amount).round(4),
           date: payment.g_created_at.to_date
         }
       end

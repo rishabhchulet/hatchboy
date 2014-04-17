@@ -24,13 +24,13 @@ class ReportHoursController < ApplicationController
       chart_data = group_timeline_from_params worklogs, params do |scope, date|
         if params[:group_by] == "teams"
           @teams.collect do |team|
-            worklog = scope.select{|w| team.id == w.team_id}.first if scope
-            { time: worklog ? (worklog.time/3600).round(4) : 0, team: team }
+            team_worklogs = scope.select{|w| team.id == w.team_id} if scope
+            { time: team_worklogs.count > 0 ? team_worklogs.map(&:time).reduce(:+) : 0, team: team }
           end
         else
           @users.collect do |user|
             worklog = scope.select{|w| user.id == w.user_id}.first if scope
-            { time: worklog ? (worklog.time/3600).round(4) : 0, user: user }
+            { time: worklog ? worklog.time : 0, user: user }
           end
         end
       end
