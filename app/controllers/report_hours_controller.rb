@@ -5,12 +5,10 @@ class ReportHoursController < ApplicationController
   include ReportsHelper
 
   def index
-    params[:group_by] ||= "users"
-    params[:date] ||= "all_time"
+    @query_params = retrieve_query_params :hours, [:date, :group_by, :users, :teams, :specific_date, :period_from, :period_to]
+    worklogs = Hatchboy::ReportsFilters::WorkLogsFilter.new.filter_by_params(@query_params)
 
-    worklogs = Hatchboy::ReportsFilters::WorkLogsFilter.new
-    worklogs = worklogs.filter_by_params(params)
-    if params[:group_by] == "teams"
+    if @query_params[:group_by] == "teams"
       worklogs = worklogs.includes(:team, :user).to_a
       @teams_users = worklogs.group_by{|w| w.team.id}
       @teams = worklogs.map(&:team).uniq
@@ -21,41 +19,21 @@ class ReportHoursController < ApplicationController
     end
 
     if worklogs.count > 0
-      chart_data = group_timeline_from_params worklogs, params do |scope, date|
-        if params[:group_by] == "teams"
+      chart_data = group_timeline_from_params worklogs, @query_params do |scope, date|
+        if @query_params[:group_by] == "teams"
           @teams.collect do |team|
             team_worklogs = scope.select{|w| team.id == w.team_id} if scope
-            { time: team_worklogs.count > 0 ? team_worklogs.map(&:time).reduce(:+) : 0, team: team }
+            { id: team.id, name: team.name, value: ((team_worklogs and team_worklogs.count > 0) ? team_worklogs.map(&:time).reduce(:+) : 0) }
           end
         else
           @users.collect do |user|
             worklog = scope.select{|w| user.id == w.user_id}.first if scope
-            { time: worklog ? worklog.time : 0, user: user }
+            { id: user.id, name: user.name, value: worklog ? worklog.time : 0 }
           end
         end
       end
-
-      @chart = LazyHighCharts::HighChart.new('graph') do |f|
-        f.title({ :text=>"Work Logs"})
-        f.options[:xAxis][:categories] = chart_data.keys
-        f.options[:chart][:zoomType] = 'x,y'
-        
-        if params[:group_by] == "teams"
-          chart_data.values.flatten.group_by{|u| u[:team].id}.each do |team_id, team|
-            f.series(:type=> 'column',:name=> team.first[:team].name,:data=> team.map{|d| d[:time]})
-          end
-        else
-          chart_data.values.flatten.group_by{|u| u[:user].id}.each do |user_id, user|
-            f.series(:type=> 'column',:name=> user.first[:user].name,:data=> user.map{|d| d[:time]})
-          end
-        end
-
-        f.series(:type=> 'spline',:name=> 'Average', :data=> chart_data.values.collect{|w| w.map{|e| e[:time]}.instance_eval { (reduce(:+) / size.to_f).round(2) } })
-        f.yAxis [
-          {:title => {:text => "Hours", :margin => 10}, :min => 0},
-        ]
-        f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical')
-      end
+      
+      @chart = build_chart({title: "Work Logs", y_title: "Hours", data: chart_data})
     end
   rescue Exception => e
     flash.now[:error] = e.message
@@ -64,11 +42,38 @@ class ReportHoursController < ApplicationController
 
   def team
     @team = Team.where(id: params[:team_id]).first or not_found
-    @worklogs = @team.worklogs.group(:user_id).select("work_logs.user_id, sum(work_logs.time) AS time")
+    @query_params = retrieve_query_params :hours, [:date, :specific_date, :period_from, :period_to]
+    worklogs = Hatchboy::ReportsFilters::WorkLogsFilter.new(WorkLog.where(team_id: @team.id)).filter_by_params(@query_params).includes(:user).to_a
+
+    @team_users = worklogs.map(&:user).uniq
+    @team_users_worklogs = worklogs.group_by{|w| w.user_id}
+
+    chart_data = group_timeline_from_params worklogs, @query_params do |scope, date|
+      @team_users.collect do |user|
+        worklog = scope.select{|w| user.id == w.user_id}.first if scope
+        { id: user.id, name: user.name, value: worklog ? worklog.time : 0 }
+      end
+    end
+
+    @chart = build_chart({title: "Work Logs of #{@team.name}", y_title: "Hours", data: chart_data})
   end
 
   def user
     @user = User.where(id: params[:user_id]).first or not_found
-    @worklogs = WorkLog.includes(:team, :user).where(user_id: params[:user_id]).page params[:page]
+    @query_params = retrieve_query_params :hours, [:date, :specific_date, :period_from, :period_to]
+    @query_params[:group_by] = "teams"
+    worklogs = Hatchboy::ReportsFilters::WorkLogsFilter.new(WorkLog.where(user_id: @user.id)).filter_by_params(@query_params).includes(:team).to_a
+
+    @user_teams = worklogs.map(&:team).uniq
+    @user_teams_worklogs = worklogs.group_by{|w| w.team_id}
+    
+    chart_data = group_timeline_from_params worklogs, @query_params do |scope, date|
+      @user_teams.collect do |team|
+        worklog = scope.select{|w| team.id == w.team_id}.first if scope
+        { id: team.id, name: team.name, value: worklog ? worklog.time : 0 }
+      end
+    end
+
+    @chart = build_chart({title: "Work Logs of #{@user.name}", y_title: "Hours", data: chart_data})
   end
 end

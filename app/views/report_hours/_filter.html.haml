@@ -1,8 +1,11 @@
+=hidden_field_tag :set_filter, 1
+=hidden_field_tag :type, :hours
+
 .col-md-4
   = label_tag "Group by"
   = select_tag :group_by, options_for_select([ ["Users", :users], ["Teams", :teams] ], (params[:group_by] or :users))
 
-= render partial: "reports/date_filter"
+= render partial: "reports/date_filter", locals: {params: params}
 
 .col-md4.pull-right
   = submit_tag "Apply", class: "btn btn-primary btn-cons", name: ""
