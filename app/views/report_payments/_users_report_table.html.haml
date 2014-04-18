@@ -9,7 +9,7 @@
       %th{:width => "49%"} Total amount
   %tbody
     - if @users and @users.count > 0
-      = render partial: "report_payments/users_list_row", collection: @users
+      = render partial: "report_payments/users_list_row", collection: @users, locals: {params: @query_params}
     - else 
       %tr.text-center
         %td{:colspan => "3"}

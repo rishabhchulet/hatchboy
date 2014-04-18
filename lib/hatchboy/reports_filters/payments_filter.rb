@@ -13,7 +13,7 @@ module Hatchboy
       def filter_by_params params
         scope = self.class.new @scope.joins(:payment).group(:user_id).select("sum(amount) AS amount", :user_id)
         scope = case params[:date]
-          when 'today' then scope.group_by_date_field("hour").from_date(Time.now.beginning_of_day)
+          when 'today' then scope.group_by_date_field("hour").in_date(Time.now)
           when 'last_week' then scope.group_by_date_field("day").from_date(1.week.ago.beginning_of_day)
           when 'last_month' then scope.group_by_date_field("day").from_date(1.month.ago.beginning_of_day) 
           when 'specific' then scope.group_by_date_field("hour").in_date(DateTime.parse(params[:specific_date]))

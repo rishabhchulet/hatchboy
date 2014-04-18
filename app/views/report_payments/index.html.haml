@@ -19,6 +19,10 @@
       %h3 Payments report
   .col-md-1.text-right
 
+- if @chart
+  .row
+    = high_chart("main_chart", @chart)
+    
 .row
   .action-list.grid.simple
     .grid-title.no-border
@@ -29,16 +33,14 @@
     .grid-body.no-border
       = form_tag(report_payments_path, method: "get", id: "report-filter-form") do
         #report-filter-block.row{style: "margin-bottom: 20px;"}
-          = render partial: "report_payments/filter"
+          = render partial: "report_payments/filter", locals: {params: @query_params}
         #report-data-block.row
-          = render partial: "report_payments/users_report_table"
-
-- if @chart
-  .row
-    = high_chart("main_chart", @chart)
+          = render partial: "report_payments/users_report_table", locals: {params: @query_params}
 
 =content_for :javascript do
   =javascript_include_tag "js/reports"
+=content_for :javascript do
+  =javascript_include_tag "highcharts/ext"
 
 :coffeescript
   $ ->
