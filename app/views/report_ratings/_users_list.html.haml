@@ -1,9 +1,9 @@
 %table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#users-short-list
   %thead
     %tr
-      %th #
-      %th Name
-      %th Rating
+      %th{:width => "60%"} Name
+      %th{:width => "30%"} Rating
+      %th{:width => "10%"}
   %tbody
     = render partial: "report_ratings/users_list_row", collection: @users
 
