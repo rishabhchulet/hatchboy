@@ -230,6 +230,11 @@ GEM
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
+    public_activity (1.4.1)
+      actionpack (>= 3.0.0)
+      activerecord (>= 3.0)
+      i18n (>= 0.5.0)
+      railties (>= 3.0.0)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
@@ -402,6 +407,7 @@ DEPENDENCIES
   paypal-sdk-merchant (~> 1.106.1)
   pg
   poltergeist (~> 1.4.1)
+  public_activity (~> 1.4.1)
   quiet_assets
   rack_session_access (~> 0.1.1)
   rails (= 4.0.1)

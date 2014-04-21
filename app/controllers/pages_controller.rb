@@ -10,9 +10,6 @@ class PagesController < ApplicationController
     end
   end
 
-  def dashboard
-  end
-
   def email
   end
 
