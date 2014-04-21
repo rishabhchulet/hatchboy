@@ -31,7 +31,7 @@ module ReportsHelper
 
   def build_chart params
     LazyHighCharts::HighChart.new(params[:data].count > 1 ? 'graph' : 'pie') do |f|
-      if params[:data].count > 1
+      if params[:data].count > 1 or params[:columns]
         f.title({ :text=> params[:title]})
         f.options[:xAxis][:categories] = params[:data].keys
         f.options[:chart][:zoomType] = 'x,y'
@@ -39,7 +39,9 @@ module ReportsHelper
         params[:data].values.flatten.group_by{|i| i[:id]}.each do |id, item|
           f.series(:type=> 'column',:name=> item.first[:name], :data=> item.map{|d| d[:value]}, maxPointWidth: 100)
         end
-        f.series(:type=> 'spline',:name=> 'Average', :data=> params[:data].values.collect{|a| a.map{|i| i[:value]}.instance_eval { (reduce(:+) / size.to_f).round(2) } })
+        unless params[:without_average]
+          f.series(:type=> 'spline',:name=> 'Average', :data=> params[:data].values.collect{|a| a.map{|i| i[:value]}.instance_eval { (reduce(:+) / size.to_f).round(2) } })
+        end
         f.yAxis [
           {:title => {:text => params[:y_title], :margin => 10}, :min => 0},
         ]

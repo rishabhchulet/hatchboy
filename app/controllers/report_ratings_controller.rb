@@ -2,24 +2,16 @@ class ReportRatingsController < ApplicationController
   
   before_filter :check_session!
 
+  include ReportsHelper
+
   def index
-    @users = User.order(:rating).page(params[:page]).per(20)
+    @users = User.order("rating DESC").page(params[:page]).per(20)
     scores = UserAvgRating.where(rated_id: @users).group(:date_period, :rated_id).order(:date_period).select('rated_id, date_period, avg(avg_score) AS rating')
-    if scores.length > 1
-      @chart = LazyHighCharts::HighChart.new('graph') do |f|
-        f.title({ :text=>"Users rating"})
-        f.options[:chart][:zoomType] = 'x,y'
-        f.options[:xAxis][:categories] = scores.map(&:date_period).uniq
-        scores.group_by(&:rated_id).each do |rated_id, scores|
-          f.series(:type=> 'column',:name=> @users.select{|user| user.id == rated_id}.first.name,:data=> scores.map(&:rating).collect{|r| r.round(2)})
-        end
-        f.series(:type=> 'spline',:name=> 'Average', :data=> scores.group_by(&:date_period).map{|key, scores| scores.map(&:rating).instance_eval { (reduce(:+) / size.to_f).round(2) } })
-        f.yAxis [
-          {:title => {:text => "Rating value", :margin => 10}, :min => 0, :max => UserMultiRating::MAX_RATING},
-        ]
-        f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical')
-      end
+    chart_data = Hash.new
+    scores.group_by(&:date_period).each do |date, date_scores|
+      chart_data[date.to_date] = date_scores.map{|s| {id: s.rated_id, name: @users.select{|user| user.id == s.rated_id}.first.name, value: s.rating.round(2)}}
     end
+    @chart = build_chart({title: "Users rating", y_title: "Rating value", data: chart_data, without_average: true, columns: true}) if chart_data.length > 0
   end
 
   def user
@@ -33,9 +25,7 @@ class ReportRatingsController < ApplicationController
         f.options[:xAxis][:categories] = scores.map(&:date_period)
         f.options[:chart][:zoomType] = 'x,y'
         f.series(:type=> 'spline',:name=> 'Rating', :data=> scores.map(&:rating).collect{|score| score.round(2)})
-        f.yAxis [
-          {:title => {:text => "Rating value", :margin => 10}, :min => 0, :max => UserMultiRating::MAX_RATING},
-        ]    
+        f.yAxis [{:title => {:text => "Rating value", :margin => 10}, :min => 0, :max => UserMultiRating::MAX_RATING},]
       end
     end
   end
