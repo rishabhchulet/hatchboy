@@ -37,3 +37,6 @@
         %tr
           %td= score[:date]
           %td= score[:rate]
+
+=content_for :javascript do
+  =javascript_include_tag "highcharts/ext"

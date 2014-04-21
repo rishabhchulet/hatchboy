@@ -57,12 +57,12 @@ class ReportMvpController < ApplicationController
       end
     end
 
-    if @scores.count > 0
+    if @scores.count > 1
       @chart = LazyHighCharts::HighChart.new('graph') do |f|
         f.title({ :text=>"MVP"})
         f.options[:xAxis][:categories] = @scores.map{|s| s[:date]}
         f.options[:chart][:zoomType] = 'x,y'
-        f.series(:type=> 'column',:name=> @user.name,:data=> @scores.map{|s| s[:rate]})
+        f.series(:type=> 'column',:name=> @user.name,:data=> @scores.map{|s| s[:rate]}, maxPointWidth: 100)
         f.yAxis [ {:title => {:margin => 10}, :min => 0} ]
       end
     end
