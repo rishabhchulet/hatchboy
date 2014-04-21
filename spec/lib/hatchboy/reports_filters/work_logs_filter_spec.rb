@@ -6,10 +6,10 @@ describe Hatchboy::ReportsFilters::WorkLogsFilter do
   context "when filter by params" do
 
     before do
-      create_list :work_log, 2, created_at: (1.month.ago - 1.day), user: create(:user)
-      create_list :work_log, 2, created_at: (1.week.ago - 1.day), team: create(:team)
-      create :work_log, created_at: (1.day.ago - 1.hour)
-      create :work_log, created_at: 1.hour.ago
+      create_list :work_log, 2, on_date: (1.month.ago - 1.day), user: create(:user)
+      create_list :work_log, 2, on_date: (1.week.ago - 1.day), team: create(:team)
+      create :work_log, on_date: (1.day.ago - 1.hour)
+      create :work_log, on_date: 1.hour.ago
     end
 
     context "with time params" do
