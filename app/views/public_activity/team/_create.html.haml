@@ -1,10 +1,20 @@
-added a team
-
-- if activity.trackable
-  = link_to activity.trackable.name, activity.trackable
-- else
-  - begin
-    - comments = JSON.parse activity.comments
-    = "\"#{comments["name"]}\""
-  - rescue
+.notification-messages.info
+  .user-profile
+    %img{width: 35, height: 35, src: activity.owner.avatar.url}
+  .message-wrapper
+    .heading
+      =link_to activity.owner.name, activity.owner
+      \- Created new team
+    .description
+      - if activity.trackable
+        = link_to activity.trackable.name, activity.trackable
+      - else
+        - begin
+          - comments = JSON.parse activity.comments
+          = "#{comments["name"]}"
+        - rescue
+          it's name fell off the edge of the earth
+  .date.pull-right
+    = time_ago_in_words activity.created_at
+    ago
 
