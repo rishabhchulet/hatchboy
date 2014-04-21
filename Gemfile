@@ -33,6 +33,7 @@ gem "rails3-jquery-autocomplete", "~> 1.0.12"
 gem 'bootstrap-datepicker-rails', '~> 1.3.0.1'
 gem 'lazy_high_charts', '~> 1.5.2'
 gem 'kaminari', '~> 0.15.1'
+gem 'public_activity', '~> 1.4.1'
 
 gem "activemerchant", "~> 1.42.6"
 
