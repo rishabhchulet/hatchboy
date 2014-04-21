@@ -18,5 +18,10 @@
                   = radio_button_tag "user_multi_rating[score][#{code}]", score, (@current_user_scores[code] and @current_user_scores[code].first.score == score ? true : false), disabled: !@current_user_scores[code].nil?
                   = label_tag "user_multi_rating_score_#{code}_#{score}", "&nbsp;".html_safe
   
-  - unless @current_user_scores.count == USER_MULTI_RATING_ASPECTS.count
-    =f.submit "Rate", class: "btn btn-primary"
+  - if @current_user_scores.count == USER_MULTI_RATING_ASPECTS.count
+    = link_to "Back", report_ratings_path, :class => "btn btn-white btn-cons"
+  - elsif @current_user_scores.count > 0
+    = f.submit "Rate", class: "btn btn-primary btn-cons"
+    = link_to "Back", report_ratings_path, :class => "btn btn-white btn-cons"
+  - else
+    = f.submit "Rate", class: "btn btn-primary btn-cons"
