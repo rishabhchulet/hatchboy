@@ -1,5 +1,9 @@
 class Team < ActiveRecord::Base
 
+  include PublicActivity::Model
+  tracked owner: ->(controller, model) { controller && controller.current_user },
+          comments: ->(controller, model) { {name: model.name}.to_json }
+
   belongs_to :company
   belongs_to :created_by, class_name: "User"
 
@@ -17,3 +21,4 @@ class Team < ActiveRecord::Base
   validates :name, :presence => true
 
 end
+
