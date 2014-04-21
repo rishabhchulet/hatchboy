@@ -1,0 +1,35 @@
+.notification-messages.danger
+  .user-profile
+    %img{width: 35, height: 35, src: activity.owner.avatar.url}
+  .message-wrapper
+    .heading
+      =link_to activity.owner.name, activity.owner
+      \- Added member to team
+    .description
+      - begin
+        - comments = JSON.parse activity.comments
+      - rescue
+      - if activity.trackable
+        User
+        = link_to activity.trackable.user.name, activity.trackable.user
+        left the team
+        = link_to activity.trackable.team.name, activity.trackable.team
+      - else
+        - if user = User.find(comments['user_id'])
+          User
+          = link_to user.name, user
+          left
+        - elsif comments['user_name']
+          User
+          = comments['user_name']
+          left
+        - if team = Team.find(comments['team_id'])
+          the team
+          = link_to team.name, team
+        - elsif comments['team_name']
+          the team
+          = comments['team_name']
+  .date.pull-right
+    = time_ago_in_words activity.created_at
+    ago
+

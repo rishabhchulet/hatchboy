@@ -36,8 +36,9 @@ class TeamsUsersController < ApplicationController
 
   def destroy
     @team = account_company.teams.where(id: params[:team_id]).first or not_found
-    @user = @team.users.where(id: params[:id]).first or not_found
-    @team.users.delete(@user)
+    team_user = @team.team_users.where(user_id: params[:id]).first or not_found
+    @user = team_user.user
+    team_user.destroy
     redirect_to request.referer.blank? ? team_path(@team) : request.referer
   end
 
