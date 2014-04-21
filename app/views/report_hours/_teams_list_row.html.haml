@@ -10,9 +10,9 @@
   
 %tr.hiddenRow.accordian-body.collapse{:id => "team-#{teams_list_row.id}"}
   %td{:colspan => "4"}
-    - @teams_users[teams_list_row.id].each do |w|
+    - @teams_users[teams_list_row.id].group_by(&:user_id).each do |user_id, w|
       .row
         .col-md-6
-          = link_to w.user.name, user_report_hours_path( w.user )
+          = link_to w.first.user.name, user_report_hours_path( w.first.user )
         .col-md-6
-          = nice_time_difference w.time
+          = nice_time_difference w.map(&:time).reduce(:+)

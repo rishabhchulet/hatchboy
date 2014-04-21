@@ -1,4 +1,26 @@
-= render partial: "reports/date_filter"
+=hidden_field_tag :set_filter, 1
+=hidden_field_tag :type, :mvp
+
+.col-md-4
+  = label_tag "Select date"
+  .row
+    = select_tag :date, options_for_select([ ["All time", :all_time], ["Last month", :last_month], ["Time period", :period] ], (params[:date] or :all_time))
+  .row{:style => "margin-top: 20px;"}
+    .filter-period-date{style: "display: none;"}
+      .col-md-6.no-padding
+        = label_tag "From"
+        .input-append.date
+          = text_field_tag :period_from, params[:period_from]
+          %span.add-on
+            %span.arrow
+            %i.icon-th
+      .col-md-6.no-padding
+        = label_tag "To"
+        .input-append.date
+          = text_field_tag :period_to, params[:period_to]
+          %span.add-on
+            %span.arrow
+            %i.icon-th
 
 .col-md4.pull-right
   = submit_tag "Apply", class: "btn btn-primary btn-cons", name: ""

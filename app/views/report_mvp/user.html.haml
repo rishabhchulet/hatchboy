@@ -22,6 +22,10 @@
       %h3= @user.name
   .col-md-1.text-right
 
+- if @chart
+  .row
+    = high_chart("main_chart", @chart)
+    
 .row
   %table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#teams-short-list
     %thead
@@ -33,7 +37,3 @@
         %tr
           %td= score[:date]
           %td= score[:rate]
-
-- if @chart
-  .row
-    = high_chart("main_chart", @chart)

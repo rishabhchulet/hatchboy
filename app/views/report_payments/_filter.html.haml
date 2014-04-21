@@ -1,4 +1,7 @@
-= render partial: "reports/date_filter"
+=hidden_field_tag :set_filter, 1
+=hidden_field_tag :type, :payments
+
+= render partial: "reports/date_filter", locals: {params: params}
 
 .col-md4.pull-right
   = submit_tag "Apply", class: "btn btn-primary btn-cons", name: ""

@@ -22,6 +22,10 @@
       %h3= @user.name
   .col-md-1.text-right
 
+- if @chart
+  .row
+    = high_chart("main_chart", @chart)
+    
 .row
   .action-list.grid.simple
     .grid-title.no-border
@@ -47,7 +51,3 @@
           %a.collapse{:href => "javascript:;"}
       .grid-body.no-border
         = render 'report_ratings/user_rating_form'
-
-- if @chart
-  .row
-    = high_chart("main_chart", @chart)
