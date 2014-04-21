@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20140421064558) do
   add_index "accounts", ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true, using: :btree
 
   create_table "activities", force: true do |t|
+    t.integer  "company_id"
     t.integer  "trackable_id"
     t.string   "trackable_type"
     t.integer  "owner_id"

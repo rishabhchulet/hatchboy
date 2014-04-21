@@ -1,0 +1,10 @@
+added a team
+
+- if activity.trackable
+  = link_to activity.trackable.name, activity.trackable
+- else
+  - begin
+    - comments = JSON.parse activity.comments
+    = "\"#{comments["name"]}\""
+  - rescue
+

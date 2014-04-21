@@ -3,6 +3,7 @@ class CreateActivities < ActiveRecord::Migration
   # Create table
   def self.up
     create_table :activities do |t|
+      t.integer :company_id
       t.belongs_to :trackable, :polymorphic => true
       t.belongs_to :owner, :polymorphic => true
       t.string  :key

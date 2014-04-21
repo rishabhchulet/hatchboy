@@ -1,0 +1,32 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a.active{:href => dashboard_path} Dashboard
+
+.row
+  .col-md-11
+    .page-title
+      %i.icon-dashboard
+      %h3 Dashboard
+  .col-md-1.text-right
+.row
+  %ul#navigation-tab.nav.nav-tabs
+    %li.payments-tab#recent-activity-tab.active
+      %a{href: "#users-recent-activity"} Recent Activity
+    %li.payments-tab#active-projects-tab
+      %a{href: "#users-active-projects"} Active Projects
+
+  .tab-content
+    #users-recent-activity.tab-pane.active
+      =render partial: "dashboard/recent_activity", object: @recent_activity
+    #users-active-projects.tab-pane
+
+=content_for :javascript do
+  =javascript_include_tag "js/tabs_accordian"
+

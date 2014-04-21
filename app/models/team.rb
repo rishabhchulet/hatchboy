@@ -1,8 +1,10 @@
 class Team < ActiveRecord::Base
 
   include PublicActivity::Model
-  tracked owner: ->(controller, model) { controller && controller.current_user },
-          comments: ->(controller, model) { {name: model.name}.to_json }
+  tracked except: :update,
+          owner: ->(controller, model) { controller && controller.current_user },
+          company_id: ->(controller, team) { team.company.id },
+          comments: ->(controller, team) { {name: team.name}.to_json }
 
   belongs_to :company
   belongs_to :created_by, class_name: "User"
