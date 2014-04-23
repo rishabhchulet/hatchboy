@@ -21,7 +21,13 @@
 
 - if @chart
   .row
-    = high_chart("main_chart", @chart)
+    - if @chart.data[:xAxis].count > 0
+      = high_chart("main_chart", @chart)
+    - else
+      = high_chart("main_chart", @chart) do |c|
+        = raw "options.plotOptions.pie.startAngle = -90"
+        = raw "options.plotOptions.pie.endAngle = 90"
+        = raw "options.plotOptions.pie.center = ['50%', '75%']"
 
 .row
   .action-list.grid.simple

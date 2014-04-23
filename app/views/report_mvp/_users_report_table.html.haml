@@ -9,7 +9,7 @@
       %th{:width => "49%"} Rating
   %tbody
     - if @scores and @scores.count > 0
-      = render partial: "report_mvp/users_list_row", collection: @scores
+      = render partial: "report_mvp/users_list_row", collection: @scores.sort_by{|s| -s[:rate]}
     - else 
       %tr.text-center
         %td{:colspan => "3"}

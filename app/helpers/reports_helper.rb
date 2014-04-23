@@ -49,7 +49,7 @@ module ReportsHelper
       else
         f.title({ :text=> "#{params[:title]} at #{params[:data].keys.first}"})
         f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]} )
-        f.series(:type=> 'pie',:name => params[:y_title], :data => params[:data].values.first.map{|v| [v[:name], v[:value]]})
+        f.series(:type=> 'pie',:name => params[:y_title], :data => params[:data].values.first.map{|v| [v[:name], v[:value]]}, :innerSize => (params[:innerSize] ? params[:innerSize] : "100%"))
         f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'})
         f.plot_options(:pie=> { :allowPointSelect=>true, :cursor=>"pointer", :dataLabels=> { :enabled=>true, :color=>"black" } } )
       end

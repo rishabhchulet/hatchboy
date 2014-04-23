@@ -32,7 +32,12 @@ class ReportMvpController < ApplicationController
         end
       end
 
-      @chart = build_chart({title: "MVP", y_title: "Rate", data: chart_data}) if chart_data.length > 0
+      chart_data = chart_data.inject({}) do |h, (date, date_scores)|
+        max_period_score = date_scores.map{|s| s[:value]}.max
+        h[date] = date_scores.map{|s| s[:value] = 100 - ((max_period_score - s[:value]) / max_period_score * 100).round; s}; h
+      end
+      chart_data[chart_data.keys.first] = chart_data[chart_data.keys.first].sort_by{|s| -s[:value]} if chart_data.length == 1
+      @chart = build_chart({title: "MVP", y_title: "%", data: chart_data, without_average: true, innerSize: "50%"}) if chart_data.length > 0
     end
   rescue Exception => e
     flash.now[:error] = e.message
