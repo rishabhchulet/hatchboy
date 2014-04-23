@@ -8,7 +8,7 @@ class ReportPaymentsController < ApplicationController
     @query_params = retrieve_query_params :payments, [:date, :users, :specific_date, :period_from, :period_to]
     payments = Hatchboy::ReportsFilters::PaymentsFilter.new.with_sended_payments.filter_by_params(@query_params).includes(:user).to_a
     @users_payments = payments.group_by(&:user_id)
-    @users = payments.map(&:user).uniq
+    @users = payments.map(&:user).uniq.sort_by{|u| -@users_payments[u.id].map(&:amount).reduce(:+)}
 
     if payments.count > 0
       chart_data = group_timeline_from_params payments, @query_params do |scope, date|
@@ -39,7 +39,7 @@ class ReportPaymentsController < ApplicationController
         { id: payment.id, name: "Payment \##{payment.id} - #{payment.created_by.name}", value: payment_rec ? payment_rec.amount.round(2) : 0}
       end
     end
-      
+    
     @chart = build_chart({title: "Payments", y_title: "$", data: chart_data})
   end
 end

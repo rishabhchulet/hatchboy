@@ -11,11 +11,11 @@ class ReportHoursController < ApplicationController
     if @query_params[:group_by] == "teams"
       worklogs = worklogs.includes(:team, :user).to_a
       @teams_users = worklogs.group_by{|w| w.team.id}
-      @teams = worklogs.map(&:team).uniq
+      @teams = worklogs.map(&:team).uniq.sort_by{|t| -@teams_users[t.id].map(&:time).reduce(:+)}
     else
       worklogs = worklogs.includes(:user).to_a
       @users_worklogs = worklogs.group_by{|w| w.user_id}
-      @users = worklogs.map(&:user).uniq
+      @users = worklogs.map(&:user).uniq.sort_by{|u| -@users_worklogs[u.id].map(&:time).reduce(:+)}
     end
 
     if worklogs.count > 0
