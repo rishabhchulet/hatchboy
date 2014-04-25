@@ -4,52 +4,12 @@ class ReportMvpController < ApplicationController
 
   include ReportsHelper
 
-  def index
-    @query_params = retrieve_query_params :mvp, [:date, :users, :period_from, :period_to]
-    payments = Hatchboy::ReportsFilters::PaymentsFilter.new.with_sended_payments.filter_by_params(@query_params).includes(:user).to_a
-    worklogs = Hatchboy::ReportsFilters::WorkLogsFilter.new.filter_by_params(@query_params).to_a
-    @users = payments.map(&:user).uniq
-
-    @scores = []
-    payments.group_by(&:user_id).each do |user_id, user_payments|
-      user_amount = user_payments.map(&:amount).reduce(:+)
-      user_time = worklogs.select{|w| w.user_id == user_id}.map(&:time).reduce(:+)
-      if user_time and user_amount
-        @scores << {
-          rate: (user_time / user_amount).round(4),
-          user: user_payments.first.user
-        }
-      end
-    end
-
-    if @scores.count > 0
-      worklogs = worklogs.group_by{|w| w.g_created_at.to_date.at_beginning_of_month}
-      chart_data = group_timeline_from_params payments, {date: "all_time"} do |scope, date|
-        @users.collect do |user|
-          payment = scope.select{|p| user.id == p.user_id}.first if scope
-          worklog = worklogs[date].select{|p| user.id == p.user_id}.first if worklogs[date]
-          { id: user.id, name: user.name, value: payment ? ((worklog ? worklog.time : 0) / payment.amount).round(2) : 0}
-        end
-      end
-
-      chart_data = chart_data.inject({}) do |h, (date, date_scores)|
-        max_period_score = date_scores.map{|s| s[:value]}.max
-        h[date] = date_scores.map{|s| s[:value] = 100 - ((max_period_score - s[:value]) / max_period_score * 100).round; s}; h
-      end
-      chart_data[chart_data.keys.first] = chart_data[chart_data.keys.first].sort_by{|s| -s[:value]} if chart_data.length == 1
-      @chart = build_chart({title: "MVP", y_title: "%", data: chart_data, without_average: true, innerSize: "50%"}) if chart_data.length > 0
-    end
-  rescue Exception => e
-    flash.now[:error] = e.message
-    render :index
-  end
-
   def user
     @user = User.where(id: params[:user_id]).first or not_found
     params[:date] = "all_time"
     params[:users] = @user.id
-    payments = Hatchboy::ReportsFilters::PaymentsFilter.new.with_sended_payments.filter_by_params(params).to_a
-    worklogs = Hatchboy::ReportsFilters::WorkLogsFilter.new.filter_by_params(params).to_a
+    payments = Hatchboy::Reports::Filters::PaymentsFilter.new.with_sended_payments.filter_by_params(params).to_a
+    worklogs = Hatchboy::Reports::Filters::WorkLogsFilter.new.filter_by_params(params).to_a
     
     @scores = []
     payments.each do |payment|

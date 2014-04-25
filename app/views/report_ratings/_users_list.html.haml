@@ -5,6 +5,4 @@
       %th{:width => "30%"} Rating
       %th{:width => "10%"}
   %tbody
-    = render partial: "report_ratings/users_list_row", collection: @users
-
-= paginate @users
+    = render partial: "report_ratings/users_list_row", collection: @ratings_report.users

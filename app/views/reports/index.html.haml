@@ -1,0 +1,45 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %a.active{:href => reports_path} Reports
+
+
+.row
+  .col-md-11
+    .page-title
+      %i.icon-custom-ui
+      %h3 Reports
+  .col-md-1.text-right
+
+.row
+  %ul#navigation-tab.nav.nav-tabs
+    %li{:class => ((params[:type].nil? or params[:type] == "hours") ? "active" : "")}
+      %a{:href => "#hours-tab"} Hours
+    %li{:class => (params[:type] == "payments" ? "active" : "")}
+      %a{:href => "#payments-tab"} Payments
+    %li{:class => (params[:type] == "mvp" ? "active" : "")}
+      %a{:href => "#mvp-tab"} MVP
+    %li{:class => (params[:type] == "ratings" ? "active" : "")}
+      %a{:href => "#ratings-tab"} 360 degree
+  .tab-content
+    #hours-tab.tab-pane{:class => ((params[:type].nil? or params[:type] == "hours") ? "active" : "")}
+      = render partial: "report_hours/report", :object => @hours_report
+    #payments-tab.tab-pane{:class => (params[:type] == "payments" ? "active" : "")}
+      = render partial: "report_payments/report", :object => @payments_report
+    #mvp-tab.tab-pane{:class => (params[:type] == "mvp" ? "active" : "")}
+      = render partial: "report_mvp/report", :object => @mvp_report
+    #ratings-tab.tab-pane{:class => (params[:type] == "ratings" ? "active" : "")}
+      = render partial: "report_ratings/report", :object => @ratings_report
+
+=content_for :javascript do
+  =javascript_include_tag "highcharts/ext"
+=content_for :javascript do
+  =javascript_include_tag "js/reports"
+=content_for :javascript do
+  =javascript_include_tag "js/reports_tabs_accordian"

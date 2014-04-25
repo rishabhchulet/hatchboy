@@ -19,7 +19,7 @@
                   = label_tag "user_multi_rating_score_#{code}_#{score}", "&nbsp;".html_safe
   
   - if @current_user_scores.count == USER_MULTI_RATING_ASPECTS.count
-    = link_to "Back", report_ratings_path, :class => "btn btn-white btn-cons"
+    = link_to "Back", reports_path(:type => "ratings"), :class => "btn btn-white btn-cons"
   - else
     = f.submit "Rate", class: "btn btn-primary btn-cons rate-btn"
-    = link_to "Back", report_ratings_path, :class => "btn btn-white btn-cons cansel-btn", :style => "display: #{@current_user_scores.count > 0 ? 'inline-block' : 'none'}"
+    = link_to "Back", reports_path(:type => "ratings"), :class => "btn btn-white btn-cons cansel-btn", :style => "display: #{@current_user_scores.count > 0 ? 'inline-block' : 'none'}"

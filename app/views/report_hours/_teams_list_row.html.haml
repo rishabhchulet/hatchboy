@@ -6,11 +6,11 @@
       %input.check{id: "check-team-#{teams_list_row.id}", type: 'checkbox', value: teams_list_row.id, name: 'teams[]', checked: (params[:teams] and params[:teams].include? teams_list_row.id.to_s)}
       %label{for: "check-team-#{teams_list_row.id}"}
   %td= link_to teams_list_row.name, team_report_hours_path( teams_list_row )
-  %td= nice_time_difference(@teams_users[teams_list_row.id].map(&:time).reduce(:+))
+  %td= nice_time_difference(@hours_report.teams_users[teams_list_row.id].map(&:time).reduce(:+))
   
 %tr.hiddenRow.accordian-body.collapse{:id => "team-#{teams_list_row.id}"}
   %td{:colspan => "4"}
-    - @teams_users[teams_list_row.id].group_by(&:user_id).each do |user_id, w|
+    - @hours_report.teams_users[teams_list_row.id].group_by(&:user_id).each do |user_id, w|
       .row
         .col-md-6
           = link_to w.first.user.name, user_report_hours_path( w.first.user )

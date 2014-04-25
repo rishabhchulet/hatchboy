@@ -8,8 +8,8 @@
       %th{:width => "49%"} User Name
       %th{:width => "49%"} Total time
   %tbody
-    - if @users and @users.count > 0
-      = render partial: "report_hours/users_list_row", collection: @users
+    - if @hours_report.users and @hours_report.users.count > 0
+      = render partial: "report_hours/users_list_row", collection: @hours_report.users
     - else 
       %tr.text-center
         %td{:colspan => "3"}
