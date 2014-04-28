@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Hatchboy::ReportsFilters::PaymentsFilter do
+describe Hatchboy::Reports::Filters::PaymentsFilter do
   let(:payment_filter) { described_class.new }
 
   context "when filter by params" do

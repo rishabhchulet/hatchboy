@@ -15,6 +15,7 @@ class UserMultiRatingsController < ApplicationController
       format.js do
         @rated_user = @rated_user.reload
         @aspect_scores = @rated_user.multi_ratings_by_users.current_period.group(:aspect_code).select('aspect_code, avg(score) AS aspect_score')
+        @current_user_scores = current_account.user.user_multi_ratings.current_period.where(rated: @rated_user).all.group_by(&:aspect_code)
       end
     end
   end
