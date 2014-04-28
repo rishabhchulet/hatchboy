@@ -33,6 +33,7 @@ Hatchboy::Application.routes.draw do
   resources :payment_transactions, :only => [:create]
   post "payment_transactions/paypal_notify", :to => "payment_transactions#paypal_notify", :as => :paypal_notify
 
+  resources :reports, :controller => 'reports', only: [:index], as: :reports
   scope "/reports" do
     resources :hours, :controller => 'report_hours', only: [:index], as: :report_hours do
       collection do
@@ -52,7 +53,6 @@ Hatchboy::Application.routes.draw do
   end
   resources :user_multi_ratings, :only => [:create]
 
-  get "reports", :to => "pages#dashboard", :as => :reports
   get "messages", :to => "pages#dashboard", :as => :messages
 
   get "mail/", :to => "pages#mail", :as => :account_mail

@@ -1,0 +1,26 @@
+- if @payments_report.chart
+  .row
+    = high_chart("payments_chart", @payments_report.chart)
+
+.row
+  .action-list.grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold Users payments
+      .tools
+        %a.collapse{:href => "javascript:;"}
+    .grid-body.no-border
+      = form_tag(reports_path, method: "get", id: "report-payments-filter-form") do
+        #report-filter-block.row{style: "margin-bottom: 20px;"}
+          = render partial: "report_payments/filter", locals: {params: @payments_report.params}
+        #report-data-block.row
+          = render partial: "report_payments/users_report_table", locals: {params: @payments_report.params}
+
+:coffeescript
+  $ ->
+    $.payments_report = $.extend({}, $.reports)
+    $.payments_report.init(
+      with_date_filter: true,
+      selectors:
+        form: "#report-payments-filter-form"
+    )

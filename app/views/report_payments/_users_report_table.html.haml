@@ -3,13 +3,13 @@
     %tr
       %th{:width => "2%"}
         .checkbox
-          %input.checkall#checkall{type: 'checkbox', value: 1  }
-          %label{for: 'checkall'}
+          %input.checkall#checkall-payments-users{type: 'checkbox', value: 1  }
+          %label{for: 'checkall-payments-users'}
       %th{:width => "49%"} User Name
       %th{:width => "49%"} Total amount
   %tbody
-    - if @users and @users.count > 0
-      = render partial: "report_payments/users_list_row", collection: @users, locals: {params: @query_params}
+    - if @payments_report.users and @payments_report.users.count > 0
+      = render partial: "report_payments/users_list_row", collection: @payments_report.users, locals: {params: @payments_report.params}
     - else 
       %tr.text-center
         %td{:colspan => "3"}

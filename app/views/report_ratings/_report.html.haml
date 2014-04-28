@@ -1,0 +1,13 @@
+- if @ratings_report.chart
+  .row
+    = high_chart("ratings_chart", @ratings_report.chart)
+
+.row
+  .action-list.grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold Users
+      .tools
+        %a.collapse{:href => "javascript:;"}
+    .grid-body.no-border
+      = render partial: "report_ratings/users_list"

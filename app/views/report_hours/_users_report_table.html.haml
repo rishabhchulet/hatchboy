@@ -3,13 +3,13 @@
     %tr
       %th{:width => "2%"}
         .checkbox
-          %input.checkall#checkall{type: 'checkbox', value: 1  }
-          %label{for: 'checkall'}
+          %input.checkall#checkall-hours-users{type: 'checkbox', value: 1  }
+          %label{for: 'checkall-hours-users'}
       %th{:width => "49%"} User Name
       %th{:width => "49%"} Total time
   %tbody
-    - if @users and @users.count > 0
-      = render partial: "report_hours/users_list_row", collection: @users
+    - if @hours_report.users and @hours_report.users.count > 0
+      = render partial: "report_hours/users_list_row", collection: @hours_report.users, locals: {params: @hours_report.params}
     - else 
       %tr.text-center
         %td{:colspan => "3"}

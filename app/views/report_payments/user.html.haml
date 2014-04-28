@@ -7,10 +7,7 @@
     %a{:href => company_path} Company
   %i.icon-angle-right
   %li
-    %a{:href => reports_path} Reports
-  %i.icon-angle-right
-  %li
-    %a{:href => report_payments_path} Payments
+    %a{:href => reports_path(:type => "payments")} Reports
   %i.icon-angle-right
   %li
     %a.active{:href => user_report_hours_path(@user)} User
