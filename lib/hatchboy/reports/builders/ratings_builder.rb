@@ -5,7 +5,7 @@ module Hatchboy
         
         include ReportsHelper
         
-        attr_reader :params, :chart, :users, :users_payments
+        attr_reader :params, :chart, :users
 
         def initialize params
           @params = params
