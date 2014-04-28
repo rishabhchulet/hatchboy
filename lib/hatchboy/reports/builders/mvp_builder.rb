@@ -42,7 +42,8 @@ module Hatchboy
 
           chart_data = chart_data.inject({}) do |h, (date, date_scores)|
             max_period_score = date_scores.map{|s| s[:value]}.max
-            h[date] = date_scores.map{|s| s[:value] = 100 - ((max_period_score - s[:value]) / max_period_score * 100).round; s}; h
+            h[date] = date_scores.map{|s| s[:value] = 100 - ((max_period_score - s[:value]) / max_period_score * 100).round; s} if max_period_score > 0
+            h
           end
           chart_data[chart_data.keys.first] = chart_data[chart_data.keys.first].sort_by{|s| -s[:value]} if chart_data.length == 1
           @chart = build_chart({title: "MVP", y_title: "%", data: chart_data, without_average: true, innerSize: "50%"})
