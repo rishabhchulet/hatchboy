@@ -20,7 +20,7 @@ for(var i=0; i < aspects.length; i++)
 
 for(var i=0; i < answered_aspects.length; i++) rate_form.find('input[name="user_multi_rating[score]['+answered_aspects[i]+']"]').prop('disabled', true);
 
-if (aspects.length == parseInt('<%= USER_MULTI_RATING_ASPECTS.count %>'))
+if (answered_aspects.length == parseInt('<%= USER_MULTI_RATING_ASPECTS.count %>'))
   rate_form.find('.rate-btn').hide('fast');
 
 var cansel_button = rate_form.find('.cansel-btn');
