@@ -1,7 +1,7 @@
 %tr.data-row
   %td
     .checkbox
-      %input.check{:id => "check-user-#{users_list_row.id}", type: 'checkbox', value: users_list_row.id, name: 'users[]', checked: (params[:users] and params[:users].include? users_list_row.id.to_s)}
-      %label{:for => "check-user-#{users_list_row.id}"}
+      %input.check{:id => "payments-users-#{users_list_row.id}", type: 'checkbox', value: users_list_row.id, name: 'users[]', checked: (params[:users] and params[:users].include? users_list_row.id.to_s)}
+      %label{:for => "payments-users-#{users_list_row.id}"}
   %td=link_to users_list_row.name, user_report_payments_path( users_list_row )
   %td= @payments_report.users_payments[users_list_row.id].map(&:amount).reduce(:+)

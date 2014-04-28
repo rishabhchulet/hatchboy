@@ -3,8 +3,8 @@
     %i.icon-plus-sign
   %td
     .checkbox
-      %input.check{id: "check-team-#{teams_list_row.id}", type: 'checkbox', value: teams_list_row.id, name: 'teams[]', checked: (params[:teams] and params[:teams].include? teams_list_row.id.to_s)}
-      %label{for: "check-team-#{teams_list_row.id}"}
+      %input.check{id: "hours-teams-#{teams_list_row.id}", type: 'checkbox', value: teams_list_row.id, name: 'teams[]', checked: (params[:teams] and params[:teams].include? teams_list_row.id.to_s)}
+      %label{for: "hours-teams-#{teams_list_row.id}"}
   %td= link_to teams_list_row.name, team_report_hours_path( teams_list_row )
   %td= nice_time_difference(@hours_report.teams_users[teams_list_row.id].map(&:time).reduce(:+))
   
