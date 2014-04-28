@@ -16,7 +16,6 @@ gem 'pg'
 gem 'simple_form'
 gem 'therubyracer', :platform => :ruby
 gem 'unicorn'
-gem "bundler", "~> 1.3.5"
 gem "foreman", "~> 0.63.0"
 gem "carrierwave", "~> 0.9.0"
 gem "mini_magick", "~> 3.7.0"
@@ -54,6 +53,8 @@ group :development do
   gem 'rb-fchange', :require => false
   gem 'rb-fsevent', :require => false
   gem 'rb-inotify', :require => false
+
+  gem 'pry-rails'
 end
 group :development, :test do
   gem 'factory_girl_rails'
