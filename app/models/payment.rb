@@ -2,8 +2,6 @@ class Payment < ActiveRecord::Base
 
   STATUS_PREPARED = "prepared"
   STATUS_SENT = "sent"
-
-  paginates_per 50
   
   belongs_to :company
   belongs_to :created_by,  class_name: "User"
