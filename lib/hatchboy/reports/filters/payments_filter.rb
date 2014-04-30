@@ -17,8 +17,8 @@ module Hatchboy
           scope = self.class.new @scope.joins(:payment).group(:user_id).select("sum(amount) AS amount", :user_id)
           scope = case params[:date]
             when 'today' then scope.group_by_date_field("hour").in_date(Time.now)
-            when 'last_week' then scope.group_by_date_field("day").from_date(1.week.ago.beginning_of_day)
-            when 'last_month' then scope.group_by_date_field("day").from_date(1.month.ago.beginning_of_day) 
+            when 'last_week' then scope.group_by_date_field("day").in_date_range(1.week.ago.beginning_of_day, Date.today)
+            when 'last_month' then scope.group_by_date_field("day").in_date_range(1.month.ago.beginning_of_day, Date.today)
             when 'specific' then scope.group_by_date_field("hour").in_date(parse_date(params[:specific_date]))
             when 'period'
               scope = scope.group_by_date_field((parse_date(params[:period_to]) - parse_date(params[:period_from])).to_i > 90 ? "month" : "day")
