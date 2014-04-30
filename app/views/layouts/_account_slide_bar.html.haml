@@ -15,6 +15,10 @@
         %i.icon-custom-home
         %span.title Company
         %span.selected
+    %li
+      %a{:href => reports_path, 'data-no-turbolink' => true}
+        %i.icon-custom-extra
+        %span.title Reports & Analyzes
     %li{class: ['users'].include?(request[:controller]) ? "active" : ""}
       %a{:href => users_path}
         %i.icon-envelope
@@ -23,10 +27,6 @@
       %a{:href => teams_path}
         %i.icon-custom-ui
         %span.title Teams
-    %li{class: ['sources', "jira_sources"].include?(request[:controller]) ? "active" : ""}
-      %a{:href => sources_path}
-        %i.icon-custom-ui
-        %span.title Data sources
     %li
       %a{:href => docu_templates_path}
         %i.icon-custom-extra
@@ -39,10 +39,10 @@
       %a{:href => payments_path}
         %i.icon-custom-extra
         %span.title Pay your Employees
-    %li
-      %a{:href => reports_path, 'data-no-turbolink' => true}
-        %i.icon-custom-extra
-        %span.title Reports
+    %li{class: ['sources', "jira_sources"].include?(request[:controller]) ? "active" : ""}
+      %a{:href => sources_path}
+        %i.icon-custom-ui
+        %span.title Data sources
   .clearfix
 - if ['mail', 'compose'].include? request[:action]
   .inner-menu.nav-collapse
