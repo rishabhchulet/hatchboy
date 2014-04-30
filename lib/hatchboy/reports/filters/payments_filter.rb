@@ -3,6 +3,8 @@ module Hatchboy
     module Filters
       class PaymentsFilter
 
+        include ReportsHelper
+        
         attr_reader :scope
 
         delegate :all, :to_a, :find_each, :first, :inspect, :[], :includes, :count, :to => :scope
@@ -17,10 +19,10 @@ module Hatchboy
             when 'today' then scope.group_by_date_field("hour").in_date(Time.now)
             when 'last_week' then scope.group_by_date_field("day").from_date(1.week.ago.beginning_of_day)
             when 'last_month' then scope.group_by_date_field("day").from_date(1.month.ago.beginning_of_day) 
-            when 'specific' then scope.group_by_date_field("hour").in_date(DateTime.parse(params[:specific_date]))
+            when 'specific' then scope.group_by_date_field("hour").in_date(parse_date(params[:specific_date]))
             when 'period'
-              scope = scope.group_by_date_field((params[:period_to].to_date - params[:period_from].to_date).to_i > 90 ? "month" : "day")
-              scope.in_date_range(DateTime.parse(params[:period_from]), DateTime.parse(params[:period_to]))
+              scope = scope.group_by_date_field((parse_date(params[:period_to]) - parse_date(params[:period_from])).to_i > 90 ? "month" : "day")
+              scope.in_date_range(parse_date(params[:period_from]), parse_date(params[:period_to]))
             else scope.group_by_date_field("month")
           end
           scope = scope.with_users(params[:users]) if params[:users]

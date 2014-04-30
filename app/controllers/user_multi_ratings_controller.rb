@@ -3,8 +3,8 @@ class UserMultiRatingsController < ApplicationController
   before_filter :authenticate_account!
 
   def create
-    @rater_user = User.find(params[:user_multi_rating][:rater_id]) or not_found
-    @rated_user = User.find(params[:user_multi_rating][:rated_id]) or not_found
+    @rater_user = account_company.users.find(params[:user_multi_rating][:rater_id]) or not_found
+    @rated_user = account_company.users.find(params[:user_multi_rating][:rated_id]) or not_found
     if params[:user_multi_rating][:score]
       params[:user_multi_rating][:score].each do |code, score|
         @rater_user.user_multi_ratings.create!(aspect_code: code, score: score, rated: @rated_user)

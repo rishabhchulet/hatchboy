@@ -9,16 +9,16 @@ module Hatchboy
         
         attr_reader :params, :chart, :teams, :users, :teams_users, :users_worklogs
 
-        def initialize params
+        def initialize company, params
           @params = params
           worklogs = Hatchboy::Reports::Filters::WorkLogsFilter.new.filter_by_params(@params)
 
           if @params[:group_by] == "teams"
-            worklogs = worklogs.includes(:team, :user).to_a
+            worklogs = worklogs.with_teams(company.teams).preload(:team, :user).to_a
             @teams_users = worklogs.group_by{|w| w.team.id}
             @teams = worklogs.map(&:team).uniq.sort_by{|t| -@teams_users[t.id].map(&:time).reduce(:+)}
           else
-            worklogs = worklogs.includes(:user).to_a
+            worklogs = worklogs.with_users(company.users).preload(:user).to_a
             @users_worklogs = worklogs.group_by{|w| w.user_id}
             @users = worklogs.map(&:user).uniq.sort_by{|u| -@users_worklogs[u.id].map(&:time).reduce(:+)}
           end

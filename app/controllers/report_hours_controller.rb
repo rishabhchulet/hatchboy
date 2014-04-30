@@ -5,7 +5,7 @@ class ReportHoursController < ApplicationController
   include ReportsHelper
 
   def team
-    @team = Team.where(id: params[:team_id]).first or not_found
+    @team = account_company.teams.where(id: params[:team_id]).first or not_found
     query_params = retrieve_query_params :hours, [:date, :specific_date, :period_from, :period_to]
     worklogs = Hatchboy::Reports::Filters::WorkLogsFilter.new(WorkLog.where(team_id: @team.id)).filter_by_params(query_params).includes(:user).to_a
 
@@ -23,7 +23,7 @@ class ReportHoursController < ApplicationController
   end
 
   def user
-    @user = User.where(id: params[:user_id]).first or not_found
+    @user = account_company.users.where(id: params[:user_id]).first or not_found
     query_params = retrieve_query_params :hours, [:date, :specific_date, :period_from, :period_to]
     query_params[:group_by] = "teams"
     worklogs = Hatchboy::Reports::Filters::WorkLogsFilter.new(WorkLog.where(user_id: @user.id)).filter_by_params(query_params).includes(:team).to_a

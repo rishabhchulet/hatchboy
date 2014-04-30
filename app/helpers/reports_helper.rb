@@ -55,4 +55,8 @@ module ReportsHelper
       end
     end
   end
+
+  def parse_date date
+    DateTime.parse(date) rescue Date.today
+  end
 end

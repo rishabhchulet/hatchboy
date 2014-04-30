@@ -5,7 +5,7 @@ class ReportMvpController < ApplicationController
   include ReportsHelper
 
   def user
-    @user = User.where(id: params[:user_id]).first or not_found
+    @user = account_company.users.where(id: params[:user_id]).first or not_found
     params[:date] = "all_time"
     params[:users] = @user.id
     payments = Hatchboy::Reports::Filters::PaymentsFilter.new.with_sended_payments.filter_by_params(params).to_a
