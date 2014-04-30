@@ -54,7 +54,7 @@ group :development do
   gem 'rb-fsevent', :require => false
   gem 'rb-inotify', :require => false
 end
-group :development, :test do
+group :development, :test, :staging do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem  'byebug'
