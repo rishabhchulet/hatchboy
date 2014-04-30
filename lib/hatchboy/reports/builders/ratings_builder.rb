@@ -7,9 +7,9 @@ module Hatchboy
         
         attr_reader :params, :chart, :users
 
-        def initialize params
+        def initialize company, params
           @params = params
-          @users = User.order("rating DESC")
+          @users = company.users.order("rating DESC")
           build_chart_object
         end
 

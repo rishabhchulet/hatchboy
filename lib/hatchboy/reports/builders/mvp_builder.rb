@@ -9,10 +9,10 @@ module Hatchboy
         
         attr_reader :params, :chart, :users, :scores
 
-        def initialize params
+        def initialize company, params
           @params = params
-          payments = Hatchboy::Reports::Filters::PaymentsFilter.new.with_sended_payments.filter_by_params(@params).includes(:user).to_a
-          worklogs = Hatchboy::Reports::Filters::WorkLogsFilter.new.filter_by_params(@params).to_a
+          payments = Hatchboy::Reports::Filters::PaymentsFilter.new(PaymentRecipient.joins(:payment).where('payments.company_id = ?', company.id)).with_sended_payments.filter_by_params(@params).includes(:user).to_a
+          worklogs = Hatchboy::Reports::Filters::WorkLogsFilter.new(WorkLog.where(user_id: company.users)).filter_by_params(@params).to_a
           @users = payments.map(&:user).uniq
 
           @scores = []

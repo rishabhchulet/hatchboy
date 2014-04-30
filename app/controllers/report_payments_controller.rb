@@ -5,7 +5,7 @@ class ReportPaymentsController < ApplicationController
   include ReportsHelper
 
   def user
-    @user = User.where(id: params[:user_id]).first or not_found
+    @user = account_company.users.where(id: params[:user_id]).first or not_found
     query_params = retrieve_query_params :payments, [:date, :specific_date, :period_from, :period_to]
     user_payments = Hatchboy::Reports::Filters::PaymentsFilter.new(PaymentRecipient.where(user_id: @user.id).select(:payment_id).group(:payment_id)).with_sended_payments.filter_by_params(query_params).to_a
     
