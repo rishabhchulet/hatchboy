@@ -1,4 +1,4 @@
-%tr.data-row
+%tr.data-row{:data => {:user_id => short_list_row.id}}
   %td= short_list_row.id
   %td=link_to short_list_row.name, user_path(short_list_row)
   %td= short_list_row.contact_email

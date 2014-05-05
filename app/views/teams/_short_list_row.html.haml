@@ -1,10 +1,10 @@
-%tr.data-row
+%tr.data-row{:data => {:team_id => short_list_row.id}}
   %td= short_list_row.id
   %td=link_to short_list_row.name, team_path( short_list_row )
   %td= short_list_row.description
   %td= nice_time_difference short_list_row.worklogs.sum(:time)
   %td
-    .col-md-6
+    .col-md-6.users-count
       = short_list_row.users.count
     .col-md-6
       .list-column.list-row-action

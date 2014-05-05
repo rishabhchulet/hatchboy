@@ -27,10 +27,14 @@ class TeamsUsersController < ApplicationController
   def create_team
     @user = account_company.users.where(id: params[:user_id]).first or not_found
     @team_user = @user.user_teams.new user_team_params
-    if @team_user.save
-      redirect_to user_path(@user)
-    else
-      render "new_team"
+    respond_to do |format|
+      if @team_user.save
+        format.html { redirect_to user_path(@user) }
+        format.json { render json: { team: @team_user.team.to_json, users_count: @team_user.team.users.count } }
+      else
+        format.html { render "new_team" }
+        format.json { render json: { errors: @team_user.errors.full_messages } }
+      end
     end
   end
 
@@ -53,4 +57,3 @@ class TeamsUsersController < ApplicationController
   end
 
 end
-
