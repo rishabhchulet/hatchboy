@@ -48,7 +48,6 @@
   .page-container.row-fluid
     - if account_signed_in?
       = render "layouts/account_slide_bar"
-      = render "layouts/footer_widgets"
     / END SIDEBAR
     / BEGIN PAGE CONTAINER
     .page-content
@@ -59,6 +58,8 @@
         .content
           = render "layouts/messages"
           = yield
+  .footer
+    = render 'layouts/footer'
   / END CONTAINER
  
   / END CONTAINER

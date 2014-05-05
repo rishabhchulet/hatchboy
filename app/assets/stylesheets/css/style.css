@@ -6241,6 +6241,27 @@ input.error{
 	height:130px;
 }
 
+.footer {
+  height:40px;
+}
+
+.footer .links-list {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.footer .links-list li {
+  display: inline;
+  padding: 0 50px 0 0;
+}
+
+.footer .links-list li a {
+  color: #fff;
+}
+.footer .links-list li a:hover {
+  text-decoration:underline;
+}
+
 /** Google Maps **/
 #gmaps_context_menu{
 	text-align:center;
