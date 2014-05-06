@@ -30,18 +30,22 @@
               .col-md-4
                 .row
                 .row
-                  .col-md-2
+                  .col-md-5
                     %label Name:
-                  .col-md-4= @account.user.name
+                  .col-md-7= @account.user.name
                 .row
-                  .col-md-2
+                  .col-md-5
                     %label Email:
-                  .col-md-4= @account.email
+                  .col-md-7= @account.email
                 .row
-                  .col-md-2
+                  .col-md-5
                     %label Password:
-                  .col-md-4 *********
+                  .col-md-7 *********
                 .row
-                  .col-md-2
-                    %label Company
-                  .col-md-4= @account.user.company.name
+                  .col-md-5
+                    %label Company:
+                  .col-md-7= @account.user.company.name
+                .row
+                  .col-md-5
+                    %label Payment information:
+                  .col-md-7= simple_format(@account.payment_information)
