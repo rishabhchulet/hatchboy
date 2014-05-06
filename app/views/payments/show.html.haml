@@ -48,7 +48,7 @@
               %button.btn.btn-primary.btn-cons
                 %i.icon-edit
                 Edit
-          - unless @payment.status == Payment::STATUS_MARKED
+          - if @payment.status == Payment::STATUS_PREPARED
             =link_to payment_marked_path(@payment), :title => "Marked", method: 'put' do
               %button.btn.btn-primary.btn-cons
                 %i.icon-book
