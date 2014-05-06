@@ -14,6 +14,11 @@
       %button.btn.btn-sm.btn-small.btn-primary
         %i.icon-edit
         Edit
+    - unless row_prepared.status == Payment::STATUS_MARKED
+      =link_to payment_marked_path(row_prepared), :title => "Marked", method: 'put' do
+        %button.btn.btn-sm.btn-small.btn-primary
+          %i.icon-book
+          Mark
     =link_to payment_path(row_prepared), :title => "Delete Payment", method: 'delete', data: {confirm: "Are you sure you want to delete this payment?"} do
       %button.btn.btn-sm.btn-small.btn-danger
         %i.icon-trash
