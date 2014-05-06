@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140421064558) do
+ActiveRecord::Schema.define(version: 20140505141548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20140421064558) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "user_id"
+    t.text     "payment_information"
   end
 
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
@@ -82,14 +83,15 @@ ActiveRecord::Schema.define(version: 20140421064558) do
   create_table "docu_signs", force: true do |t|
     t.integer  "company_id"
     t.integer  "user_id"
-    t.string   "envelope_id"
+    t.integer  "docu_template_id"
+    t.string   "envelope_key"
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "document"
   end
 
   add_index "docu_signs", ["company_id"], name: "index_docu_signs_on_company_id", using: :btree
+  add_index "docu_signs", ["docu_template_id"], name: "index_docu_signs_on_docu_template_id", using: :btree
   add_index "docu_signs", ["user_id"], name: "index_docu_signs_on_user_id", using: :btree
 
   create_table "docu_templates", force: true do |t|
