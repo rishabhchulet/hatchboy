@@ -28,7 +28,9 @@ Hatchboy::Application.routes.draw do
   get "dashboard", :to => "dashboard#index", :as => :dashboard
   get "legal", :to => "pages#dashboard", :as => :legal
 
-  resources :payments
+  resources :payments do
+    put "marked"
+  end
   resources :paypal_configurations, :only => [:new, :create]
   resources :payment_transactions, :only => [:create]
   post "payment_transactions/paypal_notify", :to => "payment_transactions#paypal_notify", :as => :paypal_notify
