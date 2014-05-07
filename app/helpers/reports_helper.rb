@@ -1,7 +1,7 @@
 module ReportsHelper
 
   def group_timeline_from_params scope, params
-    if !params[:date] or params[:date] == "all_time" or (params[:date] == "period" and ((params[:period_to].to_date - params[:period_from].to_date).to_i > 90))
+    if !params[:date] or params[:date] == "all_time" or (params[:date] == "period" and ((parse_date(params[:period_to]) - parse_date(params[:period_from])).to_i > 90))
       date_range = (scope.first.g_created_at.to_date.at_beginning_of_month..scope.last.g_created_at.to_date.at_beginning_of_month).select {|d| d.day == 1}
       scope = scope.group_by{|s| s.g_created_at.to_date.at_beginning_of_month}
     elsif ["last_week", "last_month", "period"].include? params[:date]
