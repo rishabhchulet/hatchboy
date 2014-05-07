@@ -45,8 +45,8 @@ module Hatchboy
           self.class.new @scope.where(user_id: users)
         end
 
-        def with_sended_payments
-          self.class.new @scope.joins(:payment).where("payments.status = ?", Payment::STATUS_SENT)
+        def with_statuses statuses
+          self.class.new @scope.joins(:payment).where("payments.status IN (?)", statuses)
         end
 
         def group_by_date_field field 

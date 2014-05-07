@@ -11,7 +11,7 @@ module Hatchboy
 
         def initialize company, params
           @params = params
-          payments = Hatchboy::Reports::Filters::PaymentsFilter.new(PaymentRecipient.joins(:payment).where('payments.company_id = ?', company.id)).with_sended_payments.filter_by_params(@params).includes(:user).to_a
+          payments = Hatchboy::Reports::Filters::PaymentsFilter.new(PaymentRecipient.joins(:payment).where('payments.company_id = ?', company.id)).with_statuses([Payment::STATUS_SENT, Payment::STATUS_MARKED]).filter_by_params(@params).includes(:user).to_a
 
           @users_payments = payments.group_by(&:user_id)
           @users = payments.map(&:user).uniq.sort_by{|u| -@users_payments[u.id].map(&:amount).reduce(:+)}

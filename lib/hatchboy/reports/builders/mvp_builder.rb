@@ -11,7 +11,7 @@ module Hatchboy
 
         def initialize company, params
           @params = params
-          payments = Hatchboy::Reports::Filters::PaymentsFilter.new(PaymentRecipient.joins(:payment).where('payments.company_id = ?', company.id)).with_sended_payments.filter_by_params(@params).includes(:user).to_a
+          payments = Hatchboy::Reports::Filters::PaymentsFilter.new(PaymentRecipient.joins(:payment).where('payments.company_id = ?', company.id)).with_statuses([Payment::STATUS_SENT, Payment::STATUS_MARKED]).filter_by_params(@params).includes(:user).to_a
           worklogs = Hatchboy::Reports::Filters::WorkLogsFilter.new(WorkLog.where(user_id: company.users)).filter_by_params(@params).to_a
           @users = payments.map(&:user).uniq
 
@@ -39,11 +39,9 @@ module Hatchboy
               { id: user.id, name: user.name, value: payment ? ((worklog ? worklog.time : 0) / payment.amount).round(2) : 0}
             end
           end
-
           chart_data = chart_data.inject({}) do |h, (date, date_scores)|
             max_period_score = date_scores.map{|s| s[:value]}.max
-            h[date] = date_scores.map{|s| s[:value] = 100 - ((max_period_score - s[:value]) / max_period_score * 100).round; s} if max_period_score > 0
-            h
+            h[date] = max_period_score > 0 ? date_scores.map{|s| s[:value] = 100 - ((max_period_score - s[:value]) / max_period_score * 100).round; s} : date_scores; h
           end
           chart_data[chart_data.keys.first] = chart_data[chart_data.keys.first].sort_by{|s| -s[:value]} if chart_data.length == 1
           @chart = build_chart({title: "MVP", y_title: "%", data: chart_data, without_average: true, innerSize: "50%"})
