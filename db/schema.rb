@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140505141548) do
+ActiveRecord::Schema.define(version: 20140508065241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,15 @@ ActiveRecord::Schema.define(version: 20140505141548) do
   end
 
   add_index "documents", ["owner_id", "owner_type"], name: "index_documents_on_owner_id_and_owner_type", using: :btree
+
+  create_table "help_links", force: true do |t|
+    t.string   "controller"
+    t.string   "action"
+    t.string   "link"
+    t.string   "video_link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "payment_recipients", force: true do |t|
     t.integer "payment_id"

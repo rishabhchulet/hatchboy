@@ -6,7 +6,7 @@ module ApplicationHelper
     html = <<-HTML
     <div class="alert alert-danger">
       <button class="close" aria-hidden="true" data-dismiss="alert" type="button"></button>
-      <div id="flash_error}">#{msg}</div>
+      <div id="flash_error}">#{messages}</div>
     </div>
     HTML
     html.html_safe

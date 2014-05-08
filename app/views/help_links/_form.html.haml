@@ -1,0 +1,23 @@
+= display_base_errors f.object
+.form-group
+  %label
+    Path
+  = select_tag("route_path", options_for_select(@routes.map{|r| [r[:path], "#{r[:controller]}:#{r[:action]}"]}, "#{f.object.controller}:#{f.object.action}"))
+= f.hidden_field :controller
+= f.hidden_field :action
+= f.input :link, :required => false, :hint => 'e.g. "http://example.com"', :autofocus => true
+= f.input :video_link, :hint => 'e.g. "http://youtube.com/watch?v=somevideo"'
+.form-actions
+  .pull-right
+    %button.btn.btn-success.btn-cons{:type => "submit"}
+      %i.icon-ok
+      Save
+    = link_to "Cancel", help_links_path, :class => "btn btn-white btn-cons"
+
+:coffeescript
+  $ ->
+    $("#route_path").change((e)->
+      data = $(this).val().split(':')
+      $('#help_link_controller').val(data[0])
+      $('#help_link_action').val(data[1])
+    ).change()

@@ -92,6 +92,8 @@ Hatchboy::Application.routes.draw do
     put "sync", :to => "trello_sources", :as => :sync
   end
 
+  resources :help_links
+
   resources :posts
 
   resources :teams do
