@@ -1,0 +1,25 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => help_links_path} Help links
+  %i.icon-angle-right
+  %li
+    %a.active{:href => new_help_link_path} New  
+.row
+  .col-md-12    
+    .page-title
+      %i.icon-custom-ui
+      %h3 Add help link
+.row
+  .col-md-12
+    .grid.simple
+      .grid-title.no-border
+        %h4
+          %span.semi-bold New help link
+        .tools
+      .grid-body.no-border
+        = simple_form_for(@help_link, :as => :help_link, :html => { :method => :post }) do |f|
+          = render partial: "help_links/form", :locals => { f: f }

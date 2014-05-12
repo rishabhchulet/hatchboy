@@ -828,6 +828,13 @@ hr {
 	float:left;
 }
 
+.header .help-section{
+  margin-top: 16px;
+  margin-right: 10px;
+  display:inline-block;
+  float:left;
+}
+
 .header .nav > li.quicklinks i{
   display: inline-block;
   margin-top: 5px;
