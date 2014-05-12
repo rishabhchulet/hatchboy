@@ -23,6 +23,10 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def page_help_link
+    HelpLink.where(controller: params[:controller], action: params[:action]).first
+  end
+
   def title page_title
     content_for :title, page_title.to_s
   end
