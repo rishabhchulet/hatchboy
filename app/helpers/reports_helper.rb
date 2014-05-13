@@ -59,4 +59,15 @@ module ReportsHelper
   def parse_date date
     DateTime.parse(date) rescue Date.today
   end
+
+  def build_report type
+    report = case type
+      when :hours then Hatchboy::Reports::Builders::HoursBuilder.new(retrieve_query_params(:hours, Hatchboy::Reports::Builders::HoursBuilder::AVAILABLE_PARAMS))
+      when :payments then Hatchboy::Reports::Builders::PaymentsBuilder.new(retrieve_query_params(:payments, Hatchboy::Reports::Builders::PaymentsBuilder::AVAILABLE_PARAMS))
+      when :mvp then Hatchboy::Reports::Builders::MvpBuilder.new(retrieve_query_params(:mvp, Hatchboy::Reports::Builders::MvpBuilder::AVAILABLE_PARAMS))
+      when :ratings then Hatchboy::Reports::Builders::RatingsBuilder.new({})
+    end
+    report.set_company(account_company).build_report_data({chart: true}) if report
+    report
+  end
 end
