@@ -5,6 +5,4 @@
 - else
   - message = "#{link_to(@owner.name, [@owner])} has just created new team #{link_to(@object.name, [@object])}"
 
-%tbody
-  %tr
-    %td= message.html_safe
+= message.html_safe

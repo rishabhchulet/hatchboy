@@ -1,12 +1,12 @@
 module Hatchboy
   module Notifications
-    class Team < Factory
+    class Teams < Factory
 
       def initialize action, activity
-        super activity #sets @activity, @company, @object, @owner
+        super activity
         @action = case action
           when 'create' then :team_created
-          when 'delete' then :team_deleted
+          when 'destroy' then :team_deleted
         end
       end
 

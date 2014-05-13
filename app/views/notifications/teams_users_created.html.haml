@@ -1,9 +1,0 @@
-%table{:style => "width:600px; margin 0 auto;"}
-  %caption= "Hello, #{@recipient.name}. You recieved this email because you subscribed to recieve notifications about new created users"
-  %tbody
-    %tr
-      %td= "#{url_for('@owner.name', [@owner])} has created #{url_for('new user', [@object])} in team #{url_for('"@team.name"', @team)}"
-    %tr
-      %td You can unsubscribe form this kind of notification by clicking this link
-    %tr
-      %td Or you can unsubscribe form this team by clicking this link

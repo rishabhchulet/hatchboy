@@ -1,4 +1,9 @@
 class User < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked except: :update,
+          owner: ->(controller, model) { controller && controller.current_user },
+          company_id: ->(controller, user) { user.company.id },
+          comments: ->(controller, user) { {name: user.name}.to_json }
 
   belongs_to :company
   has_one :account

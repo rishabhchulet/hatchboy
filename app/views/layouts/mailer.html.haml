@@ -1,10 +1,39 @@
 !!!
-%head
-%body
-  %table{:style => "width:600px; margin 0 auto;"}
-    %caption Hello, #{@recipient.name}. #{I18n.t('email.title.' + action_name )}
-    = yield
-    %tr
-      %td You can unsubscribe form this kind of notification by clicking this link
-    %tr
-      %td Or you can unsubscribe form this team by clicking this link
+%html
+  %head
+    :css
+      table {
+        width:600px;
+        margin: 0 auto;
+      }
+      .name {
+        font-weight:bold; 
+        white-space: nowrap;
+      }
+      .title {
+        text-align: right; 
+        padding: 20px 0 30px;
+      }
+      .main{
+        font-size: larger;
+      }
+      .unsubscribe1 {
+        font-size: smaller;
+        padding-top:30px;
+      }
+      .unsubscribe2 {
+        font-size: smaller;
+      } 
+
+  %body
+    %table
+      %tr
+        %td.name Hello, #{@recipient.name}.
+        %td.title= I18n.t('email.' + action_name + '.title')
+      %tr
+        %td.main{colspan: 2}
+          = yield
+      %tr
+        %td.unsubscribe1{colspan: 2} You can unsubscribe form this kind of notification by clicking this link
+      %tr
+        %td.unsubscribe2{colspan: 2} Or you can unsubscribe form this team by clicking this link

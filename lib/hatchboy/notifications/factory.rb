@@ -10,7 +10,7 @@ module Hatchboy
       end
 
       def deliver
-        recipients.each do |recipient|
+        Array.wrap(recipients).each do |recipient|
           mail = ::Mailer.public_send(@action, {
             recipient: recipient,
             company: @company,
@@ -23,7 +23,7 @@ module Hatchboy
 
       def self.get activity
         model_name, action = activity.key.split '.'
-        service = "Hatchboy::Notifications::#{model_name.camelize}".constantize
+        service = "Hatchboy::Notifications::#{model_name.camelize.pluralize}".constantize
         service.new action, activity
       rescue NameError
         nil
