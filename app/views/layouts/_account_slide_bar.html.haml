@@ -27,7 +27,7 @@
       %a{:href => teams_path}
         %i.icon-group
         %span.title Teams
-    %li
+    %li{class: ['docu_signs', "docu_templates"].include?(request[:controller]) ? "active" : ""}
       %a{:href => docu_templates_path}
         %i.icon-suitcase
         %span.title  Legal & Tax
@@ -35,7 +35,7 @@
           %span.selected
           %span.badge.badge-important.pull-right
             = session[:docs_to_sign]
-    %li
+    %li{class: ['payments'].include?(request[:controller]) ? "active" : ""}
       %a{:href => payments_path}
         %i.icon-money
         %span.title Pay your Employees
