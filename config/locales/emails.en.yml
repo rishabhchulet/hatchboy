@@ -1,0 +1,6 @@
+en:
+  email:
+    title:
+      team_created: You recieved this email because you subscribed to recieve notifications when team created.
+      team_deleted: You recieved this email because you subscribed to recieve notifications when team deleted.
+

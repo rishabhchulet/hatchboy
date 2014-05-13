@@ -1,0 +1,12 @@
+<% 
+if @owner == nil
+  message = "Something has just created new team #{link_to('@object.name', [@object])}"
+elsif @owner == @recipient
+  message = "You have just created new team #{link_to('@object.name', [@object])}"
+else
+  message = "#{link_to('@owner.name', [@owner])} has just created new team #{link_to('@object.name', [@object])}"
+%>
+
+<tr>
+  <td> <%= message %>
+</tr>

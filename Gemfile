@@ -53,14 +53,14 @@ group :development do
   gem 'rb-fchange', :require => false
   gem 'rb-fsevent', :require => false
   gem 'rb-inotify', :require => false
-
-  gem 'pry-rails'
 end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem  'byebug'
   gem 'faker', '~> 1.1.2'
+  gem 'pry-rails'
+  gem 'pry-debugger'
 end
 group :test do
   gem 'shoulda-matchers', '~> 2.1'

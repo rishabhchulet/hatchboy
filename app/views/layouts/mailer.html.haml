@@ -1,0 +1,10 @@
+!!!
+%head
+%body
+  %table{:style => "width:600px; margin 0 auto;"}
+    %caption Hello, #{@recipient.name}. #{I18n.t('email.title.' + action_name )}
+    = yield
+    %tr
+      %td You can unsubscribe form this kind of notification by clicking this link
+    %tr
+      %td Or you can unsubscribe form this team by clicking this link
