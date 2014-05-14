@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe Hatchboy::Notifications::Factory do
-  let(:team) { create :team, created_by: (create :user, role: 'Manager') }
+  let(:company) { create :company, created_by: create(:user, :with_subscription, role: 'CEO') do |c|
+    c.users << c.created_by
+  end }
+  let(:team) { create :team, company: company, created_by: company.created_by }
   let(:activity) do
     team
     PublicActivity.with_tracking do
@@ -24,7 +27,7 @@ describe Hatchboy::Notifications::Factory do
     context "when notification exists" do
       subject { described_class.get activity }
       it "should return instance of notification" do
-        expect(subject).to be_a Hatchboy::Notifications::Team
+        expect(subject).to be_a Hatchboy::Notifications::Teams
       end
     end
 

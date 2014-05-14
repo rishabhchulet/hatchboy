@@ -4,14 +4,15 @@ module Hatchboy
 
       def initialize action, activity
         super activity
-        @action = case action
-          when 'create' then :user_created
-          when 'destroy' then :user_deleted
+        @subscription_name = case action
+          when 'create' then :user_was_added
+          when 'destroy' then :user_was_removed
         end
       end
 
       def recipients
-        @company.users.where role: ["CEO", "Manager"] if @company
+        @company.admins.with_account.joins(:subscription)
+          .where(subscriptions: {@subscription_name => true}) if @company
       end
 
     end

@@ -1,5 +1,8 @@
 require 'spec_helper'
 
 describe UnsubscribedTeam do
-  pending "add some examples to (or delete) #{__FILE__}"
+  specify do
+    should belong_to :user
+    should belong_to :team
+  end
 end

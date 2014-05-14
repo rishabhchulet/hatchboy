@@ -11,7 +11,7 @@ module Hatchboy
 
       def deliver
         Array.wrap(recipients).each do |recipient|
-          mail = ::Mailer.public_send(@action, {
+          mail = ::Mailer.public_send(@subscription_name, {
             recipient: recipient,
             company: @company,
             object: @object,

@@ -1,13 +1,11 @@
 FactoryGirl.define do
 
   sequence :role do
-    roles = ["Manager", "Developer", "Designer", "Fron-end developer", "CEO", "Team-Leader" ]
-    roles[rand(roles.count)]
+    ["Manager", "Developer", "Designer", "Fron-end developer", "CEO", "Team-Leader"].sample
   end
 
   sequence :status do
-    statuses = ["Full day", "Temporary", "Half-day", "Fired", "Outsourcer"]
-    statuses[rand(statuses.count)]
+    ["Full day", "Temporary", "Half-day", "Fired", "Outsourcer"].sample
   end
 
   factory :user_without_account, :class => User do
@@ -30,6 +28,12 @@ FactoryGirl.define do
           user.account = create :account, :user => user
         end
       end
+
+      trait :with_subscription do
+        after :create do |user, evaluator|
+          create :subscription, user: user
+        end  
+      end  
     end
 
   end

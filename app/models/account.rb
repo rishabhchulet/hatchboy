@@ -21,5 +21,12 @@ class Account < ActiveRecord::Base
     super
   end
 
+  protected
+
+  def after_confirmation
+    self.user.create_subscription unless user.subscription
+    super
+  end
+
 end
 
