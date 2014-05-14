@@ -11,8 +11,7 @@ module Hatchboy
       end
 
       def recipients
-        @company.admins.with_account.joins(:subscription)
-          .where(subscriptions: {@subscription_name => true}) if @company
+        admin_recipients
       end
 
     end

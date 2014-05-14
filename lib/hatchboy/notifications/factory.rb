@@ -29,6 +29,13 @@ module Hatchboy
         nil
       end
 
+      private
+
+      def admin_recipients
+        @company.admins.with_account.joins(:subscription)
+          .where(subscriptions: {@subscription_name => true}) if @company
+      end
+
     end
   end
 end

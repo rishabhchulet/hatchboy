@@ -1,12 +1,11 @@
 module Hatchboy
   module Notifications
-    class Teams < Factory
+    class Sources < Factory
 
       def initialize action, activity
         super activity
         @subscription_name = case action
-          when 'create' then :team_was_added
-          when 'destroy' then :team_was_removed
+          when 'create' then :data_source_was_created
         end
       end
 

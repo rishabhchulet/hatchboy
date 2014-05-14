@@ -1,0 +1,8 @@
+- if @owner == nil
+  - message = "Someone has just created new data source #{link_to(@object.name, [@object])}"
+- elsif @owner == @recipient
+  - message = "You have just created new data source #{link_to(@object.name, [@object])}"
+- else
+  - message = "#{link_to(@owner.name, [@owner])} has just created new data source #{link_to(@object.name, [@object])}"
+
+= message.html_safe
