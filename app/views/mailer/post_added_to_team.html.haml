@@ -1,0 +1,8 @@
+- if @owner == nil
+  - message = "Someone has just created new post #{link_to(@object.post.subject, [@object.post])}"
+- elsif @owner == @recipient
+  - message = "You have just created new post #{link_to(@object.post.subject, [@object.post])}"
+- else
+  - message = "#{link_to(@owner.name, [@owner])} has just created new post #{link_to(@object.post.subject, [@object.post])}"
+
+= message.html_safe

@@ -14,7 +14,6 @@ class Subscription < ActiveRecord::Base
     self.payment_was_sent = true if self.payment_was_sent.nil?
     self.data_source_was_created = true if self.data_source_was_created.nil?
     self.document_for_signing_was_uploaded = true if self.document_for_signing_was_uploaded.nil?
-    self.data_source_added_to_team = true if self.data_source_added_to_team.nil?
     self.post_added_to_team = true if self.post_added_to_team.nil?
     self.user_added_to_team = true if self.user_added_to_team.nil?
     self.time_log_added_to_team = true if self.time_log_added_to_team.nil?

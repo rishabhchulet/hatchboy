@@ -5,10 +5,13 @@ describe Hatchboy::Notifications::Factory do
     c.users << c.created_by
   end }
   let(:team) { create :team, company: company, created_by: company.created_by }
+  let(:action) { 'create' }
   let(:activity) do
-    team
     PublicActivity.with_tracking do
-      team.create_activity key: 'team.create', owner: team.created_by
+      PublicActivity::Activity.any_instance.stub(:email_notification).and_return true
+      activity = team.create_activity key: "team.#{action}", owner: team.created_by
+      PublicActivity::Activity.any_instance.unstub(:email_notification)
+      activity
     end
   end
 
@@ -40,10 +43,10 @@ describe Hatchboy::Notifications::Factory do
   end
 
   describe "#deliver" do
-    let(:notification) { described_class.get(activity) }
-    subject { notification.deliver }
+    before { @notification = described_class.get(activity) }
+    subject { @notification.deliver }
     it "should deliver the message" do
-      expect{subject}.to change{::Mailer.deliveries.count}
+      expect{subject}.to change{::Mailer.deliveries.count }.by 1
     end
   end
 

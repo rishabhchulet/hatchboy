@@ -1,15 +1,33 @@
 en:
   email:
-    team_created:
-      subject: New team has been created
-      title: You recieved this email because you subscribed to recieve notifications if team created.
-    team_deleted: 
-      subject: Team has been removed
-      title: You recieved this email because you subscribed to recieve notifications if team deleted.
-    user_created:
+    # DO NOT CHANGE ANY NOTIFICATION NAME, THEY ARE THE SAME AS FIELDS IN DATABASE TABLE
+    user_was_added:
       subject: New user has been created
-      title: You recieved this email because you subscribed to recieve notifications if user created.
-    user_deleted: 
+      title: You recieved this email because you subscribed to recieve notifications if new user has been created.
+    user_was_removed: 
       subject: New team has been created
-      title: You recieved this email because you subscribed to recieve notifications if user deleted.
-
+      title: You recieved this email because you subscribed to recieve notifications if user has been deleted.
+    team_was_added:
+      subject: New team has been created
+      title: You recieved this email because you subscribed to recieve notifications if new team has been created.
+    team_was_removed:
+      subject: Team has been removed
+      title: You recieved this email because you subscribed to recieve notifications if team has been deleted.
+    data_source_was_created:
+      subject: New data source has been created
+      title: You recieved this email because you subscribed to recieve notifications if new data source has been created.
+    post_added_to_team:
+      subject: New post has been added
+      title: You recieved this email because you subscribed to recieve notifications if new post has been added to your team.
+    user_added_to_team:
+      subject: New user added to your team
+      title: You recieved this email because you subscribed to recieve notifications if new user has been added to your team.
+    time_log_added_to_team:
+      subject: New time log has been added
+      title: You recieved this email because you subscribed to recieve notifications if new time log has been added.
+    document_for_signing_was_uploaded:
+      subject: New document for signing was uploaded
+      title: You recieved this email because you subscribed to recieve notifications if new document for signing has been uploaded.
+    payment_was_sent:
+      subject: New payment has been sent
+      title: You recieved this email because you subscribed to recieve notifications if new payment has been sent.

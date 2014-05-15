@@ -10,7 +10,6 @@ class Mailer < ActionMailer::Base
     :payment_was_sent,
     :data_source_was_created,
     :document_for_signing_was_uploaded,
-    :data_source_added_to_team,
     :post_added_to_team,
     :user_added_to_team,
     :time_log_added_to_team

@@ -6,12 +6,13 @@ describe Hatchboy::Notifications::Teams do
   end }
   let(:team) { create :team, company: company, created_by: company.created_by }
   let(:activity) do
-    team
     PublicActivity.with_tracking do
-      team.create_activity key: 'team.create', owner: team.created_by
+      PublicActivity::Activity.any_instance.stub(:email_notification).and_return true
+      activity = team.create_activity key: "team.#{action}", owner: team.created_by
+      PublicActivity::Activity.any_instance.unstub(:email_notification)
+      activity
     end
   end
-  let(:action) { 'create' }
   let(:service) { described_class.new action, activity }
 
   describe "#new" do
@@ -31,13 +32,52 @@ describe Hatchboy::Notifications::Teams do
   end
 
   describe "#recipients" do
-    before { @manager = create :user, :with_subscription, company: team.company, role: 'Manager' }
     subject { service.recipients }
-    it "should return CEO and company managers" do
-      expect(subject).to have(2).recipients
-      expect(subject).to include @manager
-      expect(subject).to include team.created_by
+    before do
+      @admin = create :user, :with_subscription, company: company, role: 'Manager'
+      @admin_without_account = create :user_without_account, :with_subscription, company: company, role: 'Manager'
+      @not_admin = create :user, :with_subscription, company: company, role: 'Foobar'
     end
-  end
 
+    context "when team created notification" do
+      let(:action) { 'create' }
+      before do
+        @admin_without_subscription = create :user, :with_subscription, company: company, role: 'Manager' do |u|
+          u.subscription.update team_was_added: false
+        end
+      end
+      it "should return admins, subscribed to this notification" do
+        expect(subject).to include @admin
+        expect(subject).to include team.created_by
+        expect(subject).not_to include @admin_without_subscription
+        expect(subject).not_to include @not_admin
+        expect(subject).to have(2).recipients
+      end
+    end
+
+    context "when team deleted notification" do
+      let(:action) { 'destroy' }
+      before do
+        @admin_unsubscribed_from_team = create :user, :with_subscription, company: company, role: 'Manager' do |u|
+          create :unsubscribed_team, user: u, team: team
+        end
+        @admin_unsubscribed_from_another_team = create :user, :with_subscription, company: company, role: 'Manager' do |u|
+          create :unsubscribed_team, user: u, team: create(:team, company: company, created_by: company.created_by)
+        end
+        @admin_without_subscription = create :user, :with_subscription, company: company, role: 'Manager' do |u|
+          u.subscription.update team_was_removed: false
+        end
+      end
+      it "should return admins, subscribed to this notification" do
+        expect(subject).to include team.created_by
+        expect(subject).to include @admin
+        expect(subject).to include @admin_unsubscribed_from_another_team
+        expect(subject).not_to include @admin_without_subscription
+        expect(subject).not_to include @admin_unsubscribed_from_team
+        expect(subject).not_to include @not_admin
+        expect(subject).to have(3).recipients
+      end
+    end
+
+  end
 end

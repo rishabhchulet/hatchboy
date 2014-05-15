@@ -10,7 +10,7 @@ module Hatchboy
       end
 
       def deliver
-        Array.wrap(recipients).each do |recipient|
+        Array.wrap(recipients).uniq.each do |recipient|
           mail = ::Mailer.public_send(@subscription_name, {
             recipient: recipient,
             company: @company,
@@ -33,7 +33,29 @@ module Hatchboy
 
       def admin_recipients
         @company.admins.with_account.joins(:subscription)
-          .where(subscriptions: {@subscription_name => true}) if @company
+          .where(subscriptions: {@subscription_name => true})
+      end
+
+      def subscribed_admins_recipients team
+        _unsubscribed_team = Arel::Table.new(:unsubscribed_teams)
+
+        admin_recipients.includes(:unsubscribed_teams).references(:unsubscribed_teams)
+          .where(
+            _unsubscribed_team[:team_id].not_eq(team.id).or(
+            _unsubscribed_team[:team_id].eq(nil)
+        ))
+      end
+
+      def subscribed_users_recipients team
+        _unsubscribed_team = Arel::Table.new(:unsubscribed_teams)
+
+        team.users.with_account.joins(:subscription)
+          .where(subscriptions: {@subscription_name => true})
+          .includes(:unsubscribed_teams).references(:unsubscribed_teams)
+          .where(
+            _unsubscribed_team[:team_id].not_eq(team.id).or(
+            _unsubscribed_team[:team_id].eq(nil)
+        ))
       end
 
     end

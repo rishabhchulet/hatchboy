@@ -28,13 +28,13 @@ FactoryGirl.define do
           user.account = create :account, :user => user
         end
       end
-
-      trait :with_subscription do
-        after :create do |user, evaluator|
-          create :subscription, user: user
-        end  
-      end  
     end
+
+    trait :with_subscription do
+      after :create do |user, evaluator|
+        create :subscription, user: user
+      end
+    end 
 
   end
 end

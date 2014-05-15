@@ -206,7 +206,6 @@ ActiveRecord::Schema.define(version: 20140423135132) do
     t.boolean  "payment_was_sent"
     t.boolean  "data_source_was_created"
     t.boolean  "document_for_signing_was_uploaded"
-    t.boolean  "data_source_added_to_team"
     t.boolean  "post_added_to_team"
     t.boolean  "user_added_to_team"
     t.boolean  "time_log_added_to_team"

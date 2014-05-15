@@ -2,15 +2,16 @@ require 'spec_helper'
 
 describe Hatchboy::Notifications::Users do
   let(:user) { create :user, :with_subscription, role: 'CEO' }
-  
+  let(:company) { user.company }
   let(:activity) do
-    user
     PublicActivity.with_tracking do
-      user.create_activity key: 'user.create', owner: user.company.created_by
+      PublicActivity::Activity.any_instance.stub(:email_notification).and_return true
+      activity = user.create_activity key: "user.#{action}", owner: company.created_by
+      PublicActivity::Activity.any_instance.unstub(:email_notification)
+      activity
     end
   end
 
-  let(:action) { 'create' }
   let(:service) { described_class.new action, activity }
 
   describe "#new" do
@@ -30,12 +31,45 @@ describe Hatchboy::Notifications::Users do
   end
 
   describe "#recipients" do
-    before { @manager = create :user, :with_subscription, company: user.company, role: 'Manager' }
     subject { service.recipients }
-    it "should return CEO and company managers" do
-      expect(subject).to have(2).recipients
-      expect(subject).to include @manager
-      expect(subject).to include user.company.created_by
+
+    before do
+      @admin = create :user, :with_subscription, company: company, role: 'Manager'
+      @admin_without_account = create :user_without_account, :with_subscription, company: company, role: 'Manager'
+      @not_admin = create :user, :with_subscription, company: company, role: 'Foobar'
+    end
+
+    context 'on create notification' do
+      let(:action) { 'create' }
+      before do
+        @admin_without_subscription = create :user, :with_subscription, company: company, role: 'Manager' do |u|
+          u.subscription.update user_was_added: false
+        end
+      end
+      it "should return subscribed admin" do
+        expect(subject).to include company.created_by
+        expect(subject).to include @admin
+        expect(subject).not_to include @admin_without_account
+        expect(subject).not_to include @admin_without_subscription
+        expect(subject).not_to include @not_admin
+        expect(subject).to have(2).recipients
+      end
+    end
+    context 'on destroy notification' do
+      let(:action) { 'destroy' }
+      before do
+        @admin_without_subscription = create :user, :with_subscription, company: company, role: 'Manager' do |u|
+          u.subscription.update user_was_removed: false
+        end
+      end
+      it "should return subscribed admin" do
+        expect(subject).to include company.created_by
+        expect(subject).to include @admin
+        expect(subject).not_to include @admin_without_account
+        expect(subject).not_to include @admin_without_subscription
+        expect(subject).not_to include @not_admin
+        expect(subject).to have(2).recipients
+      end
     end
   end
 
