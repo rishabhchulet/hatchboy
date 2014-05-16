@@ -9,6 +9,7 @@ require 'capybara/rails'
 require 'capybara/poltergeist'
 require './spec/features/features_helper'
 require './spec/connectors/jira_helper'
+require './spec/mailers/mailer_url_helper'
 
 include FeaturesHelper
 include JIRAHelper
@@ -23,6 +24,7 @@ RSpec.configure do |config|
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
   config.include(FactoryGirl::Syntax::Methods)
+
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:

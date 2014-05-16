@@ -73,4 +73,35 @@ describe Hatchboy::Notifications::Users do
     end
   end
 
+  describe "#deliver" do
+    before { ActionMailer::Base.deliveries = [] }
+
+    context "create team notification" do
+      let(:action) { 'create' }
+      before do
+        @admin = create :user, :with_subscription, company: company, role: 'Manager'
+        service.deliver
+      end
+      it "should have links of action owner and action object" do
+        Mailer.deliveries.each do |email|
+          expect(email).to have_body_text(/#{user_url(company.created_by)}/)
+          expect(email).to have_body_text(/#{user_url(user)}/)
+        end
+      end
+    end
+    context "destroy team notification" do
+      let(:action) { 'destroy' }
+      before do
+        @admin = create :user, :with_subscription, company: company, role: 'Manager'
+        service.deliver
+      end
+      it "should have links of action owner removed object name" do
+        Mailer.deliveries.each do |email|
+          expect(email).to have_body_text(/#{user_url(company.created_by)}/)
+          expect(email).to have_body_text(/#{user.name}/)
+        end
+      end
+    end
+  end
+
 end

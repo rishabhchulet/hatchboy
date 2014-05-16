@@ -1,8 +1,11 @@
-- if @owner == nil
-  - message = "Someone has just created new data source #{link_to(@object.name, [@object])}"
-- elsif @owner == @recipient
-  - message = "You have just created new data source #{link_to(@object.name, [@object])}"
+- if @object.type == 'JiraSource'
+  - object_url = jira_source_url @object
 - else
-  - message = "#{link_to(@owner.name, [@owner])} has just created new data source #{link_to(@object.name, [@object])}"
+  - object_url = sources_url
+
+-if @owner == @recipient
+  - message = "#{link_to('You', @owner_url)} have just created new data source '#{link_to @object.name, object_url}'"
+- else
+  - message = "#{link_to @owner.name, @owner_url} has just created new data source '#{link_to @object.name, object_url}'"
 
 = message.html_safe
