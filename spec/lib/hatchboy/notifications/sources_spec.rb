@@ -8,7 +8,7 @@ describe Hatchboy::Notifications::Sources do
   let(:activity) do
     PublicActivity.with_tracking do
       PublicActivity::Activity.any_instance.stub(:email_notification).and_return true
-      activity = source.create_activity key: "source#{action}", owner: company.created_by
+      activity = source.create_activity key: "source.#{action}", owner: company.created_by
       PublicActivity::Activity.any_instance.unstub(:email_notification)
       activity
     end
@@ -38,13 +38,31 @@ describe Hatchboy::Notifications::Sources do
       end
     end
 
-    it "should return CEO and company managers" do
+    it "should return company admins" do
       expect(subject).to include company.created_by
       expect(subject).to include @admin
       expect(subject).not_to include @admin_without_account
       expect(subject).not_to include @admin_without_subscription
       expect(subject).not_to include @not_admin
       expect(subject).to have(2).recipients
+    end
+  end
+
+  describe "#deliver" do
+    before { ActionMailer::Base.deliveries = [] }
+
+    context "create data source" do
+      let(:action) { 'create' }
+      before do
+        @admin = create :user, :with_subscription, company: company, role: 'Manager'
+        service.deliver
+      end
+      it "should have links to source and to owner" do
+        Mailer.deliveries.each do |email|
+          expect(email).to have_body_text(/#{user_url(company.created_by)}/)
+          expect(email).to have_body_text(/#{jira_source_url(source)}/)
+        end
+      end
     end
   end
 

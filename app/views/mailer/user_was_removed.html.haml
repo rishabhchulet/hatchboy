@@ -1,8 +1,6 @@
-- if @owner == nil
-  - message = "Someone has just removed team '#{@object.name}'"
-- elsif @owner == @recipient
-  - message = "You have just removed team '#{@object.name}'"
+- if @owner == @recipient
+  - message = "#{link_to 'You', @owner_url} have just removed user witn name #{@object.name}"
 - else
-  - message = "#{link_to(@owner.name, [@owner])} has just removed team '#{@object.name}'"
+  - message = "#{link_to @owner.name, @owner_url} has just removed user with name #{@object.name}"
 
 = message.html_safe

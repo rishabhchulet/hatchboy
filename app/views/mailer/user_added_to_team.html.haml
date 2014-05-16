@@ -1,0 +1,10 @@
+-if @recipient == @owner and @recipient == @object.user
+  - message = "#{link_to 'You', @owner_url} have just added #{link_to 'yourself', user_url(@object.user)} to a team '#{link_to @object.team.name, team_url(@object.team)}'"
+- elsif @recipient == @owner
+  - message = "#{link_to 'You', @owner_url} have just added new user #{link_to @object.user.name, user_url(@object.user)} to a team '#{link_to @object.team.name, team_url(@object.team)}'"
+- elsif @recipient == @object.user
+  - message = "#{link_to @owner.name, @owner_url} has just added #{link_to 'you', user_url(@object.user)} to team '#{link_to @object.team.name, team_url(@object.team)}'"
+- else
+  - message = "#{link_to(@owner.name,  @owner_url)} has just added new user #{link_to(@object.user.name, user_url(@object.user))} to a team '#{link_to @object.team.name, team_url(@object.team)}'"
+
+= message.html_safe

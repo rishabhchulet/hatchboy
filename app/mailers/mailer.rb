@@ -21,6 +21,7 @@ class Mailer < ActionMailer::Base
       @company = params[:company]
       @object = params[:object]
       @owner = params[:owner]
+      @owner_url = user_url @owner
  
       mail to: named_email, subject: I18n.t("email.#{notification}.subject")
     }
