@@ -1,11 +1,15 @@
-- if @object.type == 'JiraSource'
-  - object_url = jira_source_url @object
+- if @owner == @recipient
+  - owner = link_to 'You', @owner_url
 - else
-  - object_url = sources_url
+  - owner = link_to @owner.name, @owner_url
 
--if @owner == @recipient
-  - message = "#{link_to('You', @owner_url)} have just created new data source '#{link_to @object.name, object_url}'"
+- if @object.type == 'JiraSource'
+  - source = jira_source_url @object
 - else
-  - message = "#{link_to @owner.name, @owner_url} has just created new data source '#{link_to @object.name, object_url}'"
+  - source = sources_url
+
+- message = t "mailer.#{action_name}.message", 
+            owner: owner, 
+            source: source
 
 = message.html_safe

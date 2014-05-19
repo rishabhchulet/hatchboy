@@ -23,7 +23,7 @@ class Mailer < ActionMailer::Base
       @owner = params[:owner]
       @owner_url = user_url @owner
  
-      mail to: named_email, subject: I18n.t("email.#{notification}.subject")
+      mail to: named_email
     }
   end
 

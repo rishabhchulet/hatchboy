@@ -1,6 +1,10 @@
 - if @owner == @recipient
-  - message = "#{link_to('You', @owner_url)} have just removed team '#{@object.name}'"
+  - owner = link_to 'You', @owner_url
 - else
-  - message = "#{link_to(@owner.name, @owner_url)} has just removed team '#{@object.name}'"
+  - owner = link_to @owner.name, @owner_url
+
+- message = t "mailer.#{action_name}.message",
+            owner: owner,
+            name: @object.name
 
 = message.html_safe

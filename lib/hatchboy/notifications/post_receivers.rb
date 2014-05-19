@@ -4,7 +4,7 @@ module Hatchboy
 
       def initialize action, activity
         super activity
-        if activity.recipient_type == 'Team'
+        if @object.receiver_type == 'Team'
           @subscription_name = case action
             when 'create' then :post_added_to_team
           end
@@ -12,8 +12,8 @@ module Hatchboy
       end
 
       def recipients
-        if @activity.recipient_type == 'Team'
-          team = @activity.recipient
+        if @object.receiver_type == 'Team'
+          team = @object.receiver
           subscribed_admins_recipients(team) + subscribed_users_recipients(team)
         end
       end

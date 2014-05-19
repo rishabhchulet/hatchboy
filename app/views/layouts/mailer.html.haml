@@ -29,11 +29,11 @@
     %table
       %tr
         %td.name Hello, #{@recipient.name}.
-        %td.title= I18n.t('email.' + action_name + '.title')
+        %td.title= t :title
       %tr
         %td.main{colspan: 2}
           = yield
       %tr
-        %td.unsubscribe1{colspan: 2} You can unsubscribe form this kind of notification by clicking this link
+        %td.unsubscribe1{colspan: 2} You can unsubscribe from this kind of notification by clicking this link
       %tr
-        %td.unsubscribe2{colspan: 2} Or you can unsubscribe form this team by clicking this link
+        %td.unsubscribe2{colspan: 2} Or you can unsubscribe from this team by clicking this link
