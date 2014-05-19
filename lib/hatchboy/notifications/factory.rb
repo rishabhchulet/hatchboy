@@ -31,31 +31,23 @@ module Hatchboy
 
       private
 
-      def admin_recipients
-        @company.admins.with_account.joins(:subscription)
-          .where(subscriptions: {@subscription_name => true})
-      end
-
-      def subscribed_admins_recipients team
-        _unsubscribed_team = Arel::Table.new(:unsubscribed_teams)
-
-        admin_recipients.includes(:unsubscribed_teams).references(:unsubscribed_teams)
-          .where(
-            _unsubscribed_team[:team_id].not_eq(team.id).or(
-            _unsubscribed_team[:team_id].eq(nil)
-        ))
-      end
-
-      def subscribed_users_recipients team
-        _unsubscribed_team = Arel::Table.new(:unsubscribed_teams)
-
-        team.users.with_account.joins(:subscription)
-          .where(subscriptions: {@subscription_name => true})
-          .includes(:unsubscribed_teams).references(:unsubscribed_teams)
-          .where(
-            _unsubscribed_team[:team_id].not_eq(team.id).or(
-            _unsubscribed_team[:team_id].eq(nil)
-        ))
+      def get_subscribers users, team = nil
+        users = Array.wrap users
+        if team
+          _unsubscribed_team = Arel::Table.new(:unsubscribed_teams)
+          User.with_account.joins(:subscription)
+            .where(id: users.map(&:id))
+            .where(subscriptions: {@subscription_name => true})
+            .includes(:unsubscribed_teams).references(:unsubscribed_teams)
+            .where(
+              _unsubscribed_team[:team_id].not_eq(team.id).or(
+              _unsubscribed_team[:team_id].eq(nil)
+          ))
+        else
+          User.with_account.joins(:subscription)
+            .where(id: users.map(&:id))
+            .where(subscriptions: {@subscription_name => true})
+        end
       end
 
     end

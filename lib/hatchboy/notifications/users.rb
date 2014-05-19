@@ -11,7 +11,7 @@ module Hatchboy
       end
 
       def recipients
-        admin_recipients
+        get_subscribers @company.admins
       end
 
     end

@@ -31,33 +31,45 @@ describe Hatchboy::Notifications::WorkLogs do
   describe "#recipients" do
     subject { service.recipients }
 
-    before do 
-      @admin = create :user, :with_subscription, company: company, role: 'Manager'
-      @admin_without_account = create :user_without_account, :with_subscription, company: company, role: 'Manager'
-      @not_admin = create :user, :with_subscription, company: company, role: 'Foobar'
-      @admin_without_subscription = create :user, :with_subscription, company: company, role: 'Manager' do |u|
-        u.subscription.update time_log_added_to_team: false
-      end
-      @admin_unsubscribed_from_team = create :user, :with_subscription, company: company, role: 'Manager' do |u|
-        create :unsubscribed_team, user: u, team: team
+    context "user subscribed" do
+      before do 
+        @admin = create :user, :with_subscription, company: company, role: 'Manager'
+        @admin_without_account = create :user_without_account, :with_subscription, company: company, role: 'Manager'
+        @not_admin = create :user, :with_subscription, company: company, role: 'Foobar'
+        @admin_without_subscription = create :user, :with_subscription, company: company, role: 'Manager' do |u|
+          u.subscription.update time_log_added_to_team: false
+        end
+        @admin_unsubscribed_from_team = create :user, :with_subscription, company: company, role: 'Manager' do |u|
+          create :unsubscribed_team, user: u, team: team
+        end
+
+        @user = create :user, :with_subscription, company: company, role: 'Foobar' do |u|
+          team.users << u
+        end
       end
 
-      @user = create :user, :with_subscription, company: company, role: 'Foobar' do |u|
-        team.users << u
+      it "should return company admins and this user who create log" do
+        expect(subject).to include company.created_by
+        expect(subject).to include @admin
+        expect(subject).to include log_user
+        expect(subject).not_to include @admin_without_account
+        expect(subject).not_to include @admin_without_subscription
+        expect(subject).not_to include @admin_unsubscribed_from_team
+        expect(subject).not_to include @not_admin
+        expect(subject).not_to include @user
+        expect(subject).to have(3).recipients
       end
     end
+    context "user not subscribed" do
+      before do 
+        log_user.subscription.update(time_log_added_to_team: false)
+      end
 
-    it "should return company admins and this user who create log" do
-      expect(subject).to include company.created_by
-      expect(subject).to include @admin
-      expect(subject).to include log_user
-      expect(subject).not_to include @admin_without_account
-      expect(subject).not_to include @admin_without_subscription
-      expect(subject).not_to include @admin_unsubscribed_from_team
-      expect(subject).not_to include @not_admin
-      expect(subject).not_to include @user
-      expect(subject).to have(3).recipients
-    end
+      it "should return company admins and this user who create log" do
+        expect(subject).to include company.created_by
+        expect(subject).to have(1).recipients
+      end
+    end  
   end
 
   describe "#deliver" do

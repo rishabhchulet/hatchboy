@@ -1,0 +1,10 @@
+- if @owner == @recipient
+  - owner = link_to 'You', @owner_url
+- else
+  - owner = link_to @owner.name, @owner_url
+  
+- message = t "mailer.#{action_name}.message",
+            owner: owner,
+            payment: link_to('payment', payment_url(@object))
+
+= message.html_safe

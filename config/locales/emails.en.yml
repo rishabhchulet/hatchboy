@@ -39,3 +39,4 @@ en:
     payment_was_sent:
       subject: New payment has been sent
       title: You recieved this email because you subscribed to recieve notifications if new payment has been sent.
+      message: "%{owner} sent new %{payment}"

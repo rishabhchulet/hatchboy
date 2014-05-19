@@ -10,8 +10,8 @@ module Hatchboy
       end
 
       def recipients
-        team = @object.team
-        subscribed_admins_recipients(team) + subscribed_users_recipients(team)
+        users = @company.admins + @object.team.users
+        get_subscribers users, @object.team
       end
 
     end

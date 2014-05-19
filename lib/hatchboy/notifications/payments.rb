@@ -1,17 +1,17 @@
 module Hatchboy
   module Notifications
-    class WorkLogs < Factory
+    class Payments < Factory
 
       def initialize action, activity
         super activity
         @subscription_name = case action
-          when 'create' then :time_log_added_to_team
+          when 'sent' then :payment_was_sent
         end
       end
 
       def recipients
-        users = @company.admins + [@object.user]
-        get_subscribers users, @object.team
+        users = [@company.created_by] + [@owner] + @object.recipient_users
+        get_subscribers users
       end
 
     end

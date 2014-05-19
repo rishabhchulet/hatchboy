@@ -19,6 +19,7 @@ class PaymentTransactionsController < ApplicationController
 
     if response[:success]
       payment.update_attributes(status: Payment::STATUS_SENT, additional_info: response[:additional_info].to_json)
+      payment.create_activity key: 'payment.sent', owner: current_user, company: account_company
 
       flash[:notice] = "You have succesfully sent a payment"
       redirect_to payments_path(:anchor => 'payments-sent')
