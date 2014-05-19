@@ -11,6 +11,7 @@ class PaymentsController < ApplicationController
     self.new
     @payments_prepared = account_company.payments.includes({recipients: :user}).where(status: Payment::STATUS_PREPARED).where.not(deleted: true).order(created_at: :desc)
     @payments_sent = account_company.payments.includes({recipients: :user}, :transactions).where(status: Payment::STATUS_SENT).where.not(deleted: true).order(created_at: :desc)
+    @payments_marked = account_company.payments.includes({recipients: :user}, :transactions).where(status: Payment::STATUS_MARKED).where.not(deleted: true).order(created_at: :desc)
     @payments_deleted = account_company.payments.includes({recipients: :user}, :transactions).where(deleted: true).order(created_at: :desc)
   end
 
@@ -59,6 +60,14 @@ class PaymentsController < ApplicationController
     redirect_to :payments
   end
   
+  def marked
+    @payment = account_company.payments.where(id: params[:payment_id]).where.not(deleted: true).first or not_found
+    @payment.status = Payment::STATUS_MARKED
+    @payment.save!
+    
+    redirect_to :payments
+  end
+
   private
   
   def payment_params

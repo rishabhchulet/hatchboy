@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Hatchboy::ReportsFilters::WorkLogsFilter do
+describe Hatchboy::Reports::Filters::WorkLogsFilter do
   let(:worklog_filter) { described_class.new }
 
   context "when filter by params" do

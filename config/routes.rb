@@ -28,11 +28,14 @@ Hatchboy::Application.routes.draw do
   get "dashboard", :to => "dashboard#index", :as => :dashboard
   get "legal", :to => "pages#dashboard", :as => :legal
 
-  resources :payments
+  resources :payments do
+    put "marked"
+  end
   resources :paypal_configurations, :only => [:new, :create]
   resources :payment_transactions, :only => [:create]
   post "payment_transactions/paypal_notify", :to => "payment_transactions#paypal_notify", :as => :paypal_notify
 
+  resources :reports, :controller => 'reports', only: [:index], as: :reports
   scope "/reports" do
     resources :hours, :controller => 'report_hours', only: [:index], as: :report_hours do
       collection do
@@ -52,7 +55,6 @@ Hatchboy::Application.routes.draw do
   end
   resources :user_multi_ratings, :only => [:create]
 
-  get "reports", :to => "pages#dashboard", :as => :reports
   get "messages", :to => "pages#dashboard", :as => :messages
 
   get "mail/", :to => "pages#mail", :as => :account_mail
@@ -89,6 +91,8 @@ Hatchboy::Application.routes.draw do
     get "browse", :to => "trello_sources", :as => :browse
     put "sync", :to => "trello_sources", :as => :sync
   end
+
+  resources :help_links
 
   resources :posts
 

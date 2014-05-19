@@ -7,10 +7,7 @@
     %a{:href => company_path} Company
   %i.icon-angle-right
   %li
-    %a{:href => reports_path} Reports
-  %i.icon-angle-right
-  %li
-    %a{:href => report_ratings_path} 360-degree
+    %a{:href => reports_path(:type => "ratings")} Reports
   %i.icon-angle-right
   %li
     %a.active{:href => user_report_ratings_path(@user)} User
@@ -38,7 +35,7 @@
 
       .tools
         %a.collapse{:href => "javascript:;"}
-    .grid-body.no-border
+    .grid-body.no-border#user_ratings
       = render 'report_ratings/user_rating'
 
 - if current_account.user != @user

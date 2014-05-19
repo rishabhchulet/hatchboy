@@ -1,0 +1,14 @@
+%tr.data-row
+  %td= row_marked.id
+  %td
+    %a{:href => payment_path(row_marked)}= row_marked.description
+  %td= number_to_currency(row_marked.amount)
+  %td{title: row_marked.updated_at}= "#{time_ago_in_words(row_marked.updated_at)} ago"
+  %td= row_marked.created_by.name
+  %td
+    =link_to payment_path(row_marked) do
+      %button.btn.btn-sm.btn-small.btn-primary
+        %i.icon-signin &nbsp;&nbsp;View
+    =link_to payment_path(row_marked), method: 'delete', data: {confirm: "Are you sure ?"} do
+      %button.btn.btn-sm.btn-small.btn-danger
+        %i.icon-trash &nbsp;&nbsp;Delete

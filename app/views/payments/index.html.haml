@@ -25,6 +25,8 @@
       %a{href: "#payments-prepared"} Prepared Payments
     %li.payments-tab#sent
       %a{href: "#payments-sent"} Sent Payments
+    %li.payments-tab#marked
+      %a{href: "#payments-marked"} Marked Payments
     %li.payments-tab#deleted
       %a{href: "#payments-deleted"} Deleted Payments
     %li.dropdown.pull-right
@@ -45,6 +47,8 @@
       =render partial: "payments/list_prepared", :object => @payments_prepared
     #payments-sent.tab-pane
       =render partial: "payments/list_sent", :object => @payments_sent
+    #payments-marked.tab-pane
+      =render partial: "payments/list_marked", :object => @payments_marked
     #payments-deleted.tab-pane
       =render partial: "payments/list_deleted", :object => @payments_deleted
 

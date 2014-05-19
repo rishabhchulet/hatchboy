@@ -9,6 +9,20 @@
         .iconset.top-down-arrow
       .profile-pic
         %img{:alt => "", "data-src" => current_account.user.avatar.thumb, "data-src-retina" => current_account.user.avatar.thumb, :height => "35", :src => current_account.user.avatar.thumb }/
+    
+    - if help_link = page_help_link
+      .help-section#help-section
+        %a.dropdown-toggle.pull-right{"data-toggle" => "dropdown", :href => "#"}
+          .icon-info.icon-2x
+        %ul.dropdown-menu.pull-right{"aria-labelledby" => "dropdownHelpMenu", :role => "menu"}
+          - unless help_link.video_link.blank?
+            %li
+              %embed{:width => "560", :height => "315", :src => help_link.video_link, :type => "application/x-shockwave-flash"}
+          - unless help_link.link.blank?
+            %li
+              %a{:href => help_link.link, :target => "_blank"}
+                Need help? Click here
+
     %ul.nav.quick-section
       %li.quicklinks
         %a.dropdown-toggle.pull-right{"data-toggle" => "dropdown", :href => "#"}

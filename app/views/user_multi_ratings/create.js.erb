@@ -1,20 +1,31 @@
 $('#user-current-rating').html('<%= @rated_user.rating %>');
 
+var rate_form = $('#new_user_multi_rating');
+var ratings_block = $('#user_ratings');
 var aspects = <%= @aspect_scores.map{|s| [s.aspect_code, s.aspect_score.to_f]}.to_json.html_safe %>;
+var answered_aspects = <%= @current_user_scores.keys.to_json.html_safe %>;
 var max_rating = parseFloat("<%= UserMultiRating::MAX_RATING %>");
 var rating_intervals = [];
 
 for(var i=0; i < aspects.length; i++)
 {
   var perc = 100 - ((max_rating - aspects[i][1])/max_rating * 100);
-  var bar = $(".row[data-aspect-code='"+aspects[i][0]+"']");
+  var bar = ratings_block.find(".row[data-aspect-code='"+aspects[i][0]+"']");
   var progress_bar = bar.find('.progress-bar');
   var current_perc = parseInt(progress_bar.data('percentage')) || 0;
-  $('input[name="user_multi_rating[score]['+aspects[i][0]+']"]').prop('disabled', true);
   bar.find('.total_score').text(aspects[i][1] + " / " + max_rating);
 
   create_load_interval(i, current_perc, perc, progress_bar);
 }
+
+for(var i=0; i < answered_aspects.length; i++) rate_form.find('input[name="user_multi_rating[score]['+answered_aspects[i]+']"]').prop('disabled', true);
+
+if (answered_aspects.length == parseInt('<%= USER_MULTI_RATING_ASPECTS.count %>'))
+  rate_form.find('.rate-btn').hide('fast');
+
+var cansel_button = rate_form.find('.cansel-btn');
+if(aspects.length > 0 && cansel_button.is(':hidden'))
+  cansel_button.show('fast');
 
 function create_load_interval(id, per_from, per_to, progress_bar)
 {

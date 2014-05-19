@@ -21,7 +21,7 @@ $.reports =
       self.form.find('.filter-period-date').toggle(@value == 'period', ->)
     ).change()
 
-    $('.input-append.date').datepicker(
+    @form.find('.input-append.date').datepicker(
       format: "yy-mm-dd",
       autoclose: true,
       todayHighlight: true

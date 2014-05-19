@@ -7,13 +7,10 @@
     %a{:href => company_path} Company
   %i.icon-angle-right
   %li
-    %a{:href => reports_path} Reports
+    %a{:href => reports_path(:type => "mvp")} Reports
   %i.icon-angle-right
   %li
-    %a{:href => report_mvp_index_path} MVP
-  %i.icon-angle-right
-  %li
-    %a.active{:href => user_report_mvp_index_path(@user)} User
+    %a.active{:href => user_report_mvp_index_path(@user)} MVP
 
 .row
   .col-md-11
@@ -37,3 +34,6 @@
         %tr
           %td= score[:date]
           %td= score[:rate]
+
+=content_for :javascript do
+  =javascript_include_tag "highcharts/ext"

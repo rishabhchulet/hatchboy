@@ -37,9 +37,13 @@
 
 .row
   .col-md-12
-    =render partial: "teams/company_teams", :object => @company.teams.order("created_at ASC")
+    .row#company_teams
+      =render partial: "teams/company_teams", :object => @company.teams.order("created_at ASC")
 .row
   .col-md-12
-    .row
+    .row#company_users
       =render :partial => "users/company_users", :object => @company.users.order("created_at ASC")
 
+
+=content_for :javascript do
+  =javascript_include_tag "js/company"

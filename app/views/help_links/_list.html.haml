@@ -1,0 +1,20 @@
+#help-links-list.action-list.grid.simple
+  .grid-title.no-border
+    %h4
+      %span.semi-bold Help links
+    .tools
+      %a.collapse{:href => "javascript:;"}
+  .grid-body.no-border
+    .row
+      %table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#help-links-list
+        %thead
+          %tr
+            %th{:width => "20%"} Path
+            %th{:width => "30%"} Link
+            %th{:width => "50%"} Video link
+        %tbody
+          = render partial: "help_links/list_row", collection: list
+    .row.pull-right
+      %a.btn.btn-primary.btn-cons{href: new_help_link_path}
+        Create help link
+    .row

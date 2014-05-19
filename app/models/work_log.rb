@@ -5,8 +5,6 @@ class WorkLog < ActiveRecord::Base
           company_id: ->(controller, work_log) { work_log.team.company_id },
           comments: ->(controller, work_log) { {comment: work_log.comment}.to_json }
 
-  paginates_per 50
-  
   belongs_to :team
   belongs_to :source
   belongs_to :user

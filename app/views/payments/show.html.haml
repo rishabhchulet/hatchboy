@@ -48,6 +48,11 @@
               %button.btn.btn-primary.btn-cons
                 %i.icon-edit
                 Edit
+          - if @payment.status == Payment::STATUS_PREPARED
+            =link_to payment_marked_path(@payment), :title => "Marked", method: 'put' do
+              %button.btn.btn-primary.btn-cons
+                %i.icon-book
+                Mark
           - unless @payment.deleted
             =link_to payment_path(@payment), :title => "Delete Payment", method: 'delete', data: {confirm: "Are you sure you want to delete payment?"} do
               %button.btn.btn-danger.btn-cons
@@ -66,15 +71,16 @@
                 %i.icon-share-alt
                 Dwolla
 
-  .row
-    .col-md-12
-      .grid.simple.horizontal
-        %h2.grid-title Information from payment system
-        .grid-body
-          - if @payment.transactions.present?
-            =render partial: "payments/transaction_#{@payment.transactions.first.type}", locals: {transactions: @payment.transactions}
-          - else
-            %p No information yet
+  - unless @payment.status == Payment::STATUS_MARKED
+    .row
+      .col-md-12
+        .grid.simple.horizontal
+          %h2.grid-title Information from payment system
+          .grid-body
+            - if @payment.transactions.present?
+              =render partial: "payments/transaction_#{@payment.transactions.first.type}", locals: {transactions: @payment.transactions}
+            - else
+              %p No information yet
 
 =content_for :javascript do
   =javascript_include_tag "payments"

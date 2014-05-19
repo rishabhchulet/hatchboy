@@ -1,0 +1,30 @@
+- if @hours_report and @hours_report.chart
+  .row
+    = high_chart("hours_chart", @hours_report.chart)
+
+.row
+  .action-list.grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold
+          = @hours_report.params[:group_by] == "teams" ? "Teams hours" : "Users hours"
+      .tools
+        %a.collapse{:href => "javascript:;"}
+    .grid-body.no-border
+      = form_tag(reports_path, method: "get", id: "report-hours-filter-form") do
+        #report-filter-block.row{style: "margin-bottom: 20px;"}
+          = render partial: "report_hours/filter", locals: {params: @hours_report.params}
+        #report-data-block.row
+          - if @hours_report.params[:group_by] == "teams"
+            = render partial: "report_hours/teams_report_table", locals: {params: @hours_report.params}
+          - else
+            = render partial: "report_hours/users_report_table", locals: {params: @hours_report.params}
+
+:coffeescript
+  $ ->
+    $.hours_report = $.extend({}, $.reports)
+    $.hours_report.init(
+      with_date_filter: true,
+      selectors:
+        form: "#report-hours-filter-form"
+    )

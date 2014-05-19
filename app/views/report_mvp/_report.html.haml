@@ -1,0 +1,32 @@
+- if @mvp_report.chart
+  .row
+    - if @mvp_report.chart.data[:xAxis].count > 0
+      = high_chart("mvp_chart", @mvp_report.chart)
+    - else
+      = high_chart("mvp_chart", @mvp_report.chart) do |c|
+        = raw "options.plotOptions.pie.startAngle = -90"
+        = raw "options.plotOptions.pie.endAngle = 90"
+        = raw "options.plotOptions.pie.center = ['50%', '75%']"
+
+.row
+  .action-list.grid.simple
+    .grid-title.no-border
+      %h4
+        %span.semi-bold Most valuable players
+      .tools
+        %a.collapse{:href => "javascript:;"}
+    .grid-body.no-border
+      = form_tag(reports_path, method: "get", id: "report-mvp-filter-form") do
+        #report-filter-block.row{style: "margin-bottom: 20px;"}
+          = render partial: "report_mvp/filter", locals: {params: @mvp_report.params}
+        #report-data-block.row
+          = render partial: "report_mvp/users_report_table", locals: {params: @mvp_report.params}
+
+:coffeescript
+  $ ->
+    $.mvp_report = $.extend({}, $.reports)
+    $.mvp_report.init(
+      with_date_filter: true,
+      selectors:
+        form: "#report-mvp-filter-form"
+    )

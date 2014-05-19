@@ -51,6 +51,11 @@
                   .col-md-2
                     %label Status:
                   .col-md-4= @user.status
+                - if @user.account
+                  .row
+                    .col-md-2
+                      %label Payment information:
+                    .col-md-4= simple_format(@user.account.payment_information)
 
                 -unless @user.account
                   .row.pull-right

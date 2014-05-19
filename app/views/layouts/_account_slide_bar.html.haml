@@ -15,21 +15,21 @@
         %i.icon-custom-home
         %span.title Company
         %span.selected
+    %li{class: ['reports', "report_hours", "report_payments", "report_mvp", "report_ratings"].include?(request[:controller]) ? "active" : ""}
+      %a{:href => reports_path, 'data-no-turbolink' => true}
+        %i.icon-bar-chart
+        %span.title Reports & Analyzes
     %li{class: ['users'].include?(request[:controller]) ? "active" : ""}
       %a{:href => users_path}
-        %i.icon-envelope
+        %i.icon-user
         %span.title Employees
     %li{class: ['teams'].include?(request[:controller]) ? "active" : ""}
       %a{:href => teams_path}
-        %i.icon-custom-ui
+        %i.icon-group
         %span.title Teams
-    %li{class: ['sources', "jira_sources"].include?(request[:controller]) ? "active" : ""}
-      %a{:href => sources_path}
-        %i.icon-custom-ui
-        %span.title Data sources
     %li
       %a{:href => docu_templates_path}
-        %i.icon-custom-extra
+        %i.icon-suitcase
         %span.title  Legal & Tax
         - if session[:docs_to_sign] and session[:docs_to_sign] > 0 
           %span.selected
@@ -37,12 +37,12 @@
             = session[:docs_to_sign]
     %li
       %a{:href => payments_path}
-        %i.icon-custom-extra
+        %i.icon-money
         %span.title Pay your Employees
-    %li
-      %a{:href => reports_path}
-        %i.icon-custom-extra
-        %span.title Reports
+    %li{class: ['sources', "jira_sources"].include?(request[:controller]) ? "active" : ""}
+      %a{:href => sources_path}
+        %i.icon-download-alt
+        %span.title Data sources
   .clearfix
 - if ['mail', 'compose'].include? request[:action]
   .inner-menu.nav-collapse
