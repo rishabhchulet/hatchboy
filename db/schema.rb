@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512121738) do
+ActiveRecord::Schema.define(version: 20140520121819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,14 +83,15 @@ ActiveRecord::Schema.define(version: 20140512121738) do
   create_table "docu_signs", force: true do |t|
     t.integer  "company_id"
     t.integer  "user_id"
-    t.string   "envelope_id"
+    t.integer  "docu_template_id"
+    t.string   "envelope_key"
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "document"
   end
 
   add_index "docu_signs", ["company_id"], name: "index_docu_signs_on_company_id", using: :btree
+  add_index "docu_signs", ["docu_template_id"], name: "index_docu_signs_on_docu_template_id", using: :btree
   add_index "docu_signs", ["user_id"], name: "index_docu_signs_on_user_id", using: :btree
 
   create_table "docu_templates", force: true do |t|
@@ -206,9 +207,6 @@ ActiveRecord::Schema.define(version: 20140512121738) do
     t.datetime "updated_at"
   end
 
-  create_table "subsciptions", force: true do |t|
-  end
-
   create_table "subscriptions", force: true do |t|
     t.integer  "user_id"
     t.boolean  "user_was_added"
@@ -223,6 +221,7 @@ ActiveRecord::Schema.define(version: 20140512121738) do
     t.boolean  "time_log_added_to_team"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "document_was_signing"
   end
 
   create_table "teams", force: true do |t|

@@ -1,0 +1,10 @@
+#subscriptions-form.action-list.grid.simple
+  .grid-title.no-border
+    %h4
+      %span.semi-bold Subscriptions
+    .tools
+      %a.collapse{:href => "javascript:;"}
+  .grid-body.no-border
+    .row
+      = simple_form_for((current_account.user.subscription or current_account.user.create_subscription), as: :subscription, html: { method: :put}) do |f|
+        = render partial: "subscriptions/form", locals: {f: f}

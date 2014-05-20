@@ -14,7 +14,7 @@ module Hatchboy
       def recipients
         if @object.receiver_type == 'Team'
           users = @company.admins + @object.receiver.users
-          get_subscribers users, @object.receiver
+          get_subscribed users, @object.receiver
         end
       end
 

@@ -9,6 +9,7 @@ class DocuTemplate < ActiveRecord::Base
   belongs_to :user
 
   has_many :docu_signs, :autosave => true
+  has_many :docu_sign_users, through: :docu_signs, source: :user
 
   mount_uploader :document, DocumentUploader
   
@@ -59,5 +60,4 @@ class DocuTemplate < ActiveRecord::Base
 
     self.errors.add(:users, response["message"] ) unless self.template_key = response["templateId"]
   end
-
 end

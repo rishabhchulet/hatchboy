@@ -12,9 +12,9 @@ module Hatchboy
 
       def recipients
         if @subscription_name == :team_was_added
-          get_subscribers @company.admins
+          get_subscribed @company.admins
         elsif @subscription_name == :team_was_removed
-          get_subscribers @company.admins, @object
+          get_subscribed @company.admins, @object
         end
       end
 

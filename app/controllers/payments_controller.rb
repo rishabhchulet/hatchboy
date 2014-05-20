@@ -64,7 +64,6 @@ class PaymentsController < ApplicationController
     @payment = account_company.payments.where(id: params[:payment_id]).where.not(deleted: true).first or not_found
     @payment.status = Payment::STATUS_MARKED
     @payment.save!
-    @payment.create_activity key: 'payment.sent', owner: current_user, company: account_company
     
     redirect_to :payments
   end

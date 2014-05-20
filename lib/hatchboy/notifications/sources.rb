@@ -10,7 +10,7 @@ module Hatchboy
       end
 
       def recipients
-        get_subscribers @company.admins
+        get_subscribed @company.admins
       end
 
     end

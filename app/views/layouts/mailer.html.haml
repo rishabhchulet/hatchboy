@@ -17,19 +17,18 @@
       .main{
         font-size: larger;
       }
-      .unsubscribe1 {
+      .unsubscribe1, .unsubscribe2 {
         font-size: smaller;
+      }
+      .unsubscribe1 {
         padding-top:30px;
       }
-      .unsubscribe2 {
-        font-size: smaller;
-      } 
 
   %body
     %table
       %tr
         %td.name Hello, #{@recipient.name}.
-        %td.title= t :title
+        %td.title= t :received
       %tr
         %td.main{colspan: 2}
           = yield

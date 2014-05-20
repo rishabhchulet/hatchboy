@@ -9,17 +9,19 @@ describe Hatchboy::Notifications::Payments do
   let(:activity) do
     PublicActivity.with_tracking do
       PublicActivity::Activity.any_instance.stub(:email_notification).and_return true
-      activity = payment.create_activity key: "payments.#{action}", owner: admin1, company: company
+      payment.stub(:status_was).and_return Payment::STATUS_PREPARED
+      payment.stub(:status).and_return Payment::STATUS_SENT
+      activity = payment.create_activity key: "payment.#{action}", owner: admin1, company: company
       PublicActivity::Activity.any_instance.unstub(:email_notification)
       activity
     end
   end
-  let(:action) { 'sent' }
+  let(:action) { 'update' }
   let(:service) { described_class.new action, activity }
 
   describe "#new" do
     subject { service }
-    context "when post added to team" do
+    context "when payment sent" do
       it "should return right mailer method name" do
         expect(service.instance_variable_get(:@subscription_name)).to eq :payment_was_sent
       end

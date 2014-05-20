@@ -49,3 +49,6 @@
                   .col-md-5
                     %label Payment information:
                   .col-md-7= simple_format(@account.payment_information)
+.row
+  .col-md-12
+    = render "subscriptions/user_subscriptions"

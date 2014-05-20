@@ -1,6 +1,11 @@
 class Payment < ActiveRecord::Base
   include PublicActivity::Model
-  tracked
+  tracked only: :update,
+          on: { :update => proc do |payment, controller| 
+            payment.status == STATUS_SENT and payment.status_was == STATUS_PREPARED
+          end },
+          owner: ->(controller, model) { controller && controller.current_user },
+          company_id: ->(controller, payment) { payment.company_id }
 
   STATUS_PREPARED = "prepared"
   STATUS_SENT = "sent"

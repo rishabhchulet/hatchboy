@@ -3,40 +3,46 @@ en:
     # DO NOT CHANGE ANY NOTIFICATION NAME, THEY ARE THE SAME AS FIELDS IN DATABASE TABLE
     user_was_added:
       subject: New user was created
-      title: You recieved this email because you subscribed to recieve notifications if new user has been created.
+      received: You recieved this email because you subscribed to recieve notifications if a new user has been created.
       message: "%{owner} created new user %{user}"
     user_was_removed: 
       subject: User was deleted
-      title: You recieved this email because you subscribed to recieve notifications if user has been deleted.
+      received: You recieved this email because you subscribed to recieve notifications if an user has been deleted.
       message: "%{owner} removed user '%{name}'"
     team_was_added:
       subject: New team has been created
-      title: You recieved this email because you subscribed to recieve notifications if new team has been created.
+      received: You recieved this email because you subscribed to recieve notifications if new team has been created.
       message: "%{owner} created new team '%{team}'"
     team_was_removed:
       subject: Team has been removed
-      title: You recieved this email because you subscribed to recieve notifications if team has been deleted.
+      received: You recieved this email because you subscribed to recieve notifications if team has been deleted.
       message: "%{owner} removed team '%{name}'"
     data_source_was_created:
       subject: New data source has been created
-      title: You recieved this email because you subscribed to recieve notifications if new data source has been created.
+      received: You recieved this email because you subscribed to recieve notifications if new data source has been created.
       message: "%{owner} created new data source '%{source}'"
     post_added_to_team:
       subject: New post has been added
-      title: You recieved this email because you subscribed to recieve notifications if new post has been added to your team.
+      received: You recieved this email because you subscribed to recieve notifications if new post has been added to your team.
       message: "%{owner} created new post '%{post}' to a team '%{team}'"
     user_added_to_team:
       subject: New user added to your team
-      title: You recieved this email because you subscribed to recieve notifications if new user has been added to your team.
+      received: You recieved this email because you subscribed to recieve notifications if new user has been added to your team.
       message: "%{owner} added user '%{user}' to a team '%{team}'"
     time_log_added_to_team:
       subject: New time log has been added
-      title: You recieved this email because you subscribed to recieve notifications if new time log has been added.
+      received: You recieved this email because you subscribed to recieve notifications if new time log has been added.
       message: "%{owner} added time log %{for_a_user} to a team '%{team}'"
-    document_for_signing_was_uploaded:
-      subject: New document for signing was uploaded
-      title: You recieved this email because you subscribed to recieve notifications if new document for signing has been uploaded.
     payment_was_sent:
       subject: New payment has been sent
-      title: You recieved this email because you subscribed to recieve notifications if new payment has been sent.
+      received: You recieved this email because you subscribed to recieve notifications if new payment has been sent.
       message: "%{owner} sent new %{payment}"
+    document_for_signing_was_uploaded:
+      subject: New document for signing was uploaded
+      received: You recieved this email because you subscribed to recieve notifications if new document for signing has been uploaded.
+      message: "%{owner} uploaded new document '%{document}' for_signing"
+    document_was_signing:
+      subject: Document was signed
+      received: You recieved this email because you subscribed to recieve notifications if a document was signed.
+      message: "%{owner} uploaded new document '%{document}' for_signing"
+

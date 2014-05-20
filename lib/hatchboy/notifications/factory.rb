@@ -22,6 +22,7 @@ module Hatchboy
       end
 
       def self.get activity
+        binding.pry
         model_name, action = activity.key.split '.'
         service = "Hatchboy::Notifications::#{model_name.camelize.pluralize}".constantize
         service.new action, activity
@@ -31,8 +32,8 @@ module Hatchboy
 
       private
 
-      def get_subscribers users, team = nil
-        users = Array.wrap users
+      def get_subscribed users, team = nil
+        users = Array.wrap(users).compact
         if team
           _unsubscribed_team = Arel::Table.new(:unsubscribed_teams)
           User.with_account.joins(:subscription)

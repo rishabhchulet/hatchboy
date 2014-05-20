@@ -10,8 +10,8 @@ module Hatchboy
       end
 
       def recipients
-        users = [@object.user] + [@object.docu_signs]
-        get_subscribers users
+        users = [@object.user] + @object.docu_sign_users + @company.admins
+        get_subscribed users
       end
 
     end

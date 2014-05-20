@@ -73,6 +73,11 @@ Hatchboy::Application.routes.draw do
     end
   end
 
+  resources :subscriptions, only: [:edit, :update]
+  delete "/unsubscribed_teams/:id", to: "unsubscribed_teams#subscribe", as: :unsubscribed_team
+  get "/subscriptions/unsubscribe", to: "subscriptions#unsubscribe"
+  get "/team/:team_id/unsubscribe", to: "unsubscribed_teams#unsubscribe", as: :unsubscribed_teams_unsubscribe
+
   resources :sources, only: [:index, :new]
 
   get "jira_sources/callback", :to => "jira_sources#callback", :as => :jira_callback

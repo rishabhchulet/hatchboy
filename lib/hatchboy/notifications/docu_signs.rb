@@ -1,17 +1,17 @@
 module Hatchboy
   module Notifications
-    class WorkLogs < Factory
+    class DocuSigns < Factory
 
       def initialize action, activity
         super activity
         @subscription_name = case action
-          when 'create' then :time_log_added_to_team
+          when 'update' then :document_was_signed
         end
       end
 
       def recipients
-        users = @company.admins + [@object.user]
-        get_subscribed users, @object.team
+        users = [@object.user] + [@object.docu_template.user] + @company.admins
+        get_subscribed users
       end
 
     end

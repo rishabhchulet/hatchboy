@@ -11,7 +11,7 @@ module Hatchboy
 
       def recipients
         users = @company.admins + @object.team.users
-        get_subscribers users, @object.team
+        get_subscribed users, @object.team
       end
 
     end
