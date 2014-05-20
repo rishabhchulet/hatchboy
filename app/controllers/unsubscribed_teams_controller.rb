@@ -1,11 +1,11 @@
 class UnsubscribedTeamsController < ApplicationController
   before_filter :check_session!
 
-  def destroy
+  def subscribe
     @unsubscribed_team = current_account.user.unsubscribed_teams.where(id: params[:id]).first or not_found
     @unsubscribed_team.destroy!
     respond_to do |format|
-      format.html { redirect_to team_path(@team)}
+      format.html { redirect_to team_path(@unsubscribed_team.team)}
       format.js
     end
   end

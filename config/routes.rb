@@ -72,9 +72,9 @@ Hatchboy::Application.routes.draw do
   end
 
   resources :subscriptions, only: [:edit, :update]
-  resources :unsubscribed_teams, only: [:destroy]
+  delete "/unsubscribed_teams/:id", to: "unsubscribed_teams#subscribe", as: :unsubscribed_team
   get "/subscriptions/unsubscribe", to: "subscriptions#unsubscribe"
-  get "/unsubscribed_teams/unsubscribe", to: "unsubscribed_teams#unsubscribe"
+  get "/team/:team_id/unsubscribe", to: "unsubscribed_teams#unsubscribe", as: :unsubscribed_teams_unsubscribe
 
   resources :sources, only: [:index, :new]
 
