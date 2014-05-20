@@ -1,0 +1,6 @@
+.row
+  .col-md-6#unsubscribed_team_form
+    - if current_account.user.unsubscribed_teams.where(team_id: team.id).any?
+      = render partial: "unsubscribed_teams/subscribe_form", locals: { team: team }
+    - else
+      = render partial: "unsubscribed_teams/unsubscribe_form", locals: { team: team }
