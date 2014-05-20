@@ -1,0 +1,25 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => account_path}< Account
+  %i.icon-angle-right
+  %li
+    %a.active{:href => edit_subscription_path(@subscription)} Edit
+.row
+  .col-md-12
+    .page-title
+      %i.icon-custom-ui
+      %h3 Edit subscription
+.row
+  .col-md-12
+    .grid.simple
+      .grid-title.no-border
+        %h4
+          %span.semi-bold Edit subscription
+        .tools
+      .grid-body.no-border
+        = simple_form_for(@subscription, :as => :subscription, :html => { :method => :put }) do |f|
+          = render partial: "subscriptions/form", :locals => { f: f }

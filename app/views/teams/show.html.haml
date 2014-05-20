@@ -41,6 +41,8 @@
         .col-md-2
           %label Total time tracked
         .col-md-4= @team.worklogs.any? ? nice_time_difference(@team.worklogs.sum(:time)) : "0h"
+      - if current_account.user.teams.where(id: @team.id).any?
+        = render partial: "unsubscribed_teams/unsubscribe_team", locals: { team: @team }
 
 .row
   %ul#navigation-tab.nav.nav-tabs
