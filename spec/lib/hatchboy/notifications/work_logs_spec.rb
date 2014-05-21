@@ -81,10 +81,14 @@ describe Hatchboy::Notifications::WorkLogs do
         service.deliver
       end
       it "should have links of action owner and action object" do
-        Mailer.deliveries.each do |email|
-          expect(email).to have_body_text(/#{user_url(company.created_by)}/) # who
-          expect(email).to have_body_text(/#{team_url(team)}/) #where
-          expect(email).to have_body_text(/#{user_url(log_user)}/) # whom
+        NotificationsMailer.deliveries.each do |email|
+          expect(email).to have_body_text(user_url(company.created_by)) # who
+          expect(email).to have_body_text(team_url(team)) #where
+          expect(email).to have_body_text(user_url(log_user)) # whom
+
+          expect(email).to have_body_text(subscriptions_unsubscribe_url(from: :time_log_added_to_team))
+          expect(email).to have_body_text(unsubscribed_teams_unsubscribe_url(team))
+          expect(email).not_to have_body_text('translation_missing')
         end
       end
     end

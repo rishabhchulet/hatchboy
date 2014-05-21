@@ -25,12 +25,12 @@ describe SubscriptionsController do
 
   describe "while unsubscribing" do
     it "should unsubscribe user from action" do
-      get :unsubscribe, user_was_added: 1
+      get :unsubscribe, from: :user_was_added
       user.subscription.reload.user_was_added.should be false
     end
 
     it "should respond with success" do
-      get :unsubscribe, user_was_added: 1
+      get :unsubscribe, from: :user_was_added
       expect(response).to redirect_to account_path
     end
   end

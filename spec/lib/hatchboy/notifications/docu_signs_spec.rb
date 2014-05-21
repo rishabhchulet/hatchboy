@@ -25,7 +25,7 @@ describe Hatchboy::Notifications::DocuSigns do
     end
   end
   let(:action) { 'update' }
-  let(:service) { binding.pry;described_class.new action, activity }
+  let(:service) { described_class.new action, activity }
 
   describe "#new" do
     subject { service }
@@ -71,7 +71,7 @@ describe Hatchboy::Notifications::DocuSigns do
         expect(subject).not_to include creator
         expect(subject).to eq []
       end
-    end  
+    end
   end
 
   describe "#deliver" do
@@ -82,14 +82,15 @@ describe Hatchboy::Notifications::DocuSigns do
         service.deliver
       end
       it "should have links of action owner and action object" do
-        Mailer.deliveries.each do |email|
-          expect(email).to have_body_text(/#{user_url(creator)}/) # who
-          expect(email).to have_body_text(/#{docu_template_url(docu_template)}/) #what
-          expect(email).to have_body_text(/#{docu_template.title}/)
+        NotificationsMailer.deliveries.each do |email|
+          expect(email).to have_body_text(user_url(creator)) # who
+          expect(email).to have_body_text(docu_template_url(docu_template)) #what
+          expect(email).to have_body_text(docu_template.title)
+          expect(email).to have_body_text(subscriptions_unsubscribe_url(from: :document_was_signed))
+          expect(email).not_to have_body_text('translation_missing')
         end
       end
     end
-  end  
-
+  end
 
 end

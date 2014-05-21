@@ -11,9 +11,10 @@
   - owner = link_to @owner.name, @owner_url
   - user = link_to @object.user.name, user_url(@object.user)
 
-- message = t "mailer.#{action_name}.message",
-            owner: owner,
-            user: user,
-            team: link_to(@object.team.name, team_url(@object.team))
+%tr
+  %td.main{colspan: 2}= t "notifications_mailer.#{action_name}.message_html",
+                        owner: owner,
+                        user: user,
+                        team: link_to(@object.team.name, team_url(@object.team))
 
-= message.html_safe
+= render partial: 'notifications_mailer/unsubscribe', locals: {team: @object.team}

@@ -11,7 +11,7 @@ module Hatchboy
 
       def deliver
         Array.wrap(recipients).uniq.each do |recipient|
-          mail = ::Mailer.public_send(@subscription_name, {
+          mail = NotificationsMailer.public_send(@subscription_name, {
             recipient: recipient,
             company: @company,
             object: @object,
@@ -22,7 +22,6 @@ module Hatchboy
       end
 
       def self.get activity
-        binding.pry
         model_name, action = activity.key.split '.'
         service = "Hatchboy::Notifications::#{model_name.camelize.pluralize}".constantize
         service.new action, activity

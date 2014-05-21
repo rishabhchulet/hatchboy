@@ -79,9 +79,11 @@ describe Hatchboy::Notifications::Payments do
       service.deliver
     end
     it "should have links to sender and to payment" do
-      Mailer.deliveries.each do |email|
-        expect(email).to have_body_text(/#{user_url(admin1)}/) #who
-        expect(email).to have_body_text(/#{payment_url(payment)}/) #what
+      NotificationsMailer.deliveries.each do |email|
+        expect(email).to have_body_text(user_url(admin1)) #who
+        expect(email).to have_body_text(payment_url(payment)) #what
+        expect(email).to have_body_text(subscriptions_unsubscribe_url(from: :payment_was_sent))
+        expect(email).not_to have_body_text('translation_missing')
       end
     end
   end

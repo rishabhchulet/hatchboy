@@ -85,10 +85,14 @@ describe Hatchboy::Notifications::PostReceivers do
         service.deliver
       end
       it "should have links to post, to owner and to team" do
-        Mailer.deliveries.each do |email|
-          expect(email).to have_body_text(/#{user_url(company.created_by)}/) #who
-          expect(email).to have_body_text(/#{post_url(post_receiver.post)}/) #what
-          expect(email).to have_body_text(/#{team_url(post_receiver.receiver)}/) #where
+        NotificationsMailer.deliveries.each do |email|
+          expect(email).to have_body_text(user_url(company.created_by)) #who
+          expect(email).to have_body_text(post_url(post_receiver.post)) #what
+          expect(email).to have_body_text(team_url(post_receiver.receiver)) #where
+
+          expect(email).to have_body_text(subscriptions_unsubscribe_url(from: :post_added_to_team))
+          expect(email).to have_body_text(unsubscribed_teams_unsubscribe_url(post_receiver.receiver))
+          expect(email).not_to have_body_text('translation_missing')
         end
       end
     end

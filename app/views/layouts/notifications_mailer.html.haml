@@ -1,0 +1,29 @@
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}
+    :sass
+      #email
+        width: 600px
+        margin: 0 auto
+        td
+          vertical-align: middle
+        .main
+          font-size: larger
+          padding-top: 30px
+          padding-bottom: 30px
+          border-top: 1px solid black
+          border-bottom: 1px solid black
+        .name
+          font-weight: bold
+          white-space: nowrap
+        .title
+          text-align: right
+        .unsubscribe1, .unsubscribe2
+          font-size: smaller
+  %body
+    %table#email
+      %tr
+        %td.name Hello, #{@recipient.name}.
+        %td.title= t "notifications_mailer.#{action_name}.received_html"
+      = yield

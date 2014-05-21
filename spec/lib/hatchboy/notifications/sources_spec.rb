@@ -58,9 +58,12 @@ describe Hatchboy::Notifications::Sources do
         service.deliver
       end
       it "should have links to source and to owner" do
-        Mailer.deliveries.each do |email|
-          expect(email).to have_body_text(/#{user_url(company.created_by)}/)
-          expect(email).to have_body_text(/#{jira_source_url(source)}/)
+        NotificationsMailer.deliveries.each do |email|
+          expect(email).to have_body_text(user_url(company.created_by))
+          expect(email).to have_body_text(jira_source_url(source))
+
+          expect(email).to have_body_text(subscriptions_unsubscribe_url(from: :data_source_was_created))
+          expect(email).not_to have_body_text('translation_missing')
         end
       end
     end

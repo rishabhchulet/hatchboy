@@ -13,8 +13,11 @@ class SubscriptionsController < ApplicationController
   end
 
   def unsubscribe
-    @subscription.update_attributes! unsubscribtion_params.inject({}) {|h, (k,v)| h[k] = false; h}
-    flash[:notice] = "Successfully unsubscribed"
+    if Subscription::SUBSCRIPTION_COLUMNS.include? unsubscribe_params[:from].to_sym
+      @subscription.update! unsubscribe_params[:from] => false
+      flash[:notice] = "Successfully unsubscribed"
+    end
+
     redirect_to account_path
   end
 
@@ -24,8 +27,8 @@ class SubscriptionsController < ApplicationController
       params.require(:subscription).permit(Subscription::SUBSCRIPTION_COLUMNS)
     end
 
-    def unsubscribtion_params
-      params.permit(Subscription::SUBSCRIPTION_COLUMNS)
+    def unsubscribe_params
+      params.permit :from
     end
 
     def find_or_create_subscription

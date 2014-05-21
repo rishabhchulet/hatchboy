@@ -90,9 +90,13 @@ describe Hatchboy::Notifications::Teams do
         service.deliver
       end
       it "should have links of action owner and action object" do
-        Mailer.deliveries.each do |email|
-          expect(email).to have_body_text(/#{user_url(company.created_by)}/)
-          expect(email).to have_body_text(/#{team_url(team)}/)
+        NotificationsMailer.deliveries.each do |email|
+          expect(email).to have_body_text(user_url(company.created_by))
+          expect(email).to have_body_text(team_url(team))
+
+          expect(email).to have_body_text(subscriptions_unsubscribe_url(from: :team_was_added))
+          expect(email).to have_body_text(unsubscribed_teams_unsubscribe_url(team))
+          expect(email).not_to have_body_text('translation_missing')
         end
       end
     end
@@ -103,9 +107,12 @@ describe Hatchboy::Notifications::Teams do
         service.deliver
       end
       it "should have links of action owner removed object name" do
-        Mailer.deliveries.each do |email|
-          expect(email).to have_body_text(/#{user_url(company.created_by)}/)
-          expect(email).to have_body_text(/#{team.name}/)
+        NotificationsMailer.deliveries.each do |email|
+          expect(email).to have_body_text(user_url(company.created_by))
+          expect(email).to have_body_text(team.name)
+
+          expect(email).to have_body_text(subscriptions_unsubscribe_url(from: :team_was_removed))
+          expect(email).not_to have_body_text('translation_missing')
         end
       end
     end

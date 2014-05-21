@@ -1,0 +1,16 @@
+- if @owner == @recipient
+  - owner = link_to 'You', @owner_url
+- else
+  - owner = link_to @owner.name, @owner_url
+
+- if @object.type == 'JiraSource'
+  - data_source = link_to 'data source', jira_source_url(@object)
+- else
+  - data_source = link_to 'data source', sources_url
+
+%tr
+  %td.main{colspan: 2}= t "notifications_mailer.#{action_name}.message_html", 
+                        owner: owner,
+                        data_source: data_source
+
+= render partial: 'notifications_mailer/unsubscribe'

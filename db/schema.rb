@@ -221,7 +221,7 @@ ActiveRecord::Schema.define(version: 20140520121819) do
     t.boolean  "time_log_added_to_team"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "document_was_signing"
+    t.boolean  "document_was_signed"
   end
 
   create_table "teams", force: true do |t|

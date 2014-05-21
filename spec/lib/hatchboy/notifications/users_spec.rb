@@ -76,29 +76,33 @@ describe Hatchboy::Notifications::Users do
   describe "#deliver" do
     before { ActionMailer::Base.deliveries = [] }
 
-    context "create team notification" do
+    context "create user notification" do
       let(:action) { 'create' }
       before do
         @admin = create :user, :with_subscription, company: company, role: 'Manager'
         service.deliver
       end
       it "should have links of action owner and action object" do
-        Mailer.deliveries.each do |email|
-          expect(email).to have_body_text(/#{user_url(company.created_by)}/)
-          expect(email).to have_body_text(/#{user_url(user)}/)
+        NotificationsMailer.deliveries.each do |email|
+          expect(email).to have_body_text(user_url(company.created_by))
+          expect(email).to have_body_text(user_url(user))
+          expect(email).to have_body_text(subscriptions_unsubscribe_url(from: :user_was_added))
+          expect(email).not_to have_body_text('translation_missing')
         end
       end
     end
-    context "destroy team notification" do
+    context "destroy user notification" do
       let(:action) { 'destroy' }
       before do
         @admin = create :user, :with_subscription, company: company, role: 'Manager'
         service.deliver
       end
-      it "should have links of action owner removed object name" do
-        Mailer.deliveries.each do |email|
-          expect(email).to have_body_text(/#{user_url(company.created_by)}/)
-          expect(email).to have_body_text(/#{user.name}/)
+      it "should have links of action owner, removed user name" do
+        NotificationsMailer.deliveries.each do |email|
+          expect(email).to have_body_text(user_url(company.created_by))
+          expect(email).to have_body_text(user.name)
+          expect(email).to have_body_text(subscriptions_unsubscribe_url(from: :user_was_removed))
+          expect(email).not_to have_body_text('translation_missing')
         end
       end
     end

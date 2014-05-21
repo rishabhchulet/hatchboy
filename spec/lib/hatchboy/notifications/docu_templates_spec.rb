@@ -81,10 +81,12 @@ describe Hatchboy::Notifications::DocuTemplates do
         service.deliver
       end
       it "should have links of action owner and action object" do
-        Mailer.deliveries.each do |email|
-          expect(email).to have_body_text(/#{user_url(creator)}/) # who
-          expect(email).to have_body_text(/#{docu_template_url(docu_template)}/) #what
-          expect(email).to have_body_text(/#{docu_template.title}/)
+        NotificationsMailer.deliveries.each do |email|
+          expect(email).to have_body_text(user_url(creator)) # who
+          expect(email).to have_body_text(docu_template_url(docu_template)) #what
+          expect(email).to have_body_text(docu_template.title)
+          expect(email).to have_body_text(subscriptions_unsubscribe_url(from: :document_for_signing_was_uploaded))
+          expect(email).not_to have_body_text('translation_missing')
         end
       end
     end

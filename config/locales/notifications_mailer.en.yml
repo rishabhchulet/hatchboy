@@ -1,0 +1,51 @@
+en:
+  notifications_mailer:
+    unsubscribe_html: "You can %{unsubscribe} from this kind of notifications"
+    unsubscribe_team_html: "Or you can %{unsubscribe} from all notifications connected with this team"
+
+    # DO NOT CHANGE ANY NOTIFICATION NAME, THEY ARE THE SAME AS FIELDS IN DATABASE TABLE
+    user_was_added:
+      subject: New user was created
+      received_html: You recieved this email because you subscribed to recieve notifications if a new user has been created.
+      message_html: "%{owner} created new user %{user}"
+    user_was_removed: 
+      subject: User was deleted
+      received_html: You recieved this email because you subscribed to recieve notifications if an user has been deleted.
+      message_html: "%{owner} removed user '%{name}'"
+    team_was_added:
+      subject: New team has been created
+      received_html: You recieved this email because you subscribed to recieve notifications if new team has been created.
+      message_html: "%{owner} created new team '%{team}'"
+    team_was_removed:
+      subject: Team has been removed
+      received_html: You recieved this email because you subscribed to recieve notifications if team has been deleted.
+      message_html: "%{owner} removed team '%{name}'"
+    data_source_was_created:
+      subject: New data source has been created
+      received_html: You recieved this email because you subscribed to recieve notifications if new data source has been created.
+      message_html: "%{owner} created new %{data_source}"
+    post_added_to_team:
+      subject: New post has been added
+      received_html: You recieved this email because you subscribed to recieve notifications if new post has been added to your team.
+      message_html: "%{owner} created new post '%{post}' to a team '%{team}'"
+    user_added_to_team:
+      subject: New user added to your team
+      received_html: You recieved this email because you subscribed to recieve notifications if new user has been added to your team.
+      message_html: "%{owner} added user '%{user}' to a team '%{team}'"
+    time_log_added_to_team:
+      subject: New time log has been added
+      received_html: You recieved this email because you subscribed to recieve notifications if new time log has been added.
+      message_html: "%{owner} added time log %{for_a_user} to a team '%{team}'"
+    payment_was_sent:
+      subject: New payment has been sent
+      received_html: You recieved this email because you subscribed to recieve notifications if new payment has been sent.
+      message_html: "%{owner} sent new %{payment}"
+    document_for_signing_was_uploaded:
+      subject: New document for signing was uploaded
+      received_html: You recieved this email because you subscribed to recieve notifications if new document for signing has been uploaded.
+      message_html: "%{owner} uploaded new document '%{document}' for_signing"
+    document_was_signed:
+      subject: Document was signed
+      received_html: You recieved this email because you subscribed to recieve notifications if a document was signed.
+      message_html: "%{owner} signed document '%{document}'"
+

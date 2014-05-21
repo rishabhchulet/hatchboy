@@ -46,7 +46,7 @@ describe Hatchboy::Notifications::Factory do
     before { @notification = described_class.get(activity) }
     subject { @notification.deliver }
     it "should deliver the message" do
-      expect{subject}.to change{::Mailer.deliveries.count }.by 1
+      expect{subject}.to change{NotificationsMailer.deliveries.count }.by 1
     end
   end
 
