@@ -31,7 +31,7 @@ module Hatchboy
                 { id: user.id, name: user.name, value: payment ? payment.amount.round(2) : 0}
               end
             end
-            @chart = build_chart({title: "Payments", y_title: "$", data: chart_data})
+            @chart = build_chart({title: "Payments sent to users for #{report_title_from_params(@params)}", y_title: "$", data: chart_data})
           end
 
       end

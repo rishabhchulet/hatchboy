@@ -19,7 +19,7 @@ class ReportHoursController < ApplicationController
       end
     end
 
-    @chart = build_chart({title: "Work Logs of #{@team.name}", y_title: "Hours", data: chart_data})
+    @chart = build_chart({title: "#{@team.name} work logs for #{report_title_from_params(query_params)}", y_title: "Hours", data: chart_data})
   end
 
   def user
@@ -38,6 +38,6 @@ class ReportHoursController < ApplicationController
       end
     end
 
-    @chart = build_chart({title: "Work Logs of #{@user.name}", y_title: "Hours", data: chart_data})
+    @chart = build_chart({title: "#{@user.name} work logs for #{report_title_from_params(query_params)}", y_title: "Hours", data: chart_data})
   end
 end

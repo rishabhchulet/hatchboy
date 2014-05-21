@@ -11,8 +11,8 @@ class ReportRatingsController < ApplicationController
     scores = UserAvgRating.where(rated: @user).group(:date_period).order(:date_period).select('date_period, avg(avg_score) AS rating')
     if scores.length > 1
       @chart = LazyHighCharts::HighChart.new('graph') do |f|
-        f.title({ :text=>"Rating of #{@user.name}"})
-        f.options[:xAxis][:categories] = scores.map(&:date_period)
+        f.title({ :text=>"360* ratings of #{@user.name}"})
+        f.options[:xAxis][:categories] = scores.collect{|s| s.date_period.strftime("%B %Y")}
         f.options[:chart][:zoomType] = 'x,y'
         f.series(:type=> 'spline',:name=> 'Rating', :data=> scores.map(&:rating).collect{|score| score.round(2)})
         f.yAxis [{:title => {:text => "Rating value", :margin => 10}, :min => 0, :max => UserMultiRating::MAX_RATING},]

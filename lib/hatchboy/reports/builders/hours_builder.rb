@@ -45,7 +45,7 @@ module Hatchboy
                 end
               end
             end
-            @chart = build_chart({title: "Work Logs", y_title: "Hours", data: chart_data})
+            @chart = build_chart({title: "#{@params[:group_by] == "teams" ? "Teams" : "Users"} work logs for #{report_title_from_params(@params)}", y_title: "Hours", data: chart_data})
           end
 
       end
