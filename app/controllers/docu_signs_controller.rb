@@ -102,11 +102,10 @@ class DocuSignsController < ApplicationController
 
       rcheck = recipients["signers"][0]
 
-      if rcheck["status"] == "completed" and rcheck["name"] == current_user.name and rcheck["email"] == current_account.email
+      if rcheck["status"]=="completed" and rcheck["name"]==current_account.user.name and rcheck["email"]==current_account.email
         @docu_sign.update_attribute(:status, DocuSign::STATUS_SIGNED)
       end
       flash[:notice] = "Thanks! Successfully signed"
-
       render :text => utility.breakout_path(docu_templates_url), content_type: 'text/html'
     elsif params[:event] == "decline"
       flash[:notice] = "You chose not to sign the document."

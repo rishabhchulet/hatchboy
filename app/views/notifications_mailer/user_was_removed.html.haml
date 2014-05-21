@@ -4,7 +4,7 @@
   - owner_link = link_to @owner.name, @owner_url
 
 %tr
-  %td.main{colspan: 2}= t "notifications_mailer.#{action_name}.message_html",
+  %td.main{colspan: 2}= t ".message_html",
                         owner: owner_link,
                         name: @object.name
 

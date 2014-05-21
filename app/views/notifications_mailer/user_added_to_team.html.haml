@@ -12,7 +12,7 @@
   - user = link_to @object.user.name, user_url(@object.user)
 
 %tr
-  %td.main{colspan: 2}= t "notifications_mailer.#{action_name}.message_html",
+  %td.main{colspan: 2}= t ".message_html",
                         owner: owner,
                         user: user,
                         team: link_to(@object.team.name, team_url(@object.team))
