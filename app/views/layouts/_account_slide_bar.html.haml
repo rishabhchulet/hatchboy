@@ -43,6 +43,12 @@
       %a{:href => sources_path}
         %i.icon-download-alt
         %span.title Data sources
+        
+    %li{class: (['sources', "jira_sources"].include?(request[:controller]) and request[:action] == "tutorials" ? "active" : "")}
+      %a{:href => tutorials_path}
+        %i.icon-info
+        %span.title Tutorials
+
   .clearfix
 - if ['mail', 'compose'].include? request[:action]
   .inner-menu.nav-collapse
