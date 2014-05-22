@@ -76,12 +76,12 @@ module ReportsHelper
   end
 
   def report_title_from_params params
-    case params[:date].to_sym
-      when :last_month then "the last month"
-      when :last_week then "the last week"
-      when :specific then parse_date(params[:specific_date]).strftime("%d.%m.%Y")
-      when :period then "#{parse_date(params[:period_from]).strftime("%d.%m.%Y")} - #{parse_date(params[:period_to]).strftime("%d.%m.%Y")}"
-      when :today then "today"
+    case params[:date]
+      when "last_month" then "the last month"
+      when "last_week" then "the last week"
+      when "specific" then parse_date(params[:specific_date]).strftime("%d.%m.%Y")
+      when "period" then "#{parse_date(params[:period_from]).strftime("%d.%m.%Y")} - #{parse_date(params[:period_to]).strftime("%d.%m.%Y")}"
+      when "today" then "today"
       else "all time"
     end
   end
