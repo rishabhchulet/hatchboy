@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
+  before_create :set_default_avatar, unless: "self.avatar?"
+
   def company_attributes= company
     company[:created_by] = self
     company[:contact_person] = self
@@ -39,4 +41,10 @@ class User < ActiveRecord::Base
   def can_rate?(rated_user)
     user_multi_ratings.current_period.where(rated_id: rated_user.id).count < USER_MULTI_RATING_ASPECTS.count
   end
+
+  private
+
+    def set_default_avatar
+      self.avatar = File.open(Dir.glob(Rails.root.join('app','assets','images','images','user_default_avatars','*')).shuffle.first)
+    end
 end
