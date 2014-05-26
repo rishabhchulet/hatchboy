@@ -279,7 +279,7 @@ ActiveRecord::Schema.define(version: 20140512121738) do
     t.string   "uid_in_source"
     t.string   "issue"
     t.date     "on_date"
-    t.integer  "time"
+    t.float    "time"
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"

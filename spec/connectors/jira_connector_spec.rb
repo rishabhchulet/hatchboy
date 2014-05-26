@@ -1,13 +1,13 @@
 require "spec_helper"
-require File.expand_path("lib/connectors/jira_connector")
+require File.expand_path("lib/hatchboy/connectors/jira_connector")
 
-describe Hatchboy::Connector::Jira do
+describe Hatchboy::Connectors::JiraConnector do
 
   context "with class included descibed module" do
 
     before do
       class JiraConnectorTest
-        include Hatchboy::Connector::Jira
+        include Hatchboy::Connectors::JiraConnector
         
         methods = {
           url: "http://example.com", consumer_key: "jira_consumer_key", private_key: "valid_private_key",
@@ -97,7 +97,7 @@ describe Hatchboy::Connector::Jira do
       worklog.team.should eq Team.first
       worklog.sources_user.should eq SourcesUser.first
       worklog.issue.should eq "Create employee pages"
-      worklog.time.should eq 19800
+      worklog.time.should eq 5.5
       worklog.comment.should eq "That's just a begining"
       worklog.on_date.should eq Date.parse("2013-12-19")
     end
