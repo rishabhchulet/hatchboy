@@ -6,6 +6,10 @@ class HelpLinksController < ApplicationController
     @help_links = HelpLink.all
   end
 
+  def tutorials
+    @help_links = HelpLink.where.not(video_link: "").all
+  end
+
   def new
     @help_link = HelpLink.new
   end
@@ -54,6 +58,6 @@ class HelpLinksController < ApplicationController
     end
 
   def help_link_params
-    params.require(:help_link).permit(:controller, :action, :link, :video_link)
+    params.require(:help_link).permit(:controller, :action, :link, :video_link, :video_title)
   end
 end

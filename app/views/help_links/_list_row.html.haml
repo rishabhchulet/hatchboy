@@ -1,9 +1,10 @@
 %tr.data-row
   %td= @routes.select{|r| r[:controller] == list_row.controller and r[:action] == list_row.action}.first[:path]
   %td= list_row.link
+  %td= list_row.video_link
   %td
     .col-md-6
-      = list_row.video_link
+      = list_row.video_title
     .col-md-6
       .list-column.list-row-action
         .list-row-action-wrapper

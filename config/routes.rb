@@ -93,6 +93,7 @@ Hatchboy::Application.routes.draw do
   end
 
   resources :help_links
+  get "/tutorials", to: "help_links#tutorials", as: :tutorials
 
   resources :posts
 

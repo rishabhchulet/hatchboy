@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512121738) do
+ActiveRecord::Schema.define(version: 20140521122946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(version: 20140512121738) do
     t.string   "video_link"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "video_title"
   end
 
   add_index "help_links", ["controller", "action"], name: "index_help_links_on_controller_and_action", using: :btree
@@ -207,6 +208,22 @@ ActiveRecord::Schema.define(version: 20140512121738) do
     t.datetime "updated_at"
   end
 
+  create_table "subscriptions", force: true do |t|
+    t.integer  "user_id"
+    t.boolean  "user_was_added"
+    t.boolean  "user_was_removed"
+    t.boolean  "team_was_added"
+    t.boolean  "team_was_removed"
+    t.boolean  "payment_was_sent"
+    t.boolean  "data_source_was_created"
+    t.boolean  "document_for_signing_was_uploaded"
+    t.boolean  "post_added_to_team"
+    t.boolean  "user_added_to_team"
+    t.boolean  "time_log_added_to_team"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "teams", force: true do |t|
     t.integer  "company_id"
     t.string   "name"
@@ -227,6 +244,13 @@ ActiveRecord::Schema.define(version: 20140512121738) do
   create_table "teams_users", force: true do |t|
     t.integer  "team_id"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "unsubscribed_teams", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
