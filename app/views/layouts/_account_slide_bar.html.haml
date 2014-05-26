@@ -17,8 +17,8 @@
         %span.selected
     %li{class: ['reports', "report_hours", "report_payments", "report_mvp", "report_ratings"].include?(request[:controller]) ? "active" : ""}
       %a{:href => reports_path, 'data-no-turbolink' => true}
-        %i.icon-bar-chart
-        %span.title Reports & Analyzes
+        %i.icon-custom-extra
+        %span.title Performance Analyzes
     %li{class: ['users'].include?(request[:controller]) ? "active" : ""}
       %a{:href => users_path}
         %i.icon-user
@@ -31,7 +31,7 @@
       %a{:href => docu_templates_path}
         %i.icon-suitcase
         %span.title  Legal & Tax
-        - if session[:docs_to_sign] and session[:docs_to_sign] > 0 
+        - if session[:docs_to_sign] and session[:docs_to_sign] > 0
           %span.selected
           %span.badge.badge-important.pull-right
             = session[:docs_to_sign]

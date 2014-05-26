@@ -5,9 +5,9 @@ class ReportsController < ApplicationController
   include ReportsHelper
 
   def index
-    @hours_report = Hatchboy::Reports::Builders::HoursBuilder.new(account_company, retrieve_query_params(:hours, Hatchboy::Reports::Builders::HoursBuilder::AVAILABLE_PARAMS))
-    @payments_report = Hatchboy::Reports::Builders::PaymentsBuilder.new(account_company, retrieve_query_params(:payments, Hatchboy::Reports::Builders::PaymentsBuilder::AVAILABLE_PARAMS))
-    @mvp_report = Hatchboy::Reports::Builders::MvpBuilder.new(account_company, retrieve_query_params(:mvp, Hatchboy::Reports::Builders::MvpBuilder::AVAILABLE_PARAMS))
-    @ratings_report = Hatchboy::Reports::Builders::RatingsBuilder.new(account_company, {})
+    @hours_report = build_report :hours
+    @payments_report = build_report :payments
+    @mvp_report = build_report :mvp
+    @ratings_report = build_report :ratings
   end
 end

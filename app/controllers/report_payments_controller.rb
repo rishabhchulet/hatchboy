@@ -19,6 +19,6 @@ class ReportPaymentsController < ApplicationController
       end
     end
     
-    @chart = build_chart({title: "Payments", y_title: "$", data: chart_data})
+    @chart = build_chart({title: "Payments sent to #{@user.name} for #{report_title_from_params(query_params)}", y_title: "$", data: chart_data})
   end
 end
