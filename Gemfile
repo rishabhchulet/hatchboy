@@ -37,6 +37,8 @@ gem 'public_activity', '~> 1.4.1'
 
 gem "activemerchant", "~> 1.42.6"
 
+gem 'stripe', '~> 1.12.0'
+
 group :development do
   gem 'capistrano',  '~> 3.0.1'
   gem 'capistrano-rails', '~> 1.1.0'
@@ -62,6 +64,7 @@ group :development, :test, :staging do
   gem 'faker', '~> 1.1.2'
 end
 group :test do
+  gem 'stripe-ruby-mock', '~> 1.10.1.7'
   gem 'shoulda-matchers', '~> 2.1'
   gem 'capybara'
   gem "poltergeist", "~> 1.4.1"

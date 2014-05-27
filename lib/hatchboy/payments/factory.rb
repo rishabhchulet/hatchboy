@@ -9,6 +9,7 @@ module Hatchboy
           service = case type
             when PaymentTransaction::TYPE_PAYPAL then Payments::Paypal
             when PaymentTransaction::TYPE_DWOLLA then Payments::Dwolla
+            when PaymentTransaction::TYPE_STRIPE then Payments::Stripe
             else not_found
           end
           service.new params

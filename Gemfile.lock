@@ -45,6 +45,7 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    blankslate (3.1.2)
     bootstrap-datepicker-rails (1.3.0.1)
       railties (>= 3.0)
     bootstrap-sass (3.0.2.1)
@@ -93,6 +94,7 @@ GEM
     columnize (0.3.6)
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
+    dante (0.2.0)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
@@ -170,6 +172,11 @@ GEM
     jbuilder (1.5.2)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
+    jimson-temp (0.9.5)
+      blankslate (>= 3.1.2)
+      multi_json (~> 1.0)
+      rack (~> 1.4)
+      rest-client (~> 1.0)
     jira-ruby (0.1.4)
       activesupport
       oauth
@@ -327,6 +334,14 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh
       term-ansicolor
+    stripe (1.12.0)
+      json (~> 1.8.1)
+      mime-types (~> 1.25)
+      rest-client (~> 1.4)
+    stripe-ruby-mock (1.10.1.7)
+      dante (>= 0.2.0)
+      jimson-temp
+      stripe (>= 1.10.1)
     subexec (0.2.3)
     term-ansicolor (1.2.2)
       tins (~> 0.8)
@@ -424,6 +439,8 @@ DEPENDENCIES
   selenium-webdriver (~> 2.35.1)
   shoulda-matchers (~> 2.1)
   simple_form
+  stripe (~> 1.12.0)
+  stripe-ruby-mock (~> 1.10.1.7)
   therubyracer
   turbolinks
   uglifier (>= 1.3.0)

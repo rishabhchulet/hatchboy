@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512121738) do
+ActiveRecord::Schema.define(version: 20140526123236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,7 +134,10 @@ ActiveRecord::Schema.define(version: 20140512121738) do
     t.integer "payment_id"
     t.integer "user_id"
     t.float   "amount"
+    t.string  "stripe_transfer_id"
   end
+
+  add_index "payment_recipients", ["stripe_transfer_id"], name: "index_payment_recipients_on_stripe_transfer_id", using: :btree
 
   create_table "payment_transactions", force: true do |t|
     t.integer  "payment_id"
@@ -206,6 +209,24 @@ ActiveRecord::Schema.define(version: 20140512121738) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "stripe_configurations", force: true do |t|
+    t.integer "company_id"
+    t.string  "secret_key"
+    t.string  "public_key"
+  end
+
+  add_index "stripe_configurations", ["company_id"], name: "index_stripe_configurations_on_company_id", using: :btree
+
+  create_table "stripe_recipients", force: true do |t|
+    t.integer  "user_id"
+    t.string   "recipient_token"
+    t.string   "last_4_digits"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "stripe_recipients", ["user_id"], name: "index_stripe_recipients_on_user_id", using: :btree
 
   create_table "teams", force: true do |t|
     t.integer  "company_id"

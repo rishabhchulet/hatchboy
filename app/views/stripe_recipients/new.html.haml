@@ -1,0 +1,28 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path}< Company
+  %i.icon-angle-right
+  %li
+    %a{:href => user_path(@user)} User
+  %i.icon-angle-right
+  %li
+    %a.active{:href => new_user_stripe_recipient_path(@user)} Create Stripe Account  
+.row
+  .col-md-12    
+    .page-title
+      %i.icon-custom-ui
+      %h3 Create Stripe Account
+.row
+  .col-md-12
+    .grid.simple
+      .grid-title.no-border
+        %h4
+          %span.semi-bold New stripe account
+        .tools
+      .grid-body.no-border
+        = simple_form_for(@stripe_recipient, :url => user_stripe_recipient_path(@user, @stripe_recipient), :as => :stripe_recipient, :html => { :method => :post }) do |f|
+          = render partial: "stripe_recipients/form", :locals => { f: f }
