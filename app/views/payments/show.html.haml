@@ -62,27 +62,32 @@
       .col-md-4
         .grid.simple.horizontal.blue
           %p.grid-body.text-center
-            =link_to payment_transactions_path({type: PaymentTransaction::TYPE_PAYPAL, payment_id: @payment.id}), title: "Process with Paypal", method: :post, data: {confirm: "Are you sure you want to process the payment with PayPal?"} do
+            =link_to payment_transactions_path({type: Payment::TYPE_PAYPAL, payment_id: @payment.id}), title: "Process with Paypal", method: :post, data: {confirm: "Are you sure you want to process the payment with PayPal?"} do
               %button.btn.btn-primary.btn-cons
                 %i.icon-share-alt
                 Paypal
-            =link_to payment_transactions_path({type: PaymentTransaction::TYPE_STRIPE, payment_id: @payment.id}), title: "Process with Stripe", method: :post, data: {confirm: "Are you sure you want to process the payment with Stripe?"} do
+            =link_to payment_transactions_path({type: Payment::TYPE_STRIPE, payment_id: @payment.id}), title: "Process with Stripe", method: :post, data: {confirm: "Are you sure you want to process the payment with Stripe?"} do
               %button.btn.btn-primary.btn-cons
                 %i.icon-share-alt
                 Stripe
-            =link_to payment_transactions_path({type: PaymentTransaction::TYPE_DWOLLA, payment_id: @payment.id}), title: "Process with Dwolla", method: :post, data: {confirm: "Are you sure you want to process the payment with Dwolla?"} do
+            =link_to payment_transactions_path({type: Payment::TYPE_DWOLLA, payment_id: @payment.id}), title: "Process with Dwolla", method: :post, data: {confirm: "Are you sure you want to process the payment with Dwolla?"} do
               %button.btn.btn-primary.btn-cons
                 %i.icon-share-alt
                 Dwolla
 
   - unless @payment.status == Payment::STATUS_MARKED
+    - if @payment.type.present? and @payment.additional_info.present?
+      .row
+        .col-md-12
+          =render partial: "payments/additional_info_#{@payment.type}", locals: {payment: @payment}
+
     .row
       .col-md-12
         .grid.simple.horizontal
           %h2.grid-title Information from payment system
           .grid-body
-            - if @payment.transactions.present?
-              =render partial: "payments/transaction_#{@payment.transactions.first.type}", locals: {transactions: @payment.transactions}
+            - if @payment.type.present? and @payment.transactions.present?
+              =render partial: "payments/transaction_#{@payment.type}", locals: {transactions: @payment.transactions}
             - else
               %p No information yet
 

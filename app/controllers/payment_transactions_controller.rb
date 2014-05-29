@@ -19,7 +19,7 @@ class PaymentTransactionsController < ApplicationController
     response = payer.pay payment
 
     if response[:success]
-      payment.update_attributes(status: Payment::STATUS_SENT, additional_info: response[:additional_info].to_json)
+      payment.update_attributes(status: Payment::STATUS_SENT, additional_info: response[:additional_info].to_json, type: params[:type])
 
       flash[:notice] = "You have succesfully sent a payment"
       redirect_to payments_path(:anchor => 'payments-sent')
@@ -37,7 +37,7 @@ class PaymentTransactionsController < ApplicationController
         if notify.params['unique_id_1'] and first_recipient = PaymentRecipient.find(notify.params['unique_id_1'])
           transaction = Hatchboy::Payments::Paypal.parse_ipn params
           payment = first_recipient.payment
-          payment.transactions.create(info: transaction.to_json, type: PaymentTransaction::TYPE_PAYPAL)
+          payment.transactions.create(info: transaction.to_json)
         end
       else
         paypal_ipn_logger ||= Logger.new("#{Rails.root}/log/paypal_ipn.log")
@@ -56,7 +56,7 @@ class PaymentTransactionsController < ApplicationController
         if recipient = PaymentRecipient.where(stripe_transfer_id: json_event["data"]["object"]["id"]).first
           stripe = Hatchboy::Payments::Stripe.new recipient.payment.company.stripe_configuration
           if event = stripe.get_event(json_event["id"])
-            recipient.payment.transactions.create(info: event.to_json, type: PaymentTransaction::TYPE_STRIPE)
+            recipient.payment.transactions.create(info: event.to_json)
           else
             stripe_logger.warn("Can't find event #{json_event["id"]}!")
           end
