@@ -50,19 +50,18 @@ class PaymentTransactionsController < ApplicationController
 
   def stripe_notify
     stripe_logger ||= Logger.new("#{Rails.root}/log/stripe.log")
-
-    if json_event = JSON.parse(request.raw_post)
-      if json_event["data"]["object"]["object"] == "transfer"
-        if recipient = PaymentRecipient.where(stripe_transfer_id: json_event["data"]["object"]["id"]).first
-          stripe = Hatchboy::Payments::Stripe.new recipient.payment.company.stripe_configuration
-          if event = stripe.get_event(json_event["id"])
-            recipient.payment.transactions.create(info: event.to_json)
-          else
-            stripe_logger.warn("Can't find event #{json_event["id"]}!")
-          end
+    json_event = JSON.parse(request.raw_post)
+    
+    if ['transfer.updated', 'transfer.paid', 'transfer.failed'].include? json_event["type"]
+      if recipient = PaymentRecipient.where(stripe_transfer_id: json_event["data"]["object"]["id"]).first
+        stripe = Hatchboy::Payments::Stripe.new recipient.payment.company.stripe_configuration
+        if event = stripe.get_event(json_event["id"])
+          recipient.payment.transactions.create(info: event.to_json)
         else
-          stripe_logger.warn("Can't find recipient in transfer #{json_event["data"]["object"]["id"]}!")
+          stripe_logger.warn("Can't find event #{json_event["id"]}!")
         end
+      else
+        stripe_logger.warn("Can't find recipient in transfer #{json_event["data"]["object"]["id"]}!")
       end
     end
 
