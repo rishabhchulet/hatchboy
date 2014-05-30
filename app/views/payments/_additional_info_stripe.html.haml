@@ -11,10 +11,10 @@
           %td= payment.recipients.find(info['recipient_id']).user.name
           %td
             -if info['success']
-              %b{class: "label label-success"}= info['transfer']['status']
+              %b{class: "label label-success"} successfully created
             -else
               %b{class: "label label-important"} failed
               %span.badge{'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => info['message'] } ?
           %td
             -if info['transfer']
-              = "ID: #{info['transfer']['id']}"
+              = info['transfer']['id']
