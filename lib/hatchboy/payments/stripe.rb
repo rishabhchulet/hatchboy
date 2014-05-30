@@ -69,7 +69,7 @@ module Hatchboy
             :type => "individual"
           )
 
-          {recipient_token: stripe_recipient.id, last_4_digits: stripe_recipient.active_account.last4}
+          {recipient_token: stripe_recipient.id, last_4_digits: stripe_recipient.cards.first.last4}
         rescue ::Stripe::StripeError => e
           recipient.errors.add :base, e.message
           return false
@@ -82,7 +82,7 @@ module Hatchboy
           stripe_recipient.description = "#{recipient.user.name}: #{recipient.user.contact_email}"
           stripe_recipient.save
 
-          {recipient_token: stripe_recipient.id, last_4_digits: stripe_recipient.active_account.last4}
+          {recipient_token: stripe_recipient.id, last_4_digits: stripe_recipient.cards.first.last4}
         rescue ::Stripe::InvalidRequestError => e
           create_recipient recipient
         rescue ::Stripe::StripeError => e
