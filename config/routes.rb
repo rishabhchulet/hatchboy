@@ -28,6 +28,8 @@ Hatchboy::Application.routes.draw do
   get "dashboard", :to => "dashboard#index", :as => :dashboard
   get "legal", :to => "pages#dashboard", :as => :legal
 
+  get "billing_information", :to => "pages#billing_information", :as => :billing_information
+  
   resources :payments do
     put "marked"
   end

@@ -15,4 +15,7 @@ class PagesController < ApplicationController
 
   def compose
   end
+
+  def billing_information
+  end
 end
