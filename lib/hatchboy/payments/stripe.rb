@@ -9,10 +9,15 @@ module Hatchboy
       end
 
       def valid?
-        ::Stripe::Balance.retrieve()
+        balance
         return true
       rescue ::Stripe::AuthenticationError, ::Stripe::APIConnectionError => e
         return false
+      end
+
+      def balance
+        balance = ::Stripe::Balance.retrieve()
+        balance.available.first.amount.to_f
       end
 
       def get_event event_id
@@ -22,26 +27,27 @@ module Hatchboy
       end
 
       def pay payment
-        if (with_no_stripe = payment.recipients.select{|r| r.user.stripe_recipient.nil?}).any?
-          raise "Recipients #{with_no_stripe.map{|r| r.user.name}.join(', ')} did not set stripe data"
-        end
-        balance = ::Stripe::Balance.retrieve()
-        raise "Your current balance less than payment amount" if balance.available.first.amount.to_f < payment.amount
-        
-        transfers = payment.recipients.map do |recipient|
-          transfer = ::Stripe::Transfer.create(
-            :amount => (recipient.amount*100).to_i,
-            :currency => "usd",
-            :recipient => recipient.user.stripe_recipient.recipient_token
-          )
-          {recipient_id: recipient.id, transfer: transfer}
+        raise "Recipients #{with_no_stripe.map{|r| r.user.name}.join(', ')} did not set stripe data" if (with_no_stripe = payment.recipients.select{|r| r.user.stripe_recipient.nil?}).any?
+        raise "Your current balance less than payment amount" if Rails.env.production? and balance < payment.amount
+
+        info = payment.recipients.map do |r|
+          begin
+            transfer = ::Stripe::Transfer.create(
+              :amount => (r.amount*100).to_i,
+              :currency => "usd",
+              :recipient => r.user.stripe_recipient.recipient_token
+            )
+
+            r.update_attribute(:stripe_transfer_id, transfer.id)
+            {success: true, recipient_id: r.id, transfer: transfer}
+          rescue ::Stripe::StripeError => e
+            {success: false, recipient_id: r.id, message: e.message}
+          end
         end
 
-        transfers.each {|t| payment.recipients.find(t[:recipient_id]).update_attribute(:stripe_transfer_id, t[:transfer].id) }
-        return {success: true, additional_info: transfers.to_json}
-      rescue ::Stripe::StripeError, StandardError => e
-        transfers.each {|t| ::Stripe::Transfer.cancel(t[:transfer].id) } if transfers
-        {success: false, message: e.message}
+        return {success: true, additional_info: info}
+      rescue StandardError => e
+        return {success: false, message: e.message}
       end
 
       def save_recipient recipient
