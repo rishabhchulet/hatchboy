@@ -19,24 +19,24 @@
   .form-group.clearfix
     = label_tag :credit_card_number, "A US Visa or MasterCard debit card"
     .input
-      = text_field_tag :credit_card_number, params[:credit_card_number], :class => "field", :disabled => true
+      = text_field_tag :credit_card_number, params[:credit_card_number], :class => "field"
   
   .form-group.clearfix
     = label_tag :cvv, "Security code (CVV)"
     .input
-      = text_field_tag :cvv, params[:cvv], :class => "small", :disabled => true
+      = text_field_tag :cvv, params[:cvv], :class => "small"
 
   .form-group.clearfix
     = label_tag :expiry_date
     .input
-      = date_select "", :expiry_date, {:discard_day => true, :order => [:month, :year], :use_month_numbers => true, :start_year => Date.today.year, :end_year => Date.today.year + 25, :disabled => true}, {:class => "small"}
+      = date_select "", :expiry_date, {:discard_day => true, :order => [:month, :year], :use_month_numbers => true, :start_year => Date.today.year, :end_year => Date.today.year + 25}, {:class => "small"}
 
   %span.note
     Your credit card details will be sent directly to our payment processor
 
 .form-actions
   .pull-right
-    %button.btn.btn-success.btn-cons{:type => "submit"}
+    %button#process-button.btn.btn-success.btn-cons{:type => "submit"}
       %i.icon-ok
       Save
     = link_to "Cancel", company_path, :class => "btn btn-white btn-cons"
