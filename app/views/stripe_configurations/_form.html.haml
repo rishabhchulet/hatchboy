@@ -1,0 +1,13 @@
+= display_flash_message :error, f.error_notification
+
+= f.input :secret_key, :required => true, :autofocus => true, label: 'API Secret key'
+= f.input :public_key, :required => true, label: 'API Public key'
+
+.form-actions
+  .pull-right
+    %button.btn.btn-success.btn-cons{:type => "submit"}
+      %i.icon-ok
+      Save
+    = link_to payments_path, class: 'btn btn-danger btn-cons' do
+      %i.icon-remove
+      Cancel

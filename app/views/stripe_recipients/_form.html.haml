@@ -1,0 +1,47 @@
+= display_flash_message :error, f.error_notification
+= display_base_errors f.object
+
+= f.input :recipient_token, as: :hidden
+= f.input :stripe_token, as: :hidden
+= f.input :last_4_digits, as: :hidden
+
+%noscript
+  %p
+    This form requires Javascript to use
+
+= f.input :full_name, :hint => 'e.g. "Jane Smith"'
+
+%span#credit-card
+
+  .form-group#credit-card-errors{:style => "display: none;"}
+    .form-group.alert-message.block-message.error#stripe-error-message
+
+  .form-group.clearfix
+    = label_tag :credit_card_number, "A US Visa or MasterCard debit card"
+    .input
+      = text_field_tag :credit_card_number, params[:credit_card_number], :class => "field"
+  
+  .form-group.clearfix
+    = label_tag :cvv, "Security code (CVV)"
+    .input
+      = text_field_tag :cvv, params[:cvv], :class => "small"
+
+  .form-group.clearfix
+    = label_tag :expiry_date
+    .input
+      = date_select "", :expiry_date, {:discard_day => true, :order => [:month, :year], :use_month_numbers => true, :start_year => Date.today.year, :end_year => Date.today.year + 25}, {:class => "small"}
+
+  %span.note
+    Your credit card details will be sent directly to our payment processor
+
+.form-actions
+  .pull-right
+    %button#process-button.btn.btn-success.btn-cons{:type => "submit"}
+      %i.icon-ok
+      Save
+    = link_to "Cancel", company_path, :class => "btn btn-white btn-cons"
+
+=content_for :page_specific_js do
+  = javascript_include_tag "https://js.stripe.com/v1/", "data-turbolinks-track" => true
+  = javascript_tag "Stripe.publishableKey = '#{@stripe_configuration.public_key}';", "data-turbolinks-track" => true
+  = javascript_include_tag "stripe_recipients", "data-turbolinks-track" => true

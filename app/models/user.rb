@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   belongs_to :company
   has_one :account
 
+  has_one :stripe_recipient, :dependent => :destroy
+
   has_many :user_teams, class_name: "TeamsUsers"
   has_many :teams, through: :user_teams
   has_many :worklogs, :class_name => "WorkLog", :dependent => :destroy

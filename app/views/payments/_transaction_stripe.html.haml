@@ -1,0 +1,62 @@
+- transactions.each_with_index do |payment_transaction, index|
+  - info = JSON.parse(payment_transaction.info)
+  - number = transactions.count-index
+  - recipient = @payment.recipients.where(stripe_transfer_id: info['data']['object']['id']).first
+
+  .grid.simple.horizontal.green
+    %h3.grid-title= "Instant Payment Notification ##{number}"
+    .grid-body
+      .row
+        .col-md-4
+          %table.table.table-bordered.no-more-tables
+            %tr
+              %th{colspan: 2} Event Details
+            %tr
+              %td ID:
+              %td= info['id']
+            %tr
+              %td Created:
+              %td= Time.at(info['created']).to_s
+            %tr
+              %td Type:
+              %td= info['type']
+
+        .col-md-4
+          %table.table.table-bordered.no-more-tables
+            %tr
+              %th{colspan: 2} Payment Details
+            %tr
+              %td ID:
+              %td= info['data']['object']['id']
+            %tr
+              %td Created:
+              %td= Time.at(info['data']['object']['created']).to_s
+            %tr
+              %td Payment status:
+              %td
+                %b{class: "label label-#{info['data']['object']['status'] != 'paid' ? 'important' : 'success'}"}= info['data']['object']['status']
+            %tr
+              %td Payment amount:
+              %td= number_to_currency((info['data']['object']['amount'] / 100.0), unit: info['data']['object']['currency'], format: '%n %u')
+
+        .col-md-4
+          %table.table.table-bordered.no-more-tables
+            %tr
+              %th{colspan: 2} Recipient Details
+            - if recipient
+              %tr
+                %td Name
+                %td= recipient.user.name
+
+            %tr
+              %td Card number:
+              %td= "**** **** **** #{info['data']['object']['card']['last4']}"
+            %tr
+              %td Type:
+              %td= info['data']['object']['card']['type']
+            %tr
+              %td Country
+              %td= info['data']['object']['card']['country']
+            %tr
+              %td Recipient stripe id
+              %td= info['data']['object']['recipient']

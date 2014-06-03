@@ -32,6 +32,13 @@
           = f.input :payment_information, :required => false
           = f.fields_for :user do |user|
             = render partial: "users/upload_avatar",  :locals => {f: user}
+          
+          .row
+            = link_to "Set up stripe credit cart", new_user_stripe_recipient_path(resource.user)
+            -if resource.user.stripe_recipient
+              %span
+                = "Using card ending with *#{resource.user.stripe_recipient.last_4_digits}"
+
           .form-actions
             .pull-right
               %button.btn.btn-success.btn-cons{:type => "submit"}

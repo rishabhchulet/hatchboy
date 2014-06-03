@@ -29,13 +29,15 @@ Hatchboy::Application.routes.draw do
   get "legal", :to => "pages#dashboard", :as => :legal
 
   get "billing_information", :to => "pages#billing_information", :as => :billing_information
-  
+
   resources :payments do
     put "marked"
   end
   resources :paypal_configurations, :only => [:new, :create]
+  resources :stripe_configurations, :only => [:new, :create]
   resources :payment_transactions, :only => [:create]
   post "payment_transactions/paypal_notify", :to => "payment_transactions#paypal_notify", :as => :paypal_notify
+  post "payment_transactions/stripe_notify", :to => "payment_transactions#stripe_notify", :as => :stripe_notify
 
   resources :reports, :controller => 'reports', only: [:index], as: :reports
   scope "/reports" do
@@ -73,6 +75,7 @@ Hatchboy::Application.routes.draw do
       get "new", to: "teams_users#new_team", as: "new", on: :collection
       post "create", to: "teams_users#create_team", as: "create", on: :collection
     end
+    resource :stripe_recipient
   end
 
   resources :subscriptions, only: [:edit, :update]
@@ -100,6 +103,7 @@ Hatchboy::Application.routes.draw do
   end
 
   resources :help_links
+
   get "/tutorials", to: "help_links#tutorials", as: :tutorials
 
   resources :posts
@@ -114,4 +118,3 @@ Hatchboy::Application.routes.draw do
     end
   end
 end
-

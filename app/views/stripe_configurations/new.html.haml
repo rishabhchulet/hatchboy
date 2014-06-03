@@ -1,0 +1,20 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a{:href => company_path} Company
+  %i.icon-angle-right
+  %li
+    %span.active Stripe Configuration
+
+.row
+  .col-md-12
+    .grid.simple
+      .grid-title.no-border
+        %h4
+          %span.semi-bold Stripe Configuration
+      .grid-body.no-border
+        = simple_form_for(@config, as: :stripe_configuration, html: {method: :post}) do |f|
+          = render partial: "stripe_configurations/form", locals: {f: f}

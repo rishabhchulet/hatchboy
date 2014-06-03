@@ -11,6 +11,12 @@ class Payment < ActiveRecord::Base
   STATUS_SENT = "sent"
   STATUS_MARKED = "marked"
 
+  TYPE_PAYPAL = 'paypal'
+  TYPE_DWOLLA = 'dwolla'
+  TYPE_STRIPE = 'stripe'
+
+  self.inheritance_column = :_type_disabled
+  
   belongs_to :company
   belongs_to :created_by,  class_name: "User"
   has_many   :transactions, class_name: "PaymentTransaction"

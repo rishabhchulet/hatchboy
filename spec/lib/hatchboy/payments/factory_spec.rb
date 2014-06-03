@@ -22,4 +22,11 @@ describe Hatchboy::Payments::Factory do
     it "should return instance of dwolla"
   end
 
+  context "when type stripe" do
+    subject { described_class.get('stripe') }
+    it "should return instance of stipe" do
+      expect(subject).to be_a Hatchboy::Payments::Stripe
+    end
+  end
+
 end
