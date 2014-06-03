@@ -55,14 +55,14 @@ group :development do
   gem 'rb-fchange', :require => false
   gem 'rb-fsevent', :require => false
   gem 'rb-inotify', :require => false
+  gem 'pry-rails'
+  gem 'pry-debugger'
 end
 group :development, :test, :staging do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem  'byebug'
   gem 'faker', '~> 1.1.2'
-  gem 'pry-rails'
-  gem 'pry-debugger'
 end
 group :test do
   gem 'stripe-ruby-mock', '~> 1.10.1.7'
