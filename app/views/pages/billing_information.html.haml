@@ -1,0 +1,59 @@
+%ul.breadcrumb
+  %li
+    %p
+      YOU ARE HERE
+  %i.icon-angle-right
+  %li
+    %a.active{:href => billing_information_path} Billing information
+
+
+.row
+  .col-md-6
+    .row
+      .col-md-12
+        .grid.simple.horizontal.green
+          %h3.grid-title Plan A
+          .grid-body
+            .row
+              %ul
+                %li Feature 1
+                %li Feature 2
+                %li Feature 3
+
+            .row.text-right
+              %h3
+                %span.semi-bold
+                  9.99
+                  %sup $
+                  \/ month
+    .row
+      .col-md-12
+        %button.btn.btn-success.btn-cons
+          %i.icon-ok
+          Buy
+
+  .col-md-6
+    .row
+      .col-md-12
+        .grid.simple.horizontal.yellow
+          %h3.grid-title Plan B
+          .grid-body
+            .row
+              %ul
+                %li Feature 1
+                %li Feature 2
+                %li Feature 3
+                %li Feature 4
+                %li Feature 5
+
+            .row.text-right
+              %h3
+                %span.semi-bold
+                  14.99
+                  %sup $
+                  \/ month
+        .row
+          .col-md-12
+            %button.btn.btn-success.btn-cons
+              %i.icon-ok
+              Buy

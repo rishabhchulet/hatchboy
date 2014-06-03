@@ -32,6 +32,8 @@
             %a{:href => account_path} My Account
           %li
             %a{:href => company_path} My Company
+          %li
+            %a{:href => billing_information_path} Billing information
           %li.divider
           %li
             = link_to content_tag(:i, "&nbsp;&nbsp;Log Out", { class: "icon-off" }, false), destroy_account_session_path, :method => 'delete'
