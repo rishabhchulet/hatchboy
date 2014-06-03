@@ -56,7 +56,10 @@
                     .col-md-2
                       %label Payment information:
                     .col-md-4= simple_format(@user.account.payment_information)
-
+                .row
+                  .col-md-6
+                    %a{:href => reports_path(:set_filter => 1, :type => "all", :users => [@user.id]), 'data-no-turbolink' => true}
+                      User's productivity
                 -unless @user.account
                   .row.pull-right
                     = link_to "Invite employee", new_user_invitation_path(user_id: @user.id), :class => "btn btn-primary btn-cons"

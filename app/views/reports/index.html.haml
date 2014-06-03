@@ -19,7 +19,7 @@
 
 .row
   %ul#navigation-tab.nav.nav-tabs
-    %li{:class => ((params[:type].nil? or params[:type] == "hours") ? "active" : "")}
+    %li{:class => ((params[:type].nil? or params[:type] == "hours" or params[:type] == "all") ? "active" : "")}
       %a{:href => "#hours-tab"} Hours
     %li{:class => (params[:type] == "payments" ? "active" : "")}
       %a{:href => "#payments-tab"} Payments
@@ -28,7 +28,7 @@
     %li{:class => (params[:type] == "ratings" ? "active" : "")}
       %a{:href => "#ratings-tab"} 360 degree
   .tab-content
-    #hours-tab.tab-pane{:class => ((params[:type].nil? or params[:type] == "hours") ? "active" : "")}
+    #hours-tab.tab-pane{:class => ((params[:type].nil? or params[:type] == "hours" or params[:type] == "all") ? "active" : "")}
       = render partial: "report_hours/report", :object => @hours_report
     #payments-tab.tab-pane{:class => (params[:type] == "payments" ? "active" : "")}
       = render partial: "report_payments/report", :object => @payments_report

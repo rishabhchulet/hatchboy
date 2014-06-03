@@ -25,7 +25,7 @@ module Hatchboy
               scope.in_date_range(parse_date(params[:period_from]), parse_date(params[:period_to]))
             else scope.group_by_date_field("month")
           end
-          scope = scope.with_users(params[:users]) if params[:group_by] == "users" and params[:users]
+          scope = scope.with_users(params[:users]) if (params[:group_by] == "users" or params[:group_by].blank?) and params[:users]
           scope = scope.with_teams(params[:teams]) if params[:group_by] == "teams" and params[:teams]
           params[:group_by] == "teams" ? scope.group_by_teams : scope.group_by_users
         end

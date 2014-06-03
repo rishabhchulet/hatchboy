@@ -26,7 +26,7 @@ module ReportsHelper
 
   def retrieve_query_params type, permit_params
     session[:reports] ||= Hash.new
-    if params[:set_filter] and params[:type] == type.to_s
+    if params[:set_filter] and (params[:type] == type.to_s or params[:type] == "all")
       session[:reports][type] = params.select{|p| permit_params.include?(p.to_sym)}
     else
       session[:reports][type] ||= Hash.new
