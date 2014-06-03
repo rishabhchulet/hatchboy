@@ -16,7 +16,6 @@ gem 'pg'
 gem 'simple_form'
 gem 'therubyracer', :platform => :ruby
 gem 'unicorn'
-gem "bundler", "~> 1.3.5"
 gem "foreman", "~> 0.63.0"
 gem "carrierwave", "~> 0.9.0"
 gem "mini_magick", "~> 3.7.0"
@@ -60,6 +59,8 @@ group :development, :test, :staging do
   gem 'rspec-rails'
   gem  'byebug'
   gem 'faker', '~> 1.1.2'
+  gem 'pry-rails'
+  gem 'pry-debugger'
 end
 group :test do
   gem 'shoulda-matchers', '~> 2.1'

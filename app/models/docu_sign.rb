@@ -1,7 +1,15 @@
 class DocuSign < ActiveRecord::Base
-  
+  include PublicActivity::Model
+  tracked only: :update, 
+          on: { :update => proc do |docu_sign, controller| 
+            docu_sign.status == STATUS_SIGNED and docu_sign.status_changed?
+          end },
+          owner: ->(controller, model) { controller && controller.current_user },
+          company_id: ->(controller, docu_sign) { docu_sign.company_id }
+
   belongs_to :user
   belongs_to :docu_template
+  belongs_to :company
   
   STATUS_PROCESSING = "processing"
   STATUS_SIGNED = "signed"

@@ -1,4 +1,11 @@
 class Payment < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked only: :update,
+          on: { :update => proc do |payment, controller| 
+            payment.status == STATUS_SENT and payment.status_was == STATUS_PREPARED
+          end },
+          owner: ->(controller, model) { controller && controller.current_user },
+          company_id: ->(controller, payment) { payment.company_id }
 
   STATUS_PREPARED = "prepared"
   STATUS_SENT = "sent"
@@ -8,6 +15,8 @@ class Payment < ActiveRecord::Base
   belongs_to :created_by,  class_name: "User"
   has_many   :transactions, class_name: "PaymentTransaction"
   has_many   :recipients,  class_name: "PaymentRecipient"
+  has_many   :recipient_users, through: :recipients, source: :user
+
   accepts_nested_attributes_for :recipients
 
   validates :company, :created_by, :description, presence: true

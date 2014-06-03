@@ -58,6 +58,13 @@ describe Account do
     user_with_duplicate_email.should_not be_valid
   end
 
+  it "should create subscriptions for user after been confirmed" do
+    account = described_class.create!(@attr)
+    expect(account.user.subscription).to eq nil
+    account.confirm!
+    expect(account.user.subscription).to be_present
+  end
+
   describe "passwords" do
 
     before(:each) do

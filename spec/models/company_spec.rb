@@ -6,6 +6,7 @@ describe Company do
     should belong_to(:created_by).class_name('User') 
     should belong_to(:contact_person).class_name('User') 
     should have_many(:users).class_name('User') 
+    should have_many(:admins).class_name('User')
     should have_many(:sources).class_name('Source') 
     should have_many(:teams).class_name("Team") 
     should have_many(:payments).class_name("Payment") 

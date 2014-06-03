@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :team do
-    company { @company = create(:company)}
+    company
     name { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
-    created_by { create(:user, company: @company) }
+    created_by { create(:user, company: company) }
   end
 end

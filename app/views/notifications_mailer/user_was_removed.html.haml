@@ -1,0 +1,11 @@
+- if @owner == @recipient
+  - owner_link = link_to 'You', @owner_url
+- else
+  - owner_link = link_to @owner.name, @owner_url
+
+%tr
+  %td.main{colspan: 2}= t ".message_html",
+                        owner: owner_link,
+                        name: @object.name
+
+= render partial: 'notifications_mailer/unsubscribe'

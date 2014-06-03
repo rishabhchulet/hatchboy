@@ -18,6 +18,9 @@ describe User do
   it { should accept_nested_attributes_for(:company).allow_destroy(true) }
   it { should accept_nested_attributes_for(:account).allow_destroy(true) }
 
+  it { should have_one(:subscription) }
+  it { should have_many(:unsubscribed_teams) }
+
   it { should validate_presence_of(:company) }
   it { should validate_presence_of(:name) }
 

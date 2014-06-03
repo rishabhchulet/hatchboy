@@ -1,0 +1,5 @@
+%tr
+  %td.unsubscribe1{colspan: 2}= t '.notification_html', unsubscribe: link_to('unsubscribe', subscriptions_unsubscribe_url(from: action_name))
+- if local_assigns[:team]
+  %tr
+    %td.unsubscribe2{colspan: 2}= t '.team_html', unsubscribe: link_to('unsubscribe', unsubscribed_teams_unsubscribe_url(team)), name: team.name

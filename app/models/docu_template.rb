@@ -1,8 +1,15 @@
 class DocuTemplate < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked only: :create,
+          owner: ->(controller, model) { controller && controller.current_user },
+          company_id: ->(controller, docu_template) { docu_template.company_id },
+          comments: ->(controller, docu_template) { {title: docu_template.title}.to_json }
+
   belongs_to :company
   belongs_to :user
 
   has_many :docu_signs, :autosave => true
+  has_many :docu_sign_users, through: :docu_signs, source: :user
 
   mount_uploader :document, DocumentUploader
   
@@ -53,5 +60,4 @@ class DocuTemplate < ActiveRecord::Base
 
     self.errors.add(:users, response["message"] ) unless self.template_key = response["templateId"]
   end
-
 end

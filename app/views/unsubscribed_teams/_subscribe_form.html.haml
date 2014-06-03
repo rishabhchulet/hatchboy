@@ -1,0 +1,4 @@
+= simple_form_for(current_account.user.unsubscribed_teams.where(team_id: team.id).first, :as => :unsubscribed_team, :html => { :method => :delete }, :remote => true) do |f|
+  %button.btn.btn-success.btn-cons{:type => "submit"}
+    %i.icon-ok
+    Subscribe

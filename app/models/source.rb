@@ -1,4 +1,9 @@
 class Source < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked only: :create,
+          owner: ->(controller, model) { controller && controller.current_user },
+          company_id: ->(controller, source) { source.company.id },
+          comments: ->(controller, source) { {name: source.name}.to_json }
 
   PROVIDERS = {:jira => "JiraSource"}
 

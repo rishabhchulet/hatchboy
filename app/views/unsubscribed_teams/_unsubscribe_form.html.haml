@@ -1,0 +1,4 @@
+= form_tag(unsubscribed_teams_unsubscribe_path(:team_id => team.id), :method => :get, :remote => true) do |f|
+  %button.btn.btn-danger.btn-cons{:type => "submit"}
+    %i.icon-ok
+    Unsubscribe

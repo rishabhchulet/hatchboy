@@ -1,0 +1,25 @@
+= display_flash_message :error, f.error_notification
+
+%table.table.table-hover.table-striped.table-bordered.no-more-tables.action-list#teams-short-list
+  %thead
+    %tr
+      %th{:width => "5%"}
+        .checkbox
+          %input.checkall#checkall{type: 'checkbox', value: 1  }
+          %label{for: 'checkall'}
+
+      %th{:width => "95%"} Action
+  %tbody
+    - Subscription::SUBSCRIPTION_COLUMNS.each do |column|
+      %tr
+        %td
+          .checkbox.checkbox.check-default
+            = f.check_box column, {:id => "subscription-#{column}", :class => "check optional form-control"}
+            %label{for: "subscription-#{column}"}
+        %td= f.label column
+
+.form-actions
+  .pull-right
+    %button.btn.btn-success.btn-cons{:type => "submit"}
+      %i.icon-ok
+      Save
