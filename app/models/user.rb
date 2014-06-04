@@ -46,5 +46,6 @@ class User < ActiveRecord::Base
 
     def set_default_avatar
       self.avatar = File.open(Dir.glob(Rails.root.join('app','assets','images','images','user_default_avatars','*')).shuffle.first)
+      write_avatar_identifier
     end
 end
