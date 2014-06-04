@@ -18,3 +18,24 @@
       .grid-body.no-border
         = simple_form_for(@config, as: :stripe_configuration, html: {method: :post}) do |f|
           = render partial: "stripe_configurations/form", locals: {f: f}
+
+
+%div.grid.simple.vertical.green
+  %div.grid-title FAQ
+  %ul.grid-body.no-border
+    %li
+      %span
+        If you don't have account you should start by
+        %a{href: "https://manage.stripe.com/register", target: '_blank', rel: 'nofollow'}creating it
+    %li
+      %span
+        You can find out your api keys in
+        %a{href: "https://manage.stripe.com/account/apikeys", target: '_blank', rel: 'nofollow'} account settings
+        \.
+    %li
+      %span
+        Also if you want to know additional information about your stripe payment after sending, such as view recipient details or view status of payment for each recipient, please configure webhooks in the
+        %a{href: "https://manage.stripe.com/account/webhooks", target: '_blank', rel: 'nofollow'}webhook settings
+        section of the Stripe dashboard. Clicking Add URL will reveal a form to add a 
+        %input{type: "text", readonly: "true", value: stripe_notify_url, onClick: "this.select();", style: "vertical-align: middle;", size: stripe_notify_url.length}
+        URL for receiving webhooks.
