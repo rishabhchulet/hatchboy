@@ -4,14 +4,14 @@ class PaymentTransactionsController < ApplicationController
 
   def create
     payment_configuration = case params[:type]
-      when 'paypal' then account_company.paypal_configuration
-      when 'dwolla' then account_company.dwolla_configuration
-      when 'stripe' then account_company.stripe_configuration 
+      when 'paypal' then account_company.paypal_configuration or account_company.build_paypal_configuration
+      when 'dwolla' then account_company.dwolla_configuration or account_company.build_dwolla_configuration
+      when 'stripe' then account_company.stripe_configuration or account_company.build_stripe_configuration 
     end
     
-    unless payment_configuration
-      flash[:alert] = "You should configurate this service to use you paypal account before sending payments"
-      redirect_to(new_paypal_configuration_path) and return
+    if payment_configuration.new_record?
+      flash[:alert] = "You should configurate this service to use you payment account before sending payments"
+      redirect_to(url_for :controller => payment_configuration.class.to_s.tableize, :action => :new) and return
     end
 
     payment = account_company.payments.where(id: params[:payment_id], status: Payment::STATUS_PREPARED).first or not_found
