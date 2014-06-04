@@ -31,7 +31,7 @@ en:
     user_added_to_team:
       subject: New user added to your team
       received_html: You recieved this email because you subscribed to recieve notifications if new user has been added to your team.
-      message_html: "%{owner} added user '%{user}' to '%{team}' team"
+      message_html: "%{owner} added %{user} to '%{team}' team"
     time_log_added_to_team:
       subject: New time log has been added
       received_html: You recieved this email because you subscribed to recieve notifications if new time log has been added.

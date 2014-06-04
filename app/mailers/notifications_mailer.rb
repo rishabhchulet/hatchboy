@@ -1,6 +1,6 @@
 class NotificationsMailer < ActionMailer::Base
   
-  default from: "from@example.com"
+  default from: "Hatchboy <#{Hatchboy::Application.config.action_mailer.smtp_settings[:user_name]}>"
 
   Subscription::SUBSCRIPTION_COLUMNS.each do |notification|
     define_method(notification) { |params|
