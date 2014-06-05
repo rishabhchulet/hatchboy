@@ -27,7 +27,9 @@ module Hatchboy
       end
 
       def pay payment
-        raise "Recipients #{with_no_stripe.map{|r| r.user.name}.join(', ')} did not set stripe data" if (with_no_stripe = payment.recipients.select{|r| r.user.stripe_recipient.nil?}).any?
+        if (with_no_stripe = payment.recipients.select{|r| r.user.stripe_recipient.nil?}).any?
+          raise "Recipients #{with_no_stripe.map{|r| r.user.name}.join(', ')} did not set stripe data"
+        end
         raise "Your current balance less than payment amount" if Rails.env.production? and balance < payment.amount
 
         info = payment.recipients.map do |r|
