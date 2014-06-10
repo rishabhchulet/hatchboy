@@ -39,6 +39,8 @@ Hatchboy::Application.routes.draw do
   post "payment_transactions/paypal_notify", :to => "payment_transactions#paypal_notify", :as => :paypal_notify
   post "payment_transactions/stripe_notify", :to => "payment_transactions#stripe_notify", :as => :stripe_notify
 
+  resources :dashboard_activity_filters, :only => [:create]
+
   resources :reports, :controller => 'reports', only: [:index], as: :reports
   scope "/reports" do
     resources :hours, :controller => 'report_hours', only: [:index], as: :report_hours do

@@ -1,0 +1,20 @@
+.tiles.green.added-margin
+  .tiles-body
+    .controller
+      %a.reload{href: "javascript:;"}
+      %a.remove{href: "javascript:;"}
+    .tiles-title
+      NUMBER OF TEAMS
+    .heading
+      %span.animate-number{data: {value: "#{account_company.teams.count}", animation_duration: "1200"}}
+        0
+
+    .description
+      - if (teams_in_this_month = account_company.teams.where("created_at > ?", Date.today.at_beginning_of_month).count) > 0
+        %i.icon-custom-up
+        %span.text-white.mini-description
+          = "&nbsp; + #{teams_in_this_month}".html_safe
+          %span.blend
+            in this month
+      - else
+        No new teans in this month

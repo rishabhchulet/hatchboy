@@ -2,7 +2,7 @@ class Payment < ActiveRecord::Base
   include PublicActivity::Model
   tracked only: :update,
           on: { :update => proc do |payment, controller| 
-            payment.status == STATUS_SENT and payment.status_was == STATUS_PREPARED
+            [STATUS_SENT, STATUS_MARKED].include? payment.status and payment.status_was == STATUS_PREPARED
           end },
           owner: ->(controller, model) { controller && controller.current_user },
           company_id: ->(controller, payment) { payment.company_id }
@@ -28,6 +28,8 @@ class Payment < ActiveRecord::Base
   validates :company, :created_by, :description, presence: true
 
   before_create :default_attributes
+
+  scope :sent_and_marked, -> { where(status: [STATUS_SENT, STATUS_MARKED]) }
 
   def amount
     self.recipients.map(&:amount).sum.round(2)

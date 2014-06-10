@@ -1,0 +1,35 @@
+= f.input :user_id, as: :hidden
+
+.checkbox.check-success
+  = f.check_box :users
+  = f.label :users, "User addings"
+
+.checkbox.check-success
+  = f.check_box :post_receivers
+  = f.label :post_receivers, "Posts to Teams"  
+
+.checkbox.check-success
+  = f.check_box :payments
+  = f.label :payments, "Payments"  
+
+.checkbox.check-success
+  = f.check_box :docu_signs
+  = f.label :docu_signs, "New documents uploadings"  
+
+.checkbox.check-success
+  = f.check_box :sources
+  = f.label :sources, "Data sources"  
+
+.checkbox.check-success
+  = f.check_box :teams
+  = f.label :teams, "Team editing"  
+
+.checkbox.check-success
+  = f.check_box :work_logs
+  = f.label :work_logs, "Hours logged"
+
+.row
+  .col-md-12
+    %button.btn.btn-success.btn-sm.btn-small{:type => "submit"}
+      %i.icon-ok
+      Apply

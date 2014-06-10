@@ -1,0 +1,10 @@
+<% if @recent_activity.any? %>
+
+  $('#recent_activity .items').append('<%= j render :partial => "recent_activity", :object => @recent_activity %>');
+  $('#recent_activity .link_more').html("<%= j link_to_next_page @recent_activity, 'More', :remote => true %>");
+
+<% else %>
+
+  $('#recent_activity .link_more').hide();
+
+<% end %>

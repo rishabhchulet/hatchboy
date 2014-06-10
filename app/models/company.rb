@@ -5,6 +5,7 @@ class Company < ActiveRecord::Base
   has_many :users
   has_many :admins, -> { where role: User::ADMIN_ROLES }, class_name: "User"
 
+  has_many :docu_signs
   has_many :sources
   has_many :teams
   has_many :payments

@@ -1,0 +1,27 @@
+.tiles.red.added-margin
+  .tiles-body
+    .controller
+      %a.reload{href: "javascript:;"}
+      %a.remove{href: "javascript:;"}
+    .tiles-title
+      AMOUNT PAID
+    .heading
+      %span.animate-number{data: {value: "#{PaymentRecipient.where(payment_id: account_company.payments.sent_and_marked).sum(:amount)}", animation_duration: "1200"}}
+        0
+
+    - amount_this_month = PaymentRecipient.where(payment_id: account_company.payments.sent_and_marked.where(created_at: 1.month.ago..Time.now)).sum(:amount)
+    - amount_last_month = PaymentRecipient.where(payment_id: account_company.payments.sent_and_marked.where(created_at: 2.month.ago..1.month.ago)).sum(:amount)
+
+    .description
+      - if amount_this_month > amount_last_month
+        %i.icon-custom-up
+        %span.text-white.mini-description
+          = "&nbsp; #{((amount_this_month - amount_last_month)/amount_this_month * 100).to_i}% higher".html_safe
+          %span.blend
+            than last month
+      - elsif  amount_last_month > amount_this_month
+        %i.icon-custom-down
+        %span.text-white.mini-description
+          = "&nbsp; #{((amount_last_month - amount_this_month)/amount_last_month * 100).to_i}% lower".html_safe
+          %span.blend
+            than last month
