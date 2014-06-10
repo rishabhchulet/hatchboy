@@ -5,13 +5,14 @@
 .dashboard-body {
   padding: 0px 30px;
 
-  #recent_activity {
-    margin-right: 5px;
-  }
   .dashboard-widgets {
-    margin-left: 5px;
     .row {
       margin-bottom: 10px;
+    }
+    .fiter-block {
+      .widget-body {
+        height: 275px;
+      }
     }
   }
 }

@@ -23,29 +23,32 @@
     =render partial: "dashboard/work_logs_tile"
 
 .row.dashboard-body
-  .col-md-8#recent_activity
+  .col-md-6#recent_activity
     .row.items
       =render partial: "dashboard/recent_activity", object: @recent_activity
     .row.link_more
       = link_to_next_page @recent_activity, 'More', :remote => true
 
-  .col-md-4.dashboard-widgets
+  .col-md-6.dashboard-widgets
     .row
-      .widget
-        .widget-title.dark
-          Filter activities
-        .widget-body
-          = simple_form_for((current_account.user.dashboard_activity_filter || current_account.user.build_dashboard_activity_filter).dup, html: {method: :post}) do |f|
-            = render partial: "dashboard_activity_filters/form", locals: {f: f}
-
-    - if post = Post.where(user_id: account_company.users).last
-      .row
-        =render partial: "dashboard/post_tile", locals: {post: post}
+      .col-md-6.fiter-block
+        .widget
+          .widget-title.dark
+            Filter activities
+          .widget-body
+            = simple_form_for((current_account.user.dashboard_activity_filter || current_account.user.build_dashboard_activity_filter).dup, html: {method: :post}) do |f|
+              = render partial: "dashboard_activity_filters/form", locals: {f: f}
+      .col-md-6
+        - if posts = Post.where(user_id: Company.first.users).order('created_at desc').limit(2)
+          .row
+            - posts.each do |post|
+              =render partial: "dashboard/post_tile", locals: {post: post}
 
     - if @ratings_report.chart
       .row
-        = high_chart("ratings_chart", @ratings_report.chart)
+        .col-md-12
+          = high_chart("ratings_chart", @ratings_report.chart)
 
 
 = content_for :page_specific_css do 
-  = stylesheet_link_tag "dashboard"
+  = stylesheet_link_tag "dashboard", "data-turbolinks-track" => true
