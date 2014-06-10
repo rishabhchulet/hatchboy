@@ -6,11 +6,11 @@
     .tiles-title
       AMOUNT PAID
     .heading
-      %span.animate-number{data: {value: "#{PaymentRecipient.where(payment_id: account_company.payments.sent_and_marked).sum(:amount)}", animation_duration: "1200"}}
+      %span.animate-number{data: {value: "#{company_payments_amount(account_company)}", animation_duration: "1200"}}
         0
 
-    - amount_this_month = PaymentRecipient.where(payment_id: account_company.payments.sent_and_marked.where(created_at: 1.month.ago..Time.now)).sum(:amount)
-    - amount_last_month = PaymentRecipient.where(payment_id: account_company.payments.sent_and_marked.where(created_at: 2.month.ago..1.month.ago)).sum(:amount)
+    - amount_this_month = company_payments_amount account_company, 1.month.ago..Time.now
+    - amount_last_month = company_payments_amount account_company, 2.month.ago..1.month.ago
 
     .description
       - if amount_this_month > amount_last_month

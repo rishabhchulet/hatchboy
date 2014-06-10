@@ -39,7 +39,7 @@
             = simple_form_for((current_account.user.dashboard_activity_filter || current_account.user.build_dashboard_activity_filter).dup, html: {method: :post}) do |f|
               = render partial: "dashboard_activity_filters/form", locals: {f: f}
       .col-md-6
-        - if posts = Post.where(user_id: Company.first.users).order('created_at desc').limit(2)
+        - if posts = get_latest_company_posts account_company.users, 2
           .row
             - posts.each do |post|
               =render partial: "dashboard/post_tile", locals: {post: post}

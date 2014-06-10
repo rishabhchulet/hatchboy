@@ -3,6 +3,9 @@ class DashboardController < ApplicationController
   before_filter :check_session!
 
   include ReportsHelper
+  include PaymentsHelper
+  include WorkLogsHelper
+  include PostsHelper
 
   def index
     if activity_filter = current_account.user.dashboard_activity_filter

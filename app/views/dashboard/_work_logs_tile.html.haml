@@ -6,11 +6,11 @@
     .tiles-title
       HOURS LOGGED
     .heading
-      %span.animate-number{data: {value: "#{WorkLog.where(user_id: account_company.users).sum(:time)}", animation_duration: "1200"}}
+      %span.animate-number{data: {value: "#{company_work_logs(account_company)}", animation_duration: "1200"}}
         0
 
-    - hours_this_month = WorkLog.where(user_id: account_company.users, on_date: 1.month.ago..Time.now).sum(:time)
-    - hours_last_month = WorkLog.where(user_id: account_company.users, on_date: 2.month.ago..1.month.ago).sum(:time)
+    - hours_this_month = company_work_logs account_company, 1.month.ago..Time.now
+    - hours_last_month = company_work_logs account_company, 2.month.ago..1.month.ago
 
     .description
       - if hours_this_month > hours_last_month
