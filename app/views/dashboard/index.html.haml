@@ -9,24 +9,46 @@
   %li
     %a.active{:href => dashboard_path} Dashboard
 
-.row
-  .col-md-11
-    .page-title
-      %i.icon-dashboard
-      %h3 Dashboard
-  .col-md-1.text-right
-.row
-  %ul#navigation-tab.nav.nav-tabs
-    %li.payments-tab#recent-activity-tab.active
-      %a{href: "#users-recent-activity"} Recent Activity
-    %li.payments-tab#active-projects-tab
-      %a{href: "#users-active-projects"} Active Projects
+.row.dashboard-head
+  .col-md-3
+    =render partial: "dashboard/users_tile"
 
-  .tab-content
-    #users-recent-activity.tab-pane.active
+  .col-md-3
+    =render partial: "dashboard/teams_tile"
+
+  .col-md-3
+    =render partial: "dashboard/payments_tile"
+
+  .col-md-3
+    =render partial: "dashboard/work_logs_tile"
+
+.row.dashboard-body
+  .col-md-6#recent_activity
+    .row.items
       =render partial: "dashboard/recent_activity", object: @recent_activity
-    #users-active-projects.tab-pane
+    .row.link_more
+      = link_to_next_page @recent_activity, 'More', :remote => true
 
-=content_for :javascript do
-  =javascript_include_tag "js/tabs_accordian"
+  .col-md-6.dashboard-widgets
+    .row
+      .col-md-6.fiter-block
+        .widget
+          .widget-title.dark
+            Filter activities
+          .widget-body
+            = simple_form_for((current_account.user.dashboard_activity_filter || current_account.user.build_dashboard_activity_filter).dup, html: {method: :post}) do |f|
+              = render partial: "dashboard_activity_filters/form", locals: {f: f}
+      .col-md-6
+        - if posts = get_latest_company_posts(account_company, 2)
+          .row
+            - posts.each do |post|
+              =render partial: "dashboard/post_tile", locals: {post: post}
 
+    - if @ratings_report.chart
+      .row
+        .col-md-12
+          = high_chart("ratings_chart", @ratings_report.chart)
+
+
+= content_for :page_specific_css do 
+  = stylesheet_link_tag "dashboard", "data-turbolinks-track" => true

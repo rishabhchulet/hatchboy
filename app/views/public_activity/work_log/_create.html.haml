@@ -1,0 +1,18 @@
+.notification-messages.info
+  .user-profile
+    %img{width: 35, height: 35, src: activity.owner.avatar.url}
+  .message-wrapper
+    - begin
+      - comments = JSON.parse activity.comments
+
+      .heading
+        =link_to activity.owner.name, activity.owner
+        = "Logged #{comments['time']} hours"
+      .description
+        = "#{comments['time']} hours were manually to '#{comments['team_name']}' team"
+    - rescue
+      it's time fell off the edge of the earth
+
+  .date.pull-right
+    = time_ago_in_words activity.created_at
+    ago

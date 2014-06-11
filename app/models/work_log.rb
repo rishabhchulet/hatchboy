@@ -3,7 +3,14 @@ class WorkLog < ActiveRecord::Base
   tracked only: :create,
           owner: ->(controller, model) { controller && controller.current_user },
           company_id: ->(controller, work_log) { work_log.team.company_id },
-          comments: ->(controller, work_log) { {comment: work_log.comment}.to_json }
+          comments: ->(controller, work_log) {
+            {
+              time: work_log.time,
+              team_id: work_log.team_id,
+              team_name: work_log.team.name,
+              comment: work_log.comment
+            }.to_json
+          }
 
   belongs_to :team
   belongs_to :source

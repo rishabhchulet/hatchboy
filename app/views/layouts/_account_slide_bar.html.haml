@@ -10,11 +10,15 @@
         %span.semi-bold= current_account.user.name
   %p.menu-title
   %ul
-    %li.start{class: request[:controller] == 'companies' ? "active" : ""}
-      %a{:href => company_path}
+    %li.start{class: request[:controller] == 'dashboard' ? "active" : ""}
+      %a{:href => dashboard_path}
         %i.icon-custom-home
-        %span.title Company
+        %span.title Dashboard
         %span.selected
+    %li{class: request[:controller] == 'companies' ? "active" : ""}
+      %a{:href => company_path}
+        %i.icon-building
+        %span.title Company
     %li{class: ['reports', "report_hours", "report_payments", "report_mvp", "report_ratings"].include?(request[:controller]) ? "active" : ""}
       %a{:href => reports_path, 'data-no-turbolink' => true}
         %i.icon-custom-extra

@@ -1,7 +1,7 @@
 class CompaniesController < ApplicationController
 
   before_filter :check_session!
-
+  
   def show
     @company = account_company
   end

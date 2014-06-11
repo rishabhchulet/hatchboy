@@ -1,0 +1,23 @@
+.notification-messages.info
+  .user-profile
+    %img{width: 35, height: 35, src: activity.owner.avatar.url}
+  .message-wrapper
+    .heading
+      =link_to activity.owner.name, activity.owner
+      \- Added new user
+    .description
+      - if activity.trackable
+        = link_to activity.trackable.name, activity.trackable
+        was added to
+        = link_to activity.trackable.company.name, activity.trackable.company
+        company
+      - else
+        - begin
+          - comments = JSON.parse activity.comments
+          = "#{comments["name"]}"
+        - rescue
+          it's name fell off the edge of the earth
+
+  .date.pull-right
+    = time_ago_in_words activity.created_at
+    ago

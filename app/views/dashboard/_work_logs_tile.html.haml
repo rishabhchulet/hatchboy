@@ -1,0 +1,27 @@
+.tiles.purple.added-margin
+  .tiles-body
+    .controller
+      %a.reload{href: "javascript:;"}
+      %a.remove{href: "javascript:;"}
+    .tiles-title
+      HOURS LOGGED
+    .heading
+      %span.animate-number{data: {value: "#{company_work_logs(account_company)}", animation_duration: "1200"}}
+        0
+
+    - hours_this_month = company_work_logs account_company, 1.month.ago..Time.now
+    - hours_last_month = company_work_logs account_company, 2.month.ago..1.month.ago
+
+    .description
+      - if hours_this_month > hours_last_month
+        %i.icon-custom-up
+        %span.text-white.mini-description
+          = "&nbsp; #{((hours_this_month - hours_last_month)/hours_this_month * 100).to_i}% higher".html_safe
+          %span.blend
+            than last month
+      - elsif  hours_last_month > hours_this_month
+        %i.icon-custom-down
+        %span.text-white.mini-description
+          = "&nbsp; #{((hours_last_month - hours_this_month)/hours_last_month * 100).to_i}% lower".html_safe
+          %span.blend
+            than last month

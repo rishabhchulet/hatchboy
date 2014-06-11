@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140529135202) do
+ActiveRecord::Schema.define(version: 20140609101148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,19 @@ ActiveRecord::Schema.define(version: 20140529135202) do
 
   add_index "companies", ["contact_person_id"], name: "index_companies_on_contact_person_id", using: :btree
   add_index "companies", ["created_by_id"], name: "index_companies_on_created_by_id", using: :btree
+
+  create_table "dashboard_activity_filters", force: true do |t|
+    t.integer "user_id"
+    t.boolean "users"
+    t.boolean "post_receivers"
+    t.boolean "payments"
+    t.boolean "docu_signs"
+    t.boolean "sources"
+    t.boolean "teams"
+    t.boolean "work_logs"
+  end
+
+  add_index "dashboard_activity_filters", ["user_id"], name: "index_dashboard_activity_filters_on_user_id", using: :btree
 
   create_table "docu_signs", force: true do |t|
     t.integer  "company_id"

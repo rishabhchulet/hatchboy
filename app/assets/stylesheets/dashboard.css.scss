@@ -1,0 +1,18 @@
+.dashboard-head {
+  margin-bottom: 30px;
+}
+
+.dashboard-body {
+  padding: 0px 30px;
+
+  .dashboard-widgets {
+    .row {
+      margin-bottom: 10px;
+    }
+    .fiter-block {
+      .widget-body {
+        height: 275px;
+      }
+    }
+  }
+}
