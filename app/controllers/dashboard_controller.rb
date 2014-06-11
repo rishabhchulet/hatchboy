@@ -8,9 +8,8 @@ class DashboardController < ApplicationController
   include PostsHelper
 
   def index
-    if activity_filter = current_account.user.dashboard_activity_filter
-      @recent_activity = user_recent_activity DashboardActivityFilter::ACTIVITIES.select{|a| activity_filter[a]}.map{|a| a.to_s.classify}
-    end
+    current_account.user.create_dashboard_activity_filter unless current_account.user.dashboard_activity_filter
+    @recent_activity = user_recent_activity DashboardActivityFilter::ACTIVITIES.select{|a| current_account.user.dashboard_activity_filter[a]}.map{|a| a.to_s.classify}
     
     respond_to do |format|
       format.html { @ratings_report = build_report :ratings }
