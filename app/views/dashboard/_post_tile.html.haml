@@ -1,28 +1,28 @@
-.tiles.purple.added-margin
-  .tiles-body
-    .controller
-      %a.reload{href: "javascript:;"}
-      %a.remove{href: "javascript:;"}
-    .text-white
-      = post.subject
-.tiles.white.added-margin
-  .tiles-body
-    .row
-      .user-comment-wrapper.col-mid-12
-        .profile-wrapper
-          %img{width: "35", height: "35", data: {src: post.user.avatar.thumb.url, src_retina: post.user.avatar.thumb.url}, src: current_account.user.avatar.thumb.url}
-        .comment
-          .user-name
-            = post.user.name
-          .preview-wrapper
-            = post.message
-          .more-details-wrapper
-            .more-details
-              .icon-time
-                = distance_of_time_in_words(post.created_at, Time.now)
-            .more-detauls
-              .icon-group
-                = post.teams.map(&:name).join(', ')
+.post.col-md-12
+  .tiles.purple.added-margin
+    .tiles-body
+      = link_to post do
+        .text-white
+          = post.subject
 
-      .clearfix
-        &nbsp;
+  .tiles.white.added-margin
+    .tiles-body
+      .row
+        .user-comment-wrapper.col-mid-12
+          .profile-wrapper
+            %img{width: "35", height: "35", data: {src: post.user.avatar.thumb.url, src_retina: post.user.avatar.thumb.url}, src: current_account.user.avatar.thumb.url}
+          .comment
+            .user-name
+              = link_to post.user.name, post.user
+            .preview-wrapper
+              = truncate(post.message, :length => 40)
+            .more-details-wrapper
+              .more-details
+                .icon-time
+                  = distance_of_time_in_words(post.created_at, Time.now)
+              .more-detauls
+                .icon-group
+                  = post.teams.map{|t| link_to t.name, t}.join(', ').html_safe
+
+        .clearfix
+          &nbsp;

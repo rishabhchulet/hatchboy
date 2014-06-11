@@ -1,5 +1,8 @@
 .dashboard-head {
   margin-bottom: 30px;
+  .tiles-title a {
+    color: white;
+  }
 }
 
 .dashboard-body {
@@ -11,8 +14,12 @@
     }
     .fiter-block {
       .widget-body {
-        height: 275px;
+        height: 100%;
+        min-height: 100%;
       }
+    }
+    .post {
+      margin-bottom: 5px;
     }
   }
 }

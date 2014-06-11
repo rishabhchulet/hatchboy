@@ -12,7 +12,10 @@ class DashboardController < ApplicationController
     @recent_activity = user_recent_activity DashboardActivityFilter::ACTIVITIES.select{|a| current_account.user.dashboard_activity_filter[a]}.map{|a| a.to_s.classify}
     
     respond_to do |format|
-      format.html { @ratings_report = build_report :ratings }
+      format.html do
+        @ratings_report = Hatchboy::Reports::Builders::RatingsBuilder.new({date: 'period', period_from: 1.month.ago.at_beginning_of_month, period_to: Time.now})
+        @ratings_report.set_company(account_company).build_report_data({chart: true})
+      end
       format.js
     end
   end

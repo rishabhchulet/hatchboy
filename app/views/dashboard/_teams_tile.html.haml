@@ -4,7 +4,8 @@
       %a.reload{href: "javascript:;"}
       %a.remove{href: "javascript:;"}
     .tiles-title
-      NUMBER OF TEAMS
+      = link_to "NUMBER OF TEAMS", teams_path
+      
     .heading
       %span.animate-number{data: {value: "#{account_company.teams.count}", animation_duration: "1200"}}
         0

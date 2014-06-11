@@ -4,7 +4,8 @@
       %a.reload{href: "javascript:;"}
       %a.remove{href: "javascript:;"}
     .tiles-title
-      NUMBER OF USERS
+      = link_to "NUMBER OF USERS", users_path
+
     .heading
       %span.animate-number{data: {value: "#{account_company.users.count}", animation_duration: "1200"}}
         0
