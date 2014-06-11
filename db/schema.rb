@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140609101148) do
+ActiveRecord::Schema.define(version: 20140611072707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,13 +82,13 @@ ActiveRecord::Schema.define(version: 20140609101148) do
 
   create_table "dashboard_activity_filters", force: true do |t|
     t.integer "user_id"
-    t.boolean "users"
-    t.boolean "post_receivers"
-    t.boolean "payments"
-    t.boolean "docu_signs"
-    t.boolean "sources"
-    t.boolean "teams"
-    t.boolean "work_logs"
+    t.boolean "users",          default: true
+    t.boolean "post_receivers", default: true
+    t.boolean "payments",       default: true
+    t.boolean "docu_signs",     default: true
+    t.boolean "sources",        default: true
+    t.boolean "teams",          default: true
+    t.boolean "work_logs",      default: true
   end
 
   add_index "dashboard_activity_filters", ["user_id"], name: "index_dashboard_activity_filters_on_user_id", using: :btree
