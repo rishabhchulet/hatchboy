@@ -38,7 +38,7 @@
           .widget-body
             = simple_form_for((current_account.user.dashboard_activity_filter || current_account.user.build_dashboard_activity_filter).dup, html: {method: :post}) do |f|
               = render partial: "dashboard_activity_filters/form", locals: {f: f}
-      .col-md-6
+      .col-md-6.posts-tile
         - if posts = get_latest_company_posts(account_company, 2)
           .row
             - posts.each do |post|

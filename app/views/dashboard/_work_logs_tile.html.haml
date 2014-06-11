@@ -4,7 +4,8 @@
       %a.reload{href: "javascript:;"}
       %a.remove{href: "javascript:;"}
     .tiles-title
-      HOURS LOGGED
+      = link_to "HOURS LOGGED", reports_path
+
     .heading
       %span.animate-number{data: {value: "#{company_work_logs(account_company)}", animation_duration: "1200"}}
         0

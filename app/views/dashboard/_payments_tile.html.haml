@@ -4,7 +4,8 @@
       %a.reload{href: "javascript:;"}
       %a.remove{href: "javascript:;"}
     .tiles-title
-      AMOUNT PAID
+      = link_to "AMOUNT PAID", payments_path
+      
     .heading
       %span.animate-number{data: {value: "#{company_payments_amount(account_company)}", animation_duration: "1200"}}
         0
