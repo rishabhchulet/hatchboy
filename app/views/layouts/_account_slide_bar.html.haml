@@ -11,7 +11,7 @@
   %p.menu-title
   %ul
     %li.start{class: request[:controller] == 'dashboard' ? "active" : ""}
-      %a{:href => dashboard_path}
+      %a{:href => dashboard_path, 'data-no-turbolink' => true}
         %i.icon-custom-home
         %span.title Dashboard
         %span.selected
@@ -48,7 +48,7 @@
         %i.icon-download-alt
         %span.title Data sources
         
-    %li{class: (['sources', "jira_sources"].include?(request[:controller]) and request[:action] == "tutorials" ? "active" : "")}
+    %li{class: (['help_links'].include?(request[:controller]) and request[:action] == "tutorials" ? "active" : "")}
       %a{:href => tutorials_path}
         %i.icon-info
         %span.title Tutorials
