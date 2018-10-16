@@ -30,7 +30,7 @@ gem 'rails-file-icons'
 gem "docusign_rest", "~> 0.1.1"
 gem "certified", "~> 0.1.1"
 gem "rails3-jquery-autocomplete", "~> 1.0.12"
-
+gem 'puma'
 gem 'bootstrap-datepicker-rails', '~> 1.3.0.1'
 gem 'lazy_high_charts', '~> 1.5.2'
 gem 'kaminari'
